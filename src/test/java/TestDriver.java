@@ -6,14 +6,17 @@ import org.junit.runner.notification.Failure;
 /***
  * Initial version created by: Silas Rindorf
  * Edited by:
- * ... more method documentation
+ * The class that runs all the tests at once
+ * Prints all test failures
  */
-public class testDriver {
+public class TestDriver {
     public static void main(String[] args){
         Result result = JUnitCore.runClasses(TestDAL.class);
         for (Failure failure : result.getFailures()){
             System.out.println(failure.toString());
         }
+
+
         result = JUnitCore.runClasses(TestDAO.class);
         for (Failure failure : result.getFailures()){
             System.out.println(failure.toString());
