@@ -95,9 +95,7 @@ out/
 *.zip
 
 ### Java template
-# Compiled class file
-*.class
-
+<
 # Log file
 *.log
 

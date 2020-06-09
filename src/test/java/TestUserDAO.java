@@ -1,6 +1,5 @@
 import DAL.IUserDAO;
 import DAL.UserDAONonPersistent;
-import DTO.UserDTO;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
@@ -30,7 +29,6 @@ public class TestUserDAO {
     @Test
     public void getUserListTest() {
         IUserDAO users = USERS;
-
     }
 
 
@@ -46,7 +44,7 @@ public class TestUserDAO {
 
     }
     @Test
-    public void deleteUserTest() {
+    public void setInactiveUserTest() {
         IUserDAO users = USERS;
 
     }

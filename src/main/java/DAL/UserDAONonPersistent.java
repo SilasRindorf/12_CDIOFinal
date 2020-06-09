@@ -60,7 +60,7 @@ public class UserDAONonPersistent implements IUserDAO {
         throw new DALException("Brugeren du prøvede at opdatere fandtes ikke");
     }
 
-    public void deleteUser(int userId) throws DALException
+    public void setInactiveUser(int userId) throws DALException
     {
         for (UserDTO user : users)
         {
