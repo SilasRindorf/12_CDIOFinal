@@ -5,7 +5,7 @@
  * Edited by: 
  * Created: ${DATE}
  * This class is responsible for:
- *  
+ *  -
  */
 public class ${NAME} {
 }
