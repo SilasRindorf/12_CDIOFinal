@@ -1,9 +1,10 @@
 package DTO;
 
+import Enums.Role;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 /***
  * Initial version created by: Taken from CDIO 1
  * Edited by: Silas Rindorf
@@ -16,35 +17,27 @@ public class UserDTO implements Serializable{
   private int userID;
   private String username = "null";
   private String ini = "null";
-  private ArrayList<String> roles;
   private String CPR = "null";
   private String password;
+  private Role role;
 
   public UserDTO() {
-    this.roles = new ArrayList<String>();
     this.password = newPassword();
 
   }
-  public UserDTO(int userID, String username, String ini, String CPR, String password, String[] roles){
-    this.roles = new ArrayList<String>();
+  public UserDTO(int userID, String username, String ini, String CPR, String password, Role role){
+    this.role = role;
     this.userID = userID;
     this.username = username;
     this.ini = ini;
     this.CPR = CPR;
     this.password = password;
-    for (String role : roles) {
-      this.roles.add(role);
-    }
+
   }
 
   @Override
   public String toString() {
-    StringBuilder userRoles = new StringBuilder();
-    for (String role :
-            roles) {
-      userRoles.append(", ").append(role);
-    }
-    return "UserDTO [userId=" + userID + ", userName=" + username + ", ini=" + ini + ", roles=" + userRoles.toString() + "]";
+    return "UserDTO [userId=" + userID + ", userName=" + username + ", ini=" + ini + ", roles=" + role + "]";
   }
 
   //TODO Needs JavaDoc
@@ -77,14 +70,6 @@ public class UserDTO implements Serializable{
       res.append(pass.get(i));
     }
     return res.toString();
-  }
-
-  public void addRole(String role){
-    this.roles.add(role);
-  }
-
-  public boolean removeRole(String role){
-    return this.roles.remove(role);
   }
 
   //Getters and Setters
@@ -120,10 +105,10 @@ public class UserDTO implements Serializable{
     this.ini = ini;
   }
 
-  public List<String> getRoles() {
-    return roles;
+  public Role getRole() {
+    return role;
   }
-  public void setRoles(ArrayList<String> roles) {
-    this.roles = roles;
+  public void setRole(Role role) {
+    this.role = role;
   }
 }

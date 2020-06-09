@@ -4,7 +4,7 @@
  * Initial version created by: ${USER}
  * Edited by: 
  * Created: ${DATE}
- * This class is responsible for:
+ * This interface is responsible for:
  *  -
  */
 public interface ${NAME} {

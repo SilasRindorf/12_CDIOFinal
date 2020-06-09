@@ -1,3 +1,4 @@
+import DAL.DALException;
 import DAL.IUserDAO;
 import DAL.UserDAONonPersistent;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ public class TestUserDAO {
         String message = "";
         try {
             message = users.getUser(-1).toString();
-        } catch (IUserDAO.DALException e){
+        } catch (DALException e){
             message = e.getMessage();
         }
         assertEquals(message,"User ID should be between 11 and 99 (inclusive)");
