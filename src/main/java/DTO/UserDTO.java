@@ -14,7 +14,7 @@ import java.util.Collections;
  */
 public class UserDTO implements Serializable{
   private static final long serialVersionUID = 4545864587995944260L;
-  private int userID;
+  private int ID;
   private String username = "null";
   private String ini = "null";
   private String CPR = "null";
@@ -23,11 +23,10 @@ public class UserDTO implements Serializable{
 
   public UserDTO() {
     this.password = newPassword();
-
   }
-  public UserDTO(int userID, String username, String ini, String CPR, String password, Role role){
+  public UserDTO(int ID, String username, String ini, String CPR, String password, Role role){
     this.role = role;
-    this.userID = userID;
+    this.ID = ID;
     this.username = username;
     this.ini = ini;
     this.CPR = CPR;
@@ -37,7 +36,7 @@ public class UserDTO implements Serializable{
 
   @Override
   public String toString() {
-    return "UserDTO [userId=" + userID + ", userName=" + username + ", ini=" + ini + ", roles=" + role + "]";
+    return "UserDTO [userId=" + ID + ", userName=" + username + ", ini=" + ini + ", roles=" + role + "]";
   }
 
   //TODO Needs JavaDoc
@@ -84,11 +83,11 @@ public class UserDTO implements Serializable{
   }
   public void setCPR(String CPR){ this.CPR = CPR;}
 
-  public int getUserID() {
-    return userID;
+  public int getID() {
+    return ID;
   }
-  public void setUserID(int userID) {
-    this.userID = userID;
+  public void setID(int userID) {
+    this.ID = userID;
   }
 
   public String getUsername() {
