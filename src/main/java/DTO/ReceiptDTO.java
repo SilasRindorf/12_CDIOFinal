@@ -9,4 +9,12 @@ package DTO;
  */
 public class ReceiptDTO {
     private int ID;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int receiptID){
+        this.ID = receiptID;
+    }
 }
