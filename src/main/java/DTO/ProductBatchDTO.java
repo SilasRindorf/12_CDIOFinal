@@ -11,7 +11,7 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchDTO extends IdAndActivatable {
+public class ProductBatchDTO extends IdAndActivatable{
     private int productBatchNr;
     private int receiptNr;
     private Date created;
@@ -19,8 +19,7 @@ public class ProductBatchDTO extends IdAndActivatable {
     private List<ProductBatchCompDTO> productComps;
 
     public ProductBatchDTO(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchCompDTO> productComps, boolean isActive) {
-        super(isActive);
-        this.productBatchNr = productBatchNr;
+        super(productBatchNr, isActive);
         this.receiptNr = receiptNr;
         this.created = created;
         this.status = status;
@@ -43,6 +42,19 @@ public class ProductBatchDTO extends IdAndActivatable {
         return status;
     }
 
+    @Override
+    public String toString() {
+        return "ProductBatchDTO{" +
+                "productBatchNr=" + productBatchNr + "\n" +
+                ", receiptNr=" + receiptNr +"\n" +
+                ", created=" + created +"\n" +
+                ", status=" + status +"\n" +
+                ", productComps=" + productComps +"\n" +
+                ", isActive=" + getIsActive() +  "\n" +
+                ", id = " + getID() +
+                '}';
+    }
+
 
     public enum Status{
         CREATED,
@@ -50,18 +62,4 @@ public class ProductBatchDTO extends IdAndActivatable {
         DONE
     }
 
-    @Override
-    public String toString(){
-        StringBuilder builder = new StringBuilder();
-        for (ProductBatchCompDTO pbc :
-                productComps) {
-            builder.append("\n\t").append(pbc.toString());
-        }
-        return "productBatchNr=" + productBatchNr +
-                ", receiptNr=" + receiptNr +
-                ", created=" + created +
-                ", status=" + status +
-                ", isActive=" + isActive() +
-                ", productComps=" + builder.toString();
-    }
 }

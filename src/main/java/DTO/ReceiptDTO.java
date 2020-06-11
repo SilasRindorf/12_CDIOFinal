@@ -38,10 +38,11 @@ public class ReceiptDTO extends IdAndActivatable {
     @Override
     public String toString() {
         return "ReceiptDTO{" +
-                "receiptNr=" + receiptNr +
-                ", name='" + name + '\'' +
-                ", receiptComps=" + receiptComps +
-                ", isActive=" + getIsActive() +
+                "receiptNr=" + receiptNr + "\n" +
+                ", name='" + name + '\'' +"\n" +
+                ", receiptComps=" + receiptComps +"\n" +
+                ", isActive=" + getIsActive() +"\n" +
+                ", id= " + getID() + "\n" +
                 '}';
     }
 }

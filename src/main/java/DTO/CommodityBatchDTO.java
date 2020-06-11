@@ -33,11 +33,11 @@ public class CommodityBatchDTO extends IdAndActivatable {
 
     @Override
     public String toString() {
-        return "CommodityBatchDTO{" +
-                "commodityBatchNr=" + getID() +
-                ", amount=" + amount +
-                ", provider='" + provider + '\'' +
-                "isActive=" + getIsActive() +
+        return "CommodityBatchDTO{" + "\n" +
+                "commodityBatchNr=" + getID() + "\n" +
+                ", amount=" + amount + "\n" +
+                ", provider='" + provider + '\'' + "\n" +
+                "isActive=" + getIsActive() + "\n" +
                 '}';
     }
 

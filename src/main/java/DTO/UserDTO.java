@@ -30,11 +30,6 @@ public class UserDTO extends IdAndActivatable implements Serializable {
 
   }
 
-  @Override
-  public String toString() {
-    return "UserDTO {userId=" + ID + ", userName=" + username + ", ini=" + ini + ", roles=" + role + ", isActive=" + getIsActive() + "}";
-  }
-
   //TODO Needs JavaDoc
   /***
    *
@@ -91,6 +86,20 @@ public class UserDTO extends IdAndActivatable implements Serializable {
 
   public Role getRole() {
     return role;
+  }
+
+  @Override
+  public String toString() {
+    return "UserDTO{" +
+            "ID=" + ID +
+            ", username='" + username + '\'' + "\n" +
+            ", ini='" + ini + '\'' +"\n" +
+            ", CPR='" + CPR + '\'' +"\n" +
+            ", password='" + password + '\'' +"\n" +
+            ", role=" + role +"\n" +
+            ", active= " + getIsActive() +"\n" +
+            ", id= " + getID() + "\n" +
+            '}';
   }
 
   /***

@@ -44,10 +44,12 @@ public class ProductBatchCompDTO {
 
     @Override
     public String toString() {
-        return "tara=" + tara +
+        return "ProductBatchCompDTO{" +
+                "tara=" + tara +
+                ", weighted=" + weighted +
                 ", commodityBatchNr=" + commodityBatchNr +
                 ", commodityNr=" + commodityNr +
                 ", weighterID=" + weighterID +
-                ", isActive=";
+                '}';
     }
 }
