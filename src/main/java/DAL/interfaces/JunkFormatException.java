@@ -7,12 +7,12 @@ import java.util.List;
  */
 public class JunkFormatException extends Exception{
 
-    public List<errorList> errorlist;
-    JunkFormatException(String message, List<errorList> errorlist){
+    public List<ErrorList> errorlist;
+    JunkFormatException(String message, List<ErrorList> errorlist){
         super(message);
         this.errorlist = errorlist;
     }
-    public enum errorList {
+    public enum ErrorList {
         // Userformat
     }
 }
