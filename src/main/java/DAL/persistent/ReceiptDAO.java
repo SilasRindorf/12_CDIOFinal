@@ -41,6 +41,10 @@ public class ReceiptDAO implements IReceiptDAO {
     }
 
     @Override
+    public void setIsActive(int receiptID, boolean isActive) {
+
+    }
+
     public void updateReceipt(ReceiptDTO receipt) throws DALException {
         if (receipts.get(receipt.getID()) == null)
             throw new DALException("No receipt found");

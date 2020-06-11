@@ -55,7 +55,7 @@ public class ProductBatchDTO extends DTO {
         StringBuilder builder = new StringBuilder();
         for (ProductBatchCompDTO pbc :
                 productComps) {
-            builder.append("\t").append(pbc.toString());
+            builder.append("\n\t").append(pbc.toString());
         }
         return "productBatchNr=" + productBatchNr +
                 ", receiptNr=" + receiptNr +

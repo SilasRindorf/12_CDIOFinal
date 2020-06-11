@@ -46,6 +46,11 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
+    public void setIsActive(int userId, boolean isActive) throws DALException {
+
+    }
+
+
     public void setInactiveUser(int userId) throws DALException {
 
     }
