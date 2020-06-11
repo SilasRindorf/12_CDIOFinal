@@ -67,7 +67,7 @@ public class UserDAONonPersistent implements IUserDAO {
     @Override
     public void setIsActive(int userId, boolean isActive) throws DALException {
         UserDTO user = getUser(userId);
-        if (user.isActive() == isActive){
+        if (user.getIsActive() == isActive){
             throw new DALException("The user activity is already "+isActive);
         }
         UserDTO newUser = new UserDTO(user.getID(), user.getUsername(), user.getIni(), user.getCPR(), user.getPassword(), user.getRole(), isActive);
