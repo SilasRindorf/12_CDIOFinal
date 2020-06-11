@@ -1,4 +1,4 @@
-package DAL;
+package DAL.interfaces;
 
 /***
  * Initial version created by: Taken from CDIO 1

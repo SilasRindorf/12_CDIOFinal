@@ -1,6 +1,6 @@
-import DAL.DALException;
-import DAL.IUserDAO;
-import DAL.UserDAONonPersistent;
+import DAL.interfaces.DALException;
+import DAL.interfaces.IUserDAO;
+import DAL.nonPersistent.UserDAONonPersistent;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 

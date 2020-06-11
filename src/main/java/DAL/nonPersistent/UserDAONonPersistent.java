@@ -1,5 +1,7 @@
-package DAL;
+package DAL.nonPersistent;
 
+import DAL.interfaces.DALException;
+import DAL.interfaces.IUserDAO;
 import DTO.UserDTO;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
 public class UserDAONonPersistent implements IUserDAO {
     private List<UserDTO> users;
 
-    public UserDTO getUser(int userId) throws DALException{
+    public UserDTO getUser(int userId) throws DALException {
         for (UserDTO user : users)
         {
             if (user.getUserID() == userId)

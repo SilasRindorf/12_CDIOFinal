@@ -1,4 +1,4 @@
-package DAL;
+package DAL.interfaces;
 
 import DTO.ReceiptDTO;
 import java.util.List;
@@ -15,5 +15,4 @@ public interface IReceiptDAO {
     List<ReceiptDTO> getReceiptList() throws DALException;
     void createReceipt(ReceiptDTO receipt) throws DALException;
     void updateReceipt(ReceiptDTO receipt) throws DALException;
-
 }
