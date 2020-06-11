@@ -11,6 +11,7 @@ import java.util.Collections;
  *  Storing information about users in Java
  */
 public class UserDTO extends IdAndActivatable implements Serializable {
+  // UID is Serializable magic and should not be touched!
   private static final long serialVersionUID = 4545864587995944260L;
   private int ID;
   private String username;
@@ -35,7 +36,7 @@ public class UserDTO extends IdAndActivatable implements Serializable {
    *
    * @return
    */
-  public String newPassword(){
+  public static String newPassword(){
     int min = 6;
     int max = 50;
     int len =(int) (Math.random()*(max - min)+ min);
