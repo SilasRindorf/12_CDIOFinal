@@ -13,9 +13,9 @@ import java.util.Collections;
 public class UserDTO extends DTO implements Serializable {
   private static final long serialVersionUID = 4545864587995944260L;
   private int ID;
-  private String username = "null";
-  private String ini = "null";
-  private String CPR = "null";
+  private String username;
+  private String ini;
+  private String CPR;
   private String password;
   private Role role;
 
@@ -76,40 +76,27 @@ public class UserDTO extends DTO implements Serializable {
   public String getPassword() {
     return password;
   }
-  public void setPassword(String pass){this.password = pass;}
 
   public String getCPR() {
     return CPR;
   }
-  public void setCPR(String CPR){ this.CPR = CPR;}
 
   public int getID() {
     return ID;
-  }
-  public void setID(int userID) {
-    this.ID = userID;
   }
 
   public String getUsername() {
     return username;
   }
-  public void setUsername(String username) {
-    this.username = username;
-  }
 
   public String getIni() {
     return ini;
-  }
-  public void setIni(String ini) {
-    this.ini = ini;
   }
 
   public Role getRole() {
     return role;
   }
-  public void setRole(Role role) {
-    this.role = role;
-  }
+
   /***
    * Initial version created by: Silas
    * Edited by: Christoffer
