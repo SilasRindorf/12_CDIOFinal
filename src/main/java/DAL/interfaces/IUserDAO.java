@@ -16,5 +16,5 @@ public interface IUserDAO {
     List<UserDTO> getUserList() throws DALException;
     void createUser(UserDTO user) throws DALException;
     void updateUser(UserDTO user) throws DALException;
-    void setInactiveUser(int userId) throws DALException;
+    void setIsActive(int userId, boolean isActive) throws DALException;
 }

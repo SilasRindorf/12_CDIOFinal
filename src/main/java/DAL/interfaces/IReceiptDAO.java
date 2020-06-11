@@ -15,4 +15,5 @@ public interface IReceiptDAO {
     List<ReceiptDTO> getReceiptList() throws DALException;
     void createReceipt(ReceiptDTO receipt) throws DALException;
     void updateReceipt(ReceiptDTO receipt) throws DALException;
+    void setIsActive(int receiptID, boolean isActive);
 }
