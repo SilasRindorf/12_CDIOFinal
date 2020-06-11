@@ -1,4 +1,4 @@
-package DAL;
+package DAL.interfaces;
 
 import DTO.UserDTO;
 
@@ -17,6 +17,4 @@ public interface IUserDAO {
     void createUser(UserDTO user) throws DALException;
     void updateUser(UserDTO user) throws DALException;
     void setInactiveUser(int userId) throws DALException;
-
-
 }

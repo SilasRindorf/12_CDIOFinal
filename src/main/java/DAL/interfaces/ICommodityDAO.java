@@ -1,5 +1,6 @@
-package DAL;
+package DAL.interfaces;
 
+import DTO.CommodityBatchDTO;
 import DTO.CommodityDTO;
 
 import java.util.List;
@@ -16,4 +17,10 @@ public interface ICommodityDAO {
     List<CommodityDTO> getCommodityList() throws DALException;
     void createCommodity(CommodityDTO commodity) throws DALException;
     void updateCommodity(CommodityDTO commodity) throws DALException;
+
+    CommodityBatchDTO getCommodityBatch(int commodityBatchID) throws DALException;
+    List<CommodityBatchDTO> getCommodityBatchList() throws DALException;
+    List<CommodityBatchDTO> getCommodityBatchList(int commodityID) throws DALException;
+    void createCommodityBatch(CommodityBatchDTO commodityBatch) throws DALException;
+    void updateCommodityBatch(CommodityBatchDTO commodityBatch) throws DALException;
 }

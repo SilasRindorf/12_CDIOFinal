@@ -1,5 +1,7 @@
-package DAL;
+package DAL.persistent;
 
+import DAL.interfaces.DALException;
+import DAL.interfaces.IReceiptDAO;
 import DTO.ReceiptDTO;
 
 import java.util.ArrayList;
