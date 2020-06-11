@@ -7,14 +7,15 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchCompDTO {
+public class ProductBatchCompDTO extends DTO {
     private double tara;
     private double weighted;
     private int commodityBatchNr;
     private int commodityNr;
     private int weighterID;
 
-    public ProductBatchCompDTO(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID) {
+    public ProductBatchCompDTO(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID, boolean isActive) {
+        super(isActive);
         this.tara = tara;
         this.weighted = weighted;
         this.commodityBatchNr = commodityBatchNr;
@@ -40,5 +41,14 @@ public class ProductBatchCompDTO {
 
     public int getWeighterID() {
         return weighterID;
+    }
+
+    @Override
+    public String toString() {
+        return "tara=" + tara +
+                ", commodityBatchNr=" + commodityBatchNr +
+                ", commodityNr=" + commodityNr +
+                ", weighterID=" + weighterID +
+                ", isActive=" + isActive();
     }
 }

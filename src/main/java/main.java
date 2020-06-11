@@ -1,5 +1,10 @@
+import DTO.ProductBatchCompDTO;
+import DTO.ProductBatchDTO;
 import DTO.UserDTO;
-import Enums.Role;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /***
  * Initial version created by: Silas
@@ -10,8 +15,11 @@ import Enums.Role;
  */
 public class main {
     public static void main(String[] args) {
-        UserDTO user = new UserDTO();
-        user.setRole(Role.Administrator);
-        System.out.println(user.getRole());
+        List<ProductBatchCompDTO> listie = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            listie.add(new ProductBatchCompDTO((double) i, (double) i, i, i, i, true));
+        }
+        ProductBatchDTO pbd = new ProductBatchDTO(0,0,new Date(), ProductBatchDTO.Status.IN_PRODUCTION,listie,true);
+        System.out.println(pbd.toString());
     }
 }

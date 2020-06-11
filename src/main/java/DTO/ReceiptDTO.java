@@ -10,17 +10,16 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ReceiptDTO {
+public class ReceiptDTO extends DTO {
     private int receiptNr;
     private String name;
     private List<ReceiptCompDTO> receiptComps;
-    private boolean isActive;
 
     public ReceiptDTO(int receiptNr, String name, List<ReceiptCompDTO> receiptComps, boolean isActive) {
+        super(isActive);
         this.receiptNr = receiptNr;
         this.name = name;
         this.receiptComps = Collections.unmodifiableList(receiptComps);
-        this.isActive = isActive;
     }
 
     public int getReceiptNr() {
@@ -35,9 +34,6 @@ public class ReceiptDTO {
         return receiptComps;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
 
     @Override
     public String toString() {
@@ -45,7 +41,7 @@ public class ReceiptDTO {
                 "receiptNr=" + receiptNr +
                 ", name='" + name + '\'' +
                 ", receiptComps=" + receiptComps +
-                ", isActive=" + isActive +
+                ", isActive=" + isActive() +
                 '}';
     }
 }

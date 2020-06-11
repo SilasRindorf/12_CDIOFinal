@@ -7,11 +7,12 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class CommodityDTO {
+public class CommodityDTO extends DTO {
     private int commodityNr;
     private String name;
 
-    public CommodityDTO(int commodityNr, String name) {
+    public CommodityDTO(int commodityNr, String name, boolean isActive) {
+        super(isActive);
         this.commodityNr = commodityNr;
         this.name = name;
     }
@@ -22,5 +23,12 @@ public class CommodityDTO {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString(){
+        return "commodityNr=" + commodityNr +
+                ", name=" + name +
+                ", isActive=" + isActive();
     }
 }

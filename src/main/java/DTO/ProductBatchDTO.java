@@ -11,14 +11,15 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchDTO {
+public class ProductBatchDTO extends DTO {
     private int productBatchNr;
     private int receiptNr;
     private Date created;
     private Status status;
     private List<ProductBatchCompDTO> productComps;
 
-    public ProductBatchDTO(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchCompDTO> productComps) {
+    public ProductBatchDTO(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchCompDTO> productComps, boolean isActive) {
+        super(isActive);
         this.productBatchNr = productBatchNr;
         this.receiptNr = receiptNr;
         this.created = created;
@@ -47,5 +48,20 @@ public class ProductBatchDTO {
         CREATED,
         IN_PRODUCTION,
         DONE
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        for (ProductBatchCompDTO pbc :
+                productComps) {
+            builder.append("\t").append(pbc.toString());
+        }
+        return "productBatchNr=" + productBatchNr +
+                ", receiptNr=" + receiptNr +
+                ", created=" + created +
+                ", status=" + status +
+                ", isActive=" + isActive() +
+                ", productComps=" + builder.toString();
     }
 }
