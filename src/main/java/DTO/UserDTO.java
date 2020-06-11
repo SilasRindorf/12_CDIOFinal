@@ -10,7 +10,7 @@ import java.util.Collections;
  * This class is responsible for:
  *  Storing information about users in Java
  */
-public class UserDTO extends DTO implements Serializable {
+public class UserDTO extends IdAndActivatable implements Serializable {
   private static final long serialVersionUID = 4545864587995944260L;
   private int ID;
   private String username;
@@ -19,12 +19,8 @@ public class UserDTO extends DTO implements Serializable {
   private String password;
   private Role role;
 
-  public UserDTO() {
-    super();
-    this.password = newPassword();
-  }
   public UserDTO(int ID, String username, String ini, String CPR, String password, Role role, boolean isActive){
-    super(isActive);
+    super(ID,isActive);
     this.role = role;
     this.ID = ID;
     this.username = username;
@@ -36,7 +32,7 @@ public class UserDTO extends DTO implements Serializable {
 
   @Override
   public String toString() {
-    return "UserDTO {userId=" + ID + ", userName=" + username + ", ini=" + ini + ", roles=" + role + ", isActive=" + isActive() + "}";
+    return "UserDTO {userId=" + ID + ", userName=" + username + ", ini=" + ini + ", roles=" + role + ", isActive=" + getIsActive() + "}";
   }
 
   //TODO Needs JavaDoc

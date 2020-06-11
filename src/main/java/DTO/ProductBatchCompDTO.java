@@ -7,7 +7,7 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchCompDTO extends DTO {
+public class ProductBatchCompDTO {
     private double tara;
     private double weighted;
     private int commodityBatchNr;
@@ -15,7 +15,6 @@ public class ProductBatchCompDTO extends DTO {
     private int weighterID;
 
     public ProductBatchCompDTO(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID, boolean isActive) {
-        super(isActive);
         this.tara = tara;
         this.weighted = weighted;
         this.commodityBatchNr = commodityBatchNr;
@@ -49,6 +48,6 @@ public class ProductBatchCompDTO extends DTO {
                 ", commodityBatchNr=" + commodityBatchNr +
                 ", commodityNr=" + commodityNr +
                 ", weighterID=" + weighterID +
-                ", isActive=" + isActive();
+                ", isActive=";
     }
 }

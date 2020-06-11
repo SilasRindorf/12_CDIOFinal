@@ -7,23 +7,16 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class CommodityBatchDTO extends DTO {
-    private int commodityBatchNr;
+public class CommodityBatchDTO extends IdAndActivatable {
     private int commodityNr;
     private double amount;
     private String provider;
 
     public CommodityBatchDTO(int commodityBatchNr, int commodityNr, double amount, String provider, boolean isActive) {
-        super(isActive);
-        this.commodityBatchNr = commodityBatchNr;
+        super(commodityBatchNr,isActive);
         this.commodityNr = commodityNr;
         this.amount = amount;
         this.provider = provider;
-    }
-
-
-    public int getCommodityBatchNr() {
-        return commodityBatchNr;
     }
 
     public double getAmount() {
@@ -41,10 +34,10 @@ public class CommodityBatchDTO extends DTO {
     @Override
     public String toString() {
         return "CommodityBatchDTO{" +
-                "commodityBatchNr=" + commodityBatchNr +
+                "commodityBatchNr=" + getID() +
                 ", amount=" + amount +
                 ", provider='" + provider + '\'' +
-                "isActive=" + isActive() +
+                "isActive=" + getIsActive() +
                 '}';
     }
 

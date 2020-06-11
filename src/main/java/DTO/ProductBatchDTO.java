@@ -11,7 +11,7 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchDTO extends DTO {
+public class ProductBatchDTO extends IdAndActivatable {
     private int productBatchNr;
     private int receiptNr;
     private Date created;

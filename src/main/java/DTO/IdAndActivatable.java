@@ -7,11 +7,11 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public interface IdAndActivatable {
+public class IdAndActivatable {
     private boolean active;
     private int ID;
 
-    public DTO(int id,boolean isActive) {
+    public IdAndActivatable(int id, boolean isActive) {
         this.active = isActive;
         this.ID = id;
     }

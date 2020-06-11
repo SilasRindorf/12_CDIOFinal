@@ -7,13 +7,12 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class ReceiptCompDTO extends DTO{
+public class ReceiptCompDTO{
     private int commodityNr;
     private double amount;
     private double tolerance;
 
-    public ReceiptCompDTO(int commodity, double amount, double tolerance, boolean isActive) {
-        super(isActive);
+    public ReceiptCompDTO(int commodity, double amount, double tolerance) {
         this.commodityNr = commodity;
         this.amount = amount;
         this.tolerance = tolerance;
@@ -35,7 +34,6 @@ public class ReceiptCompDTO extends DTO{
     public String toString(){
         return "commodityNr=" + commodityNr +
                 ", amount=" + amount +
-                ", tolerance=" + tolerance +
-                ", isActive=" + isActive();
+                ", tolerance=" + tolerance;
     }
 }
