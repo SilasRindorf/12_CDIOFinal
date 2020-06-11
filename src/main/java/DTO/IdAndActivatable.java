@@ -26,10 +26,9 @@ public class IdAndActivatable {
 
     @Override
     public String toString() {
-        return "DTO{" +
-                "isActive=" + active +
-                "ID=" + ID +
-                "}";
+        return "DTO{" + " | " +
+                "isActive=" + active + " | " +
+                "ID=" + ID + "}";
     }
 }
 

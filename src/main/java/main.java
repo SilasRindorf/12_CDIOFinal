@@ -16,7 +16,7 @@ import java.util.List;
 public class main {
     public static void main(String[] args) {
         List<ProductBatchCompDTO> listie = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10; i++) {
             listie.add(new ProductBatchCompDTO((double) i, (double) i, i, i, i, true));
         }
         ProductBatchDTO pbd = new ProductBatchDTO(0,0,new Date(), ProductBatchDTO.Status.IN_PRODUCTION,listie,true);

@@ -32,8 +32,8 @@ public class ReceiptCompDTO{
 
     @Override
     public String toString(){
-        return "commodityNr=" + commodityNr +
-                ", amount=" + amount +
-                ", tolerance=" + tolerance;
+        return "commodityNr=" + commodityNr + " | " +
+                "amount=" + amount + " | " +
+                "tolerance=" + tolerance;
     }
 }

@@ -21,10 +21,9 @@ public class CommodityDTO extends IdAndActivatable {
 
     @Override
     public String toString(){
-        return "Commodity{" + "\n" +
-                "commodityNr=" + getID() +"\n" +
-                ", name=" + name +"\n" +
-                ", isActive=" + getIsActive() + "\n" +
-                "}";
+        return "Commodity{" + " | " +
+                "commodityNr=" + getID() + " | " +
+                ", name=" + name + " | " +
+                ", isActive=" + getIsActive() + "}";
     }
 }

@@ -92,14 +92,13 @@ public class UserDTO extends IdAndActivatable implements Serializable {
   public String toString() {
     return "UserDTO{" +
             "ID=" + ID +
-            ", username='" + username + '\'' + "\n" +
-            ", ini='" + ini + '\'' +"\n" +
-            ", CPR='" + CPR + '\'' +"\n" +
-            ", password='" + password + '\'' +"\n" +
-            ", role=" + role +"\n" +
-            ", active= " + getIsActive() +"\n" +
-            ", id= " + getID() + "\n" +
-            '}';
+            "username='" + username + '\'' + " | " +
+            "ini='" + ini + '\'' + " | " +
+            "CPR='" + CPR + '\'' + " | " +
+            "password='" + password + '\'' + " | " +
+            "role=" + role + " | " +
+            "active= " + getIsActive() + " | " +
+            "id= " + getID() + '}';
   }
 
   /***

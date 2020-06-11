@@ -11,7 +11,7 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchDTO extends IdAndActivatable{
+public class ProductBatchDTO extends IdAndActivatable {
     private int productBatchNr;
     private int receiptNr;
     private Date created;
@@ -44,22 +44,25 @@ public class ProductBatchDTO extends IdAndActivatable{
 
     @Override
     public String toString() {
-        return "ProductBatchDTO{" +
-                "productBatchNr=" + productBatchNr + "\n" +
-                ", receiptNr=" + receiptNr +"\n" +
-                ", created=" + created +"\n" +
-                ", status=" + status +"\n" +
-                ", productComps=" + productComps +"\n" +
-                ", isActive=" + getIsActive() +  "\n" +
-                ", id = " + getID() +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        for (ProductBatchCompDTO pbc :
+                productComps) {
+            builder.append("\n\t").append(pbc.toString());
+        }
+        return "ProductBatchDTO{" + " | " +
+                "productBatchNr=" + productBatchNr + " | " +
+                "receiptNr=" + receiptNr + " | " +
+                "created=" + created + " | " +
+                "status=" + status + " | " +
+                "isActive=" + getIsActive() + " | " +
+                "id = " + getID() + " | " +
+                "productComps=" + builder.toString() + '}';
     }
 
 
-    public enum Status{
+    public enum Status {
         CREATED,
         IN_PRODUCTION,
         DONE
     }
-
 }
