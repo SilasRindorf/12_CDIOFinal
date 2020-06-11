@@ -1,7 +1,5 @@
 package DTO;
 
-import Enums.Role;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -109,5 +107,18 @@ public class UserDTO implements Serializable{
   }
   public void setRole(Role role) {
     this.role = role;
+  }
+  /***
+   * Initial version created by: Silas
+   * Edited by: Christoffer
+   * Created: 09-06-2020
+   * This enum is responsible for:
+   *  -
+   */
+  public enum Role {
+    Administrator,
+    Farmaceut,
+    Produktionsleder,
+    Laborant
   }
 }
