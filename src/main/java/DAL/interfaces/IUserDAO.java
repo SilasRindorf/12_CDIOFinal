@@ -1,7 +1,8 @@
 package DAL.interfaces;
 
 import DTO.UserDTO;
-
+import DAL.interfaces.DALException;
+import DAL.interfaces.JunkFormatException;
 import java.util.List;
 
 /***
