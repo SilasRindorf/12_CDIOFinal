@@ -59,7 +59,7 @@ public class TestUserDAO {
     public void generateAndManipulateUsersTest() {
         IUserDAO users = new UserDAONonPersistent();
         DummyDataGenerator generator = new DummyDataGenerator();
-        
+
 
     }
 
