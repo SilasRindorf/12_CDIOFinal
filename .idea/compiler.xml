@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="12_CIDOFinal" />
+        <module name="12_CDIOFinal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="12_CIDOFinal" target="1.8" />
+      <module name="12_CDIOFinal" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
