@@ -8,14 +8,23 @@
 <html>
   <head>
     <link rel="stylesheet" href="CSS/frontpage.css">
+    <link rel="stylesheet" href="CSS/bar.css">
     <script type="text/javascript" src="javascript/JSON_actions.js"></script>
+    <script type="text/javascript" src="javascript/transitions.js"></script>
     <title>Apotek</title>
   </head>
   <body>
-  <h1>Velkommen til apotekets hjemmeside</h1>
-  <h2>Log ind</h2>
-  <form method="post" action="" name="logInForm" id="logInForm" style="position: absolute;">
+  <ul>
+    <li><a class="active" href="#logInForm" onclick="logInScreen()">Log ind</a></li>
+    <li><a class="inactive" href="#productionLeaderForm" onclick="productionLeaderScreen()">Producktions leder</a></li>
+    <li><a class="inactive" href="#weighingForm" onclick="weighingScreen()">Afvejning</a></li>
+    <li><a class="inactive" href="#commoditiesForm" onclick="commoditiesScreen()">Råvare</a></li>
+    <li><a class="inactive" href="#productBatchForm" onclick="productBatchScreen()">Producktbatch</a></li>
 
+  </ul>
+  <h1>Velkommen til apotekets hjemmeside</h1>
+  <form method="post" action="" name="logInForm" id="logInForm" style="position: absolute;">
+    <h2>Log ind</h2>
     <p>Brugernavn</p>
     <input type="text" id="uname" name="uname">
     <p>Password</p>
