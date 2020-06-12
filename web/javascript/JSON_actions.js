@@ -1,5 +1,6 @@
 function action(username, password, url){
     const request = new XMLHttpRequest();
+    let running = true;
     request.open("POST", url, true);
     var logInDTO = {
         "username":username,
@@ -11,10 +12,10 @@ function action(username, password, url){
         if(request.readyState === 4 && request.status === 200) {
             alert(request.responseText);
         }
-        else if (request.status === 400){
+        else if (request.status === 400 && running){
             alert("Wrong username or password.\nTry again")
+            running = false;
         }
-        console.log(request.status)
     };
     request.send(sendStr);
 }

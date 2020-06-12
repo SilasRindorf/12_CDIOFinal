@@ -7,7 +7,7 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class IdAndActivatable {
+public abstract class IdAndActivatable {
     private boolean active;
     private int ID;
 

@@ -14,6 +14,8 @@ public class ActionController {
                         "\n\tname=" + user.getUsername() +
                         "\n\tpassword=" + user.getHashedPass() +
                         "\n\tisActive=" + user.getIsActive());
+                boolean temp = user.getUsername().equals(uname) && user.getHashedPass().equals(password) && user.getIsActive();
+                System.out.println(temp);
                 if (user.getUsername().equals(uname) && user.getHashedPass().equals(password) && user.getIsActive()){
                     return true;
                 }
