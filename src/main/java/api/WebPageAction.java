@@ -16,8 +16,10 @@ public class WebPageAction {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("confirm-log-in")
     public Response logIn(LogInDTO logInDTO){
-        controller.logIn(logInDTO.getUsername(),logInDTO.getPassword());
-        return Response.status(201).build();
+        if (controller.logIn(logInDTO.getUsername(),logInDTO.getPassword()))
+            return Response.status(201).build();
+        else
+            return Response.status(400).build();
     }
 
 }

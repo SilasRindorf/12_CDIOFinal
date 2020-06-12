@@ -11,6 +11,10 @@ function action(username, password, url){
         if(request.readyState === 4 && request.status === 200) {
             alert(request.responseText);
         }
+        else if (request.status === 400){
+            alert("Wrong username or password.\nTry again")
+        }
+        console.log(request.status)
     };
     request.send(sendStr);
 }
