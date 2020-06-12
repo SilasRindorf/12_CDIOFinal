@@ -70,11 +70,13 @@ public class UserDAONonPersistent implements IUserDAO {
         if (user.getIsActive() == isActive){
             throw new DALException("The user activity is already "+isActive);
         }
-        UserDTO newUser = new UserDTO(user.getID(), user.getUsername(), user.getIni(), user.getCPR(), user.getPassword(), user.getRole(), isActive);
+        UserDTO newUser = new UserDTO(user.getID(), user.getUsername(), user.getIni(), user.getCPR(), user.getHashedPass(), user.getRole(), isActive);
         try {
             updateUser(newUser);
         } catch (JunkFormatException e) {
-            throw new AssertionError("Changing isActive should not result in junkformat");
+            throw new AssertionError("Changing isActive should not result in " +
+                    "JunkFormatException, since it should only modify one and only one variable (isActive). " +
+                    "This means that the database state was corrupt.");
         }
     }
 
