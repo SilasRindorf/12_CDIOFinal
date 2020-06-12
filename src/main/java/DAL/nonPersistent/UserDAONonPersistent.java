@@ -4,6 +4,8 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
 import DTO.UserDTO;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -16,6 +18,10 @@ import java.util.List;
  */
 public class UserDAONonPersistent implements IUserDAO {
     private List<UserDTO> users;
+
+    public UserDAONonPersistent() {
+        users = new ArrayList<>();
+    }
 
     public UserDTO getUser(int userId) throws DALException {
         for (UserDTO user : users)
