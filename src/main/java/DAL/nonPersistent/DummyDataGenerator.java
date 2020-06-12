@@ -8,7 +8,11 @@ import DTO.UserDTO;
 import java.util.Random;
 
 public class DummyDataGenerator {
-    Random rand = new Random(13);
+    Random rand;
+    public DummyDataGenerator(int seed){
+     rand = new Random(seed);
+    }
+
     public char randChar(){
         return (char) ('A'+rand.nextInt(26));
     }
@@ -30,5 +34,6 @@ public class DummyDataGenerator {
             }
         }
     }
+
 }
 

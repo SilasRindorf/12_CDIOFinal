@@ -11,19 +11,13 @@ import java.util.List;
  *  -
  */
 public class ReceiptDTO extends IdAndActivatable {
-    private int receiptNr;
     private String name;
     private List<ReceiptCompDTO> receiptComps;
 
     public ReceiptDTO(int receiptNr, String name, List<ReceiptCompDTO> receiptComps, boolean isActive) {
         super(receiptNr,isActive);
-        this.receiptNr = receiptNr;
         this.name = name;
         this.receiptComps = Collections.unmodifiableList(receiptComps);
-    }
-
-    public int getReceiptNr() {
-        return receiptNr;
     }
 
     public String getName() {
@@ -38,7 +32,6 @@ public class ReceiptDTO extends IdAndActivatable {
     @Override
     public String toString() {
         return "ReceiptDTO{" + " | " +
-                "receiptNr=" + receiptNr + " | " +
                 "name='" + name + '\'' + " | " +
                 "receiptComps=" + receiptComps + " | " +
                 "isActive=" + getIsActive() + " | " +

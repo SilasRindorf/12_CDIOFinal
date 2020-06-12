@@ -1,3 +1,5 @@
+package test;
+
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -11,18 +13,18 @@ import org.junit.runner.notification.Failure;
  */
 public class TestDriver {
     public static void main(String[] args){
-        Result result = JUnitCore.runClasses(TestDAL.class);
-        for (Failure failure : result.getFailures()){
-            System.out.println(failure.toString());
-        }
+  //      Result result = JUnitCore.runClasses(TestDAL.class);
+  //      for (Failure failure : result.getFailures()){
+  //          System.out.println(failure.toString());
+  //      }
 
 
-        result = JUnitCore.runClasses(TestDAO.class);
-        for (Failure failure : result.getFailures()){
-            System.out.println(failure.toString());
-        }
+  //      result = JUnitCore.runClasses(TestDAO.class);
+  //      for (Failure failure : result.getFailures()){
+  //          System.out.println(failure.toString());
+  //      }
 
-        result = JUnitCore.runClasses(TestUserDAO.class);
+        Result result = JUnitCore.runClasses(test.TestUserDAO.class);
         for (Failure failure : result.getFailures()){
             System.out.println(failure.toString());
         }
