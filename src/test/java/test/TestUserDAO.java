@@ -37,7 +37,7 @@ public class TestUserDAO {
         } catch (DALException e) {
             message = e.getMessage();
         }
-        assertEquals(message, "User ID should be between 11 and 99 (inclusive)");
+        assertEquals(message, "There is no user where ID=-1");
     }
 
     @Test
