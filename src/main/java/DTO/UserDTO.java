@@ -3,6 +3,7 @@ package DTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+
 /***
  * Initial version created by: Taken from CDIO 1
  * Edited by: Silas Rindorf
@@ -17,18 +18,17 @@ public class UserDTO extends IdAndActivatable implements Serializable {
   private String username;
   private String ini;
   private String CPR;
-  private String password;
+  private String hashedPass;
   private Role role;
 
-  public UserDTO(int ID, String username, String ini, String CPR, String password, Role role, boolean isActive){
+  public UserDTO(int ID, String username, String ini, String CPR, String hashedPass, Role role, boolean isActive){
     super(ID,isActive);
     this.role = role;
     this.ID = ID;
     this.username = username;
     this.ini = ini;
     this.CPR = CPR;
-    this.password = password;
-
+    this.hashedPass = hashedPass;
   }
 
   //TODO Needs JavaDoc
@@ -65,8 +65,8 @@ public class UserDTO extends IdAndActivatable implements Serializable {
 
   //Getters and Setters
 
-  public String getPassword() {
-    return password;
+  public String getHashedPass() {
+    return hashedPass;
   }
 
   public String getCPR() {
@@ -96,7 +96,7 @@ public class UserDTO extends IdAndActivatable implements Serializable {
             "username='" + username + '\'' + " | " +
             "ini='" + ini + '\'' + " | " +
             "CPR='" + CPR + '\'' + " | " +
-            "password='" + password + '\'' + " | " +
+            "password='" + hashedPass + '\'' + " | " +
             "role=" + role + " | " +
             "active= " + getIsActive() + " | " +
             "id= " + getID() + '}';
