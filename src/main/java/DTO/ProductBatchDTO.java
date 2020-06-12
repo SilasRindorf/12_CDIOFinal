@@ -12,7 +12,6 @@ import java.util.List;
  *  -
  */
 public class ProductBatchDTO extends IdAndActivatable {
-    private int productBatchNr;
     private int receiptNr;
     private Date created;
     private Status status;
@@ -26,9 +25,6 @@ public class ProductBatchDTO extends IdAndActivatable {
         this.productComps = Collections.unmodifiableList(productComps);
     }
 
-    public int getProductBatchNr() {
-        return productBatchNr;
-    }
 
     public int getReceipt() {
         return receiptNr;
@@ -49,9 +45,7 @@ public class ProductBatchDTO extends IdAndActivatable {
                 productComps) {
             builder.append("\n\t").append(pbc.toString());
         }
-        return "ProductBatchDTO{" + " | " +
-                "productBatchNr=" + productBatchNr + " | " +
-                "receiptNr=" + receiptNr + " | " +
+        return "ProductBatchDTO{" + "receiptNr=" + receiptNr + " | " +
                 "created=" + created + " | " +
                 "status=" + status + " | " +
                 "isActive=" + getIsActive() + " | " +

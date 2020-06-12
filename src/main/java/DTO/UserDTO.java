@@ -13,7 +13,6 @@ import java.util.Collections;
 public class UserDTO extends IdAndActivatable implements Serializable {
   // UID is Serializable magic and should not be touched!
   private static final long serialVersionUID = 4545864587995944260L;
-  private int ID;
   private String username;
   private String ini;
   private String CPR;
@@ -23,7 +22,6 @@ public class UserDTO extends IdAndActivatable implements Serializable {
   public UserDTO(int ID, String username, String ini, String CPR, String password, Role role, boolean isActive){
     super(ID,isActive);
     this.role = role;
-    this.ID = ID;
     this.username = username;
     this.ini = ini;
     this.CPR = CPR;
@@ -73,10 +71,6 @@ public class UserDTO extends IdAndActivatable implements Serializable {
     return CPR;
   }
 
-  public int getID() {
-    return ID;
-  }
-
   public String getUsername() {
     return username;
   }
@@ -92,7 +86,6 @@ public class UserDTO extends IdAndActivatable implements Serializable {
   @Override
   public String toString() {
     return "UserDTO{" +
-            "ID=" + ID +
             "username='" + username + '\'' + " | " +
             "ini='" + ini + '\'' + " | " +
             "CPR='" + CPR + '\'' + " | " +
