@@ -10,7 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommodityDAONonPersistent implements ICommodityDAO {
-    private List<CommodityDTO> commodities = new ArrayList<>();
+    private List<CommodityDTO> commodities;
+
+    public CommodityDAONonPersistent() {
+        this.commodities = new ArrayList<>();
+    }
+
     @Override
     public CommodityDTO getCommodity(int commodityID) throws DALException {
         for (CommodityDTO commodity :
