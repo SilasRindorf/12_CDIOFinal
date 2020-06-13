@@ -21,7 +21,7 @@
     <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
     <button type="button" onclick="goToAdmin()">Administrator</button>
     <button type="button" onclick="goToProduktionsleder()">Produktionsleder</button>
-    <button type="button" onclick="goToAfvejning1()">Farmaceut</button>
+    <button type="button" onclick="goToAfvejning1()">Laborant</button>
 </form>
 
 <form method="POST" action="" name="produktionsleder" id="produktionsleder" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
@@ -126,9 +126,6 @@
 <form method="POST" action="" id="finish"
       style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
     <p>You did it, you crazy son of a bitch</p>
-
-
-
     <button type="button" onclick="goToWelcomeFromFinish()"><bs>Tilbage til start</bs></button>
 </form>
 
@@ -170,6 +167,10 @@
 
     <button type="button" onclick="goToAfvejning2()">Send ind</button>
     <button type="button" onclick="goToWelcomeFromFinish()">Send ind og afslut</button>
+</form>
+
+<form method="POST" action="" name="farmaceut" id="farmaceut" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    //<button type="button" onclick="goToRaavarebatch1()"
 </form>
 
 <script>
