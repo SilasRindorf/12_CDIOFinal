@@ -69,6 +69,8 @@
 
 <form method="POST" action="" name="produktbatch3" id="produktbatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
 
+    <div id="produktbatchList"></div> <br>
+    <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
 
 </form>
 
@@ -204,7 +206,8 @@
     }
     function goToProduktbatch3() {
         hideall();
-        document.getElementById("produktbatch3")
+        document.getElementById("produktbatch3").style.visibility = "visible";
+        getAllProduktBatches("produktbatchList");
     }
     function createProduktBatch() {
         if(!document.getElementById("receptNr").value =="" &&
@@ -216,6 +219,9 @@
         }else{
             alert("Please fill out all the fields!")
         }
+    }
+    function resetProduktBatch2() {
+        document.getElementById("receptNr").value = "";
     }
     function finishCreateUser() {
         if (!document.getElementById("uname").value == "" &&
