@@ -5,7 +5,7 @@
 </head>
 <body>
 <script type="text/javascript" src="frontend/JSON_Actions.js"></script>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 <h1 id="title">Welcome</h1>
 <!--
@@ -21,16 +21,50 @@
     <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
 
     <button type="button" onclick="goToAdmin()">administrator</button>
+
+    <button type="button" onclick="goToProduktionsleder()">produktionsleder</button>
 </form>
 
-<form method="POST" action="" name="produktionsleder" id="produktionsleder" style="position: absolute; left: 50px; top: 50px;">
-    <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
+<form method="POST" action="" name="produktionsleder" id="produktionsleder" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
 
-    <button type="button" onclick="goToCreateUser()">Opret en bruger</button>
+    <button type="button" onclick="goToRaaVareBatch()">Ændre på råvarebatchs</button>
 
-    <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
+    <button type="button" onclick="goToProduktionsBatch()">Ændre på produktionsbatches</button>
 
-    <button type="button" onclick="goToAdmin()">administrator</button>
+    <button type="button" onclick="goToAfvejning()">Gå til afvejning</button>
+
+    <button type="button" onclick="goLogIn()">LogOut</button>
+</form>
+
+<form method="POST" action="" name="raavarebatch1" id="raavarebatch1" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+
+    <button type="button" onclick="goToOpretRaavarebatch()">Opret ny råvarebatch</button>
+
+    <button type="button" onclick="goToRaavareBatch3()">Vis råvarebatch</button>
+
+    <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
+
+</form>
+<form method="POST" action="" name="raavarebatch3" id="raavarebatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+
+
+
+</form>
+
+
+
+<form method="POST" action="" name="opretRaavarebatch" id="opretRaavarebatch" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <b>Indtast værider</b>
+    <label for="raavarebatchNr">Råvarebatch ID:</label>
+    <input type="text" id="raavarebatchNr" name="raavarebatchNr"><br><br>
+    <label for="RaavareID">RåvareID:</label>
+    <input type="text" id="RaavareID" name="RaavareID"><br><br>
+    <label for="maengde">Mængde</label>
+    <input type="text" id="maengde" name="maengde"><br><br>
+    <input type="button" onclick="goToRaavarebatch">
+    <input type="submit" value="Submit">
+
+
 </form>
 
 
@@ -61,8 +95,8 @@
     <label for="Pharmaceut"> Pharmaceut</label><br>
     <input type="radio" id="Admin" name="Roles" value="Admin">
     <label for="Admin"> Admin</label><br>
-    <input type="radio" id="Produktionsleder" name="Roles" value="Produktionsleder">
-    <label for="Produktionsleder"> Produktionsleder</label><br>
+    <input type="radio" id="ProduktionslederRadio" name="Roles" value="Produktionsleder">
+    <label for="ProduktionslederRadio"> Produktionsleder</label><br>
     <input type="radio" id="Laborant" name="Roles" value="Laborant">
     <label for="Laborant"> Laborant</label><br>
     <button type="button" onclick="finishCreateUser();">Opret bruger</button>
@@ -145,19 +179,33 @@
         document.getElementById("deleteUser").style.visibility = "visible";
         document.getElementById("title").innerHTML = "User list";
         getAllUsers("userList");
-
     }
     function goToAdmin() {
         document.getElementById("welcome").style.visibility = "hidden";
         document.getElementById("administrator").style.visibility = "visible";
         document.getElementById("title").innerHTML = "User list";
     }
-    function hideall() {
-        document.getElementById("welcome").style.visibility = "hidden";
-        document.getElementById("administrator").style.visibility = "hidden";
-        document.getElementById("deleteUser").style.visibility = "visible";
-        document.getElementById("finish").style.visibility = "hidden";
+    function goToProduktionsleder() {
+        hideall();
+        document.getElementById("produktionsleder").style.visibility = "visible";
     }
+    function goToOpretRaavarebatch() {
+        hideall();
+        document.getElementById("opretRaavarebatch").style.visibility = "visible";
+    }
+    function goToRaavarebatch3() {
+        hideall();
+        document.getElementById("Raavare3").style.visibility = "visible"
+    }
+    function hideall() {
+        //https://www.w3schools.com/jsref/met_document_queryselectorall.asp
+        x = document.querySelectorAll(".example");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.visibility = "hidden";
+        }
+    }
+
+
 </script>
 
 </body>
