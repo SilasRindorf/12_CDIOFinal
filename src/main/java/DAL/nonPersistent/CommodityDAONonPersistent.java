@@ -75,7 +75,7 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
         if (c.getIsActive() == isActive){
             throw new DALException("The commodity activity is already "+isActive);
         }
-        CommodityDTO newC = new CommodityDTO(cId, c.getName(), c.getIsActive());
+        CommodityDTO newC = new CommodityDTO(cId, c.getName(), isActive);
         try {
             updateCommodity(newC);
         } catch (JunkFormatException e) {
