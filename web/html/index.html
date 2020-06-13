@@ -223,7 +223,16 @@
         document.getElementById("goToAfvejning1").style.visibility = "hidden";
         document.getElementById("goToAfvejning2").style.visibility = "hidden";
     }
-
+    function goToAfvejning1() {
+        hideall();
+        document.getElementById("goToAfvejning1").style.visibility = "visible"
+        document.getElementById("title").innerHTML = "Afvejning1";
+    }
+    function goToAfvejning2() {
+        hideall();
+        document.getElementById("goToAfvejning2").style.visibility = "visible"
+        document.getElementById("title").innerHTML = "Afvejning2";
+    }
 
 </script>
 
