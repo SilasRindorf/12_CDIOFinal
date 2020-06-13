@@ -30,21 +30,18 @@
     <button type="button" onclick="goToRaaVareBatch()">Ændre på råvarebatchs</button>
 
     <button type="button" onclick="goToProduktionsBatch()">Ændre på produktionsbatches</button>
-
-    <button type="button" onclick="goToAfvejning()">Gå til afvejning</button>
-
+    <button type="button" onclick="goToAfvejning1()">Gå til afvejning</button>
     <button type="button" onclick="goLogIn()">LogOut</button>
 </form>
 
 <form method="POST" action="" name="raavarebatch1" id="raavarebatch1" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-
-    <button type="button" onclick="goToRaavarebatch2()">Opret ny råvarebatch</button>
-
+    <button type="button" onclick="goToOpretRaavarebatch()">Opret ny råvarebatch</button>
     <button type="button" onclick="goToRaavareBatch3()">Vis råvarebatch</button>
 
     <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
 
 </form>
+
 <form method="POST" action="" name="raavarebatch3" id="raavarebatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <div id="raavareBatchList"></div>
     <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
@@ -65,7 +62,6 @@
 
 </form>
 
-
 <form method="POST" action="" name="administrator" id="administrator"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
       <button type="button" onclick="goToCreateUser()">Opret en bruger </button>
@@ -73,13 +69,9 @@
       <button type="button" onclick="goLogIn()">LogOut</button>
 </form>
 
-
-
 <form method="POST" action="" name="createUser" id="createUser"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-
-    <button type="button" onclick="returnToStart();">Tilbage til start</button>
-
+    <button type="button" onclick="returnToStart();">Tilbage til start</button
     <p>Brugernavn</p>
     <input type="text" id="uname" name="uname">
     <p>Initialer</p>
@@ -99,6 +91,7 @@
     <label for="Laborant"> Laborant</label><br>
     <button type="button" onclick="finishCreateUser();">Opret bruger</button>
 </form>
+
 <form method="POST" action="" id="finish"
       style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
     <p>You did it, you crazy son of a bitch</p>
@@ -107,6 +100,7 @@
 
     <button type="button" onclick="goToWelcomeFromFinish()"><bs>Tilbage til start</bs></button>
 </form>
+
 <form method="POST" action="" id="deleteUser"
       style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
 
@@ -114,6 +108,41 @@
     <div id="userList"></div>
     <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
 </form>
+
+<form method="POST" action="" name="goToAfvejning1" id="goToAfvejning1" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label  for="productbatchID">Produktbatch ID:</label>
+    <input type="text" id="productbatchID" name="productbatchID"><br><br>
+    <button type="button" onclick="goToAfvejning2()">Send ind</button>
+</form>
+
+<form method="POST" action="" name="goToAfvejning2" id="goToAfvejning2" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label  for="weight">Indtast vægten: </label>
+    <input type="text" id="weight" name="weight"><br><br>
+    <label  for="raavare">Indtast råvaren: </label>
+    <input type="text" id="raavare" name="raavare"><br><br>
+    <label  for="raavarebatchNr">Indtast råvarebatch nr: </label>
+    <input type="text" name="raavarebatchNr"><br><br>
+    <label  for="tara">Indtast tara: </label>
+    <input type="text" id="tara" name="tara"><br><br>
+    <table style="width:100%">
+        <tr>
+            <th>Råvare</th>
+            <th>Vægt</th>
+            <th>Råvarebatch nr</th>
+        </tr>
+        <tr>
+            <td>for="raavare"</td>
+            <td>for="weight"</td>
+            <td>for="raavareBatchNr"</td>
+        </tr>
+    </table>
+
+    // Mangler status på produktbatch
+
+    <button type="button" onclick="goToAfvejning2()">Send ind</button>
+    <button type="button" onclick="goToWelcomeFromFinish()">Send ind og afslut</button>
+</form>
+
 <script>
     function resetValues(){
         document.getElementById("uname").value = "";
