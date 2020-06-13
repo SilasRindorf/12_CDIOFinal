@@ -81,7 +81,7 @@
     <label for="raavarebatchNr">Råvarebatch ID:</label><br>
     <input type="text" id="raavarebatchNr" name="raavarebatchNr"><br><br>
     <label for="RaavareID">RåvareID:</label><br>
-    <form method="POST" action="" name="Raavarebatch2" id="Raavarebatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <form method="POST" action="" name="Raavarebatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
         <b>Indtast værdier</b>
         <label for="raavarebatchNr">Råvarebatch ID:</label>
         <input type="text" name="raavarebatchNr"><br><br>
@@ -149,7 +149,7 @@
         <label  for="raavare">Indtast råvaren: </label>
         <input type="text" id="raavare" name="raavare"><br><br>
         <label  for="raavarebatchNr">Indtast råvarebatch nr: </label>
-        <input type="text" name="raavarebatchNr"><br><br>
+        <input type="text" id="raavarebatchID" name="raavarebatchNr"><br><br>
         <label  for="weight">Indtast vægten: </label>
         <input type="text" id="weight" name="weight"><br><br>
         <label  for="tara">Indtast tara: </label>
@@ -326,7 +326,6 @@
         }
 
         function addProductbatchComponent() {
-            hideall();
             var tableBody = document.getElementById("table-body");
             var td1 = document.createElement("td");
             var td2 = document.createElement("td");
@@ -334,7 +333,7 @@
             var row = document.createElement("tr");
             td1.innerHTML = document.getElementById("raavare").value;
             td2.innerHTML = document.getElementById("weight").value - document.getElementById("tara").value;
-            td3.innerHTML = document.getElementById("raavarebatchNr").value;
+            td3.innerHTML = document.getElementById("raavarebatchID").value;
             row.appendChild(td1);
             row.appendChild(td2);
             row.appendChild(td3);
