@@ -38,7 +38,7 @@
 
 <form method="POST" action="" name="raavarebatch1" id="raavarebatch1" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
 
-    <button type="button" onclick="goToOpretRaavarebatch()">Opret ny råvarebatch</button>
+    <button type="button" onclick="goToRaavarebatch2()">Opret ny råvarebatch</button>
 
     <button type="button" onclick="goToRaavareBatch3()">Vis råvarebatch</button>
 
@@ -46,14 +46,13 @@
 
 </form>
 <form method="POST" action="" name="raavarebatch3" id="raavarebatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-
-
-
+    <div id="raavareBatchList"></div>
+    <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
 </form>
 
 
 
-<form method="POST" action="" name="opretRaavarebatch" id="opretRaavarebatch" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+<form method="POST" action="" name="Raavarebatch2" id="Raavarebatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <b>Indtast værider</b>
     <label for="raavarebatchNr">Råvarebatch ID:</label>
     <input type="text" id="raavarebatchNr" name="raavarebatchNr"><br><br>
@@ -63,7 +62,6 @@
     <input type="text" id="maengde" name="maengde"><br><br>
     <input type="button" onclick="goToRaavarebatch">
     <input type="submit" value="Submit">
-
 
 </form>
 
@@ -181,28 +179,37 @@
         getAllUsers("userList");
     }
     function goToAdmin() {
-        document.getElementById("welcome").style.visibility = "hidden";
+        hideall();
         document.getElementById("administrator").style.visibility = "visible";
         document.getElementById("title").innerHTML = "User list";
     }
     function goToProduktionsleder() {
         hideall();
         document.getElementById("produktionsleder").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Produktionsleder";
     }
-    function goToOpretRaavarebatch() {
+    function goToRaavarebatch2() {
         hideall();
-        document.getElementById("opretRaavarebatch").style.visibility = "visible";
+        document.getElementById("Raavarebatch2").style.visibility = "visible";
+
     }
     function goToRaavarebatch3() {
         hideall();
         document.getElementById("Raavare3").style.visibility = "visible"
+        document.getElementById("title").innerHTML = "Råvarebatch list";
+        getAllRaavarebaths("raavarebatchlist");
     }
     function hideall() {
-        //https://www.w3schools.com/jsref/met_document_queryselectorall.asp
-        x = document.querySelectorAll(".example");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.visibility = "hidden";
-        }
+
+        document.getElementById("welcome").style.visibility = "hidden";
+        document.getElementById("administrator").style.visibility = "hidden";
+        document.getElementById("produktionsleder").style.visibility = "hidden";
+        document.getElementById("raavarebatch1").style.visibility = "hidden";
+        document.getElementById("opretRaavarebatch").style.visibility = "hidden";
+        document.getElementById("raavarebatch3").style.visibility = "hidden"
+        document.getElementById("deleteUser").style.visibility = "hidden";
+        document.getElementById("finish").style.visibility = "hidden";
+        document.getElementById("createUser").style.visibility = "hidden";
     }
 
 
