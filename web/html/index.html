@@ -15,20 +15,15 @@
     -->
 <form method="POST" action="" name="welcome" id="welcome" style="position: absolute; left: 50px; top: 50px;">
     <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
-
     <button type="button" onclick="goToCreateUser()">Opret en bruger</button>
-
     <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
-
-    <button type="button" onclick="goToAdmin()">administrator</button>
-
-    <button type="button" onclick="goToProduktionsleder()">produktionsleder</button>
+    <button type="button" onclick="goToAdmin()">Administrator</button>
+    <button type="button" onclick="goToProduktionsleder()">Produktionsleder</button>
+    <button type="button" onclick="goToAfvejning1()">Farmaceut</button>
 </form>
 
 <form method="POST" action="" name="produktionsleder" id="produktionsleder" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-
     <button type="button" onclick="goToRaaVareBatch()">Ændre på råvarebatchs</button>
-
     <button type="button" onclick="goToProduktionsBatch()">Ændre på produktionsbatches</button>
     <button type="button" onclick="goToAfvejning1()">Gå til afvejning</button>
     <button type="button" onclick="goLogIn()">LogOut</button>
@@ -37,17 +32,13 @@
 <form method="POST" action="" name="raavarebatch1" id="raavarebatch1" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <button type="button" onclick="goToOpretRaavarebatch()">Opret ny råvarebatch</button>
     <button type="button" onclick="goToRaavareBatch3()">Vis råvarebatch</button>
-
     <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
-
 </form>
 
 <form method="POST" action="" name="raavarebatch3" id="raavarebatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <div id="raavareBatchList"></div>
     <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
 </form>
-
-
 
 <form method="POST" action="" name="Raavarebatch2" id="Raavarebatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <b>Indtast værider</b>
@@ -59,7 +50,6 @@
     <input type="text" id="maengde" name="maengde"><br><br>
     <input type="button" onclick="goToRaavarebatch">
     <input type="submit" value="Submit">
-
 </form>
 
 <form method="POST" action="" name="administrator" id="administrator"
@@ -95,15 +85,10 @@
 <form method="POST" action="" id="finish"
       style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
     <p>You did it, you crazy son of a bitch</p>
-
-
-
     <button type="button" onclick="goToWelcomeFromFinish()"><bs>Tilbage til start</bs></button>
 </form>
 
-<form method="POST" action="" id="deleteUser"
-      style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
-
+<form method="POST" action="" id="deleteUser" style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
     <p>Who do you want to delete?</p>
     <div id="userList"></div>
     <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
@@ -178,9 +163,7 @@
                 document.getElementById("Laborant").checked == true))
         {
             postAnUser();
-
             resetValues();
-
             document.getElementById("createUser").style.visibility = "hidden";
             document.getElementById("finish").style.visibility = "visible";
         }
@@ -198,7 +181,6 @@
         document.getElementById("deleteUser").style.visibility = "hidden";
         document.getElementById("welcome").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Welcome";
-
     }
 
     function goToDeleteUser() {
@@ -238,6 +220,8 @@
         document.getElementById("deleteUser").style.visibility = "hidden";
         document.getElementById("finish").style.visibility = "hidden";
         document.getElementById("createUser").style.visibility = "hidden";
+        document.getElementById("goToAfvejning1").style.visibility = "hidden";
+        document.getElementById("goToAfvejning2").style.visibility = "hidden";
     }
 
 
