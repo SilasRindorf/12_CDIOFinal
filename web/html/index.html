@@ -68,7 +68,7 @@
 
 
 <form method="POST" action="" name="Raavarebatch2" id="Raavarebatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-    <b>Indtast værider</b>
+    <b>Indtast værdier</b>
     <label for="raavarebatchNr">Råvarebatch ID:</label>
     <input type="text" name="raavarebatchNr"><br><br>
     <label for="RaavareID">RåvareID:</label>
@@ -82,9 +82,9 @@
 
 <form method="POST" action="" name="administrator" id="administrator"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-      <button type="button" onclick="goToCreateUser()">Opret en bruger </button>
-      <button type="button" onclick="goToDeleteUser()">Vis brugere </button>
-      <button type="button" onclick="goLogIn()">LogOut</button>
+    <button type="button" onclick="goToCreateUser()">Opret en bruger </button>
+    <button type="button" onclick="goToDeleteUser()">Vis brugere </button>
+    <button type="button" onclick="goLogIn()">LogOut</button>
     <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
 </form>
 
@@ -205,7 +205,7 @@
     }
     function createProduktBatch() {
         if(!document.getElementById("receptNr").value =="" &&
-        !document.getElementById("dato") =="")
+            !document.getElementById("dato") =="")
         {
             postAnProduktBatch();
             resetProduktBatch2();
@@ -302,14 +302,15 @@
         document.getElementById("raavarebatch3").style.visibility = "hidden"
         document.getElementById("produktbatch1").style.visibility = "hidden"
         document.getElementById("produktbatch2").style.visibility = "hidden"
-       // document.getElementById("produktbatch3").style.visibility = "hidden"
+        // document.getElementById("produktbatch3").style.visibility = "hidden"
         document.getElementById("deleteUser").style.visibility = "hidden";
         document.getElementById("finish").style.visibility = "hidden";
         document.getElementById("createUser").style.visibility = "hidden";
         document.getElementById("afvejning1").style.visibility = "hidden";
         document.getElementById("afvejning2").style.visibility = "hidden";
-        document.getElementById("addProductbatchComponent").style.visibility = "hidden";
+        /*document.getElementById("addProductbatchComponent").style.visibility = "hidden";
         document.getElementById("goToFarmaceut").style.visibility = "hidden";
+        document.getElementById("goLogIn")*/
     }
     function addProductbatchComponent() {
         hideall();
@@ -327,9 +328,11 @@
         tableBody.appendChild(row);
     }
     function goToFarmaceut(){
-        hideall();
         document.getElementById("farmaceut").style.visibility = "visible";
         document.getElementById("goToRaavarebatch1").style.visibility = "visible";
+    }
+    function goLogIn() {
+        hideall();
 
     }
 
