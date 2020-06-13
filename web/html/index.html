@@ -23,6 +23,15 @@
     <button type="button" onclick="goToAdmin()">administrator</button>
 </form>
 
+<form method="POST" action="" name="produktionsleder" id="produktionsleder" style="position: absolute; left: 50px; top: 50px;">
+    <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
+
+    <button type="button" onclick="goToCreateUser()">Opret en bruger</button>
+
+    <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
+
+    <button type="button" onclick="goToAdmin()">administrator</button>
+</form>
 
 
 <form method="POST" action="" name="administrator" id="administrator"
@@ -142,7 +151,12 @@
         document.getElementById("welcome").style.visibility = "hidden";
         document.getElementById("administrator").style.visibility = "visible";
         document.getElementById("title").innerHTML = "User list";
-
+    }
+    function hideall() {
+        document.getElementById("welcome").style.visibility = "hidden";
+        document.getElementById("administrator").style.visibility = "hidden";
+        document.getElementById("deleteUser").style.visibility = "visible";
+        document.getElementById("finish").style.visibility = "hidden";
     }
 </script>
 
