@@ -61,8 +61,14 @@ public class UserDAONonPersistent implements IUserDAO {
         {
             if (user.getID() == newUser.getID())
             {
+                UserDTO backup = user;
                 users.remove(user);
-                users.add(newUser);
+                try {
+                    createUser(newUser);
+                }catch(Exception e){
+                    users.add(backup);
+                    throw e;
+                }
                 return;
             }
         }
