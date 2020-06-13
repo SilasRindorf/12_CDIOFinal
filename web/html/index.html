@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="frontend-style/userTable.css">
+</head>
+<body>
+<script type="text/javascript" src="frontend/JSON_Actions.js"></script>
+
+
+<h1 id="title">Welcome</h1>
+<!--
+    <form method="POST" action="authentication.html">
+        <input type = "submit" value="Login">
+    </form>
+    -->
+<form method="POST" action="" name="welcome" id="welcome" style="position: absolute; left: 50px; top: 50px;">
+    <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
+
+    <button type="button" onclick="goToCreateUser()">Opret en bruger</button>
+
+    <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
+
+    <button type="button" onclick="goToAdmin()">administrator</button>
+</form>
+
+
+
+<form method="POST" action="" name="administrator" id="administrator"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+      <button type="button" onclick="goToCreateUser()">Opret en bruger </button>
+      <button type="button" onclick="goToDeleteUser()">Vis brugere </button>
+      <button type="button" onclick="goLogIn()">LogOut</button>
+</form>
+
+
+
+<form method="POST" action="" name="createUser" id="createUser"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+
+    <button type="button" onclick="returnToStart();">Tilbage til start</button>
+
+    <p>Brugernavn</p>
+    <input type="text" id="uname" name="uname">
+    <p>Initialer</p>
+    <input type="text" id="ini" name="ini">
+    <p>Cpr-nummer</p>
+    <input type="text" id="cpr" name="cpr">
+    <p>Password</p>
+    <input type="text" id="password" name="password">
+    <p>Rolle</p>
+    <input type="radio" id="Pharmaceut" name="Roles" value="Pharmaceut">
+    <label for="Pharmaceut"> Pharmaceut</label><br>
+    <input type="radio" id="Admin" name="Roles" value="Admin">
+    <label for="Admin"> Admin</label><br>
+    <input type="radio" id="Produktionsleder" name="Roles" value="Produktionsleder">
+    <label for="Produktionsleder"> Produktionsleder</label><br>
+    <input type="radio" id="Laborant" name="Roles" value="Laborant">
+    <label for="Laborant"> Laborant</label><br>
+    <button type="button" onclick="finishCreateUser();">Opret bruger</button>
+</form>
+<form method="POST" action="" id="finish"
+      style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
+    <p>You did it, you crazy son of a bitch</p>
+
+
+
+    <button type="button" onclick="goToWelcomeFromFinish()"><bs>Tilbage til start</bs></button>
+</form>
+<form method="POST" action="" id="deleteUser"
+      style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
+
+    <p>Who do you want to delete?</p>
+    <div id="userList"></div>
+    <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
+</form>
+<script>
+    function resetValues(){
+        document.getElementById("uname").value = "";
+        document.getElementById("ini").value = "";
+        document.getElementById("cpr").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("Pharmaceut").checked = false;
+        document.getElementById("Admin").checked = false;
+        document.getElementById("Produktionsleder").checked = false;
+        document.getElementById("Laborant").checked = false;
+    }
+
+    function goToCreateUser() {
+        document.getElementById("administrator").style.visibility = "hidden";
+        document.getElementById("welcome").style.visibility = "hidden";
+        document.getElementById("createUser").style.visibility = "visible";
+    }
+
+    function returnToStart() {
+        document.getElementById("welcome").style.visibility = "visible";
+        document.getElementById("createUser").style.visibility = "hidden";
+        resetValues();
+    }
+
+    function finishCreateUser() {
+        if (!document.getElementById("uname").value == "" &&
+            !document.getElementById("ini").value == "" &&
+            !document.getElementById("cpr").value == "" &&
+            !document.getElementById("password").value == "" &&
+            (document.getElementById("Pharmaceut").checked == true ||
+                document.getElementById("Admin").checked == true ||
+                document.getElementById("Produktionsleder").checked == true ||
+                document.getElementById("Laborant").checked == true))
+        {
+            postAnUser();
+
+            resetValues();
+
+            document.getElementById("createUser").style.visibility = "hidden";
+            document.getElementById("finish").style.visibility = "visible";
+        }
+        else {
+            alert("Please fill out all the fields!");
+        }
+    }
+
+    function goToWelcomeFromFinish() {
+        document.getElementById("finish").style.visibility = "hidden";
+        document.getElementById("welcome").style.visibility = "visible";
+    }
+
+    function goToWelcomeFromDelete() {
+        document.getElementById("deleteUser").style.visibility = "hidden";
+        document.getElementById("welcome").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Welcome";
+
+    }
+
+    function goToDeleteUser() {
+        document.getElementById("welcome").style.visibility = "hidden";
+        document.getElementById("deleteUser").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "User list";
+        getAllUsers("userList");
+
+    }
+    function goToAdmin() {
+        document.getElementById("welcome").style.visibility = "hidden";
+        document.getElementById("administrator").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "User list";
+
+    }
+</script>
+
+</body>
+<head>
+    <meta charset="UTF-8">
+    <title>CDIO 2</title>
+</head>
+</html>
