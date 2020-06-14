@@ -10,21 +10,14 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ReceiptDTO {
-    private int receiptNr;
+public class ReceiptDTO extends IdAndActivatable {
     private String name;
     private List<ReceiptCompDTO> receiptComps;
-    private boolean isActive;
 
     public ReceiptDTO(int receiptNr, String name, List<ReceiptCompDTO> receiptComps, boolean isActive) {
-        this.receiptNr = receiptNr;
+        super(receiptNr,isActive);
         this.name = name;
         this.receiptComps = Collections.unmodifiableList(receiptComps);
-        this.isActive = isActive;
-    }
-
-    public int getReceiptNr() {
-        return receiptNr;
     }
 
     public String getName() {
@@ -35,17 +28,13 @@ public class ReceiptDTO {
         return receiptComps;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
 
     @Override
     public String toString() {
-        return "ReceiptDTO{" +
-                "receiptNr=" + receiptNr +
-                ", name='" + name + '\'' +
-                ", receiptComps=" + receiptComps +
-                ", isActive=" + isActive +
-                '}';
+        return "ReceiptDTO{" + " | " +
+                "name='" + name + '\'' + " | " +
+                "receiptComps=" + receiptComps + " | " +
+                "isActive=" + getIsActive() + " | " +
+                "id= " + getID() + '}';
     }
 }

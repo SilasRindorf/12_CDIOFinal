@@ -3,6 +3,7 @@ package DTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+
 /***
  * Initial version created by: Taken from CDIO 1
  * Edited by: Silas Rindorf
@@ -10,31 +11,22 @@ import java.util.Collections;
  * This class is responsible for:
  *  Storing information about users in Java
  */
-public class UserDTO implements Serializable{
+public class UserDTO extends IdAndActivatable implements Serializable {
+  // UID is Serializable magic and should not be touched!
   private static final long serialVersionUID = 4545864587995944260L;
-  private int ID;
-  private String username = "null";
-  private String ini = "null";
-  private String CPR = "null";
-  private String password;
+  private String username;
+  private String ini;
+  private String CPR;
+  private String hashedPass;
   private Role role;
 
-  public UserDTO() {
-    this.password = newPassword();
-  }
-  public UserDTO(int ID, String username, String ini, String CPR, String password, Role role){
+  public UserDTO(int ID, String username, String ini, String CPR, String hashedPass, Role role, boolean isActive){
+    super(ID,isActive);
     this.role = role;
-    this.ID = ID;
     this.username = username;
     this.ini = ini;
     this.CPR = CPR;
-    this.password = password;
-
-  }
-
-  @Override
-  public String toString() {
-    return "UserDTO [userId=" + ID + ", userName=" + username + ", ini=" + ini + ", roles=" + role + "]";
+    this.hashedPass = hashedPass;
   }
 
   //TODO Needs JavaDoc
@@ -42,7 +34,7 @@ public class UserDTO implements Serializable{
    *
    * @return
    */
-  public String newPassword(){
+  public static String newPassword(){
     int min = 6;
     int max = 50;
     int len =(int) (Math.random()*(max - min)+ min);
@@ -71,43 +63,38 @@ public class UserDTO implements Serializable{
 
   //Getters and Setters
 
-  public String getPassword() {
-    return password;
+  public String getHashedPass() {
+    return hashedPass;
   }
-  public void setPassword(String pass){this.password = pass;}
 
   public String getCPR() {
     return CPR;
-  }
-  public void setCPR(String CPR){ this.CPR = CPR;}
-
-  public int getID() {
-    return ID;
-  }
-  public void setID(int userID) {
-    this.ID = userID;
   }
 
   public String getUsername() {
     return username;
   }
-  public void setUsername(String username) {
-    this.username = username;
-  }
 
   public String getIni() {
     return ini;
-  }
-  public void setIni(String ini) {
-    this.ini = ini;
   }
 
   public Role getRole() {
     return role;
   }
-  public void setRole(Role role) {
-    this.role = role;
+
+  @Override
+  public String toString() {
+    return "UserDTO{" +
+            "username='" + username + '\'' + " | " +
+            "ini='" + ini + '\'' + " | " +
+            "CPR='" + CPR + '\'' + " | " +
+            "password='" + hashedPass + '\'' + " | " +
+            "role=" + role + " | " +
+            "active= " + getIsActive() + " | " +
+            "id= " + getID() + '}';
   }
+
   /***
    * Initial version created by: Silas
    * Edited by: Christoffer

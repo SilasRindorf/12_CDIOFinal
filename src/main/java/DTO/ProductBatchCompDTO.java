@@ -14,7 +14,7 @@ public class ProductBatchCompDTO {
     private int commodityNr;
     private int weighterID;
 
-    public ProductBatchCompDTO(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID) {
+    public ProductBatchCompDTO(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID, boolean isActive) {
         this.tara = tara;
         this.weighted = weighted;
         this.commodityBatchNr = commodityBatchNr;
@@ -40,5 +40,15 @@ public class ProductBatchCompDTO {
 
     public int getWeighterID() {
         return weighterID;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductBatchCompDTO{" + " | " +
+                "tara=" + tara + " | " +
+                "weighted=" + weighted +" | " +
+                "commodityBatchNr=" + commodityBatchNr + " | " +
+                "commodityNr=" + commodityNr + " | " +
+                "weighterID=" + weighterID + '}';
     }
 }

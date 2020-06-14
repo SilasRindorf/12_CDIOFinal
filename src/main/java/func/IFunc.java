@@ -20,7 +20,7 @@ public interface IFunc {
         // Deletes the user with specified id. Returns a deep-copy of the user.
         UserDTO deleteUser(int userID) throws DatabaseException;
 
-        public static class UserFormatException extends Exception{
+        class UserFormatException extends Exception{
             public List<errorTypes> errorlist;
             UserFormatException(String message, List<errorTypes> errorlist){
                 super(message);
@@ -34,7 +34,7 @@ public interface IFunc {
                 password
             }
         }
-        public static class DatabaseException extends Exception{
+        class DatabaseException extends Exception{
             DatabaseException(String message){
                 super(message);
             }

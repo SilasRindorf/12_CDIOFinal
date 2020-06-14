@@ -7,7 +7,7 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class ReceiptCompDTO {
+public class ReceiptCompDTO{
     private int commodityNr;
     private double amount;
     private double tolerance;
@@ -28,5 +28,12 @@ public class ReceiptCompDTO {
 
     public double getTolerance() {
         return tolerance;
+    }
+
+    @Override
+    public String toString(){
+        return "commodityNr=" + commodityNr + " | " +
+                "amount=" + amount + " | " +
+                "tolerance=" + tolerance;
     }
 }

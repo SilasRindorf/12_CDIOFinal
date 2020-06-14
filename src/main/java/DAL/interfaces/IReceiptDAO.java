@@ -13,7 +13,6 @@ import java.util.List;
 public interface IReceiptDAO {
     ReceiptDTO getReceipt(int receiptID) throws DALException;
     List<ReceiptDTO> getReceiptList() throws DALException;
-    void createReceipt(ReceiptDTO receipt) throws DALException;
-    void updateReceipt(ReceiptDTO receipt) throws DALException;
+    void createReceipt(ReceiptDTO receipt) throws DALException, JunkFormatException;
     void setIsActive(int receiptID, boolean isActive);
 }

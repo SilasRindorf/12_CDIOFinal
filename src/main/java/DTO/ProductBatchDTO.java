@@ -11,24 +11,20 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchDTO {
-    private int productBatchNr;
+public class ProductBatchDTO extends IdAndActivatable {
     private int receiptNr;
     private Date created;
     private Status status;
     private List<ProductBatchCompDTO> productComps;
 
-    public ProductBatchDTO(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchCompDTO> productComps) {
-        this.productBatchNr = productBatchNr;
+    public ProductBatchDTO(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchCompDTO> productComps, boolean isActive) {
+        super(productBatchNr, isActive);
         this.receiptNr = receiptNr;
         this.created = created;
         this.status = status;
         this.productComps = Collections.unmodifiableList(productComps);
     }
 
-    public int getProductBatchNr() {
-        return productBatchNr;
-    }
 
     public int getReceipt() {
         return receiptNr;
@@ -42,8 +38,23 @@ public class ProductBatchDTO {
         return status;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (ProductBatchCompDTO pbc :
+                productComps) {
+            builder.append("\n\t").append(pbc.toString());
+        }
+        return "ProductBatchDTO{" + "receiptNr=" + receiptNr + " | " +
+                "created=" + created + " | " +
+                "status=" + status + " | " +
+                "isActive=" + getIsActive() + " | " +
+                "id = " + getID() + " | " +
+                "productComps=" + builder.toString() + '}';
+    }
 
-    public enum Status{
+
+    public enum Status {
         CREATED,
         IN_PRODUCTION,
         DONE
