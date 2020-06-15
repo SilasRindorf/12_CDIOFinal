@@ -280,8 +280,8 @@
                 !document.getElementById("cpr").value == "" &&
                 !document.getElementById("password").value == "" &&
                 (document.getElementById("Pharmaceut").checked == true ||
-                    document.getElementById("Admin").checked == true ||
-                    document.getElementById("Produktionsleder").checked == true ||
+                    document.getElementById("AdminID").checked == true ||
+                    document.getElementById("ProduktionslederRadio").checked == true ||
                     document.getElementById("Laborant").checked == true))
             {
                 postAnUser();
@@ -303,7 +303,8 @@
             td2.innerHTML = document.getElementById("ini").value;
             td3.innerHTML = document.getElementById("cpr").value;
             td4.innerHTML = document.getElementById("password").value;
-            var userRole = "dummy";
+            var userRole = document.getElementsByName('Roles');
+
             if (document.getElementById("Pharmaceut").checked){
                 userRole = "Pharmaceut";
                 td5.innerHTML = userRole;
