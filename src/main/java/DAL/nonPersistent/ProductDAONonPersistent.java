@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 /***
  * Initial version created by: Andreas
- * Edited by: Andreas,
+ * Edited by: 
  * Created: 15-06-2020
  * This class is responsible for:
  *  Storing information about productbatches in a non persistent manner
