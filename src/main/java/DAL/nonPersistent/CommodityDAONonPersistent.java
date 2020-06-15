@@ -125,7 +125,7 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
         batches.add(newBatch);
     }
 
-    public void updateCommodityBatch(CommodityBatchDTO batch) throws DALException, JunkFormatException {
+    private void updateCommodityBatch(CommodityBatchDTO batch) throws DALException, JunkFormatException {
         boolean found = false;
         for(int i = 0; i<batches.size(); ++i){
             if(batch.getID() == batches.get(i).getID()){
