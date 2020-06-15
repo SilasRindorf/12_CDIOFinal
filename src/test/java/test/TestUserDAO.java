@@ -213,7 +213,10 @@ public class TestUserDAO {
         assertFalse(userDAO.getUser(12).getIsActive());
     }
 
-    // Persistency tests
+    ///////////////////////////////////
+    // Persistency tests belowt
+    ///////////////////////////////////
+
     @Test
     public void testPersistency() throws JunkFormatException, DALException, IOException, ClassNotFoundException {
         //// Persistent after reloading file
@@ -235,10 +238,15 @@ public class TestUserDAO {
             assertEquals(expected.getRole(), got.getRole());
         }
 
+
+
+    }
+    @Test
+    public void canStartWithEmptyFileMultipleTimesWithoutError(){
         // Can start with empty file multiple times
-        file = new File(FileAPI.TEST_USER_DAO_FILE);
+        File file = new File(FileAPI.TEST_USER_DAO_FILE);
         file.delete();
-        dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        IUserDAO dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
         try {
             dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
             assertTrue(true); //reached end of test
@@ -246,16 +254,17 @@ public class TestUserDAO {
             assertTrue(false); //reached end of test
             e.printStackTrace();
         }
-
-
+    }
+    @Test
+    public void persistentSetActive() throws DALException, IOException, ClassNotFoundException, JunkFormatException {
         //Persistent set active
-        file = new File(FileAPI.TEST_USER_DAO_FILE);
+        File file = new File(FileAPI.TEST_USER_DAO_FILE);
         file.delete();
-        dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
-        a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        IUserDAO dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        UserDTO a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, true);
         dao.createUser(a);
         dao.setIsActive(12,false);
-        dao2 = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        IUserDAO dao2 = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
         assertFalse(dao2.getUser(12).getIsActive());
         dao2.setIsActive(12, true);
         UserDAO dao3  = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
