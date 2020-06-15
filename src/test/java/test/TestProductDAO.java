@@ -5,6 +5,7 @@ import DAL.interfaces.IProductDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ProductDAONonPersistent;
 import DTO.IdAndActivatable;
+import DTO.ProductBatchCompDTO;
 import DTO.ProductBatchDTO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,10 +13,7 @@ import org.junit.rules.ExpectedException;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -37,13 +35,15 @@ public class TestProductDAO {
     {
         // Create ProductDAONonPersistent instance.
         IProductDAO batches = new ProductDAONonPersistent();
+        Date date = new Date(2014, 02, 11);
+        List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
 
         List<ProductBatchDTO> productBatches = batches.getBatchList();
         // Before adding anything to the productbatchces, i assume the list has length 0.
         assertTrue(productBatches.size() == 0);
 
         // When adding a new batch, i expect no exceptions.
-        ProductBatchDTO batch = new ProductBatchDTO(1, 1, null,ProductBatchDTO.Status.CREATED,null, true);
+        ProductBatchDTO batch = new ProductBatchDTO(1, 1, date,ProductBatchDTO.Status.CREATED,products, true);
         String message = "";
         try {
             batches.createBatch(batch);
@@ -74,9 +74,11 @@ public class TestProductDAO {
     public void testGetBatch(){
         // Create ProductDAONonPersistent instance.
         IProductDAO batches = new ProductDAONonPersistent();
+        Date date = new Date(2014, 02, 11);
+        List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
 
         // These lines are tested in a previous test, so i assume they work.
-        ProductBatchDTO batch = new ProductBatchDTO(1, 1, null,ProductBatchDTO.Status.CREATED,null, true);
+        ProductBatchDTO batch = new ProductBatchDTO(1, 1, date,ProductBatchDTO.Status.CREATED,products, true);
 
         String message = "";
         try {
@@ -112,9 +114,11 @@ public class TestProductDAO {
     public void testUpdateBatch() {
         // Create ProductDAONonPersistent instance.
         IProductDAO batches = new ProductDAONonPersistent();
+        Date date = new Date(2014, 02, 11);
+        List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
 
         // These lines are tested in a previous test, so i assume they work.
-        ProductBatchDTO batch = new ProductBatchDTO(1, 1, null,ProductBatchDTO.Status.CREATED,null, true);
+        ProductBatchDTO batch = new ProductBatchDTO(1, 1, date,ProductBatchDTO.Status.CREATED,products, true);
 
         String message = "";
         try {
@@ -124,7 +128,7 @@ public class TestProductDAO {
         }
 
         // Tying to update the Status on a productbatch that doesn't exist should throw an exception
-        ProductBatchDTO newbatch = new ProductBatchDTO(1234, 1, null,ProductBatchDTO.Status.IN_PRODUCTION,null, true);
+        ProductBatchDTO newbatch = new ProductBatchDTO(1234, 1, date,ProductBatchDTO.Status.IN_PRODUCTION,products, true);
         message = "";
         try{
             batches.updateBatch(newbatch);
@@ -136,7 +140,7 @@ public class TestProductDAO {
         // When updating a productbatch that exists, the list should stay the same size, and the list should contain
         // the updated object.
 
-        newbatch = new ProductBatchDTO(1, 1, null,ProductBatchDTO.Status.IN_PRODUCTION,null, true);
+        newbatch = new ProductBatchDTO(1, 1, date,ProductBatchDTO.Status.IN_PRODUCTION,products, true);
         int sizebefore= -1, sizeafter = -2;
         try{
             sizebefore = batches.getBatchList().size();
@@ -155,9 +159,11 @@ public class TestProductDAO {
     public void testSetIsActiveBatch(){
         // Create ProductDAONonPersistent instance.
         IProductDAO batches = new ProductDAONonPersistent();
+        Date date = new Date(2014, 02, 11);
+        List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
 
         // These lines are tested in a previous test, so i assume they work.
-        ProductBatchDTO batch = new ProductBatchDTO(1, 1, null,ProductBatchDTO.Status.CREATED,null, true);
+        ProductBatchDTO batch = new ProductBatchDTO(1, 1, date,ProductBatchDTO.Status.CREATED,products, true);
 
         String message = "";
         try {
