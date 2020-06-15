@@ -88,9 +88,28 @@
 </form>
 
 <form method="POST" action="" name="produktbatch1" id="produktbatch1" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <b>Indtast værdier</b> <br>
+    <label for="receptNr">Recept nummer:</label><br>
+    <input type="text" id="receptNr" name="receptNr"><br><br>
+    <label for="dato">Dato:</label><br>
+    <input type="date" id="dato" name="dato"><br><br>
+    <button type="button" onclick="finishCreateBatch()" value="Gå tilbage">Opret batch</button>
+    <button type="button" onclick="goToProduktionsleder()" value="Gå tilbage">Gå tilbage</button>
+
+    <table id="tableBatch" border="1">
+        <thead id="tableBatch-head">
+        <tr>
+            <th>Recept nummer</th>
+            <th>Dato</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+    </table>
+    <!--<button type="button" onclick="createProduktBatch()">Opret batch</button>
     <button type="button" onclick="goToProduktbatch2()">Opret ny produktbatch</button>
     <button type="button" onclick="goToProduktbatch3()">Vis produktbatches</button>
     <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
+    -->
 </form>
 
 <form method="POST" action="" name="produktbatch2" id="produktbatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
@@ -101,6 +120,7 @@
     <input type="date" id="dato" name="dato"><br><br>
     <input type="button" onclick="goToProduktionsleder()" value="Gå tilbage">
     <button type="button" onclick="createProduktBatch()">Opret batch</button>
+
 </form>
 
 <form method="POST" action="" name="produktbatch3" id="produktbatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
@@ -239,37 +259,15 @@
             hideall();
             document.getElementById("produktbatch1").style.visibility = "visible";
         }
-        function goToProduktbatch2() {
-            hideall();
-            document.getElementById("produktbatch2").style.visibility = "visible";
-        }
-        function goToProduktbatch3() {
-            hideall();
-            document.getElementById("produktbatch3").style.visibility = "visible";
-            getAllProduktBatches("produktbatchList");
-        }
-        function createProduktBatch() {
-            if(!document.getElementById("receptNr").value =="" &&
-                !document.getElementById("dato") =="")
-            {
-                postAnProduktBatch();
-                resetProduktBatch2();
-                goToProduktionsleder();
-            }else{
-                alert("Please fill out all the fields!")
-            }
-        }
-        function resetProduktBatch2() {
-            document.getElementById("receptNr").value = "";
-        }
+
         function finishCreateUser() {
             if (!document.getElementById("uname").value == "" &&
                 !document.getElementById("ini").value == "" &&
                 !document.getElementById("cpr").value == "" &&
                 !document.getElementById("password").value == "" &&
                 (document.getElementById("Pharmaceut").checked == true ||
-                    document.getElementById("AdminID").checked == true ||
-                    document.getElementById("ProduktionslederRadio").checked == true ||
+                    document.getElementById("Admin").checked == true ||
+                    document.getElementById("Produktionsleder").checked == true ||
                     document.getElementById("Laborant").checked == true))
             {
                 postAnUser();
@@ -292,7 +290,6 @@
             td3.innerHTML = document.getElementById("cpr").value;
             td4.innerHTML = document.getElementById("password").value;
             var userRole = document.getElementsByName('Roles');
-
             if (document.getElementById("Pharmaceut").checked){
                 userRole = "Pharmaceut";
                 td5.innerHTML = userRole;
@@ -447,6 +444,26 @@
         function goLogIn() {
             hideall();
             document.getElementById("logInForm").style.visibility = "visible";
+        }
+        function finishCreateBatch() {
+            var tableBody = document.getElementById("tableBatch");
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            var td3 = document.createElement("td");
+            var row = document.createElement("tr");
+            var status = "Oprettet"
+            td1.innerHTML = document.getElementById("receptNr").value;
+            td2.innerHTML = document.getElementById("dato").value;
+            td3.innerHTML = status;
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
+            tableBody.appendChild(row);
+            resetValuesCreateBatch();
+        }
+        function resetValuesCreateBatch(){
+            document.getElementById("receptNr").value = "";
+            document.getElementById("dato").value = "";
         }
         var uname;
         var password;
