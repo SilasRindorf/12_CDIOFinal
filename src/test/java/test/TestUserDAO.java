@@ -5,6 +5,7 @@ import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.UserDAONonPersistent;
 import DAL.nonPersistent.DummyDataGenerator;
+import DAL.persistent.FileAPI;
 import DAL.persistent.UserDAO;
 import DTO.IdAndActivatable;
 import DTO.UserDTO;
@@ -12,6 +13,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -209,5 +212,56 @@ public class TestUserDAO {
         assertEquals(message, "The user activity is already false");
         assertFalse(userDAO.getUser(12).getIsActive());
     }
+
+    // Persistency tests
+    @Test
+    public void testPersistency() throws JunkFormatException, DALException, IOException, ClassNotFoundException {
+        //// Persistent after reloading file
+        File file = new File(FileAPI.TEST_USER_DAO_FILE);
+        file.delete();
+        IUserDAO dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        DummyDataGenerator generator = new DummyDataGenerator(13);
+        UserDTO a = new UserDTO(11,"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        dao.createUser(a);
+        IUserDAO dao2 = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        for(int i = 0; i<dao.getUserList().size(); ++i) {
+            UserDTO expected = dao.getUserList().get(i);
+            UserDTO got = dao2.getUserList().get(i);
+            assertEquals(expected.getID(), got.getID());
+            assertEquals(expected.getIsActive(), got.getIsActive());
+            assertEquals(expected.getCPR(), got.getCPR());
+            assertEquals(expected.getHashedPass(), got.getHashedPass());
+            assertEquals(expected.getIni(), got.getIni());
+            assertEquals(expected.getRole(), got.getRole());
+        }
+
+        // Can start with empty file multiple times
+        file = new File(FileAPI.TEST_USER_DAO_FILE);
+        file.delete();
+        dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        try {
+            dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+            assertTrue(true); //reached end of test
+        }catch(Exception e){
+            assertTrue(false); //reached end of test
+            e.printStackTrace();
+        }
+
+
+        //Persistent set active
+        file = new File(FileAPI.TEST_USER_DAO_FILE);
+        file.delete();
+        dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        dao.createUser(a);
+        dao.setIsActive(12,false);
+        dao2 = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        assertFalse(dao2.getUser(12).getIsActive());
+        dao2.setIsActive(12, true);
+        UserDAO dao3  = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
+        assertTrue(dao3.getUser(12).getIsActive());
+    }
+
+
 }
 
