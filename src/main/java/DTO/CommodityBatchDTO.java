@@ -35,6 +35,7 @@ public class CommodityBatchDTO extends IdAndActivatable {
     public String toString() {
         return "CommodityBatchDTO{" + " | " +
                 "commodityBatchNr=" + getID() + " | " +
+                "commodityNr=" + commodityNr + " | " +
                 ", amount=" + amount + " | " +
                 ", provider='" + provider + '\'' + " | " +
                 "isActive=" + getIsActive() + '}';
