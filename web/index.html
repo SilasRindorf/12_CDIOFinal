@@ -24,8 +24,6 @@
 
 <form method="POST" action="" name="welcome" id="welcome" style="position: absolute; left: 50px; top: 50px; visibility: hidden;" >
     <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
-    <button type="button" onclick="goToCreateUser()">Opret en bruger</button>
-    <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
     <button type="button" onclick="goToAdmin()">Administrator</button>
     <button type="button" onclick="goToProduktionsleder()">Produktionsleder</button>
     <button type="button" onclick="goToAfvejning1()">Laborant</button>
@@ -91,13 +89,10 @@
 
     <form method="POST" action="" name="administrator" id="administrator"
           style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-        <button type="button" onclick="goToCreateUser()">Opret en bruger </button>
-        <button type="button" onclick="goToDeleteUser()">Vis brugere </button>
-        <button type="button" onclick="goLogIn()">LogOut</button>
+
     </form>
 
-    <form method="POST" action="" name="createUser" id="createUser" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-        <button type="button" onclick="returnToStart();">Tilbage til start</button>
+    <form method="POST" action="" name="admin" id="admin" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
         <p>Brugernavn</p>
         <input type="text" id="uname" name="uname">
         <p>Initialer</p>
@@ -106,16 +101,35 @@
         <input type="text" id="cpr" name="cpr">
         <p>Password</p>
         <input type="text" id="password" name="password">
+
         <p>Rolle</p>
         <input type="radio" id="Pharmaceut" name="Roles" value="Pharmaceut">
         <label for="Pharmaceut"> Pharmaceut</label><br>
-        <input type="radio" id="Admin" name="Roles" value="Admin">
-        <label for="Admin"> Admin</label><br>
+
+        <input type="radio" id="AdminID" name="Roles" value="Admin">
+        <label for="AdminID"> Admin</label><br>
+
         <input type="radio" id="ProduktionslederRadio" name="Roles" value="Produktionsleder">
         <label for="ProduktionslederRadio"> Produktionsleder</label><br>
+
         <input type="radio" id="Laborant" name="Roles" value="Laborant">
         <label for="Laborant"> Laborant</label><br>
+
+        <button type="button" onclick="goLogIn()">LogOut</button>
         <button type="button" onclick="finishCreateUser();">Opret bruger</button>
+        <table id="table_user" border="1">
+            <thead id="table-head_user">
+            <tr>
+                <th>Brugernavn</th>
+                <th>Initialer</th>
+                <th>Cpr-nummer</th>
+                <th>Password</th>
+                <th>Rolle</th>
+            </tr>
+            </thead>
+            <tbody id="table-body_user">
+            </tbody>
+        </table>
     </form>
 
     <form method="POST" action="" id="finish" style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
@@ -124,7 +138,7 @@
     </form>
 
     <form method="POST" action="" id="deleteUser" style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
-        <p>Who do you want to delete?</p>
+        <p>See all these beautiful members of the community</p>
         <div id="userList"></div>
         <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
     </form>
@@ -223,14 +237,14 @@
             document.getElementById("Produktionsleder").checked = false;
             document.getElementById("Laborant").checked = false;
         }
-        function goToCreateUser() {
+        function goToAdmin() {
             document.getElementById("administrator").style.visibility = "hidden";
             document.getElementById("welcome").style.visibility = "hidden";
-            document.getElementById("createUser").style.visibility = "visible";
+            document.getElementById("admin").style.visibility = "visible";
         }
         function returnToStart() {
             document.getElementById("welcome").style.visibility = "visible";
-            document.getElementById("createUser").style.visibility = "hidden";
+            document.getElementById("admin").style.visibility = "hidden";
             resetValues();
         }
         function goToProduktbatch1() {
@@ -271,15 +285,48 @@
                     document.getElementById("Laborant").checked == true))
             {
                 postAnUser();
-
                 resetValues();
-
-                document.getElementById("createUser").style.visibility = "hidden";
-                document.getElementById("finish").style.visibility = "visible";
             }
             else {
                 alert("Please fill out all the fields!");
             }
+        }
+        function postAnUser() {
+            var tableBody = document.getElementById("table-body_user");
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            var td3 = document.createElement("td");
+            var td4 = document.createElement("td");
+            var td5 = document.createElement("td");
+            var row = document.createElement("tr");
+            td1.innerHTML = document.getElementById("uname").value;
+            td2.innerHTML = document.getElementById("ini").value;
+            td3.innerHTML = document.getElementById("cpr").value;
+            td4.innerHTML = document.getElementById("password").value;
+            var userRole = "dummy";
+            if (document.getElementById("Pharmaceut").checked){
+                userRole = "Pharmaceut";
+                td5.innerHTML = userRole;
+            }
+            if (document.getElementById("AdminID").checked){
+                userRole = "Admin";
+                td5.innerHTML = userRole;
+            }
+            if (document.getElementById("ProduktionslederRadio").checked){
+                userRole = "Produktionsleder";
+                td5.innerHTML = userRole;
+            }
+            if (document.getElementById("Laborant").checked){
+                userRole = "Laborant";
+                td5.innerHTML = userRole;
+            }
+
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
+            row.appendChild(td4);
+            row.appendChild(td5);
+            tableBody.appendChild(row);
         }
         function goToWelcomeFromFinish() {
             hideall();
@@ -295,11 +342,6 @@
             document.getElementById("deleteUser").style.visibility = "visible";
             document.getElementById("title").innerHTML = "User list";
             getAllUsers("userList");
-        }
-        function goToAdmin() {
-            hideall();
-            document.getElementById("administrator").style.visibility = "visible";
-            document.getElementById("title").innerHTML = "User list";
         }
         function goToProduktionsleder() {
             hideall();
@@ -362,7 +404,7 @@
             // document.getElementById("produktbatch3").style.visibility = "hidden"
             document.getElementById("deleteUser").style.visibility = "hidden";
             document.getElementById("finish").style.visibility = "hidden";
-            document.getElementById("createUser").style.visibility = "hidden";
+            document.getElementById("admin").style.visibility = "hidden";
             document.getElementById("afvejning1").style.visibility = "hidden";
             document.getElementById("afvejning2").style.visibility = "hidden";
             document.getElementById("statusOprettet").style.visibility = "hidden";
@@ -426,7 +468,7 @@
         }
         function goLogIn() {
             hideall();
-            logIn();
+            document.getElementById("logInForm").style.visibility = "visible";
         }
         var uname;
         var password;
