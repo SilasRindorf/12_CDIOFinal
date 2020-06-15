@@ -8,7 +8,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="CSS/frontpage.css">
-    <script type="text/javascript" src="javascript/JSON_actions.js"></script>
+    <script type="text/javascript" src="../javascript/JSON_actions.js"></script>
     <title>Apotek</title>
   </head>
   <body>
