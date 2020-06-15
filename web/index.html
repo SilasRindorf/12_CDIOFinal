@@ -15,9 +15,7 @@
     -->
 <form method="POST" action="" name="welcome" id="welcome" style="position: absolute; left: 50px; top: 50px;">
     <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
-
     <button type="button" onclick="goToCreateUser()">Opret en bruger</button>
-
     <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
     <button type="button" onclick="goToAdmin()">Administrator</button>
     <button type="button" onclick="goToProduktionsleder()">Produktionsleder</button>
@@ -26,9 +24,7 @@
 </form>
 
 <form method="POST" action="" name="produktionsleder" id="produktionsleder" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-
     <button type="button" onclick="goToRaavarebatch1()">Ændre på råvarebatchs</button>
-
     <button type="button" onclick="goToProduktbatch1()">Ændre på produktionsbatches</button>
     <button type="button" onclick="goToAfvejning1()">Gå til afvejning</button>
     <button type="button" onclick="goLogIn()">LogOut</button>
@@ -36,11 +32,8 @@
 
 <form method="POST" action="" name="raavarebatch1" id="raavarebatch1" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <button type="button" onclick="goToRaavarebatch2()">Opret ny råvarebatch</button>
-
     <button type="button" onclick="goToRaavarebatch3()">Vis råvarebatch</button>
-
     <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
-
 </form>
 
 <form method="POST" action="" name="raavarebatch3" id="raavarebatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
@@ -50,29 +43,23 @@
 
 <form method="POST" action="" name="produktbatch1" id="produktbatch1" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <button type="button" onclick="goToProduktbatch2()">Opret ny produktbatch</button>
-
     <button type="button" onclick="goToProduktbatch3()">Vis produktbatches</button>
-
     <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
 </form>
 
 <form method="POST" action="" name="produktbatch2" id="produktbatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-    <b>Indtast værider</b> <br>
+    <b>Indtast værdier</b> <br>
     <label for="receptNr">Recept nummer:</label><br>
     <input type="text" id="receptNr" name="receptNr"><br><br>
     <label for="dato">Dato:</label><br>
     <input type="date" id="dato" name="dato"><br><br>
     <input type="button" onclick="goToRaavarebatch1()" value="Gå tilbage">
-
     <button type="button" onclick="createProduktBatch()">Opret batch</button>
-
 </form>
 
 <form method="POST" action="" name="produktbatch3" id="produktbatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-
     <div id="produktbatchList"></div> <br>
     <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
-
 </form>
 
 
@@ -91,7 +78,6 @@
         <input type="text" id="maengde" name="maengde"><br><br>
         <input type="button" onclick="goToRaavarebatch1()" value="Gå tilbage">
         <input type="submit" value="Submit">
-
     </form>
 
     <form method="POST" action="" name="administrator" id="administrator"
@@ -101,8 +87,7 @@
         <button type="button" onclick="goLogIn()">LogOut</button>
     </form>
 
-    <form method="POST" action="" name="createUser" id="createUser"
-          style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <form method="POST" action="" name="createUser" id="createUser" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
         <button type="button" onclick="returnToStart();">Tilbage til start</button>
         <p>Brugernavn</p>
         <input type="text" id="uname" name="uname">
@@ -124,12 +109,8 @@
         <button type="button" onclick="finishCreateUser();">Opret bruger</button>
     </form>
 
-    <form method="POST" action="" id="finish"
-          style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
+    <form method="POST" action="" id="finish" style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
         <p>You did it, you crazy son of a bitch</p>
-
-
-
         <button type="button" onclick="goToWelcomeFromFinish()"><bs>Tilbage til start</bs></button>
     </form>
 
@@ -204,7 +185,6 @@
         <input type="text" id="maengdeRecept" for="maengdeRecept" name="maengdeRecept"><br><br>
         <label  for="tolerance" >Indtast tolerancen: </label>
         <input type="text" id="tolerance" for="tolerance" name="receptNavn"><br><br>
-
         <table id="tableRecept" border="1">
             <thead id="tableRecept-head">
             <tr>
@@ -234,13 +214,11 @@
             document.getElementById("Produktionsleder").checked = false;
             document.getElementById("Laborant").checked = false;
         }
-
         function goToCreateUser() {
             document.getElementById("administrator").style.visibility = "hidden";
             document.getElementById("welcome").style.visibility = "hidden";
             document.getElementById("createUser").style.visibility = "visible";
         }
-
         function returnToStart() {
             document.getElementById("welcome").style.visibility = "visible";
             document.getElementById("createUser").style.visibility = "hidden";
@@ -250,7 +228,6 @@
             hideall();
             document.getElementById("produktbatch1").style.visibility = "visible";
         }
-
         function goToProduktbatch2() {
             hideall();
             document.getElementById("produktbatch2").style.visibility = "visible";
@@ -295,19 +272,15 @@
                 alert("Please fill out all the fields!");
             }
         }
-
         function goToWelcomeFromFinish() {
             hideall();
             document.getElementById("welcome").style.visibility = "visible";
         }
-
         function goToWelcomeFromDelete() {
             hideall();
             document.getElementById("welcome").style.visibility = "visible";
             document.getElementById("title").innerHTML = "Welcome";
-
         }
-
         function goToDeleteUser() {
             hideall();
             document.getElementById("deleteUser").style.visibility = "visible";
@@ -367,7 +340,6 @@
             document.getElementById("statusOprettet").style.visibility = "visible";
             document.getElementById("statusUnderProduktion").style.visibility = "hidden";
         }
-
         function hideall() {
             document.getElementById("welcome").style.visibility = "hidden";
             document.getElementById("administrator").style.visibility = "hidden";
@@ -390,7 +362,6 @@
             document.getElementById("recept2").style.visibility = "hidden";
             document.getElementById("recept3").style.visibility = "hidden";
         }
-
         function addProductbatchComponent() {
             var tableBody = document.getElementById("table-body");
             var td1 = document.createElement("td");
@@ -446,7 +417,6 @@
         function goLogIn() {
             hideall();
         }
-
     </script>
 </body>
 <head>
