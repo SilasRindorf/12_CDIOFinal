@@ -107,16 +107,6 @@
     </table>
 </form>
 
-<form method="POST" action="" name="produktbatch2" id="produktbatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-    <b>Indtast værdier</b> <br>
-    <label for="receptNr">Recept nummer:</label><br>
-    <input type="text" id="receptNr" name="receptNr"><br><br>
-    <label for="dato">Dato:</label><br>
-    <input type="date" id="dato" name="dato"><br><br>
-    <input type="button" onclick="goToProduktionsleder()" value="Gå tilbage">
-    <button type="button" onclick="createProduktBatch()">Opret batch</button>
-
-</form>
 
 <form method="POST" action="" name="produktbatch3" id="produktbatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <div id="produktbatchList"></div> <br>
@@ -261,8 +251,8 @@
                 !document.getElementById("cpr").value == "" &&
                 !document.getElementById("password").value == "" &&
                 (document.getElementById("Pharmaceut").checked == true ||
-                    document.getElementById("Admin").checked == true ||
-                    document.getElementById("Produktionsleder").checked == true ||
+                    document.getElementById("AdminID").checked == true ||
+                    document.getElementById("ProduktionslederRadio").checked == true ||
                     document.getElementById("Laborant").checked == true))
             {
                 postAnUser();
@@ -370,7 +360,6 @@
             document.getElementById("produktionsleder").style.visibility = "hidden";
             document.getElementById("raavarebatch").style.visibility = "hidden";
             document.getElementById("produktbatch1").style.visibility = "hidden"
-            document.getElementById("produktbatch2").style.visibility = "hidden"
             // document.getElementById("produktbatch3").style.visibility = "hidden"
             document.getElementById("deleteUser").style.visibility = "hidden";
             document.getElementById("finish").style.visibility = "hidden";
