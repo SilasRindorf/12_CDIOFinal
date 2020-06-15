@@ -4,6 +4,7 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
+import DTO.CommodityBatchDTO;
 import DTO.CommodityDTO;
 import DTO.UserDTO;
 
@@ -48,8 +49,28 @@ public class DummyDataGenerator {
                 continue;
             }
         }
-
     }
 
+    public CommodityBatchDTO randomCB(){
+            return new CommodityBatchDTO(
+                    rand.nextInt(100),
+                    rand.nextInt(100),
+                    rand.nextDouble()*3600,
+                    ""+randChar()+randChar()+randChar()+randChar(),
+                    true);
+    }
+
+    public void generateCommodityBatches(ICommodityDAO dao){
+        generateCommodities(dao);
+        for(int i = 0; i<100; ++i){
+            try {
+                dao.createCommodityBatch(randomCB());
+            } catch (DALException e) {
+                continue;
+            } catch (JunkFormatException e) {
+                continue;
+            }
+        }
+    }
 }
 
