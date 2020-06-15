@@ -92,9 +92,9 @@ public class TestCommodityDAO {
         assertTrue(dao.getCommodity(28).getIsActive());
     }
 
-    //public void getCommodityBatchTest() throws DALException{
-    //
-    //}
+    public void getCommodityBatchTest() throws DALException{
+
+    }
 
     //List<CommodityBatchDTO> getCommodityBatchList() throws DALException;
     //List<CommodityBatchDTO> getCommodityBatchList(int commodityID) throws DALException;
