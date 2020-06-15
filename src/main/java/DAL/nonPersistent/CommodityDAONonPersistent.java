@@ -16,6 +16,7 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     private List<CommodityBatchDTO> batches;
     public CommodityDAONonPersistent() {
         this.commodities = new ArrayList<>();
+        this.batches = new ArrayList<>();
     }
 
     @Override
@@ -152,7 +153,7 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
         }
         CommodityBatchDTO newC = new CommodityBatchDTO(c.getID(),c.getCommodityNr(),c.getAmount(),c.getProvider(),isActive);
         try {
-            createCommodityBatch(newC);
+            updateCommodityBatch(newC);
         } catch (JunkFormatException e) {
             throw new AssertionError("Changing isActive should not result in " +
                     "JunkFormatException, since it should only modify one and only one variable (isActive). " +

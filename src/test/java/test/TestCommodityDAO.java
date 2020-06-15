@@ -92,12 +92,69 @@ public class TestCommodityDAO {
         assertTrue(dao.getCommodity(28).getIsActive());
     }
 
+    @Test
     public void getCommodityBatchTest() throws DALException{
-
+        DummyDataGenerator dummy = new DummyDataGenerator(13);
+        ICommodityDAO dao = new CommodityDAONonPersistent();
+        dummy.generateCommodityBatches(dao);
+        // Does exist in dao after generation:
+        //CommodityBatchDTO{ | commodityBatchNr=13 | , amount=2615.7841831099936 | , provider='ITKT' | isActive=true}
+        //for(int i = 0; i<dao.getCommodityBatchList().size(); ++i){
+        //    System.out.println(dao.getCommodityBatchList().get(i));
+        //}
+        CommodityBatchDTO gotten = dao.getCommodityBatch(13);
+        CommodityBatchDTO expected = new CommodityBatchDTO(13, 40, -1234, "ITKT", true);
+        assertEquals(gotten.getID(), expected.getID());
+        assertEquals(gotten.getIsActive(), expected.getIsActive());
+        // Not testing double as it is quite imprecise
+        assertEquals(gotten.getCommodityNr(), expected.getCommodityNr());
+        assertEquals(gotten.getProvider(), expected.getProvider());
     }
 
-    //List<CommodityBatchDTO> getCommodityBatchList() throws DALException;
-    //List<CommodityBatchDTO> getCommodityBatchList(int commodityID) throws DALException;
-    //void createCommodityBatch(CommodityBatchDTO commodityBatch) throws DALException, JunkFormatException;
-    //void setIsActiveBatch(int cbId, boolean isActive) throws DALException;
+
+
+    @Test
+    public void createCommodityBatchTest() throws DALException, JunkFormatException{
+        DummyDataGenerator dummy = new DummyDataGenerator(13);
+        ICommodityDAO dao = new CommodityDAONonPersistent();
+        dummy.generateCommodityBatches(dao);
+        CommodityBatchDTO expect = new CommodityBatchDTO(46, 40, 1234, "Whomst", true);
+        dao.createCommodityBatch(expect);
+        CommodityBatchDTO gotten = dao.getCommodityBatch(46);
+        assertEquals(gotten.getID(), expect.getID());
+        assertEquals(gotten.getIsActive(), expect.getIsActive());
+        // Not testing double as it is quite imprecise
+        assertEquals(gotten.getCommodityNr(), expect.getCommodityNr());
+        assertEquals(gotten.getProvider(), expect.getProvider());
+
+
+    }
+    @Test
+    public void setIsActiveBatchTest() throws DALException{
+        DummyDataGenerator dummy = new DummyDataGenerator(13);
+        ICommodityDAO dao = new CommodityDAONonPersistent();
+        dummy.generateCommodityBatches(dao);
+        // Does exist in dao after generation:
+        //CommodityBatchDTO{ | commodityBatchNr=13 | , amount=2615.7841831099936 | , provider='ITKT' | isActive=true}
+        assertTrue(dao.getCommodityBatch(13).getIsActive());
+        dao.setIsActiveBatch(13,false);
+        assertFalse(dao.getCommodityBatch(13).getIsActive());
+
+            dao.setIsActiveBatch(13,true);
+        try{
+            dao.setIsActiveBatch(13,true);
+            assertTrue(false);
+        }catch(DALException e){
+            assertTrue(true);
+        }
+
+        dao.setIsActiveBatch(13,false);
+        try{
+            dao.setIsActiveBatch(13,false);
+            assertTrue(false);
+        }catch(DALException e){
+            assertTrue(true);
+        }
+
+    }
 }
