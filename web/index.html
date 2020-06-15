@@ -7,13 +7,22 @@
 <script type="text/javascript" src="frontend/JSON_Actions.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-<h1 id="title">Welcome</h1>
+<h1 id="title">Velkommen til apotekets hjemmeside</h1>
 <!--
     <form method="POST" action="authentication.html">
         <input type = "submit" value="Login">
     </form>
     -->
-<form method="POST" action="" name="welcome" id="welcome" style="position: absolute; left: 50px; top: 50px;">
+<form method="post" action="" name="logInForm" id="logInForm" style="position: absolute;">
+    <p>Brugernavn</p>
+    <input type="text" for="uname" name="uname">
+    <p>Password</p>
+    <input type="text" for="password" name="password">
+    <br>
+    <button type="button" onclick="logIn();">Log ind</button>
+</form>
+
+<form method="POST" action="" name="welcome" id="welcome" style="position: absolute; left: 50px; top: 50px; visibility: hidden;" >
     <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
     <button type="button" onclick="goToCreateUser()">Opret en bruger</button>
     <button type="button" onclick="goToDeleteUser()">Se brugere & slet brugere</button>
@@ -341,6 +350,7 @@
             document.getElementById("statusUnderProduktion").style.visibility = "hidden";
         }
         function hideall() {
+            document.getElementById("logInForm").style.visibility = "hidden";
             document.getElementById("welcome").style.visibility = "hidden";
             document.getElementById("administrator").style.visibility = "hidden";
             document.getElementById("produktionsleder").style.visibility = "hidden";
@@ -416,6 +426,16 @@
         }
         function goLogIn() {
             hideall();
+            logIn();
+        }
+        var uname;
+        var password;
+        function logIn(){
+            hideall();
+            /*uname = document.getElementById("uname").value;
+            password = document.getElementById("password").value;
+            action(uname,password,"rest/actions/confirm-log-in");*/
+            document.getElementById("welcome").style.visibility = "visible";
         }
     </script>
 </body>
