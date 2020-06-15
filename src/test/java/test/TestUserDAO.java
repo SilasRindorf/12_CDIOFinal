@@ -214,7 +214,7 @@ public class TestUserDAO {
     }
 
     ///////////////////////////////////
-    // Persistency tests belowt
+    // Persistency tests below
     ///////////////////////////////////
 
     @Test
@@ -237,10 +237,8 @@ public class TestUserDAO {
             assertEquals(expected.getIni(), got.getIni());
             assertEquals(expected.getRole(), got.getRole());
         }
-
-
-
     }
+
     @Test
     public void canStartWithEmptyFileMultipleTimesWithoutError(){
         // Can start with empty file multiple times
@@ -270,7 +268,6 @@ public class TestUserDAO {
         UserDAO dao3  = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
         assertTrue(dao3.getUser(12).getIsActive());
     }
-
 
 }
 
