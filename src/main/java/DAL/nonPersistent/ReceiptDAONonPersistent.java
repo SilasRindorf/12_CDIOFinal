@@ -1,3 +1,12 @@
+/***
+ * Initial version created by: Alexander
+ * Edited by:
+ * Created: 15-06-2020
+ * This class is responsible for:
+ *  Storing information about receipts in a non persistent manner
+ *  Assuring wrong or illegal information is not stored
+ */
+
 package DAL.nonPersistent;
 
 import DAL.interfaces.DALException;
@@ -12,13 +21,13 @@ import java.util.List;
 
 
 
-public class ReceiptDAONonP implements IReceiptDAO {
+public class ReceiptDAONonPersistent implements IReceiptDAO {
     List<String> reciptList = new ArrayList<String>();
     @Override
     public ReceiptDTO getReceipt(int receiptID) throws DALException {
-        List<ReceiptCompDTO> compList  = new ArrayList<ReceiptCompDTO>();
 
         for(String line : reciptList){
+            List<ReceiptCompDTO> compList  = new ArrayList<ReceiptCompDTO>();
             int id = Integer.parseInt(line.split(" ")[0]);
             if(id == receiptID){
                 String[] lineA = line.split(" ");
@@ -35,17 +44,18 @@ public class ReceiptDAONonP implements IReceiptDAO {
             }
         }
 
-        return null;
+        throw new DALException("ID ikke i systemet");
     }
 
     @Override
     public List<ReceiptDTO> getReceiptList() throws DALException {
 
-        List<ReceiptCompDTO> compList  = new ArrayList<ReceiptCompDTO>();
+
         List<ReceiptDTO> reciptListReturn = new ArrayList<>(); //Kunne bare retunere reciptList, men da den skal skiftes ud med en txt fil, gøres det på denne måde.
         for(String line : reciptList){
+            List<ReceiptCompDTO> compList  = new ArrayList<ReceiptCompDTO>();
             String[] lineA = line.split(" ");
-            for(int i = 2; i < lineA.length; i++){
+            for(int i = 2; i < lineA.length - 2; i++){
                 ReceiptCompDTO comp = new ReceiptCompDTO(Integer.parseInt(lineA[i]), Double.parseDouble(lineA[i+1]), Double.parseDouble(lineA[i +2]));
                 compList.add(comp);
                     i += 2;
@@ -61,7 +71,14 @@ public class ReceiptDAONonP implements IReceiptDAO {
     }
 
     @Override
-    public void createReceipt(ReceiptDTO receipt) throws DALException, JunkFormatException {
+    public void createReceipt(ReceiptDTO receipt) throws DALException {
+
+        for(String line : reciptList){
+            int id = Integer.parseInt(line.split(" ")[0]);
+            if(receipt.getID() == id) {
+                throw new DALException("Vælg et ikke brugt id");
+            }
+        }
         String line = receipt.getID() + " "+ receipt.getName() + " ";
         for(ReceiptCompDTO x : receipt.getReceiptComps()){
             line = line + x.getCommodity() + " ";
@@ -87,7 +104,11 @@ public class ReceiptDAONonP implements IReceiptDAO {
             String[] lineA = reciptList.get(i).split(" ");
             if(Integer.parseInt(lineA[0]) == receiptID){
                 lineA[lineA.length -1 ] = status;
-                reciptList.add(i, Arrays.toString(lineA));
+                String line = "";
+                for(String s : lineA)
+                    line = line + s + " ";
+
+                reciptList.add(i, line);
                 return;
             }
         }
