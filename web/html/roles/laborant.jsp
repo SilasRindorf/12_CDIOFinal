@@ -12,5 +12,10 @@
 </head>
 <body>
 
+<form method="POST" action="" name="laborant" id="laborant" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <button type="button" onclick="goToAfvejning1()">Gå til afvejning</button>
+    <button type="button" onclick="logIn()">Log ud</button>
+</form>
+
 </body>
 </html>
