@@ -67,7 +67,7 @@
 
 <form method="POST" action="" name="produktionsleder" id="produktionsleder" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <button type="button" onclick="goToRaavarebatch()">Råvarebatches</button>
-    <button type="button" onclick="goToProduktbatch1()">Ændre på produktionsbatches</button>
+    <button type="button" onclick="goToProduktbatch1()">Produktionsbatches</button>
     <button type="button" onclick="goToAfvejning1()">Gå til afvejning</button>
     <button type="button" onclick="goLogIn()">LogOut</button>
 </form>
@@ -105,11 +105,6 @@
         </tr>
         </thead>
     </table>
-    <!--<button type="button" onclick="createProduktBatch()">Opret batch</button>
-    <button type="button" onclick="goToProduktbatch2()">Opret ny produktbatch</button>
-    <button type="button" onclick="goToProduktbatch3()">Vis produktbatches</button>
-    <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
-    -->
 </form>
 
 <form method="POST" action="" name="produktbatch2" id="produktbatch2" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
@@ -133,10 +128,13 @@
     <b>Indtast værdier</b> <br>
     <label for="raavarebatchNr">Råvarebatch Nr: </label><br>
     <input type="text" id="raavarebatchNr" for="raavarebatchNr" name="raavarebatchNr"><br><br>
-    <label for="RaavareID">RåvareID: </label><br>
-    <input type="text" id="RaavareID" for="RaavareID" name="RaavareID"><br><br>
+    <label for="raavareID">RåvareID: </label><br>
+    <input type="text" id="raavareID" for="raavareID" name="raavareID"><br><br>
     <label for="maengde">Mængde: </label><br>
     <input type="text" id="maengde" for="maengde" name="maengde"><br><br>
+    <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
+    <button type="button" onclick="createRaavarebatchComponent()">Tilføj råvarebatch komponent</button>
+    </table>
     <table id="table_raavarebatch" border="1">
         <thead id="table-head_raavarebatch">
         <tr>
@@ -145,11 +143,8 @@
             <th>Mængde</th>
         </tr>
         </thead>
-        <tbody id="table-body_raavarebatch">
-        </tbody>
     </table>
-    <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
-    <button type="button" onclick="createRaavarebatchComponent()">Tilføj råvarebatch komponent</button>
+
 </form>
 
     <form method="POST" action="" id="finish" style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
@@ -483,11 +478,18 @@
             td1.innerHTML = document.getElementById("raavarebatchNr").value;
             td2.innerHTML = document.getElementById("raavareID").value;
             td3.innerHTML = document.getElementById("maengde").value;
-            row.removeChild(td1);
-            row.removeChild(td2);
-            row.removeChild(td3);
-            tableBody.removeChild(row);
+            row.appendChild(td1);
+            row.appendChild(td2);
+            row.appendChild(td3);
+            tableBody.appendChild(row);
+            resetValuesCreateRaavarebatch();
         }
+        function resetValuesCreateRaavarebatch(){
+            document.getElementById("raavarebatchNr").value = "";
+            document.getElementById("raavareID").value = "";
+            document.getElementById("maengde").value = "";
+        }
+
     </script>
 </body>
 <head>
