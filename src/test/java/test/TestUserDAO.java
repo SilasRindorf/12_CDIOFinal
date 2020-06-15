@@ -240,7 +240,7 @@ public class TestUserDAO {
     }
 
     @Test
-    public void canStartWithEmptyFileMultipleTimesWithoutError(){
+    public void canStartWithEmptyFileMultipleTimesWithoutError() throws IOException, ClassNotFoundException {
         // Can start with empty file multiple times
         File file = new File(FileAPI.TEST_USER_DAO_FILE);
         file.delete();
