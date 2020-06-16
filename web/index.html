@@ -21,7 +21,7 @@
     <input type="text" for="uname" name="uname">
     <p>Password</p>
     <input type="text" for="password" name="password">
-    <br>
+    <br><br>
     <button type="button" onclick="logIn()">Log ind</button>
 </form>
 
@@ -163,7 +163,8 @@
 </form>
 <!----------------------------------------Laborant forms------------------------------------------------------->
 
-<form method="POST" action="" name="afvejning1_Laborant" id="afvejning1_Laborant" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+<form method="POST" action="" name="afvejning1_Laborant" id="afvejning1_Laborant"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <label for="productbatchID_Laborant">Produktbatch ID:</label>
     <input type="text" id="productbatchID_Laborant" name="productbatchID"><br><br>
     <button type="button" onclick="goLogIn()">Log ud</button>
@@ -238,7 +239,8 @@
       style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <b>Indtast værdier</b> <br>
     <label for="raavarebatchNr">Råvarebatch Nr: </label><br>
-    <input type="text" id="raavarebatchNrFarmaceut" for="raavarebatchNrFarmaceut" name="raavarebatchNrFarmaceut"><br><br>
+    <input type="text" id="raavarebatchNrFarmaceut" for="raavarebatchNrFarmaceut"
+           name="raavarebatchNrFarmaceut"><br><br>
     <label for="raavareID">RåvareID: </label><br>
     <input type="text" id="raavareIDFarmaceut" for="raavareIDFarmaceut" name="raavareIDFarmaceut"><br><br>
     <label for="maengde">Mængde: </label><br>
@@ -319,7 +321,13 @@
     <button type="button" onclick="finishRecept()">Færdigør</button>
 </form>
 
-<form method="POST" action="" name="afvejning1_Farmaceut" id="afvejning1_Farmaceut" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+<form method="POST" action="" name="recept4" id="recept4"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+
+</form>
+
+<form method="POST" action="" name="afvejning1_Farmaceut" id="afvejning1_Farmaceut"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <label for="productbatchID_Farmaceut">Produktbatch ID:</label>
     <input type="text" id="productbatchID_Farmaceut" name="productbatchID"><br><br>
     <button type="button" onclick="goLogIn()">Log ud</button>
@@ -435,6 +443,7 @@
         document.getElementById("recept1").style.visibility = "hidden";
         document.getElementById("recept2").style.visibility = "hidden";
         document.getElementById("recept3").style.visibility = "hidden";
+        document.getElementById("recept4").style.visibility = "hidden";
         document.getElementById("Produktionsleder").style.visibility = "hidden";
         document.getElementById("afvejning1_Laborant").style.visibility = "hidden";
         document.getElementById("afvejning2_Laborant").style.visibility = "hidden";
@@ -553,7 +562,7 @@
         tableBody.appendChild(row);
     }
 
-    function resetValuesCreateUser(){
+    function resetValuesCreateUser() {
         document.getElementById("uname").value = "";
         document.getElementById("ini").value = "";
         document.getElementById("cpr").value = "";
@@ -563,6 +572,7 @@
         document.getElementById("ProduktionslederRadio").checked = false;
         document.getElementById("Laborant").checked = false;
     }
+
     //ADMIN MANGLER
 
     //Produktionsleder functions
@@ -693,21 +703,25 @@
         tableBody.appendChild(row);
         resetValuesProductbatchComponentLaborant()
     }
+
     function resetValuesProductbatchComponentLaborant() {
         document.getElementById("raavare_Laborant").value = "";
         document.getElementById("weight_Laborant").value = "";
         document.getElementById("tara_Laborant").value = "";
         document.getElementById("raavarebatchID_Laborant").value = "";
     }
+
     //LABORANT MANGLER
     function finishProductbatch_Laborant() {
 
     }
+
     //Farmaceut Råvarebatch
     function goToRaavarebatchFarmaceut() {
         hideall();
         document.getElementById("raavarebatchFarmaceut").style.visibility = "visible";
     }
+
     function createRaavarebatchComponentFarmaceut() {
         var tableBody = document.getElementById("table_raavarebatchFarmaceut");
         var td1 = document.createElement("td");
@@ -723,16 +737,19 @@
         tableBody.appendChild(row);
         resetValuesCreateRaavarebatchFarmaceut();
     }
+
     function resetValuesCreateRaavarebatchFarmaceut() {
         document.getElementById("raavarebatchNrFarmaceut").value = "";
         document.getElementById("raavareIDFarmaceut").value = "";
         document.getElementById("maengdeFarmaceut").value = "";
     }
+
     //Farmaceut Produktbatch
     function goToProduktbatchFarmaceut() {
         hideall();
         document.getElementById("produktbatchFarmaceut").style.visibility = "visible";
     }
+
     function finishCreateBatchFarmaceut() {
         var tableBody = document.getElementById("tableBatchFarmaceut");
         var td1 = document.createElement("td");
@@ -754,6 +771,7 @@
         document.getElementById("receptNrFarmaceut").value = "";
         document.getElementById("datoFarmaceut").value = "";
     }
+
     //Farmaceut afvejning functions
     function goToAfvejning1_Farmaceut() {
         hideall();
@@ -762,11 +780,13 @@
         document.getElementById("afvejning1_Farmaceut").style.visibility = "visible";
 
     }
+
     function goToAfvejning2_Farmaceut() {
         hideall();
         document.getElementById("title").innerHTML = "Farmaceut";
         document.getElementById("afvejning2_Farmaceut").style.visibility = "visible";
     }
+
     function addProductbatchComponent_Farmaceut() {
         var tableBody = document.getElementById("table-body_Farmaceut");
         var td1 = document.createElement("td");
@@ -782,6 +802,7 @@
         tableBody.appendChild(row);
         resetValuesProductbatchComponentFarmaceut();
     }
+
     function resetValuesProductbatchComponentFarmaceut() {
         document.getElementById("raavare_Farmaceut").value = "";
         document.getElementById("weight_Farmaceut").value = "";
@@ -789,10 +810,12 @@
         document.getElementById("raavarebatchID_Farmaceut").value = "";
     }
     //Farmaceut råvare functions
+
     function goToRaavare() {
         hideall();
         document.getElementById("raavareFarmaceut").style.visibility = "visible";
     }
+
     function opretRaavare() {
         var tableBody = document.getElementById("table_raavareFarmaceut");
         var td1 = document.createElement("td");
@@ -849,22 +872,26 @@
         tableBody.appendChild(row);
         resetValuesReceptComponentFarmaceut();
     }
+
     function resetValuesReceptComponentFarmaceut() {
         document.getElementById("maengdeRecept").value = "";
         document.getElementById("raavareRecept").value = "";
         document.getElementById("tolerance").value = "";
     }
+
     function resetValuesRecept2() {
         document.getElementById("recept2Nr").value = "";
         document.getElementById("receptNavn").value = "";
     }
+
     //FARMACEUT MANGLER
     function finishRecept() {
 
     }
-    function finishProductbatch_Farmaceut() {
 
+    function finishProductbatch_Farmaceut() {
     }
+
 </script>
 </body>
 </html>
