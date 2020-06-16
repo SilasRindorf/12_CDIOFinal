@@ -38,6 +38,8 @@ public class ProductBatchDTO extends IdAndActivatable {
         return status;
     }
 
+    public List<ProductBatchCompDTO> getProductComps() { return productComps; }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

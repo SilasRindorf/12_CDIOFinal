@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CommodityDAONonPersistent implements ICommodityDAO {
-    private List<CommodityDTO> commodities;
-    private List<CommodityBatchDTO> batches;
+    protected List<CommodityDTO> commodities;
+    protected List<CommodityBatchDTO> batches;
     public CommodityDAONonPersistent() {
         this.commodities = new ArrayList<>();
         this.batches = new ArrayList<>();
@@ -31,8 +31,6 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
 
     @Override
     public List<CommodityDTO> getCommodityList() throws DALException {
-        if (commodities.isEmpty())
-            throw new DALException("No commodities");
         return commodities;
     }
 
@@ -87,7 +85,7 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     }
 
     @Override
-    public CommodityBatchDTO getCommodityBatch(int commodityBatchID) throws DALException {
+    public CommodityBatchDTO getBatch(int commodityBatchID) throws DALException {
         List<CommodityBatchDTO> list = IdAndActivatable.<CommodityBatchDTO>filterAddIds(batches,Arrays.asList(commodityBatchID));
         if(list.isEmpty()){
             throw new DALException("There is no commoditybatch with: ID=" + commodityBatchID);
@@ -96,12 +94,12 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     }
 
     @Override
-    public List<CommodityBatchDTO> getCommodityBatchList() throws DALException {
+    public List<CommodityBatchDTO> getBatchList() throws DALException {
         return batches;
     }
 
     @Override
-    public List<CommodityBatchDTO> getCommodityBatchList(int commodityID) throws DALException {
+    public List<CommodityBatchDTO> getBatchList(int commodityID) throws DALException {
         List<CommodityBatchDTO> list = new ArrayList<>();
         for(int i = 0; i<batches.size();++i){
             if(batches.get(i).getCommodityNr() == commodityID){
@@ -115,14 +113,30 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     }
 
     @Override
-    public void createCommodityBatch(CommodityBatchDTO newBatch) throws DALException, JunkFormatException {
+    public void createBatch(CommodityBatchDTO newBatch) throws DALException, JunkFormatException {
         for (CommodityBatchDTO batch :
                 batches) {
             if (batch.getID() == newBatch.getID()) {
                 throw new DALException("There is already a commodity with: ID=" + batch.getID());
             }
         }
+        if(!hasCommodityWithId(newBatch.getCommodityNr())){
+            throw new DALException("There are no commodities with the ID: " +newBatch.getCommodityNr());
+        }
         batches.add(newBatch);
+    }
+
+    private boolean hasCommodityWithId(int id){
+        try {
+            for(CommodityDTO com : getCommodityList()){
+               if(com.getID() == id) {
+                   return true;
+               }
+            }
+        } catch (DALException e) {
+            throw new AssertionError("Should only be used by internal methods, where commodityList is initialized");
+        }
+        return false;
     }
 
     private void updateCommodityBatch(CommodityBatchDTO batch) throws DALException, JunkFormatException {
@@ -133,7 +147,7 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
                 CommodityBatchDTO backup = batches.get(i);
                 batches.remove(i);
                 try {
-                    createCommodityBatch(batch);
+                    createBatch(batch);
                 }catch(Exception e){
                     batches.add(backup);
                     throw e;
@@ -147,7 +161,7 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
 
     @Override
     public void setIsActiveBatch(int cbId, boolean isActive) throws DALException {
-        CommodityBatchDTO c = getCommodityBatch(cbId);
+        CommodityBatchDTO c = getBatch(cbId);
         if (c.getIsActive() == isActive){
             throw new DALException("The commoditybatch activity is already "+isActive);
         }

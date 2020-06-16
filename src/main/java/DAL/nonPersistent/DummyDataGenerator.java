@@ -64,7 +64,7 @@ public class DummyDataGenerator {
         generateCommodities(dao);
         for(int i = 0; i<100; ++i){
             try {
-                dao.createCommodityBatch(randomCB());
+                dao.createBatch(randomCB());
             } catch (DALException e) {
                 continue;
             } catch (JunkFormatException e) {
