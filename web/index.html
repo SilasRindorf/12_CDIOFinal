@@ -110,6 +110,11 @@
 
 
 
+<form method="POST" action="" name="produktbatch3" id="produktbatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <div id="produktbatchList"></div> <br>
+    <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
+</form>
+
 
 <form method="POST" action="" name="raavarebatch" id="raavarebatch" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <b>Indtast værdier</b> <br>
@@ -248,8 +253,8 @@
                 !document.getElementById("cpr").value == "" &&
                 !document.getElementById("password").value == "" &&
                 (document.getElementById("Pharmaceut").checked == true ||
-                    document.getElementById("Admin").checked == true ||
-                    document.getElementById("Produktionsleder").checked == true ||
+                    document.getElementById("AdminID").checked == true ||
+                    document.getElementById("ProduktionslederRadio").checked == true ||
                     document.getElementById("Laborant").checked == true))
             {
                 postAnUser();
