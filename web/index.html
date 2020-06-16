@@ -156,8 +156,10 @@
     </table>
     <!---<label id="statusOprettet_Produktionsleder" for="statusOprettet_Produktionsleder"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</-label><br><br>
     <label id="statusUnderProduktion_Produktionsleder" for="statusUnderProduktion_Produktionsleder"><strong>Status:</strong> Produktbatch er under produktion</label><br><br>-->
-    <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
-    <button type="button" onclick="goLogIn()">Send ind og afslut</button>
+    <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToAfvejning1_Produktionsleder()">Gå tilbage</button>
+    <button type="button" onclick="finishProductbatch_Produktionsleder()">Afslut produktbatch</button>
+
 </form>
 <!----------------------------------------Laborant forms------------------------------------------------------->
 
@@ -178,7 +180,7 @@
     <input type="text" id="weight_Laborant" name="weight"><br><br>
     <label for="tara_Laborant">Indtast tara: </label>
     <input type="text" id="tara_Laborant" name="tara"><br><br>
-    <input type="button" value="Tilføj produckbatch komponent" onClick="addProductbatchComponent_Laborant()"><br/><br/>
+    <input type="button" value="Tilføj produktbatch komponent" onClick="addProductbatchComponent_Laborant()"><br/><br/>
     <table id="table_Laborant" border="1">
         <thead id="table-head_Laborant">
         <tr>
@@ -192,8 +194,9 @@
     </table>
     <!---<label id="statusOprettet_Produktionsleder" for="statusOprettet_Produktionsleder"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</-label><br><br>
     <label id="statusUnderProduktion_Produktionsleder" for="statusUnderProduktion_Produktionsleder"><strong>Status:</strong> Produktbatch er under produktion</label><br><br>-->
-    <button type="button" onclick="goToAfvejning1_Laborant()">Gå tilbage</button>
     <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToAfvejning1_Laborant()">Gå tilbage</button>
+    <button type="button" onclick="finishProductbatch_Laborant()">Afslut produktbatch</button>
 </form>
 <!----------------------------------------Farmaceut forms------------------------------------------------------>
 <form method="POST" action="" name="farmaceut" id="farmaceut"
@@ -455,6 +458,7 @@
         document.getElementById("ProduktionslederRadio").checked = false;
         document.getElementById("Laborant").checked = false;
     }
+    //ADMIN MANGLER
 
     //Produktionsleder functions
     //Produktionsleder råvarebatch functions
@@ -541,6 +545,10 @@
         document.getElementById("statusOprettet_Produktionsleder").style.visibility = "hidden";
         document.getElementById("statusUnderProduktion_Produktionsleder").style.visibility = "visible";
     }
+    //PRODUKTIONSLEDER MANGLER
+    function finishProductbatch_Produktionsleder() {
+
+    }
 
     //Laborant functions
     //Laborant afvejning functions
@@ -572,7 +580,10 @@
         document.getElementById("statusOprettet_Laborant").style.visibility = "hidden";
         document.getElementById("statusUnderProduktion_Laborant").style.visibility = "visible";
     }
+    //LABORANT MANGLER
+    function finishProductbatch_Laborant() {
 
+    }
     //Farmaceut functions
     //Farmaceut afvejning functions
     function goToAfvejning1() {
@@ -588,22 +599,6 @@
         document.getElementById("statusOprettet").style.visibility = "visible";
         //resetTable();
     }
-    /*function resetTable() {
-        var tableBody = document.getElementById("table-body");
-        var td1 = document.createElement("td");
-        var td2 = document.createElement("td");
-        var td3 = document.createElement("td");
-        var row = document.createElement("tr");
-        td1.innerHTML = document.getElementById("raavare").value;
-        td2.innerHTML = document.getElementById("weight").value - document.getElementById("tara").value;
-        td3.innerHTML = document.getElementById("raavarebatchID").value;
-        row.removeChild(td1);
-        row.removeChild(td2);
-        row.removeChild(td3);
-        tableBody.removeChild(row);
-        document.getElementById("statusOprettet").style.visibility = "visible";
-        document.getElementById("statusUnderProduktion").style.visibility = "hidden";
-    }*/
 
     //Farmaceut recept functions
     function goToRecept1() {
@@ -637,10 +632,9 @@
         document.getElementById("statusOprettet").style.visibility = "hidden";
         document.getElementById("statusUnderProduktion").style.visibility = "visible";
     }
-
+    //FARMACEUT MANGLER
     function finishRecept() {
-        hideall();
-        //MANGLER
+
     }
 
 
