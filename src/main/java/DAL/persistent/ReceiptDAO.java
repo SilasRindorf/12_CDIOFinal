@@ -4,6 +4,9 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.IReceiptDAO;
 import DTO.ReceiptDTO;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +18,7 @@ import java.util.List;
  *  -
  */
 public class ReceiptDAO implements IReceiptDAO {
+
     private List<ReceiptDTO> receipts = new ArrayList<>();
     @Override
     public ReceiptDTO getReceipt(int receiptID) throws DALException {
@@ -51,4 +55,5 @@ public class ReceiptDAO implements IReceiptDAO {
         else
             receipts.set(receipt.getID(),receipt);
     }
+
 }
