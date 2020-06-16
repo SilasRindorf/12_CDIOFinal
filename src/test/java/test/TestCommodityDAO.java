@@ -100,13 +100,10 @@ public class TestCommodityDAO {
         DummyDataGenerator dummy = new DummyDataGenerator(13);
         ICommodityDAO dao = new CommodityDAONonPersistent();
         dummy.generateCommodityBatches(dao);
-        // Does exist in dao after generation:
-        //CommodityBatchDTO{ | commodityBatchNr=13 | , amount=2615.7841831099936 | , provider='ITKT' | isActive=true}
-        //for(int i = 0; i<dao.getCommodityBatchList().size(); ++i){
-        //    System.out.println(dao.getCommodityBatchList().get(i));
-        //}
-        CommodityBatchDTO gotten = dao.getBatch(13);
-        CommodityBatchDTO expected = new CommodityBatchDTO(13, 40, -1234, "ITKT", true);
+        //Does exist after generation
+        //CommodityBatchDTO{ | commodityBatchNr=72 | commodityNr=81 | , amount=1255.9104322634005 | , provider='YWCW' | isActive=true}
+        CommodityBatchDTO gotten = dao.getBatch(72);
+        CommodityBatchDTO expected = new CommodityBatchDTO(72, 81, -1234, "YWCW", true);
         assertEquals(gotten.getID(), expected.getID());
         assertEquals(gotten.getIsActive(), expected.getIsActive());
         // Not testing double as it is quite imprecise
@@ -120,7 +117,7 @@ public class TestCommodityDAO {
         DummyDataGenerator dummy = new DummyDataGenerator(13);
         ICommodityDAO dao = new CommodityDAONonPersistent();
         dummy.generateCommodityBatches(dao);
-        CommodityBatchDTO expect = new CommodityBatchDTO(46, 40, 1234, "Whomst", true);
+        CommodityBatchDTO expect = new CommodityBatchDTO(72, 81, -1234, "YWCW", true);
         try {
             dao.createBatch(expect);
             assertTrue(false); //No commodity with commoditynr 40
@@ -146,22 +143,22 @@ public class TestCommodityDAO {
         ICommodityDAO dao = new CommodityDAONonPersistent();
         dummy.generateCommodityBatches(dao);
         // Does exist in dao after generation:
-        //CommodityBatchDTO{ | commodityBatchNr=13 | , amount=2615.7841831099936 | , provider='ITKT' | isActive=true}
-        assertTrue(dao.getBatch(13).getIsActive());
-        dao.setIsActiveBatch(13, false);
-        assertFalse(dao.getBatch(13).getIsActive());
+        //CommodityBatchDTO expect = new CommodityBatchDTO(72, 81, -1234, "YWCW", true);
+        assertTrue(dao.getBatch(72).getIsActive());
+        dao.setIsActiveBatch(72, false);
+        assertFalse(dao.getBatch(72).getIsActive());
 
-        dao.setIsActiveBatch(13, true);
+        dao.setIsActiveBatch(72, true);
         try {
-            dao.setIsActiveBatch(13, true);
+            dao.setIsActiveBatch(72, true);
             assertTrue(false);
         } catch (DALException e) {
             assertTrue(true);
         }
 
-        dao.setIsActiveBatch(13, false);
+        dao.setIsActiveBatch(72, false);
         try {
-            dao.setIsActiveBatch(13, false);
+            dao.setIsActiveBatch(72, false);
             assertTrue(false);
         } catch (DALException e) {
             assertTrue(true);
@@ -265,13 +262,12 @@ public class TestCommodityDAO {
         assertEquals(dao.getCommodityList().size(), 0);
         DummyDataGenerator gen = new DummyDataGenerator(13);
         gen.generateCommodityBatches(dao);
-    //    for(int i = 0; i<dao.getBatchList().size(); ++i){
-    //        System.out.println(dao.getBatchList().get(i));
-    //    }
-    //    for(int i = 0; i<dao.getCommodityList().size(); ++i){
-    //        System.out.println(dao.getCommodityList().get(i));
-    //    }
-       ICommodityDAO dao2 = new CommodityDAO(FileAPI.TEST_COMMODITY_DAO_FILE);
+        //    for(int i = 0; i<dao.getBatchList().size(); ++i){
+        //        System.out.println(dao.getBatchList().get(i));
+        //    }
+        //    for(int i = 0; i<dao.getCommodityList().size(); ++i){
+        //        System.out.println(dao.getCommodityList().get(i));
+        //    }
 
 
 
@@ -285,6 +281,8 @@ public class TestCommodityDAO {
         //Commodity{ | commodityNr=43 | , name=PLMX | , isActive=true}
         //Commodity{ | commodityNr=9 | , name=WOOQ | , isActive=true}
         //Commodity{ | commodityNr=19 | , name=JETX | , isActive=true}
+
+        ICommodityDAO dao2 = new CommodityDAO(FileAPI.TEST_COMMODITY_DAO_FILE);
 
         List<CommodityDTO> list1 = dao.getCommodityList();
         List<CommodityDTO> list2 = dao2.getCommodityList();
@@ -302,6 +300,44 @@ public class TestCommodityDAO {
             assertEquals(list3.get(i).getID(),list4.get(i).getID());
             assertEquals(list3.get(i).getCommodityNr(),list4.get(i).getCommodityNr());
         }
+
+    }
+
+    @Test
+    public void persistentSet() throws IOException, ClassNotFoundException, DALException {
+        File file = new File(FileAPI.TEST_COMMODITY_DAO_FILE);
+        file.delete();
+        ICommodityDAO dao = new CommodityDAO(FileAPI.TEST_COMMODITY_DAO_FILE);
+        assertEquals(dao.getBatchList().size(), 0);
+        assertEquals(dao.getCommodityList().size(), 0);
+        DummyDataGenerator gen = new DummyDataGenerator(13);
+        gen.generateCommodityBatches(dao);
+        //    for(int i = 0; i<dao.getBatchList().size(); ++i){
+        //        System.out.println(dao.getBatchList().get(i));
+        //    }
+        //    for(int i = 0; i<dao.getCommodityList().size(); ++i){
+        //        System.out.println(dao.getCommodityList().get(i));
+        //    }
+
+
+
+        // Snippet from existing things in the data
+        //CommodityBatchDTO{ | commodityBatchNr=72 | commodityNr=81 | , amount=1255.9104322634005 | , provider='YWCW' | isActive=true}
+        //CommodityBatchDTO{ | commodityBatchNr=8 | commodityNr=19 | , amount=2512.109014746832 | , provider='JZWQ' | isActive=true}
+        //CommodityBatchDTO{ | commodityBatchNr=7 | commodityNr=79 | , amount=1395.8415433633104 | , provider='ZSOT' | isActive=true}
+        //CommodityBatchDTO{ | commodityBatchNr=50 | commodityNr=28 | , amount=2014.5280914550144 | , provider='TETI' | isActive=true}
+
+        //Commodity{ | commodityNr=80 | , name=QZIA | , isActive=true}
+        //Commodity{ | commodityNr=43 | , name=PLMX | , isActive=true}
+        //Commodity{ | commodityNr=9 | , name=WOOQ | , isActive=true}
+        //Commodity{ | commodityNr=19 | , name=JETX | , isActive=true}
+
+        dao.setIsActiveBatch(7, false);
+        ICommodityDAO dao2 = new CommodityDAO(FileAPI.TEST_COMMODITY_DAO_FILE);
+        assertFalse(dao2.getBatch(7).getIsActive());
+        dao.setIsActiveBatch(7, true);
+        dao2 = new CommodityDAO(FileAPI.TEST_COMMODITY_DAO_FILE);
+        assertTrue(dao2.getBatch(7).getIsActive());
 
     }
 

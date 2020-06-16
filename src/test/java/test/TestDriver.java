@@ -18,11 +18,14 @@ public class TestDriver {
             System.out.println("FAILURE");
             System.out.println(failure.toString());
         }
+        result.wasSuccessful();
 
         result = JUnitCore.runClasses(test.TestCommodityDAO.class);
         for (Failure failure : result.getFailures()){
             System.out.println("FAILURE");
             System.out.println(failure.toString());
         }
+        result.wasSuccessful();
+
     }
 }
