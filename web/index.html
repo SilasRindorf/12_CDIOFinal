@@ -22,7 +22,7 @@
     <p>Password</p>
     <input type="text" for="password" name="password">
     <br>
-    <button type="button" onclick="logIn();">Log ind</button>
+    <button type="button" onclick="logIn()">Log ind</button>
 </form>
 
 <form method="POST" action="" name="welcome" id="welcome"
@@ -53,7 +53,7 @@
     <label for="ProduktionslederRadio"> Produktionsleder</label><br>
     <input type="radio" id="Laborant" name="Roles" value="Laborant">
     <label for="Laborant"> Laborant</label><br>
-    <button type="button" onclick="goLogIn()">LogOut</button>
+    <button type="button" onclick="goLogIn()">Log out</button>
     <button type="button" onclick="finishCreateUser()">Opret bruger</button>
     <table id="table_user" border="1">
         <thead id="table-head_user">
@@ -76,7 +76,7 @@
     <button type="button" onclick="goToRaavarebatch()">Råvarebatches</button>
     <button type="button" onclick="goToProduktbatch()">Produktionsbatches</button>
     <button type="button" onclick="goToAfvejning1_Produktionsleder()">Afvejning</button>
-    <button type="button" onclick="goLogIn()">LogOut</button>
+    <button type="button" onclick="goLogIn()">Log out</button>
 </form>
 
 <form method="POST" action="" name="raavarebatch" id="raavarebatch"
@@ -313,6 +313,7 @@
         password = document.getElementById("password").value;
         action(uname,password,"rest/actions/confirm-log-in");*/
         document.getElementById("welcome").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Vælg venligst din bruger";
     }
 
     function hideall() {
@@ -339,6 +340,7 @@
     function goLogIn() {
         hideall();
         document.getElementById("logInForm").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Login"
     }
 
     function goToWelcomeFromFinish() {
@@ -353,6 +355,7 @@
     }
 
     function returnToStart() {
+        hideall()
         document.getElementById("welcome").style.visibility = "visible";
         document.getElementById("admin").style.visibility = "hidden";
         resetValuesCreateUser();
@@ -363,6 +366,7 @@
         hideall();
         document.getElementById("welcome").style.visibility = "hidden";
         document.getElementById("admin").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Adminstrator";
     }
 
     function goToProduktionsleder() {
@@ -372,12 +376,15 @@
     }
 
     function goToLaborant() {
+        hideall()
         goToAfvejning1_Laborant();
+        document.getElementById("title").innerHTML = "Laborant";
     }
 
     function goToFarmaceut() {
         hideall();
         document.getElementById("farmaceut").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
     }
 
     //Admin functions
