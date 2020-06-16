@@ -1,9 +1,14 @@
 package DAL.nonPersistent;
 
 import DAL.interfaces.DALException;
+import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
+import DAL.persistent.CommodityDAO;
+import DTO.CommodityDTO;
+import DTO.ReceiptCompDTO;
 import DTO.ReceiptDTO;
+import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +23,10 @@ import java.util.List;
 public class ReceiptDAONonPersistent implements IReceiptDAO {
 
     private List<ReceiptDTO> receipts;
+    private ICommodityDAO commodityDAO;
 
-    public ReceiptDAONonPersistent() {
+    public ReceiptDAONonPersistent(ICommodityDAO commodityDAO) {
+        this.commodityDAO = commodityDAO;
         receipts = new ArrayList<>();
     }
 
@@ -50,7 +57,25 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
                 throw new DALException("There already exists a receipt with ID = " + newReceipt.getID());
             }
         }
+        if()
         receipts.add(newReceipt);
+    }
+
+    private boolean commoditiesExistsForReceipt(ReceiptDTO r){
+        int count = 0;
+        for(ReceiptCompDTO comp : r){
+            try {
+                for(CommodityDTO commodity : commodityDAO.getCommodityList()){
+                    if(commodity.getID() == comp.getCommodity()){
+                        count+=1;
+                        continue;
+                    }
+                }
+            } catch (DALException e) {
+                throw new AssertionError("Should only be used by an initialized ReceiptDAO.");
+            }
+        }
+        return false;
     }
 
     @Override
