@@ -16,5 +16,5 @@ public interface IProductDAO {
     List<ProductBatchDTO> getBatchList() throws DALException;
     void createBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException;
     void updateBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException;
-    void setIsActiveBatch(int pbId, boolean isActive) throws DALException;
+    void setIsActive(int pbId, boolean isActive) throws DALException;
 }
