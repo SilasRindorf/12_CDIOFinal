@@ -1,29 +1,14 @@
-function logInAction(url, username, password) {
-    var logInDTO = {
-        "username": username,
-        "password": password
+function GET(url){
+    const obj = {table: "Users", limit: 20};
+    const param = JSON.stringify(obj);
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(request.responseText);
+        }
     };
-    POSTAndReceive(url, logInDTO)
-}
-
-function createBatchAction(url, receiptNr, created, status, productComps) {
-    var ProductBatchDTO = {
-        "receiptNr": receiptNr,
-        "created": created,
-        "status": status,
-        "productComps": productComps
-    };
-    POST(url, ProductBatchDTO)
-}
-
-function userDTO(url, receiptNr, created, status, productComps) {
-    var ProductBatchDTO = {
-        "receiptNr": receiptNr,
-        "created": created,
-        "status": status,
-        "productComps": productComps
-    };
-    POST(url, ProductBatchDTO)
+    request.open("GET", url, true);
+    request.send("x= " + param);
 }
 
 function POSTAndReceive(url, object) {
@@ -41,7 +26,6 @@ function POSTAndReceive(url, object) {
 
     request.send(sendStr);
     request.onload = function () {
-        console.log(url);
         console.log(request.responseText);
     };
 }
@@ -51,14 +35,11 @@ function POST(url, object) {
     request.open("POST", url, true);
     var sendStr = JSON.stringify(object);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-    request.onreadystatechange = function () {
-        if (request.readyState === 4) {
-            console.log(request.responseText);
-            if (request.status === 200) {
-                alert(request.responseText);
-            }
 
+    request.send(sendStr);
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            console.log(request.responseText);
         }
-        request.send(sendStr);
-    }
+    };
 }

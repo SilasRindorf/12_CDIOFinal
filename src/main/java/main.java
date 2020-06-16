@@ -1,6 +1,5 @@
-import DTO.ProductBatchCompDTO;
-import DTO.ProductBatchDTO;
-import DTO.UserDTO;
+import RAM.ProductBatchComp;
+import RAM.ProductBatch;
 import com.lambdaworks.crypto.SCryptUtil;
 
 import java.util.ArrayList;
@@ -16,11 +15,11 @@ import java.util.List;
  */
 public class main {
     public static void main(String[] args) {
-        List<ProductBatchCompDTO> listie = new ArrayList<>();
+        List<ProductBatchComp> listie = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            listie.add(new ProductBatchCompDTO((double) i, (double) i, i, i, i, true));
+            listie.add(new ProductBatchComp((double) i, (double) i, i, i, i, true));
         }
-        ProductBatchDTO pbd = new ProductBatchDTO(0,0,new Date(), ProductBatchDTO.Status.IN_PRODUCTION,listie,true);
+        ProductBatch pbd = new ProductBatch(0,0,new Date(), ProductBatch.Status.IN_PRODUCTION,listie,true);
         System.out.println(pbd.toString());
     }
     public static String makeHashed(String nonHashedPass){

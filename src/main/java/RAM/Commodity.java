@@ -1,4 +1,4 @@
-package DTO;
+package RAM;
 
 /***
  * Initial version created by: Silas
@@ -7,10 +7,10 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class CommodityDTO extends IdAndActivatable {
+public class Commodity extends IdAndActivatable {
     private String name;
 
-    public CommodityDTO(int commodityNr, String name, boolean isActive) {
+    public Commodity(int commodityNr, String name, boolean isActive) {
         super(commodityNr,isActive);
         this.name = name;
     }

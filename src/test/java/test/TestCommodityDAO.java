@@ -5,12 +5,9 @@ import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.DummyDataGenerator;
-import DTO.CommodityBatchDTO;
-import DTO.CommodityDTO;
+import RAM.CommodityBatch;
+import RAM.Commodity;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -23,8 +20,8 @@ public class TestCommodityDAO {
         DummyDataGenerator data = new DummyDataGenerator(13);
         data.generateCommodities(dao);
         assertTrue(dao.getCommodityList().size()>20);
-        dao.createCommodity(new CommodityDTO(13, "Banana", true));
-        CommodityDTO ban = dao.getCommodity(13);
+        dao.createCommodity(new Commodity(13, "Banana", true));
+        Commodity ban = dao.getCommodity(13);
         assertEquals(ban.getName(), "Banana");
         assertEquals(ban.getID(), 13);
         assertEquals(ban.getIsActive(), true);
@@ -44,8 +41,8 @@ public class TestCommodityDAO {
         DummyDataGenerator data = new DummyDataGenerator(13);
         data.generateCommodities(dao);
         assertTrue(dao.getCommodityList().size()>20);
-        dao.createCommodity(new CommodityDTO(13, "Banana", true));
-        CommodityDTO ban = dao.getCommodity(13);
+        dao.createCommodity(new Commodity(13, "Banana", true));
+        Commodity ban = dao.getCommodity(13);
         assertEquals(ban.getName(), "Banana");
         assertEquals(ban.getID(), 13);
         assertEquals(ban.getIsActive(), true);
@@ -57,10 +54,10 @@ public class TestCommodityDAO {
         DummyDataGenerator data = new DummyDataGenerator(13);
         data.generateCommodities(dao);
         assertTrue(dao.getCommodityList().size()>20);
-        dao.createCommodity(new CommodityDTO(13, "Banana", true));
-        CommodityDTO ban = dao.getCommodity(13);
-        dao.updateCommodity(new CommodityDTO(13, "Apple", true));
-        CommodityDTO get = dao.getCommodity(13);
+        dao.createCommodity(new Commodity(13, "Banana", true));
+        Commodity ban = dao.getCommodity(13);
+        dao.updateCommodity(new Commodity(13, "Apple", true));
+        Commodity get = dao.getCommodity(13);
         assertFalse(dao.getCommodityList().contains(ban));
         assertEquals(get.getName(), "Apple");
         assertEquals(get.getID(), 13);
@@ -102,8 +99,8 @@ public class TestCommodityDAO {
         //for(int i = 0; i<dao.getCommodityBatchList().size(); ++i){
         //    System.out.println(dao.getCommodityBatchList().get(i));
         //}
-        CommodityBatchDTO gotten = dao.getCommodityBatch(13);
-        CommodityBatchDTO expected = new CommodityBatchDTO(13, 40, -1234, "ITKT", true);
+        CommodityBatch gotten = dao.getCommodityBatch(13);
+        CommodityBatch expected = new CommodityBatch(13, 40, -1234, "ITKT", true);
         assertEquals(gotten.getID(), expected.getID());
         assertEquals(gotten.getIsActive(), expected.getIsActive());
         // Not testing double as it is quite imprecise
@@ -118,9 +115,9 @@ public class TestCommodityDAO {
         DummyDataGenerator dummy = new DummyDataGenerator(13);
         ICommodityDAO dao = new CommodityDAONonPersistent();
         dummy.generateCommodityBatches(dao);
-        CommodityBatchDTO expect = new CommodityBatchDTO(46, 40, 1234, "Whomst", true);
+        CommodityBatch expect = new CommodityBatch(46, 40, 1234, "Whomst", true);
         dao.createCommodityBatch(expect);
-        CommodityBatchDTO gotten = dao.getCommodityBatch(46);
+        CommodityBatch gotten = dao.getCommodityBatch(46);
         assertEquals(gotten.getID(), expect.getID());
         assertEquals(gotten.getIsActive(), expect.getIsActive());
         // Not testing double as it is quite imprecise

@@ -3,12 +3,9 @@ package DAL.nonPersistent;
 import DAL.interfaces.DALException;
 import DAL.interfaces.IProductDAO;
 import DAL.interfaces.JunkFormatException;
-import DTO.ProductBatchCompDTO;
-import DTO.ProductBatchDTO;
-import DTO.UserDTO;
+import RAM.ProductBatch;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 /***
  * Initial version created by: Andreas
@@ -20,15 +17,15 @@ import java.util.List;
  */
 public class ProductDAONonPersistent implements IProductDAO {
 
-    private List<ProductBatchDTO> productBatches;
+    private List<ProductBatch> productBatches;
 
     public ProductDAONonPersistent() {
         productBatches = new ArrayList<>();
     }
 
     @Override
-    public ProductBatchDTO getBatch(int pbId) throws DALException {
-        for (ProductBatchDTO prod : productBatches)
+    public ProductBatch getBatch(int pbId) throws DALException {
+        for (ProductBatch prod : productBatches)
         {
             if (prod.getID() == pbId)
             {
@@ -39,13 +36,13 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
 
     @Override
-    public List<ProductBatchDTO> getBatchList() throws DALException {
+    public List<ProductBatch> getBatchList() throws DALException {
         return productBatches;
     }
 
     @Override
-    public void createBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException {
-        for (ProductBatchDTO prod : productBatches)
+    public void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException {
+        for (ProductBatch prod : productBatches)
         {
             if (prod.getID() == productBatch.getID())
             {
@@ -56,9 +53,9 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
 
     @Override
-    public void updateBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException
+    public void updateBatch(ProductBatch productBatch) throws DALException, JunkFormatException
     {
-        for (ProductBatchDTO prod : productBatches)
+        for (ProductBatch prod : productBatches)
         {
             if (prod.getID() == productBatch.getID())
             {
@@ -72,11 +69,11 @@ public class ProductDAONonPersistent implements IProductDAO {
 
     @Override
     public void setIsActiveBatch(int pbId, boolean isActive) throws DALException {
-        ProductBatchDTO prod = getBatch(pbId);
+        ProductBatch prod = getBatch(pbId);
         if (prod.getIsActive() == isActive){
             throw new DALException("The productbatch activity is already "+isActive);
         }
-        ProductBatchDTO newBatch = new ProductBatchDTO(pbId, prod.getReceipt(), prod.getCreated(), prod.getStatus(), prod.getProductComps(), isActive);
+        ProductBatch newBatch = new ProductBatch(pbId, prod.getReceipt(), prod.getCreated(), prod.getStatus(), prod.getProductComps(), isActive);
         try {
             updateBatch(newBatch);
         } catch (JunkFormatException e) {

@@ -1,6 +1,6 @@
 package DAL.interfaces;
 
-import DTO.ProductBatchDTO;
+import RAM.ProductBatch;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import java.util.List;
  *  -
  */
 public interface IProductDAO {
-    ProductBatchDTO getBatch(int pbId) throws DALException;
-    List<ProductBatchDTO> getBatchList() throws DALException;
-    void createBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException;
-    void updateBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException;
+    ProductBatch getBatch(int pbId) throws DALException;
+    List<ProductBatch> getBatchList() throws DALException;
+    void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException;
+    void updateBatch(ProductBatch productBatch) throws DALException, JunkFormatException;
     void setIsActiveBatch(int pbId, boolean isActive) throws DALException;
 }

@@ -1,4 +1,4 @@
-package DTO;
+package RAM;
 
 import java.util.Collections;
 import java.util.Date;
@@ -11,13 +11,13 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchDTO extends IdAndActivatable {
+public class ProductBatch extends IdAndActivatable {
     private int receiptNr;
     private Date created;
     private Status status;
-    private List<ProductBatchCompDTO> productComps;
+    private List<ProductBatchComp> productComps;
 
-    public ProductBatchDTO(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchCompDTO> productComps, boolean isActive) {
+    public ProductBatch(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchComp> productComps, boolean isActive) {
         super(productBatchNr, isActive);
         this.receiptNr = receiptNr;
         this.created = created;
@@ -38,12 +38,12 @@ public class ProductBatchDTO extends IdAndActivatable {
         return status;
     }
 
-    public List<ProductBatchCompDTO> getProductComps() { return productComps; }
+    public List<ProductBatchComp> getProductComps() { return productComps; }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (ProductBatchCompDTO pbc :
+        for (ProductBatchComp pbc :
                 productComps) {
             builder.append("\n\t").append(pbc.toString());
         }

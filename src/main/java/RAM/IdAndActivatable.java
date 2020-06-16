@@ -1,4 +1,4 @@
-package DTO;
+package RAM;
 
 import java.io.Serializable;
 import java.util.ArrayList;

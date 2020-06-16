@@ -3,7 +3,7 @@ package DAL.nonPersistent;
 import DAL.interfaces.DALException;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
-import DTO.ReceiptDTO;
+import RAM.Receipt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +17,16 @@ import java.util.List;
  */
 public class ReceiptDAONonPersistent implements IReceiptDAO {
 
-    private List<ReceiptDTO> receipts;
+    private List<Receipt> receipts;
 
     public ReceiptDAONonPersistent() {
         receipts = new ArrayList<>();
     }
 
     @Override
-    public ReceiptDTO getReceipt(int receiptID) throws DALException
+    public Receipt getReceipt(int receiptID) throws DALException
     {
-        for (ReceiptDTO rec : receipts)
+        for (Receipt rec : receipts)
         {
             if (rec.getID() == receiptID)
             {
@@ -37,13 +37,13 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
     }
 
     @Override
-    public List<ReceiptDTO> getReceiptList() throws DALException {
+    public List<Receipt> getReceiptList() throws DALException {
         return receipts;
     }
 
     @Override
-    public void createReceipt(ReceiptDTO newReceipt) throws DALException {
-        for (ReceiptDTO rec : receipts)
+    public void createReceipt(Receipt newReceipt) throws DALException {
+        for (Receipt rec : receipts)
         {
             if (rec.getID() == newReceipt.getID())
             {
@@ -55,11 +55,11 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
 
     @Override
     public void setIsActive(int receiptID, boolean isActive) throws DALException, JunkFormatException {
-        ReceiptDTO rec = getReceipt(receiptID);
+        Receipt rec = getReceipt(receiptID);
         if (rec.getIsActive() == isActive){
             throw new DALException("The receipt activity is already "+isActive);
         }
-        ReceiptDTO newReceipt = new ReceiptDTO(receiptID, rec.getName(), rec.getReceiptComps(), isActive);
+        Receipt newReceipt = new Receipt(receiptID, rec.getName(), rec.getReceiptComps(), isActive);
         try {
             updateReceipt(newReceipt);
         } catch (JunkFormatException e) {
@@ -69,12 +69,12 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
         }
     }
 
-    private void updateReceipt(ReceiptDTO newReceipt) throws DALException, JunkFormatException{
-        for (ReceiptDTO rec : receipts)
+    private void updateReceipt(Receipt newReceipt) throws DALException, JunkFormatException{
+        for (Receipt rec : receipts)
         {
             if (rec.getID() == newReceipt.getID())
             {
-                ReceiptDTO backup = rec;
+                Receipt backup = rec;
                 receipts.remove(rec);
                 try {
                     createReceipt(newReceipt);

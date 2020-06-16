@@ -1,4 +1,4 @@
-package DTO;
+package RAM;
 
 /***
  * Initial version created by: Silas
@@ -7,12 +7,12 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class CommodityBatchDTO extends IdAndActivatable {
+public class CommodityBatch extends IdAndActivatable {
     private int commodityNr;
     private double amount;
     private String provider;
 
-    public CommodityBatchDTO(int commodityBatchNr, int commodityNr, double amount, String provider, boolean isActive) {
+    public CommodityBatch(int commodityBatchNr, int commodityNr, double amount, String provider, boolean isActive) {
         super(commodityBatchNr,isActive);
         this.commodityNr = commodityNr;
         this.amount = amount;

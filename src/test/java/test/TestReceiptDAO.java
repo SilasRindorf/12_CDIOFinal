@@ -4,8 +4,8 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
-import DTO.ReceiptCompDTO;
-import DTO.ReceiptDTO;
+import RAM.ReceiptComp;
+import RAM.Receipt;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class TestReceiptDAO {
     {
         IReceiptDAO dao = new ReceiptDAONonPersistent();
 
-        List<ReceiptCompDTO> components = new ArrayList<>();
+        List<ReceiptComp> components = new ArrayList<>();
 
         // When i made no changes yet, the list of receipts should be 0, and i get no errors.
 
@@ -28,7 +28,7 @@ public class TestReceiptDAO {
 
         // When creating a receipt object, it gets inserted into the receipts list.
 
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         assertTrue(dao.getReceiptList().size() == 1);
@@ -49,8 +49,8 @@ public class TestReceiptDAO {
         IReceiptDAO dao = new ReceiptDAONonPersistent();
 
         //This is tested in a previous test.
-        List<ReceiptCompDTO> components = new ArrayList<>();
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        List<ReceiptComp> components = new ArrayList<>();
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         // When trying to get a receipt with ID 1, i get a receipt with name "name".
@@ -74,8 +74,8 @@ public class TestReceiptDAO {
         IReceiptDAO dao = new ReceiptDAONonPersistent();
 
         //This is tested in a previous test.
-        List<ReceiptCompDTO> components = new ArrayList<>();
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        List<ReceiptComp> components = new ArrayList<>();
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         // When i try to set "isActive" for the receipt with ID 1 to "false", it will do that.

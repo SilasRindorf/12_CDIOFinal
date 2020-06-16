@@ -1,4 +1,4 @@
-package DTO;
+package RAM;
 
 /***
  * Initial version created by: Silas
@@ -7,14 +7,14 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchCompDTO {
+public class ProductBatchComp {
     private double tara;
     private double weighted;
     private int commodityBatchNr;
     private int commodityNr;
     private int weighterID;
 
-    public ProductBatchCompDTO(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID, boolean isActive) {
+    public ProductBatchComp(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID, boolean isActive) {
         this.tara = tara;
         this.weighted = weighted;
         this.commodityBatchNr = commodityBatchNr;
