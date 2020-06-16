@@ -405,6 +405,7 @@
         var td3 = document.createElement("td");
         var td4 = document.createElement("td");
         var td5 = document.createElement("td");
+        var td6 = document.createElement("td");
         var row = document.createElement("tr");
         td1.innerHTML = document.getElementById("uname").value;
         td2.innerHTML = document.getElementById("ini").value;
@@ -427,12 +428,14 @@
             userRole = "Laborant";
             td5.innerHTML = userRole;
         }
-
+        var statusUser = "Aktiv";
+        td6.innerHTML = statusUser;
         row.appendChild(td1);
         row.appendChild(td2);
         row.appendChild(td3);
         row.appendChild(td4);
         row.appendChild(td5);
+        row.appendChild(td6);
         tableBody.appendChild(row);
     }
 
