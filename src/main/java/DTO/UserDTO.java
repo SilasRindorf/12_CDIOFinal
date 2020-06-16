@@ -20,6 +20,10 @@ public class UserDTO extends IdAndActivatable implements Serializable {
   private String hashedPass;
   private Role role;
 
+  public UserDTO(){
+    super();
+  }
+
   public UserDTO(int ID, String username, String ini, String CPR, String hashedPass, Role role, boolean isActive){
     super(ID,isActive);
     this.role = role;

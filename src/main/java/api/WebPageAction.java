@@ -15,9 +15,9 @@ public class WebPageAction {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("log-in")
-    public Response logIn(LogInDTO logInDTO){
+    public String logIn(LogInDTO logInDTO){
         controller.logIn(logInDTO.getUsername(),logInDTO.getPassword());
-        return Response.status(201).build();
+        return "Logged in as: " + logInDTO.getUsername();
     }
 
 }

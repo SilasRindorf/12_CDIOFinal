@@ -10,7 +10,7 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ReceiptDTO extends IdAndActivatable {
+public class  ReceiptDTO extends IdAndActivatable {
     private String name;
     private List<ReceiptCompDTO> receiptComps;
 

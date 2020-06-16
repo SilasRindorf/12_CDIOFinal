@@ -1,9 +1,51 @@
-function logInAction(username, password, url) {
+function logInAction(url, username, password) {
     var logInDTO = {
         "username": username,
         "password": password
     };
-    POST(url, logInDTO)
+    POSTAndReceive(url, logInDTO)
+}
+
+function createBatchAction(url, receiptNr, created, status, productComps) {
+    var ProductBatchDTO = {
+        "receiptNr": receiptNr,
+        "created": created,
+        "status": status,
+        "productComps": productComps
+    };
+    POST(url, ProductBatchDTO)
+}
+
+function userDTO(url, receiptNr, created, status, productComps) {
+    var ProductBatchDTO = {
+        "receiptNr": receiptNr,
+        "created": created,
+        "status": status,
+        "productComps": productComps
+    };
+    POST(url, ProductBatchDTO)
+}
+
+function POSTAndReceive(url, object) {
+    const request = new XMLHttpRequest();
+    request.open("POST", url, true);
+    request.responseType = "text";
+
+    var sendStr = JSON.stringify(object);
+    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    request.onreadystatechange = function () {
+        if (request.readyState === 4) {
+            console.log(request.responseText);
+            if (request.status === 200) {
+                alert(request.responseText);
+            }
+
+        }
+        request.send(sendStr);
+        request.onload = function () {
+            alert(request.response);
+        };
+    }
 }
 
 function POST(url, object) {

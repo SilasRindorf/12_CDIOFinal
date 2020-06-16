@@ -14,9 +14,7 @@ public class IdAndActivatable {
     private boolean active;
     private int ID;
 
-    public
-
-    static <T> List<T> filterAddIds(List<T> list, List<Integer> ids){
+    public static <T> List<T> filterAddIds(List<T> list, List<Integer> ids){
         List<T> arr = new ArrayList<T>();
         for(T elem : list) {
             if(ids.contains(((IdAndActivatable) elem).getID())) {
@@ -24,6 +22,10 @@ public class IdAndActivatable {
             }
         }
         return arr;
+    }
+
+    public IdAndActivatable(){
+
     }
 
     public IdAndActivatable(int id, boolean isActive) {
