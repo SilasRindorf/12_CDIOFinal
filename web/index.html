@@ -30,7 +30,7 @@
     <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
     <button type="button" onclick="goToAdmin()">Administrator</button>
     <button type="button" onclick="goToProduktionsleder()">Produktionsleder</button>
-    <button type="button" onclick="goToAfvejning1()">Laborant</button>
+    <button type="button" onclick="goToAfvejning1_Laborant()">Laborant</button>
     <button type="button" onclick="goToFarmaceut()">Farmaceut</button>
 </form>
 <!----------------------------------------Admin forms------------------------------------------------------->
@@ -161,8 +161,7 @@
 </form>
 <!----------------------------------------Laborant forms------------------------------------------------------->
 
-<form method="POST" action="" name="afvejning1_Laborant" id="afvejning1_ProduktionslederLaborant"
-      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+<form method="POST" action="" name="afvejning1_Laborant" id="afvejning1_Laborant" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <label for="productbatchID_Laborant">Produktbatch ID:</label>
     <input type="text" id="productbatchID_Laborant" name="productbatchID"><br><br>
     <button type="button" onclick="goLogIn()">Log ud</button>
@@ -194,7 +193,7 @@
     <!---<label id="statusOprettet_Produktionsleder" for="statusOprettet_Produktionsleder"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</-label><br><br>
     <label id="statusUnderProduktion_Produktionsleder" for="statusUnderProduktion_Produktionsleder"><strong>Status:</strong> Produktbatch er under produktion</label><br><br>-->
     <button type="button" onclick="goToAfvejning1_Laborant()">Gå tilbage</button>
-    <button type="button" onclick="goLogIn()">Send ind og afslut</button>
+    <button type="button" onclick="goLogIn()">Log ud</button>
 </form>
 <!----------------------------------------Farmaceut forms------------------------------------------------------>
 <form method="POST" action="" name="farmaceut" id="farmaceut"
@@ -335,6 +334,8 @@
         document.getElementById("recept2").style.visibility = "hidden";
         document.getElementById("recept3").style.visibility = "hidden";
         document.getElementById("Produktionsleder").style.visibility = "hidden";
+        document.getElementById("afvejning1_Laborant").style.visibility = "hidden";
+        document.getElementById("afvejning2_Laborant").style.visibility = "hidden";
     }
 
     function goLogIn() {
@@ -561,7 +562,7 @@
         var td3 = document.createElement("td");
         var row = document.createElement("tr");
         td1.innerHTML = document.getElementById("raavare_Laborant").value;
-        td2.innerHTML = document.getElementById("weight_Laborant").value - document.getElementById("tara_Produktionsleder").value;
+        td2.innerHTML = document.getElementById("weight_Laborant").value - document.getElementById("tara_Laborant").value;
         td3.innerHTML = document.getElementById("raavarebatchID_Laborant").value;
         row.appendChild(td1);
         row.appendChild(td2);
