@@ -19,7 +19,7 @@ import java.util.List;
  *  -
  */
 
-public class UserDAO extends UserDAONonPersistent implements Serializable {
+public class UserDAO extends UserDAONonPersistent {
     private final String FILE;
 
     public UserDAO(String filepath) throws IOException, ClassNotFoundException {
