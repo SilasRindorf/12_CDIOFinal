@@ -202,7 +202,7 @@
 <form method="POST" action="" name="farmaceut" id="farmaceut"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <button type="button" onclick="goToRaavarebatchFarmaceut()">Råvarebatches</button>
-    <button type="button" onclick="goToProduktbatch()">Produktbatches</button>
+    <button type="button" onclick="goToProduktbatchFarmaceut()">Produktbatches</button>
     <button type="button" onclick="goToAfvejning1_Farmaceut()">Afvejning</button>
     <button type="button" onclick="goToRecept1()">Recept</button>
     <button type="button" onclick="goToRaavare()">Råvare</button>
@@ -228,6 +228,26 @@
             <th>Råvarebatch Nr.</th>
             <th>RåvareID</th>
             <th>Mængde</th>
+        </tr>
+        </thead>
+    </table>
+</form>
+
+<form method="POST" action="" name="produktbatchFarmaceut" id="produktbatchFarmaceut"
+      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <b>Indtast værdier:</b> <br>
+    <label for="receptNrFarmaceut">Recept nummer:</label><br>
+    <input type="text" id="receptNrFarmaceut" name="receptNrFarmaceut"><br><br>
+    <label for="datoFarmaceut">Dato:</label><br>
+    <input type="date" id="datoFarmaceut" name="datoFarmaceut"><br><br>
+    <button type="button" onclick="goToFarmaceut()" value="Gå tilbage">Gå tilbage</button>
+    <button type="button" onclick="finishCreateBatchFarmaceut()" value="Afslut batch">Opret batch</button>
+    <table id="tableBatchFarmaceut" border="1">
+        <thead id="tableBatch-headFarmaceut">
+        <tr>
+            <th>Recept nummer</th>
+            <th>Dato</th>
+            <th>Status</th>
         </tr>
         </thead>
     </table>
@@ -399,6 +419,7 @@
         document.getElementById("afvejning1_Farmaceut").style.visibility = "hidden";
         document.getElementById("afvejning2_Farmaceut").style.visibility = "hidden";
         document.getElementById("raavarebatchFarmaceut").style.visibility = "hidden";
+        document.getElementById("produktbatchFarmaceut").style.visibility = "hidden";
     }
 
     function goLogIn() {
@@ -670,7 +691,32 @@
         document.getElementById("raavareIDFarmaceut").value = "";
         document.getElementById("maengdeFarmaceut").value = "";
     }
+    //Farmaceut Produktbatch
+    function goToProduktbatchFarmaceut() {
+        hideall();
+        document.getElementById("produktbatchFarmaceut").style.visibility = "visible";
+    }
+    function finishCreateBatchFarmaceut() {
+        var tableBody = document.getElementById("tableBatchFarmaceut");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        var status = "Oprettet"
+        td1.innerHTML = document.getElementById("receptNrFarmaceut").value;
+        td2.innerHTML = document.getElementById("datoFarmaceut").value;
+        td3.innerHTML = status;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesCreateBatch();
+    }
 
+    function resetValuesCreateBatchFarmaceut() {
+        document.getElementById("receptNrFarmaceut").value = "";
+        document.getElementById("datoFarmaceut").value = "";
+    }
     //Farmaceut afvejning functions
     function goToAfvejning1_Farmaceut() {
         hideall();
