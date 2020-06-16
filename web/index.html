@@ -607,6 +607,7 @@
 
     function goToAfvejning2_Produktionsleder() {
         hideall();
+        document.getElementById("productbatchID_Produktionsleder").value = ""
         document.getElementById("afvejning2_Produktionsleder").style.visibility = "visible";
         document.getElementById("statusOprettet_Produktionsleder").style.visibility = "visible";
     }
@@ -643,6 +644,7 @@
     //Laborant afvejning functions
     function goToAfvejning1_Laborant() {
         hideall();
+        document.getElementById("productbatchID_Laborant").value = "";
         document.getElementById("title").innerHTML = "Laborant";
         document.getElementById("afvejning1_Laborant").style.visibility = "visible";
     }
@@ -733,6 +735,7 @@
     function goToAfvejning1_Farmaceut() {
         hideall();
         document.getElementById("title").innerHTML = "Farmaceut";
+        document.getElementById("productbatchID_Farmaceut").value = "";
         document.getElementById("afvejning1_Farmaceut").style.visibility = "visible";
 
     }
