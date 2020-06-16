@@ -1,11 +1,10 @@
-function logInAction(username, password) {
+function logInAction(username, password, url) {
     var logInDTO = {
         "username": username,
         "password": password
     };
-    POST(logInDTO)
+    POST(url, logInDTO)
 }
-
 
 function POST(url, object) {
     const request = new XMLHttpRequest();
