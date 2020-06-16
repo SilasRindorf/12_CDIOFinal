@@ -1,5 +1,6 @@
 package DTO;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,7 +11,8 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ReceiptDTO extends IdAndActivatable {
+public class ReceiptDTO extends IdAndActivatable implements Serializable {
+    static final long serialVersionUID = 8148793402845572332L;
     private String name;
     private List<ReceiptCompDTO> receiptComps;
 
