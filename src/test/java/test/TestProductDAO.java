@@ -2,16 +2,24 @@ package test;
 
 import DAL.interfaces.DALException;
 import DAL.interfaces.IProductDAO;
+import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
+import DAL.nonPersistent.DummyDataGenerator;
 import DAL.nonPersistent.ProductDAONonPersistent;
+import DAL.persistent.FileAPI;
+import DAL.persistent.ProductDAO;
+import DAL.persistent.UserDAO;
 import DTO.IdAndActivatable;
 import DTO.ProductBatchCompDTO;
 import DTO.ProductBatchDTO;
+import DTO.UserDTO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -178,7 +186,7 @@ public class TestProductDAO {
         // When trying to change batch from "true" to "true", i get told that it was already true in the first place.
 
         try {
-            batches.setIsActiveBatch(1, true);
+            batches.setIsActive(1, true);
         } catch (Exception e){
             message = e.getMessage();
         }
@@ -188,7 +196,7 @@ public class TestProductDAO {
 
         message = "";
         try {
-            batches.setIsActiveBatch(1, false);
+            batches.setIsActive(1, false);
             assertFalse(batches.getBatch(1).getIsActive());
         } catch (Exception e) {
             message = e.getMessage();
@@ -197,6 +205,105 @@ public class TestProductDAO {
 
     }
 
+
+    ///////////////////////////////////
+    // Persistency tests below
+    ///////////////////////////////////
+
+    @Test
+    public void testCreateBatchPersistent() throws DALException, JunkFormatException, IOException, ClassNotFoundException {
+        // When i create a Productbatch and save it persistently, i'll be able to open collect the batch
+        // from an instance of ProductDAO that didn't create the item.
+
+        List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
+
+        File file = new File(FileAPI.TEST_PRODUCT_DAO_FILE);
+        file.delete();
+
+        ProductBatchDTO a = new ProductBatchDTO(1,1, new Date(2014, 02, 11), ProductBatchDTO.Status.CREATED, products, true);
+
+        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+
+        // dao creates the batch
+        dao.createBatch(a);
+
+        // When creating dao2, it will load everything in the file at this point in time.
+        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+
+        // both dao and dao2 tries to collect the item, and then compares them.
+        ProductBatchDTO expected = dao.getBatchList().get(0);
+        ProductBatchDTO got = dao2.getBatchList().get(0);
+        assertEquals(expected.getID(), got.getID());
+        assertEquals(expected.getIsActive(), got.getIsActive());
+        assertEquals(expected.getStatus(), got.getStatus());
+        assertEquals(expected.getCreated(), got.getCreated());
+        assertEquals(expected.getReceipt(), got.getReceipt());
+        assertEquals(expected.getProductComps(), got.getProductComps());
+
+    }
+
+    @Test
+    public void testUpdateBatchPersistent() throws DALException, JunkFormatException, IOException, ClassNotFoundException {
+
+        // When updating a batch, i expect the batch to get updated for both instances of the ProductDAO
+        List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
+
+        File file = new File(FileAPI.TEST_PRODUCT_DAO_FILE);
+        file.delete();
+
+        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+
+        ProductBatchDTO a = new ProductBatchDTO(1,1, new Date(2014, 02, 11), ProductBatchDTO.Status.CREATED, products, true);
+        ProductBatchDTO b = new ProductBatchDTO(1,1234, new Date(2015, 12, 16), ProductBatchDTO.Status.IN_PRODUCTION, products, false);
+
+        // I create the first object (a) from dao, then overwrite it with the second object (b) from dao.
+        dao.createBatch(a);
+        dao.updateBatch(b);
+
+        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+
+        // Then i use dao2 to collect whatever it has stored in the file it's pointed to, and compares it to
+        // the second object (b)
+        ProductBatchDTO expected = b;
+        ProductBatchDTO got = dao2.getBatchList().get(0);
+        assertEquals(expected.getID(), got.getID());
+        assertEquals(expected.getIsActive(), got.getIsActive());
+        assertEquals(expected.getStatus(), got.getStatus());
+        assertEquals(expected.getCreated(), got.getCreated());
+        assertEquals(expected.getReceipt(), got.getReceipt());
+        assertEquals(expected.getProductComps(), got.getProductComps());
+    }
+
+    @Test
+    public void testSetIsActivePersistent() throws DALException, IOException, ClassNotFoundException, JunkFormatException {
+
+        List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
+
+        File file = new File(FileAPI.TEST_PRODUCT_DAO_FILE);
+        file.delete();
+
+        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+
+        ProductBatchDTO a = new ProductBatchDTO(1,1, new Date(2014, 02, 11), ProductBatchDTO.Status.CREATED, products, true);
+        dao.createBatch(a);
+
+        // When i try to set the productbatch with ID 1 to false from dao, i expect it to happen in dao2 aswell.
+        dao.setIsActive(1,false);
+
+        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+
+        assertFalse(dao2.getBatch(1).getIsActive());
+
+        // When i then try to set it "false" again from dao2 this time, i expect it to throw an exception.
+        // saying, that the productbatch already has activity = false.
+
+        try{
+            dao2.setIsActive(1, false);
+            assertTrue(false);
+        } catch (Exception e){
+            assertTrue(true);
+        }
+    }
 }
 
 
