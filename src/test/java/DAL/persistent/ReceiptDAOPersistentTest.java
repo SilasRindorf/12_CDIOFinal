@@ -80,7 +80,7 @@ class ReceiptDAOPersistentTest {
         file.delete();
         DDG = new DummyDataGenerator(4);
         RL = DDG.generateReceiptsAndGet(receiptDAO);
-
+        receiptDAO.setIsActive(0, false);
         assertEquals(false,receiptDAO.getReceipt(0).getIsActive());
         receiptDAO.setIsActive(0, true);
         assertEquals(true,receiptDAO.getReceipt(0).getIsActive());
