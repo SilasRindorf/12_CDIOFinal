@@ -24,5 +24,11 @@ public class TestDriver {
             System.out.println("FAILURE");
             System.out.println(failure.toString());
         }
+
+        result = JUnitCore.runClasses(test.TestReceiptDAO.class);
+        for (Failure failure : result.getFailures()){
+            System.out.println("FAILURE");
+            System.out.println(failure.toString());
+        }
     }
 }
