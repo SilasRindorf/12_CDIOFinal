@@ -61,9 +61,9 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
         for(int i = 0; i < reciptList.size(); i++){
             if(reciptList.get(i).getID() == receiptID){
                 ReceiptDTO x = reciptList.get(i);
-
                 ReceiptDTO insert = new ReceiptDTO(x.getID(), x.getName(),x.getReceiptComps(), isActive);
-                reciptList.add(i, insert);
+                reciptList.remove(i);
+                reciptList.add(insert);
             }
 
         }

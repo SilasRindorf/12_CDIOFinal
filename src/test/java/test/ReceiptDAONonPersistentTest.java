@@ -71,6 +71,7 @@ class ReceiptDAONonPersistentTest {
         DDG.generateReceipts(receiptdao);
 
         for(int i = 0; i < 10; i++) {
+
             assertEquals(true, receiptdao.getReceipt(i).getIsActive());
             receiptdao.setIsActive(i, false);
             assertEquals(false, receiptdao.getReceipt(i).getIsActive());
