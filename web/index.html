@@ -88,14 +88,13 @@
 </form>
 
 <form method="POST" action="" name="produktbatch" id="produktbatch" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-    <b>Indtast værdier</b> <br>
+    <b>Indtast værdier:</b> <br>
     <label for="receptNr">Recept nummer:</label><br>
     <input type="text" id="receptNr" name="receptNr"><br><br>
     <label for="dato">Dato:</label><br>
     <input type="date" id="dato" name="dato"><br><br>
-    <button type="button" onclick="finishCreateBatch()" value="Gå tilbage">Opret batch</button>
     <button type="button" onclick="goToProduktionsleder()" value="Gå tilbage">Gå tilbage</button>
-
+    <button type="button" onclick="finishCreateBatch()" value="Afslut batch">Opret batch</button>
     <table id="tableBatch" border="1">
         <thead id="tableBatch-head">
         <tr>
@@ -105,14 +104,6 @@
         </tr>
         </thead>
     </table>
-</form>
-
-
-
-
-<form method="POST" action="" name="produktbatch3" id="produktbatch3" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-    <div id="produktbatchList"></div> <br>
-    <button type="button" onclick="goToWelcomeFromDelete()"><bs>Tilbage til start</bs></button>
 </form>
 
 
