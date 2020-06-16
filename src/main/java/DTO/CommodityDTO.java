@@ -1,5 +1,7 @@
 package DTO;
 
+import java.io.Serializable;
+
 /***
  * Initial version created by: Silas
  * Edited by: Christoffer
@@ -7,7 +9,8 @@ package DTO;
  * This class is responsible for:
  *  -
  */
-public class CommodityDTO extends IdAndActivatable {
+public class CommodityDTO extends IdAndActivatable implements Serializable {
+    private static final long serialVersionUID = 354210356105434L;
     private String name;
 
     public CommodityDTO(int commodityNr, String name, boolean isActive) {
