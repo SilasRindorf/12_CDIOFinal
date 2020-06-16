@@ -1,10 +1,10 @@
-package RAM;
+package DTO;
 
-public class LogIn {
+public class LogInDTO {
     private String username;
     private String password;
 
-    public LogIn(){
+    public LogInDTO(){
 
     }
 

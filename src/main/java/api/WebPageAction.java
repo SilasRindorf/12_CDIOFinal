@@ -1,6 +1,6 @@
 package api;
 
-import RAM.LogIn;
+import DTO.LogInDTO;
 import controllers.ActionController;
 
 import javax.ws.rs.*;
@@ -24,8 +24,8 @@ public class WebPageAction {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("log-in")
-    public Response logIn(LogIn logIn){
-        controller.logIn(logIn.getUsername(), logIn.getPassword());
+    public Response logIn(LogInDTO logInDTO){
+        controller.logIn(logInDTO.getUsername(), logInDTO.getPassword());
         return Response.status(201).build();
     }
 

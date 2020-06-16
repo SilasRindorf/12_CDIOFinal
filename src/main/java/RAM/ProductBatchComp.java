@@ -12,14 +12,14 @@ public class ProductBatchComp {
     private double weighted;
     private int commodityBatchNr;
     private int commodityNr;
-    private int weighterID;
+    private int weigherID;
 
     public ProductBatchComp(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID, boolean isActive) {
         this.tara = tara;
         this.weighted = weighted;
         this.commodityBatchNr = commodityBatchNr;
         this.commodityNr = commodityNr;
-        this.weighterID = userID;
+        this.weigherID = userID;
     }
 
     public double getTara() {
@@ -38,8 +38,8 @@ public class ProductBatchComp {
         return commodityNr;
     }
 
-    public int getWeighterID() {
-        return weighterID;
+    public int getWeigherID() {
+        return weigherID;
     }
 
     @Override
@@ -49,6 +49,6 @@ public class ProductBatchComp {
                 "weighted=" + weighted +" | " +
                 "commodityBatchNr=" + commodityBatchNr + " | " +
                 "commodityNr=" + commodityNr + " | " +
-                "weighterID=" + weighterID + '}';
+                "weighterID=" + weigherID + '}';
     }
 }
