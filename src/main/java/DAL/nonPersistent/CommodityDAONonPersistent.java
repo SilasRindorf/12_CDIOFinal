@@ -120,11 +120,23 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
                 throw new DALException("There is already a commodity with: ID=" + batch.getID());
             }
         }
-        //TODO: BUGS, we can create objects which depend on existing objects.
-        //if(!getCommodityList().contains(newBatch.getCommodityNr())){
-        //    throw new DALException("There are no commodities with that ID: " +newBatch.getCommodityNr());
-        //}
+        if(!hasCommodityWithId(newBatch.getCommodityNr())){
+            throw new DALException("There are no commodities with the ID: " +newBatch.getCommodityNr());
+        }
         batches.add(newBatch);
+    }
+
+    private boolean hasCommodityWithId(int id){
+        try {
+            for(CommodityDTO com : getCommodityList()){
+               if(com.getID() == id) {
+                   return true;
+               }
+            }
+        } catch (DALException e) {
+            throw new AssertionError("Should only be used by internal methods, where commodityList is initialized");
+        }
+        return false;
     }
 
     private void updateCommodityBatch(CommodityBatchDTO batch) throws DALException, JunkFormatException {
