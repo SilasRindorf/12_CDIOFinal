@@ -255,16 +255,16 @@
 
 <form method="POST" action="" name="recept1" id="recept1"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-    <button type="button" onclick="goToRecept2">Opret ny recept</button>
-    <button type="button" onclick="goToRecept3">Vis recepter</button>
+    <button type="button" onclick="goToRecept2()">Opret ny recept</button>
+    <button type="button" onclick="goToRecept3()">Vis recepter</button>
     <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
 </form>
 
 <form method="POST" action="" name="recept2" id="recept2"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-    <label for="receptNr">Indtast råvaren: </label>
-    <input type="text" name="receptNr"><br><br>
-    <label for="receptNavn">Indtast råvarebatch nr: </label>
+    <label for="receptNr">Indtast recept nr: </label>
+    <input type="text" id="recept2Nr" name="receptNr"><br><br>
+    <label for="receptNavn">Indtast recept navn: </label>
     <input type="text" id="receptNavn" name="receptNavn"><br><br>
     <button type="button" onclick="goToRecept1()">Gå tilbage</button>
     <button type="button" onclick="goToRecept3()">Opret recept</button>
@@ -278,23 +278,21 @@
     <input type="text" id="maengdeRecept" for="maengdeRecept" name="maengdeRecept"><br><br>
     <label for="tolerance">Indtast tolerancen: </label>
     <input type="text" id="tolerance" for="tolerance" name="receptNavn"><br><br>
-    <table id="tableRecept" border="1">
-        <thead id="tableRecept-head">
+    <table id="table_recept" border="1">
+        <thead id="table-head_recept">
         <tr>
             <th>Raavare</th>
             <th>Mængde</th>
             <th>Tolerance</th>
         </tr>
         </thead>
-        <tbody id="tableRecept-body">
+        <tbody id="table-body_recept">
         </tbody>
     </table>
-    <label for="statusOprettet"><strong>Status:</strong> Ny recept kan påbegyndes</label><br><br>
-    <label for="statusUnderProduktion"><strong>Status:</strong> Recept er under produktion</label><br><br>
+    <button type="button" onclick="goLogIn()">Log ud</button>
     <button type="button" onclick="goToRecept2()">Gå tilbage</button>
-    <input type="button" value="Tilføj recept komponent" onClick="addReceptbatchComponent()"
-           id="addRbComponent"><br/><br/>
-    <button type="button" onclick="finishRecept()">Færdigør X</button>
+    <button type="button" onClick="addReceptbatchComponent()">Tilføj receptkomponent</button>
+    <button type="button" onclick="finishRecept()">Færdigør</button>
 </form>
 
 <form method="POST" action="" name="afvejning1_Farmaceut" id="afvejning1_Farmaceut" style="position: absolute; left: 50px; top: 70px; visibility: hidden">
@@ -461,7 +459,7 @@
     }
 
     function goToLaborant() {
-        hideall()
+        hideall();
         goToAfvejning1_Laborant();
         document.getElementById("title").innerHTML = "Laborant";
     }
@@ -767,20 +765,24 @@
     function goToRecept1() {
         hideall();
         document.getElementById("recept1").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
     }
 
     function goToRecept2() {
         hideall();
         document.getElementById("recept2").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
     }
 
     function goToRecept3() {
         hideall();
         document.getElementById("recept3").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
+        resetValuesRecept2();
     }
 
     function addReceptbatchComponent() {
-        var tableBody = document.getElementById("table-body");
+        var tableBody = document.getElementById("table-body_recept");
         var td1 = document.createElement("td");
         var td2 = document.createElement("td");
         var td3 = document.createElement("td");
@@ -792,8 +794,16 @@
         row.appendChild(td2);
         row.appendChild(td3);
         tableBody.appendChild(row);
-        document.getElementById("statusOprettet").style.visibility = "hidden";
-        document.getElementById("statusUnderProduktion").style.visibility = "visible";
+        resetValuesReceptComponentFarmaceut();
+    }
+    function resetValuesReceptComponentFarmaceut() {
+        document.getElementById("maengdeRecept").value = "";
+        document.getElementById("raavareRecept").value = "";
+        document.getElementById("tolerance").value = "";
+    }
+    function resetValuesRecept2() {
+        document.getElementById("recept2Nr").value = "";
+        document.getElementById("receptNavn").value = "";
     }
     //FARMACEUT MANGLER
     function finishRecept() {
