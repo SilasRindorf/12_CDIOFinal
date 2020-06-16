@@ -258,7 +258,7 @@
 <form method="POST" action="" name="recept1" id="recept1"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <button type="button" onclick="goToRecept2()">Opret ny recept</button>
-    <button type="button" onclick="goToRecept3()">Vis recepter</button>
+    <button type="button" onclick="goToRecept4()">Vis recepter</button>
     <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
 </form>
 
@@ -803,6 +803,12 @@
         document.getElementById("recept3").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Farmaceut";
         resetValuesRecept2();
+    }
+    function goToRecept4() {
+        hideall();
+        document.getElementById("recept4").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
+
     }
 
     function addReceptbatchComponent() {
