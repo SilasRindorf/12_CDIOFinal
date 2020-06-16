@@ -113,3 +113,8 @@ out/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+USER_DAO_DATA
+COMMODITY_DAO_DATA
+PRODUCT_DAO_DATA
+RECEIPT_DAO_DATA
+

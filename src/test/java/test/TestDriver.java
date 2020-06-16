@@ -13,29 +13,16 @@ import org.junit.runner.notification.Failure;
  */
 public class TestDriver {
     public static void main(String[] args){
-  //      Result result = JUnitCore.runClasses(TestDAL.class);
-  //      for (Failure failure : result.getFailures()){
-  //          System.out.println(failure.toString());
-  //      }
-
-
-  //      result = JUnitCore.runClasses(TestDAO.class);
-  //      for (Failure failure : result.getFailures()){
-  //          System.out.println(failure.toString());
-  //      }
-
-
-        //Result result = JUnitCore.runClasses(test.TestUserDAO.class);
-        //for (Failure failure : result.getFailures()){
-        //    System.out.println("FAILURE");
-        //    System.out.println(failure.toString());
-        //}
-
         Result result = JUnitCore.runClasses(test.TestProductDAO.class);
         for (Failure failure : result.getFailures()){
             System.out.println("FAILURE");
             System.out.println(failure.toString());
         }
 
+        result = JUnitCore.runClasses(test.TestCommodityDAO.class);
+        for (Failure failure : result.getFailures()){
+            System.out.println("FAILURE");
+            System.out.println(failure.toString());
+        }
     }
 }
