@@ -52,7 +52,7 @@
     <label for="Laborant"> Laborant</label><br>
     <button type="button" onclick="goLogIn()">LogOut</button>
     <button type="button" onclick="finishCreateUser()">Opret bruger</button>
-    <table id="table_user" border="1" onclick="handleClick(Event)">
+    <table id="table_user" border="1">
         <thead id="table-head_user">
         </thead>
         <tbody id="table-body_user">
@@ -63,10 +63,6 @@
             <th>Password</th>
             <th>Rolle</th>
             <th>Status</th>
-            <td>
-            <th>Inaktiver</th>
-            </td>
-
         </tr>
         </tbody>
     </table>
@@ -220,7 +216,6 @@
         <input type="button" value="Tilføj recept komponent"  onClick="addReceptbatchComponent()" id="addRbComponent"><br /><br />
         <button type="button" onclick="finishRecept()">Færdigør X</button>
     </form>
-
 <script>
         function resetValuesCreateUser(){
             document.getElementById("uname").value = "";
@@ -228,8 +223,8 @@
             document.getElementById("cpr").value = "";
             document.getElementById("password").value = "";
             document.getElementById("Pharmaceut").checked = false;
-            document.getElementById("Admin").checked = false;
-            document.getElementById("Produktionsleder").checked = false;
+            document.getElementById("AdminID").checked = false;
+            document.getElementById("ProduktionslederRadio").checked = false;
             document.getElementById("Laborant").checked = false;
         }
         function goToAdmin() {
@@ -295,13 +290,13 @@
                 td5.innerHTML = userRole;
             }
             var Status = "Aktiv";
-            var inaktiverKnap =
-
+            td6.innerHTML = Status;
             row.appendChild(td1);
             row.appendChild(td2);
             row.appendChild(td3);
             row.appendChild(td4);
             row.appendChild(td5);
+            row.appendChild(td6);
             tableBody.appendChild(row);
         }
         function goToWelcomeFromFinish() {
@@ -482,13 +477,7 @@
             document.getElementById("raavareID").value = "";
             document.getElementById("maengde").value = "";
         }
-        function handleClick(evt) {
-            var node = evt.target || evt.srcElement;
-            if (node.name == 'edit') {
-                node.value = "Modify";
-            }
-        }
-        function
+
 
     </script>
 </body>
