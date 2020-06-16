@@ -102,6 +102,8 @@
     </table>
 </form>
 
+
+
 <form method="POST" action="" name="produktbatch" id="produktbatch"
       style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <b>Indtast værdier:</b> <br>
@@ -121,6 +123,7 @@
         </thead>
     </table>
 </form>
+
 
 <form method="POST" action="" name="afvejning1_Produktionsleder" id="afvejning1_Produktionsleder"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
@@ -201,13 +204,36 @@
 <!----------------------------------------Farmaceut forms------------------------------------------------------>
 <form method="POST" action="" name="farmaceut" id="farmaceut"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-    <button type="button" onclick="goToRaavarebatch()">Ændre på råvarebatches</button>
+    <button type="button" onclick="goToRaavarebatchFarmaceut()">Ændre på råvarebatches</button>
     <button type="button" onclick="goToProduktbatch()">Ændre på produktbatches</button>
     <button type="button" onclick="goToAfvejning1()">Gå til afvejning</button>
     <button type="button" onclick="goToRecept1()">Gå til recept</button>
     <button type="button" onclick="goToRaavare()">Ændre på råvare</button>
     <button type="button" onclick="goLogIn()">Log out
     </button>
+</form>
+
+<form method="POST" action="" name="raavarebatchFarmaceut" id="raavarebatchFarmaceut"
+      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <b>Indtast værdier</b> <br>
+    <label for="raavarebatchNr">Råvarebatch Nr: </label><br>
+    <input type="text" id="raavarebatchNrFarmaceut" for="raavarebatchNrFarmaceut" name="raavarebatchNrFarmaceut"><br><br>
+    <label for="raavareID">RåvareID: </label><br>
+    <input type="text" id="raavareIDFarmaceut" for="raavareIDFarmaceut" name="raavareIDFarmaceut"><br><br>
+    <label for="maengde">Mængde: </label><br>
+    <input type="text" id="maengdeFarmaceut" for="maengdeFarmaceut" name="maengdeFarmaceut"><br><br>
+    <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
+    <button type="button" onclick="createRaavarebatchComponentFarmaceut()">Tilføj råvarebatch komponent</button>
+    </table>
+    <table id="table_raavarebatchFarmaceut" border="1">
+        <thead id="table-head_raavarebatchFarmaceut">
+        <tr>
+            <th>Råvarebatch Nr.</th>
+            <th>RåvareID</th>
+            <th>Mængde</th>
+        </tr>
+        </thead>
+    </table>
 </form>
 
 <form method="POST" action="" name="recept1" id="recept1"
@@ -338,6 +364,7 @@
         document.getElementById("Produktionsleder").style.visibility = "hidden";
         document.getElementById("afvejning1_Laborant").style.visibility = "hidden";
         document.getElementById("afvejning2_Laborant").style.visibility = "hidden";
+        document.getElementById("raavarebatchFarmaceut").style.visibility = "hidden";
     }
 
     function goLogIn() {
@@ -584,7 +611,32 @@
     function finishProductbatch_Laborant() {
 
     }
-    //Farmaceut functions
+    //Farmaceut Rårvarebatch
+    function goToRaavarebatchFarmaceut() {
+        hideall();
+        document.getElementById("raavarebatchFarmaceut").style.visibility = "visible";
+    }
+    function createRaavarebatchComponentFarmaceut() {
+        var tableBody = document.getElementById("table_raavarebatchFarmaceut");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavarebatchNrFarmaceut").value;
+        td2.innerHTML = document.getElementById("raavareIDFarmaceut").value;
+        td3.innerHTML = document.getElementById("maengdeFarmaceut").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesCreateRaavarebatchFarmaceut();
+    }
+    function resetValuesCreateRaavarebatchFarmaceut() {
+        document.getElementById("raavarebatchNrFarmaceut").value = "";
+        document.getElementById("raavareIDFarmaceut").value = "";
+        document.getElementById("maengdeFarmaceut").value = "";
+    }
+
     //Farmaceut afvejning functions
     function goToAfvejning1() {
         hideall();
