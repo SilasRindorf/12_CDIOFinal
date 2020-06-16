@@ -4,6 +4,7 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
+import DAL.persistent.ReceiptDAO;
 import DTO.ReceiptCompDTO;
 import DTO.ReceiptDTO;
 import org.junit.Test;

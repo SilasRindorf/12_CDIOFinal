@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ReceiptDAONonPersistent implements IReceiptDAO {
 
-    private List<ReceiptDTO> receipts;
+    protected List<ReceiptDTO> receipts;
 
     public ReceiptDAONonPersistent() {
         receipts = new ArrayList<>();
@@ -42,7 +42,7 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
     }
 
     @Override
-    public void createReceipt(ReceiptDTO newReceipt) throws DALException {
+    public void createReceipt(ReceiptDTO newReceipt) throws DALException, JunkFormatException {
         for (ReceiptDTO rec : receipts)
         {
             if (rec.getID() == newReceipt.getID())
