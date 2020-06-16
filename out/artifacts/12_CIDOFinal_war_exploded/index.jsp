@@ -30,6 +30,8 @@
     function logIn(){
       uname = document.getElementById("uname").value;
       password = document.getElementById("password").value;
+      document.getElementById("uname").value = "";
+      document.getElementById("password").value = "";
       logInAction("rest/actions/log-in",uname,password);
     }
   </script>

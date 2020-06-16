@@ -34,18 +34,16 @@ function POSTAndReceive(url, object) {
     var sendStr = JSON.stringify(object);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
-        if (request.readyState === 4) {
+        if (request.readyState === 4 && request.status === 200) {
             console.log(request.responseText);
-            if (request.status === 200) {
-                alert(request.responseText);
-            }
-
         }
-        request.send(sendStr);
-        request.onload = function () {
-            alert(request.response);
-        };
-    }
+    };
+
+    request.send(sendStr);
+    request.onload = function () {
+        console.log(url);
+        console.log(request.responseText);
+    };
 }
 
 function POST(url, object) {
