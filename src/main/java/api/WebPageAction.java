@@ -10,10 +10,13 @@ import javax.ws.rs.core.Response;
 @Path("actions")
 public class WebPageAction {
     private static ActionController controller = new ActionController();
+
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public String getter(){
         return "Action page";
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
