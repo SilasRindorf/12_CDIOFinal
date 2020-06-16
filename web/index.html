@@ -624,9 +624,16 @@
         row.appendChild(td2);
         row.appendChild(td3);
         tableBody.appendChild(row);
-        document.getElementById("statusOprettet_Produktionsleder").style.visibility = "hidden";
-        document.getElementById("statusUnderProduktion_Produktionsleder").style.visibility = "visible";
+        resetValuesProductbatchComponentProduktionsLeder();
     }
+
+    function resetValuesProductbatchComponentProduktionsLeder() {
+        document.getElementById("raavare_Produktionsleder").value = "";
+        document.getElementById("weight_Produktionsleder").value = "";
+        document.getElementById("tara_Produktionsleder").value = "";
+        document.getElementById("raavarebatchID_Produktionsleder").value = "";
+    }
+
     //PRODUKTIONSLEDER MANGLER
     function finishProductbatch_Produktionsleder() {
 
@@ -659,8 +666,13 @@
         row.appendChild(td2);
         row.appendChild(td3);
         tableBody.appendChild(row);
-        document.getElementById("statusOprettet_Laborant").style.visibility = "hidden";
-        document.getElementById("statusUnderProduktion_Laborant").style.visibility = "visible";
+        resetValuesProductbatchComponentLaborant()
+    }
+    function resetValuesProductbatchComponentLaborant() {
+        document.getElementById("raavare_Laborant").value = "";
+        document.getElementById("weight_Laborant").value = "";
+        document.getElementById("tara_Laborant").value = "";
+        document.getElementById("raavarebatchID_Laborant").value = "";
     }
     //LABORANT MANGLER
     function finishProductbatch_Laborant() {
@@ -742,8 +754,13 @@
         row.appendChild(td2);
         row.appendChild(td3);
         tableBody.appendChild(row);
-        document.getElementById("statusOprettet_Farmaceut").style.visibility = "hidden";
-        document.getElementById("statusUnderProduktion_Farmaceut").style.visibility = "visible";
+        resetValuesProductbatchComponentFarmaceut();
+    }
+    function resetValuesProductbatchComponentFarmaceut() {
+        document.getElementById("raavare_Farmaceut").value = "";
+        document.getElementById("weight_Farmaceut").value = "";
+        document.getElementById("tara_Farmaceut").value = "";
+        document.getElementById("raavarebatchID_Farmaceut").value = "";
     }
 
     //Farmaceut recept functions
