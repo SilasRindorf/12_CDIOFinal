@@ -3,12 +3,15 @@ package test;
 import DAL.interfaces.DALException;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
+import DAL.nonPersistent.DummyDataGenerator;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
+import DAL.persistent.FileAPI;
 import DAL.persistent.ReceiptDAO;
 import DTO.ReceiptCompDTO;
 import DTO.ReceiptDTO;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,5 +97,13 @@ public class TestReceiptDAO {
         }
 
     }
+
+    @Test
+    public void testPersistency() throws IOException {
+        IReceiptDAO dao = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        DummyDataGenerator gen = new DummyDataGenerator(13);
+        gen.generateReceipts(dao);
+    }
+
 
 }

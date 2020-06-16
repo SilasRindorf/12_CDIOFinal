@@ -79,26 +79,9 @@ public class DummyDataGenerator {
             try {
                 receiptdao.createReceipt(randRecipt);
             } catch (DALException | JunkFormatException e) {
-                e.printStackTrace();
+                continue;
             }
         }
-    }
-    public List<ReceiptDTO> generateReceiptsAndGet(IReceiptDAO receiptdao){
-        List<ReceiptDTO> listR = new ArrayList<>();
-        for(int i = 0; i < 100; i++){
-            List<ReceiptCompDTO> compList = new ArrayList<>();
-            for(int x = 0; x < 4; x++){
-                compList.add(new ReceiptCompDTO(rand.nextInt(), rand.nextDouble(), rand.nextDouble() ));
-            }
-            ReceiptDTO randRecipt = new ReceiptDTO(i,""+randChar()+randChar()+randChar()+ randChar(),compList, true);
-            listR.add(randRecipt);
-            try {
-                receiptdao.createReceipt(randRecipt);
-            } catch (DALException | JunkFormatException e) {
-                e.printStackTrace();
-            }
-        }
-        return listR;
     }
 }
 
