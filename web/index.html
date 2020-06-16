@@ -324,7 +324,7 @@
 <form method="POST" action="" name="recept4" id="recept4"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <label>Denne feature er endnu ikke blevet færdig implementeret, da den skal hente informationer fra andre steder, og
-    det er først noget vi påbegynder senere.</label>
+        det er først noget vi påbegynder senere.</label>
     <table id="table_recept4" border="1">
         <thead id="table-head_recept4">
         <tr>
@@ -823,6 +823,7 @@
         document.getElementById("tara_Farmaceut").value = "";
         document.getElementById("raavarebatchID_Farmaceut").value = "";
     }
+
     //Farmaceut råvare functions
 
     function goToRaavare() {
@@ -845,6 +846,7 @@
         tableBody.appendChild(row);
         resetValuesRaavareFarmaceut();
     }
+
     function resetValuesRaavareFarmaceut() {
         document.getElementById("raavareNummer").value = "";
         document.getElementById("raavareNavn").value = "";
@@ -870,6 +872,7 @@
         document.getElementById("title").innerHTML = "Farmaceut";
         resetValuesRecept2();
     }
+
     function goToRecept4() {
         hideall();
         document.getElementById("recept4").style.visibility = "visible";
