@@ -210,6 +210,30 @@
     </button>
 </form>
 
+<form method="POST" action="" name="raavareFarmaceut" id="raavareFarmaceut"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <b>Indtast værdier</b> <br>
+    <label for="raavareNummer">Råvare nummer </label><br>
+    <input type="text" id="raavareNummer" for="raavareNummer" name="raavareNummer"><br><br>
+    <label for="raavareNavn">Råvare </label><br>
+    <input type="text" id="raavareNavn" for="raavareNavn" name="raavareNavn"><br><br>
+    <label for="levenrandør">Levenrandør </label><br>
+    <input type="text" id="levenrandør" for="levenrandør" name="levenrandør"><br><br>
+    <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
+    <button type="button" onclick="opretRaavare()">Tilføj råvare</button>
+    </table>
+    <table id="table_raavareFarmaceut" border="1">
+        <thead id="table-head_raavareFarmaceut">
+        <tr>
+            <th>Råvare nummer</th>
+            <th>Råvare</th>
+            <th>Levenradør</th>
+        </tr>
+        </thead>
+    </table>
+
+</form>
+
 <form method="POST" action="" name="raavarebatchFarmaceut" id="raavarebatchFarmaceut"
       style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <b>Indtast værdier</b> <br>
@@ -417,6 +441,7 @@
         document.getElementById("afvejning1_Farmaceut").style.visibility = "hidden";
         document.getElementById("afvejning2_Farmaceut").style.visibility = "hidden";
         document.getElementById("raavarebatchFarmaceut").style.visibility = "hidden";
+        document.getElementById("raavareFarmaceut").style.visibility = "hidden";
         document.getElementById("produktbatchFarmaceut").style.visibility = "hidden";
     }
 
@@ -763,6 +788,31 @@
         document.getElementById("tara_Farmaceut").value = "";
         document.getElementById("raavarebatchID_Farmaceut").value = "";
     }
+    //Farmaceut råvare functions
+    function goToRaavare() {
+        hideall();
+        document.getElementById("raavareFarmaceut").style.visibility = "visible";
+    }
+    function opretRaavare() {
+        var tableBody = document.getElementById("table_raavareFarmaceut");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavareNummer").value;
+        td2.innerHTML = document.getElementById("raavareNavn").value;
+        td3.innerHTML = document.getElementById("levenrandør").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesRaavareFarmaceut();
+    }
+    function resetValuesRaavareFarmaceut() {
+        document.getElementById("raavareNummer").value = "";
+        document.getElementById("raavareNavn").value = "";
+        document.getElementById("levenrandør").value = "";
+    }
 
     //Farmaceut recept functions
     function goToRecept1() {
@@ -815,11 +865,6 @@
     function finishProductbatch_Farmaceut() {
 
     }
-
-
-
-
-
 </script>
 </body>
 </html>
