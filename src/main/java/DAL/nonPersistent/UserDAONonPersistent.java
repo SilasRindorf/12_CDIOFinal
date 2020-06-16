@@ -17,7 +17,7 @@ import java.util.List;
  *  Assuring wrong or illegal information is not stored
  */
 public class UserDAONonPersistent implements IUserDAO {
-    private List<UserDTO> users;
+    protected List<UserDTO> users;
 
     public UserDAONonPersistent() {
         users = new ArrayList<>();
