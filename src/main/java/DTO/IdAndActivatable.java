@@ -1,5 +1,6 @@
 package DTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,8 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class IdAndActivatable {
+public class IdAndActivatable implements Serializable {
+
     private boolean active;
     private int ID;
 
