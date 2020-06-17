@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
     private final String FILE;
-    public ReceiptDAO(String filepath) throws IOException {
+    public ReceiptDAO(String filepath) throws IOException,ClassNotFoundException {
         super();
         FILE = filepath;
         File file = new File(FILE);
@@ -22,7 +22,7 @@ public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
         if(!isNew){
             try {
                 receipts = (ArrayList) FileAPI.loadDataFromFile(FILE);
-            }catch(EOFException | ClassNotFoundException ignored){ //Means that no objects are in the file
+            }catch(EOFException ignored){ //Means that no objects are in the file
             }
         }
     }
@@ -41,7 +41,6 @@ public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
     @Override
     public void createReceipt(ReceiptDTO receipt) throws DALException, JunkFormatException {
         super.createReceipt(receipt);
-
         try {
             FileAPI.saveDataToFile(receipts, FILE);
         } catch (IOException e) {
