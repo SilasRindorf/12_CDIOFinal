@@ -304,6 +304,7 @@
     <input type="text" id="maengdeRecept" for="maengdeRecept" name="maengdeRecept"><br><br>
     <label for="tolerance">Indtast tolerancen: </label>
     <input type="text" id="tolerance" for="tolerance" name="receptNavn"><br><br>
+    <input type="button" value="Tilføj receptkomponent" onClick="addReceptbatchComponent()"><br/><br/>
     <table id="table_recept" border="1">
         <thead id="table-head_recept">
         <tr>
@@ -317,7 +318,6 @@
     </table>
     <button type="button" onclick="goLogIn()">Log ud</button>
     <button type="button" onclick="goToRecept2()">Gå tilbage</button>
-    <button type="button" onClick="addReceptbatchComponent()">Tilføj receptkomponent</button>
     <button type="button" onclick="finishRecept()">Færdiggør</button>
 </form>
 
