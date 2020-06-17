@@ -69,13 +69,15 @@ public class DummyDataGenerator {
             }
         }
     }
+    //TODO: Seems broken, ids get too big?
     public void generateReceipts(IReceiptDAO receiptdao){
         for(int i = 0; i < 100; i++){
             List<ReceiptCompDTO> compList = new ArrayList<>();
             for(int x = 0; x < 4; x++){
-                compList.add(new ReceiptCompDTO(rand.nextInt(), rand.nextDouble(), rand.nextDouble() ));
+                compList.add(new ReceiptCompDTO(rand.nextInt(100), rand.nextDouble()*100, rand.nextDouble()*100 ));
+                System.out.println(compList.get(x));
             }
-            ReceiptDTO randRecipt = new ReceiptDTO(i,""+randChar()+randChar()+randChar()+ randChar(),compList, true);
+            ReceiptDTO randRecipt = new ReceiptDTO(rand.nextInt(100),""+randChar()+randChar()+randChar()+ randChar(),compList, true);
             try {
                 receiptdao.createReceipt(randRecipt);
             } catch (DALException | JunkFormatException e) {
