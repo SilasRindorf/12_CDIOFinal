@@ -8,6 +8,7 @@ import DTO.ProductBatchDTO;
 import DTO.UserDTO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 /***
@@ -45,6 +46,9 @@ public class ProductDAONonPersistent implements IProductDAO {
 
     @Override
     public void createBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException {
+        if(productBatch.getID() < 0){
+            throw new JunkFormatException("Ids should not be negative, the id was: "+ productBatch.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+        }
         for (ProductBatchDTO prod : productBatches)
         {
             if (prod.getID() == productBatch.getID())

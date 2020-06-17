@@ -6,6 +6,7 @@ import DAL.interfaces.JunkFormatException;
 import DTO.ReceiptDTO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /***
@@ -43,6 +44,9 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
 
     @Override
     public void createReceipt(ReceiptDTO newReceipt) throws DALException, JunkFormatException {
+        if(newReceipt.getID() < 0){
+            throw new JunkFormatException("Ids should not be negative, the id was: "+ newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+        }
         for (ReceiptDTO rec : receipts)
         {
             if (rec.getID() == newReceipt.getID())

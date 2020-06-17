@@ -38,6 +38,9 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
 
     @Override
     public void createCommodity(CommodityDTO commodity) throws DALException, JunkFormatException {
+        if(commodity.getID() < 0){
+            throw new JunkFormatException("Ids should not be negative, the id was: "+ commodity.getID(),Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+        }
         for (CommodityDTO commodityDTO :
                 commodities) {
             if (commodityDTO.getID() == commodity.getID()) {
