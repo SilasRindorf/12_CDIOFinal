@@ -21,8 +21,7 @@ import static org.junit.Assert.*;
 public class TestReceiptDAO {
 
     @Test
-    public void testCreateReceipt() throws DALException, JunkFormatException
-    {
+    public void testCreateReceipt() throws DALException, JunkFormatException {
         IReceiptDAO dao = new ReceiptDAONonPersistent();
 
         List<ReceiptCompDTO> components = new ArrayList<>();
@@ -40,17 +39,16 @@ public class TestReceiptDAO {
 
         // When trying to add a new receipt with the same ID, i expect an exception.
 
-        try{
+        try {
             dao.createReceipt(rec);
             assertTrue(false);
-        } catch (Exception e){
+        } catch (Exception e) {
             assertTrue(true);
         }
     }
 
     @Test
-    public void testGetReceipt() throws DALException, JunkFormatException
-    {
+    public void testGetReceipt() throws DALException, JunkFormatException {
         IReceiptDAO dao = new ReceiptDAONonPersistent();
 
         //This is tested in a previous test.
@@ -64,18 +62,17 @@ public class TestReceiptDAO {
 
         // When trying to get a receipt with ID 1234, i get an exception because it doesn't exist.
 
-        try{
+        try {
             dao.getReceipt(1234);
             assertTrue(false);
-        } catch (Exception e){
+        } catch (Exception e) {
             assertTrue(true);
         }
 
     }
 
     @Test
-    public void testSetIsActive() throws DALException, JunkFormatException
-    {
+    public void testSetIsActive() throws DALException, JunkFormatException {
         IReceiptDAO dao = new ReceiptDAONonPersistent();
 
         //This is tested in a previous test.
@@ -90,7 +87,7 @@ public class TestReceiptDAO {
 
         // When i do it again, the activity is already false, so it should throw an exception.
 
-        try{
+        try {
             dao.setIsActive(1, false);
             assertTrue(false);
         } catch (Exception e) {
@@ -102,74 +99,89 @@ public class TestReceiptDAO {
 //Persistency tests below
 //////////////////////////////
 
-//    @Test
-//    public void testPersistency() throws IOException, ClassNotFoundException, DALException {
-//        IReceiptDAO dao = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+    @Test
+    public void persistentGetReceipt() throws DALException, IOException, ClassNotFoundException {
+        File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
+        file.delete();
+        IReceiptDAO DAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        DummyDataGenerator DDG = new DummyDataGenerator(4);
+        DDG.generateReceipts(DAO);
+        IReceiptDAO newDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE); //creat a new DAO with the data in the file
 
-        //for(int i =0; i<dao.getReceiptList().size();++i){
-        //    System.out.println(dao.getReceiptList().get(i));
-        //}
-//    }
 
+        for (int i = 0; i < DAO.getReceiptList().size(); i++) {
+            assertEquals(DAO.getReceipt(i).toString(), newDAO.getReceipt(i).toString());
+        }
 
-    //@org.junit.jupiter.api.Test
-    //void getReceipt() throws DALException, IOException, ClassNotFoundException {
-    //    File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
-    //    file.delete();
-    //    IReceiptDAO DAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
-    //    //DummyDataGenerator DDG = new DummyDataGenerator(4);
-
-    //    //DDG.generateReceipts(DAO);
-    //    //for(int i = 0; i<DAO.getReceiptList().size(); ++i){
-    //    //    System.out.println(DAO.getReceiptList().get(i));
-    //    //}
-    //}
-
-//    @Test
-//    void getReceiptList() throws DALException {
-//        File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
-//        file.delete();
-//
-//        DDG = new DummyDataGenerator(4);
-//        RL = DDG.generateReceiptsAndGet(receiptDAO);
-//        List<ReceiptDTO> TL = receiptDAO.getReceiptList();
-//        for(int i = 0; i< RL.size(); i++){
-//            assertEquals(RL.get(i).toString(), TL.get(i).toString());
-//
-//        }
-//
-//    }
+    }
 
     @Test
-    public void createReceiptTest() throws JunkFormatException, DALException, IOException, ClassNotFoundException {
+    public void persistentGetReceiptList() throws DALException, IOException, ClassNotFoundException {
+        File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
+        file.delete();
+        IReceiptDAO DAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        DummyDataGenerator DDG = new DummyDataGenerator(4);
+        DDG.generateReceipts(DAO);
+        IReceiptDAO newDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE); //creat a new DAO with the data in the file
+
+        List<ReceiptDTO> fromRam = DAO.getReceiptList();
+        List<ReceiptDTO> fromFile = newDAO.getReceiptList();
+
+        for (int i = 0; i < fromRam.size(); i++) {
+            assertEquals(fromRam.get(i).toString(), fromFile.get(i).toString());
+        }
+    }
+
+    @Test
+    public void persistentCreateReceiptTest() throws JunkFormatException, DALException, IOException, ClassNotFoundException {
         File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
         file.delete();
         IReceiptDAO receiptDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
 
         List<ReceiptCompDTO> compList = new ArrayList<>();
-       for(int x = 0; x < 4; x++){
-            compList.add(new ReceiptCompDTO(1*x, 0.1*x, 0.2*x));
+        for (int x = 0; x < 4; x++) {
+            compList.add(new ReceiptCompDTO(1 * x, 0.1 * x, 0.2 * x));
         }
-       ReceiptDTO randRecipt = new ReceiptDTO(9000,"SKKKK",compList, true);
-       receiptDAO.createReceipt(randRecipt);
+        ReceiptDTO randRecipt = new ReceiptDTO(9000, "SKKKK", compList, true);
+        receiptDAO.createReceipt(randRecipt);
         assertEquals(randRecipt.toString(), receiptDAO.getReceipt(9000).toString());
 
         IReceiptDAO receiptDAO2 = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
 
-        assertEquals(randRecipt.toString(), receiptDAO.getReceipt(9000).toString());
+        assertEquals(randRecipt.toString(), receiptDAO2.getReceipt(9000).toString());
     }
 
-//    @Test
-//    void setIsActive() throws DALException, JunkFormatException {
-//        File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
-//        file.delete();
-//        DDG = new DummyDataGenerator(4);
-//        RL = DDG.generateReceiptsAndGet(receiptDAO);
-//        receiptDAO.setIsActive(0, false);
-//        assertEquals(false,receiptDAO.getReceipt(0).getIsActive());
-//        receiptDAO.setIsActive(0, true);
-//        assertEquals(true,receiptDAO.getReceipt(0).getIsActive());
-//
-//    }
+    @Test
+    public void persistentSetIsActive() throws DALException, JunkFormatException, IOException, ClassNotFoundException {
+        File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
+        file.delete();
+        DummyDataGenerator DDG = new DummyDataGenerator(4);
+        ReceiptDAO dao = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        DDG.generateReceipts(dao);
 
+        List<ReceiptDTO> fromRam = dao.getReceiptList();
+        for(ReceiptDTO x : fromRam){
+            assertTrue(x.getIsActive());
+        }
+        for(int i = 0; i < fromRam.size(); i++){
+            dao.setIsActive(i,false);
+        }
+        for(ReceiptDTO x : fromRam){
+            assertFalse(x.getIsActive());
+        }
+
+        ReceiptDAO dao2 = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        List<ReceiptDTO> fromFile = dao2.getReceiptList();
+        for(ReceiptDTO x : fromFile){
+            assertFalse(x.getIsActive());
+        }
+        for(int i = 0; i < fromFile.size(); i++){
+            dao2.setIsActive(i,true);
+        }
+        for(ReceiptDTO x : fromFile){
+            assertTrue(x.getIsActive());
+        }
+
+
+    }
 }
