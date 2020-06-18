@@ -4,8 +4,7 @@ function logInAction(url, username, password) {
         "username": username,
         "password": password
     };
-    GET("rest/test/form");
-    POST(url, logInDTO);
+    POSTAndReceive(url, logInDTO);
 }
 
 function createReceipt(url, name, receiptComps) {

@@ -6,15 +6,12 @@
     <title>CDIO Final</title>
 </head>
 <body>
-<script type="text/javascript" src="frontend/JSON_Actions.js"></script>
+<script type="text/javascript" src="javascript/Middle_actions.js"></script>
+<script type="text/javascript" src="javascript/JSON_actions.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 <h1 id="title">Velkommen til apotekets hjemmeside</h1>
-<!--
-    <form method="POST" action="authentication.html">
-        <input type = "submit" value="Login">
-    </form>
-    -->
+
 <!----------------------------------------Common forms------------------------------------------------------->
 <form method="post" action="" name="logInForm" id="logInForm" style="position: absolute;">
     <p>Brugernavn</p>
@@ -434,15 +431,15 @@
     var password;
 
     function logIn() {
-        hideall();
-        /*uname = document.getElementById("uname").value;
+        hideAll();
+        uname = document.getElementById("uname").value;
         password = document.getElementById("password").value;
-        action(uname,password,"rest/actions/confirm-log-in");*/
+        logInAction(uname,password,"rest/actions/confirm-log-in");
         document.getElementById("welcome").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Vælg venligst din bruger";
     }
 
-    function hideall() {
+    function hideAll() {
         document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";
         document.getElementById("logInForm").style.visibility = "hidden";
         document.getElementById("welcome").style.visibility = "hidden";
@@ -472,24 +469,23 @@
     }
 
     function goLogIn() {
-        hideall();
+        hideAll();
         document.getElementById("logInForm").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Login"
     }
 
     function goToWelcomeFromFinish() {
-        hideall();
+        hideAll();
         document.getElementById("welcome").style.visibility = "visible";
     }
-
     function goToWelcomeFromDelete() {
-        hideall();
+        hideAll();
         document.getElementById("welcome").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Welcome";
     }
 
     function returnToStart() {
-        hideall()
+        hideAll()
         document.getElementById("welcome").style.visibility = "visible";
         document.getElementById("admin").style.visibility = "hidden";
         resetValuesCreateUser();
@@ -497,26 +493,26 @@
 
     //Go to different roles
     function goToAdmin() {
-        hideall();
+        hideAll();
         document.getElementById("welcome").style.visibility = "hidden";
         document.getElementById("admin").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Adminstrator";
     }
 
     function goToProduktionsleder() {
-        hideall();
+        hideAll();
         document.getElementById("Produktionsleder").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Produktionsleder";
     }
 
     function goToLaborant() {
-        hideall();
+        hideAll();
         goToAfvejning1_Laborant();
         document.getElementById("title").innerHTML = "Laborant";
     }
 
     function goToFarmaceut() {
-        hideall();
+        hideAll();
         document.getElementById("farmaceut").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Farmaceut";
     }
@@ -599,7 +595,7 @@
     //Produktionsleder functions
     //Produktionsleder råvarebatch functions
     function goToRaavarebatch() {
-        hideall();
+        hideAll();
         document.getElementById("raavarebatch").style.visibility = "visible";
     }
 
@@ -627,7 +623,7 @@
 
     //Produktionsleder produktbatch functions
     function goToProduktbatch() {
-        hideall();
+        hideAll();
         document.getElementById("produktbatch").style.visibility = "visible";
     }
 
@@ -655,12 +651,12 @@
 
     //Produktionsleder afvejning functions
     function goToAfvejning1_Produktionsleder() {
-        hideall();
+        hideAll();
         document.getElementById("afvejning1_Produktionsleder").style.visibility = "visible";
     }
 
     function goToAfvejning2_Produktionsleder() {
-        hideall();
+        hideAll();
         document.getElementById("productbatchID_Produktionsleder").value = ""
         document.getElementById("afvejning2_Produktionsleder").style.visibility = "visible";
         document.getElementById("statusOprettet_Produktionsleder").style.visibility = "visible";
@@ -697,14 +693,14 @@
     //Laborant functions
     //Laborant afvejning functions
     function goToAfvejning1_Laborant() {
-        hideall();
+        hideAll();
         document.getElementById("productbatchID_Laborant").value = "";
         document.getElementById("title").innerHTML = "Laborant";
         document.getElementById("afvejning1_Laborant").style.visibility = "visible";
     }
 
     function goToAfvejning2_Laborant() {
-        hideall();
+        hideAll();
         document.getElementById("title").innerHTML = "Laborant";
         document.getElementById("afvejning2_Laborant").style.visibility = "visible";
     }
@@ -739,7 +735,7 @@
 
     //Farmaceut Råvarebatch
     function goToRaavarebatchFarmaceut() {
-        hideall();
+        hideAll();
         document.getElementById("raavarebatchFarmaceut").style.visibility = "visible";
     }
 
@@ -767,7 +763,7 @@
 
     //Farmaceut Produktbatch
     function goToProduktbatchFarmaceut() {
-        hideall();
+        hideAll();
         document.getElementById("produktbatchFarmaceut").style.visibility = "visible";
     }
 
@@ -795,7 +791,7 @@
 
     //Farmaceut afvejning functions
     function goToAfvejning1_Farmaceut() {
-        hideall();
+        hideAll();
         document.getElementById("title").innerHTML = "Farmaceut";
         document.getElementById("productbatchID_Farmaceut").value = "";
         document.getElementById("afvejning1_Farmaceut").style.visibility = "visible";
@@ -803,7 +799,7 @@
     }
 
     function goToAfvejning2_Farmaceut() {
-        hideall();
+        hideAll();
         document.getElementById("title").innerHTML = "Farmaceut";
         document.getElementById("afvejning2_Farmaceut").style.visibility = "visible";
     }
@@ -834,7 +830,7 @@
     //Farmaceut råvare functions
 
     function goToRaavare() {
-        hideall();
+        hideAll();
         document.getElementById("raavareFarmaceut").style.visibility = "visible";
     }
 
@@ -862,26 +858,26 @@
 
     //Farmaceut recept functions
     function goToRecept1() {
-        hideall();
+        hideAll();
         document.getElementById("recept1").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Farmaceut";
     }
 
     function goToRecept2() {
-        hideall();
+        hideAll();
         document.getElementById("recept2").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Farmaceut";
     }
 
     function goToRecept3() {
-        hideall();
+        hideAll();
         document.getElementById("recept3").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Farmaceut";
         resetValuesRecept2();
     }
 
     function goToRecept4() {
-        hideall();
+        hideAll();
         document.getElementById("recept4").style.visibility = "visible";
         document.getElementById("title").innerHTML = "Farmaceut";
 
