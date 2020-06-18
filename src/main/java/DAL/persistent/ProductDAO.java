@@ -1,6 +1,7 @@
 package DAL.persistent;
 
 import DAL.interfaces.DALException;
+import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ProductDAONonPersistent;
 import RAM.*;
@@ -23,8 +24,8 @@ import java.util.ArrayList;
 public class ProductDAO extends ProductDAONonPersistent implements Serializable {
     private final String FILE;
 
-    public ProductDAO(String filepath) throws IOException, ClassNotFoundException {
-        super();
+    public ProductDAO(String filepath, IReceiptDAO receiptDAO) throws IOException, ClassNotFoundException {
+        super(receiptDAO);
         FILE = filepath;
         File file = new File(FILE);
         boolean isNew = file.createNewFile();

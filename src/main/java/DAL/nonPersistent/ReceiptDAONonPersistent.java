@@ -1,11 +1,14 @@
 package DAL.nonPersistent;
 
 import DAL.interfaces.DALException;
+import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IReceiptDAO;
+import DAL.persistent.CommodityDAO;
 import DAL.interfaces.JunkFormatException;
 import RAM.Receipt;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /***
@@ -18,8 +21,10 @@ import java.util.List;
 public class ReceiptDAONonPersistent implements IReceiptDAO {
 
     private List<Receipt> receipts;
+    private ICommodityDAO commodityDAO;
 
-    public ReceiptDAONonPersistent() {
+    public ReceiptDAONonPersistent(ICommodityDAO commodityDAO) {
+        this.commodityDAO = commodityDAO;
         receipts = new ArrayList<>();
     }
 
@@ -50,7 +55,34 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
                 throw new DALException("There already exists a receipt with ID = " + newReceipt.getID());
             }
         }
+        List<Integer> idsNotExisting = commoditiesDoesNotExistForReceipt(newReceipt);
+        if(idsNotExisting.size()>0){
+            throw new DALException("There is no commodityIds in the database which have the Ids: " + Arrays.asList(idsNotExisting));
+        }
         receipts.add(newReceipt);
+    }
+
+    private List<Integer> commoditiesDoesNotExistForReceipt(Receipt r){
+        List<Integer> res = new ArrayList<>();
+        for(ReceiptComp comp : r.getReceiptComps()){
+            if(!commodityExist(comp.getCommodity())){
+                res.add(comp.getCommodity());
+            }
+        }
+        return res;
+    }
+    private boolean commodityExist(int cID){
+        try {
+            for(Commodity c : commodityDAO.getCommodityList()){
+                if(c.getID()==cID){
+                    return true;
+                }
+            }
+        } catch (DALException e) {
+            e.printStackTrace();
+            throw new AssertionError("Should only be used by an initialized ReceiptDAO.");
+        }
+        return false;
     }
 
     @Override
