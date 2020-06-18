@@ -6,6 +6,7 @@ import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
+import RAM.Commodity;
 import RAM.ReceiptComp;
 import RAM.Receipt;
 import org.junit.Test;

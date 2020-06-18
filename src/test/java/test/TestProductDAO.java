@@ -147,7 +147,7 @@ public class TestProductDAO {
         // When updating a productbatch that exists, the list should stay the same size, and the list should contain
         // the updated object.
 
-        newbatch = new ProductBatch(1, 1, date,ProductBatchD.Status.IN_PRODUCTION,products, true);
+        newbatch = new ProductBatch(1, 1, date,ProductBatch.Status.IN_PRODUCTION,products, true);
         int sizebefore= -1;
         int sizeafter = -2;
         try{
