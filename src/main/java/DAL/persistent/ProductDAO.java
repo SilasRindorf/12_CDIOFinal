@@ -3,8 +3,7 @@ package DAL.persistent;
 import DAL.interfaces.DALException;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ProductDAONonPersistent;
-import DTO.ProductBatchDTO;
-import DTO.UserDTO;
+import RAM.*;
 
 import java.io.EOFException;
 import java.io.File;
@@ -38,7 +37,7 @@ public class ProductDAO extends ProductDAONonPersistent implements Serializable 
     }
 
 
-    public void createBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException {
+    public void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException {
         super.createBatch(productBatch);
         try {
             FileAPI.saveDataToFile(getBatchList(), FILE);
@@ -47,7 +46,7 @@ public class ProductDAO extends ProductDAONonPersistent implements Serializable 
         }
     }
 
-    public void updateBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException {
+    public void updateBatch(ProductBatch productBatch) throws DALException, JunkFormatException {
         super.updateBatch(productBatch);
         try {
             FileAPI.saveDataToFile(getBatchList(), FILE);
