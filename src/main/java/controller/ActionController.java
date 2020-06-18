@@ -3,7 +3,9 @@ package controller;
 
 import DAL.interfaces.DALException;
 import DAL.interfaces.IUserDAO;
+import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.UserDAONonPersistent;
+import DTO.UserDTO;
 import RAM.User;
 
 public class ActionController {
@@ -36,5 +38,16 @@ public class ActionController {
             return false;
         }
         return false;
+    }
+
+    public String createUser(UserDTO userDTO){
+        try {
+            USERS.createUser(new User(userDTO.getID(), userDTO.getUsername(),
+                    userDTO.getIni(), userDTO.getHashedPass(), userDTO.getCPR(),
+                    User.Role.valueOf(userDTO.getRole()), userDTO.isActive()));
+        } catch (DALException | JunkFormatException e){
+            return e.toString();
+        }
+        return "Bruger lavet";
     }
 }

@@ -6,6 +6,18 @@ function logInAction(url, username, password) {
     };
     POSTAndAlert(url, logInDTO);
 }
+function createUser(url, ID, username, ini, CPR, hashedPass, role, isActive) {
+    const user = {
+        "ID": ID,
+        "username": username,
+        "ini": ini,
+        "CPR": CPR,
+        "hashedPass": hashedPass,
+        "Role": role,
+        "isActive": isActive,
+    };
+    POST(url, productBatch)
+}
 
 function createReceipt(url, name, receiptComps) {
     const receipt = {

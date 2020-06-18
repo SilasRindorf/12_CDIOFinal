@@ -25,11 +25,18 @@ public class API {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("log-in")
     public String logIn(LogInDTO logInDTO){
-        System.out.println("logger ind som: " + logInDTO.getUsername() + " med password: " + logInDTO.getPassword());
         if (controller.logIn(logInDTO.getUsername(),logInDTO.getPassword())){
             return "logget ind";
         }
         return "Forkert brugernavn eller kode";
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("create-user")
+    public String createUser(UserDTO userDTO){
+        return controller.createUser(userDTO);
     }
 
 }
