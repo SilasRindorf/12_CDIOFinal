@@ -1,17 +1,15 @@
-package api;
+package api.controller;
 
-import DTO.LogInDTO;
-import api.controller.ActionController;
+import DTO.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/actions")
-public class WebPageAction {
+public class ActionController {
 
-    private static ActionController controller = new ActionController();
-    public WebPageAction(){
+    public ActionController(){
 
     }
     @GET
@@ -25,7 +23,7 @@ public class WebPageAction {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("log-in")
     public Response logIn(LogInDTO logInDTO){
-        controller.logIn(logInDTO.getUsername(), logInDTO.getPassword());
+        System.out.println("logger ind som: " + logInDTO.getUsername() + " With password: " + logInDTO.getPassword());
         return Response.status(201).build();
     }
 
