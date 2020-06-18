@@ -17,11 +17,11 @@ public interface ICommodityDAO {
     List<CommodityDTO> getCommodityList() throws DALException;
     void createCommodity(CommodityDTO commodity) throws DALException, JunkFormatException;
     void updateCommodity(CommodityDTO commodity) throws DALException, JunkFormatException;
-    void setIsActiveCommodity(int cId, boolean isActive);
+    void setIsActiveCommodity(int cId, boolean isActive) throws DALException;
 
-    CommodityBatchDTO getCommodityBatch(int commodityBatchID) throws DALException;
-    List<CommodityBatchDTO> getCommodityBatchList() throws DALException;
-    List<CommodityBatchDTO> getCommodityBatchList(int commodityID) throws DALException;
-    void createCommodityBatch(CommodityBatchDTO commodityBatch) throws DALException, JunkFormatException;
-    void setIsActiveBatch(int cbId, boolean isActive);
+    CommodityBatchDTO getBatch(int commodityBatchID) throws DALException;
+    List<CommodityBatchDTO> getBatchList() throws DALException;
+    List<CommodityBatchDTO> getBatchList(int commodityID) throws DALException;
+    void createBatch(CommodityBatchDTO commodityBatch) throws DALException, JunkFormatException;
+    void setIsActiveBatch(int cbId, boolean isActive) throws DALException;
 }

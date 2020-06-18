@@ -8,7 +8,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="CSS/frontpage.css">
-    <script type="text/javascript" src="javascript/JSON_actions.js"></script>
+    <script type="text/javascript" src="../javascript/JSON_actions.js"></script>
     <title>Apotek</title>
   </head>
   <body>
@@ -30,7 +30,7 @@
     function logIn(){
       uname = document.getElementById("uname").value;
       password = document.getElementById("password").value;
-      action(uname,password,"rest/actions/confirm-log-in");
+      logInAction(uname,password,"rest/actions/log-in");
     }
   </script>
 </html>

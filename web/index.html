@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="frontend-style/userTable.css">
+    <meta charset="UTF-8">
+    <title>CDIO Final</title>
+</head>
+<body>
+<script type="text/javascript" src="frontend/JSON_Actions.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<h1 id="title">Velkommen til apotekets hjemmeside</h1>
+<!--
+    <form method="POST" action="authentication.html">
+        <input type = "submit" value="Login">
+    </form>
+    -->
+<!----------------------------------------Common forms------------------------------------------------------->
+<form method="post" action="" name="logInForm" id="logInForm" style="position: absolute;">
+    <p>Brugernavn</p>
+    <input type="text" for="uname" name="uname">
+    <p>Password</p>
+    <input type="text" for="password" name="password">
+    <br><br>
+    <button type="button" onclick="logIn()">Log ind</button>
+</form>
+
+<form method="POST" action="" name="welcome" id="welcome"
+      style="position: absolute; left: 50px; top: 50px; visibility: hidden;">
+    <p><strong>WELCOME TO THIS FANTASTIC SOFTWARE</strong></p>
+    <button type="button" onclick="goToAdmin()">Administrator</button>
+    <button type="button" onclick="goToProduktionsleder()">Produktionsleder</button>
+    <button type="button" onclick="goToAfvejning1_Laborant()">Laborant</button>
+    <button type="button" onclick="goToFarmaceut()">Farmaceut</button>
+</form>
+<!----------------------------------------Admin forms------------------------------------------------------->
+<form method="POST" action="" name="admin" id="admin"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <p>Brugernavn</p>
+    <input type="text" id="uname" name="uname">
+    <p>Initialer</p>
+    <input type="text" id="ini" name="ini">
+    <p>Cpr-nummer</p>
+    <input type="text" id="cpr" name="cpr">
+    <p>Password</p>
+    <input type="text" id="password" name="password">
+    <p>Rolle</p>
+    <input type="radio" id="Pharmaceut" name="Roles" value="Pharmaceut">
+    <label for="Pharmaceut"> Pharmaceut</label><br>
+    <input type="radio" id="AdminID" name="Roles" value="Admin">
+    <label for="AdminID"> Admin</label><br>
+    <input type="radio" id="ProduktionslederRadio" name="Roles" value="Produktionsleder">
+    <label for="ProduktionslederRadio"> Produktionsleder</label><br>
+    <input type="radio" id="Laborant" name="Roles" value="Laborant">
+    <label for="Laborant"> Laborant</label><br>
+    <button type="button" onclick="goLogIn()">Log out</button>
+    <button type="button" onclick="finishCreateUser()">Opret bruger</button>
+    <table id="table_user" border="1">
+        <thead id="table-head_user">
+        </thead>
+        <tbody id="table-body_user">
+        <tr>
+            <th>Brugernavn</th>
+            <th>Initialer</th>
+            <th>Cpr-nummer</th>
+            <th>Password</th>
+            <th>Rolle</th>
+            <th>Status</th>
+        </tr>
+        </tbody>
+    </table>
+</form>
+<!----------------------------------------Produktionsleder forms----------------------------------------------->
+<form method="POST" action="" name="Produktionsleder" id="Produktionsleder"
+      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <button type="button" onclick="goToRaavarebatch()">Råvarebatches</button>
+    <button type="button" onclick="goToProduktbatch()">Produktbatches</button>
+    <button type="button" onclick="goToAfvejning1_Produktionsleder()">Afvejning</button>
+    <button type="button" onclick="goLogIn()">Log out</button>
+</form>
+
+<form method="POST" action="" name="raavarebatch" id="raavarebatch"
+      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <b>Indtast værdier</b> <br>
+    <label for="raavarebatchNr">Råvarebatch Nr: </label><br>
+    <input type="text" id="raavarebatchNr" for="raavarebatchNr" name="raavarebatchNr"><br><br>
+    <label for="raavareID">RåvareID: </label><br>
+    <input type="text" id="raavareID" for="raavareID" name="raavareID"><br><br>
+    <label for="maengde">Mængde: </label><br>
+    <input type="text" id="maengde" for="maengde" name="maengde"><br><br>
+    <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
+    <button type="button" onclick="createRaavarebatchComponent()">Tilføj råvarebatch komponent</button>
+    </table>
+    <table id="table_raavarebatch" border="1">
+        <thead id="table-head_raavarebatch">
+        <tr>
+            <th>Råvarebatch Nr.</th>
+            <th>RåvareID</th>
+            <th>Mængde</th>
+        </tr>
+        </thead>
+    </table>
+</form>
+
+<form method="POST" action="" name="produktbatch" id="produktbatch"
+      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <b>Indtast værdier:</b> <br>
+    <label for="receptNr">Recept nummer:</label><br>
+    <input type="text" id="receptNr" name="receptNr"><br><br>
+    <label for="dato">Dato:</label><br>
+    <input type="date" id="dato" name="dato"><br><br>
+    <button type="button" onclick="goToProduktionsleder()" value="Gå tilbage">Gå tilbage</button>
+    <button type="button" onclick="finishCreateBatch()" value="Afslut batch">Opret batch</button>
+    <table id="tableBatch" border="1">
+        <thead id="tableBatch-head">
+        <tr>
+            <th>Recept nummer</th>
+            <th>Dato</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+    </table>
+</form>
+
+<form method="POST" action="" name="afvejning1_Produktionsleder" id="afvejning1_Produktionsleder"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="productbatchID_Produktionsleder">Produktbatch ID:</label>
+    <input type="text" id="productbatchID_Produktionsleder" name="productbatchID"><br><br>
+    <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
+    <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToAfvejning2_Produktionsleder()">Hent produktbatch information</button>
+</form>
+
+<form method="POST" action="" name="afvejning2_Produktionsleder" id="afvejning2_Produktionsleder"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="raavare_Produktionsleder">Indtast råvaren: </label>
+    <input type="text" id="raavare_Produktionsleder" name="raavare"><br><br>
+    <label for="raavarebatchID_Produktionsleder">Indtast råvarebatch nr: </label>
+    <input type="text" id="raavarebatchID_Produktionsleder" name="raavarebatchNr"><br><br>
+    <label for="weight_Produktionsleder">Indtast vægten: </label>
+    <input type="text" id="weight_Produktionsleder" name="weight"><br><br>
+    <label for="tara_Produktionsleder">Indtast tara: </label>
+    <input type="text" id="tara_Produktionsleder" name="tara"><br><br>
+    <input type="button" value="Tilføj produckbatch komponent"
+           onClick="addProductbatchComponent_Produktionsleder()"><br/><br/>
+    <table id="table_Produktionsleder" border="1">
+        <thead id="table-head_Produktionsleder">
+        <tr>
+            <th>Råvare</th>
+            <th>Vægt minus tara</th>
+            <th>Råvarebatch Nr</th>
+        </tr>
+        </thead>
+        <tbody id="table-body_Produktionsleder">
+        </tbody>
+    </table>
+    <!---<label id="statusOprettet_Produktionsleder" for="statusOprettet_Produktionsleder"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</-label><br><br>
+    <label id="statusUnderProduktion_Produktionsleder" for="statusUnderProduktion_Produktionsleder"><strong>Status:</strong> Produktbatch er under produktion</label><br><br>-->
+    <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToAfvejning1_Produktionsleder()">Gå tilbage</button>
+    <button type="button" onclick="finishProductbatch_Produktionsleder()">Afslut produktbatch</button>
+
+</form>
+<!----------------------------------------Laborant forms------------------------------------------------------->
+
+<form method="POST" action="" name="afvejning1_Laborant" id="afvejning1_Laborant"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="productbatchID_Laborant">Produktbatch ID:</label>
+    <input type="text" id="productbatchID_Laborant" name="productbatchID"><br><br>
+    <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToAfvejning2_Laborant()">Hent produktbatch information</button>
+</form>
+
+<form method="POST" action="" name="afvejning2_Laborant" id="afvejning2_Laborant"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="raavare_Laborant">Indtast råvaren: </label>
+    <input type="text" id="raavare_Laborant" name="raavare"><br><br>
+    <label for="raavarebatchID_Laborant">Indtast råvarebatch nr: </label>
+    <input type="text" id="raavarebatchID_Laborant" name="raavarebatchNr"><br><br>
+    <label for="weight_Laborant">Indtast vægten: </label>
+    <input type="text" id="weight_Laborant" name="weight"><br><br>
+    <label for="tara_Laborant">Indtast tara: </label>
+    <input type="text" id="tara_Laborant" name="tara"><br><br>
+    <input type="button" value="Tilføj produktbatch komponent" onClick="addProductbatchComponent_Laborant()"><br/><br/>
+    <table id="table_Laborant" border="1">
+        <thead id="table-head_Laborant">
+        <tr>
+            <th>Råvare</th>
+            <th>Vægt minus tara</th>
+            <th>Råvarebatch Nr</th>
+        </tr>
+        </thead>
+        <tbody id="table-body_Laborant">
+        </tbody>
+    </table>
+    <!---<label id="statusOprettet_Produktionsleder" for="statusOprettet_Produktionsleder"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</-label><br><br>
+    <label id="statusUnderProduktion_Produktionsleder" for="statusUnderProduktion_Produktionsleder"><strong>Status:</strong> Produktbatch er under produktion</label><br><br>-->
+    <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToAfvejning1_Laborant()">Gå tilbage</button>
+    <button type="button" onclick="finishProductbatch_Laborant()">Afslut produktbatch</button>
+</form>
+<!----------------------------------------Farmaceut forms------------------------------------------------------>
+<form method="POST" action="" name="farmaceut" id="farmaceut"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <button type="button" onclick="goToRaavarebatchFarmaceut()">Råvarebatches</button>
+    <button type="button" onclick="goToProduktbatchFarmaceut()">Produktbatches</button>
+    <button type="button" onclick="goToAfvejning1_Farmaceut()">Afvejning</button>
+    <button type="button" onclick="goToRecept1()">Recept</button>
+    <button type="button" onclick="goToRaavare()">Råvare</button>
+    <button type="button" onclick="goLogIn()">Log out
+    </button>
+</form>
+
+<form method="POST" action="" name="raavareFarmaceut" id="raavareFarmaceut"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <b>Indtast værdier</b> <br>
+    <label for="raavareNummer">Råvare nummer </label><br>
+    <input type="text" id="raavareNummer" for="raavareNummer" name="raavareNummer"><br><br>
+    <label for="raavareNavn">Råvare </label><br>
+    <input type="text" id="raavareNavn" for="raavareNavn" name="raavareNavn"><br><br>
+    <label for="levenrandør">Levenrandør </label><br>
+    <input type="text" id="levenrandør" for="levenrandør" name="levenrandør"><br><br>
+    <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
+    <button type="button" onclick="opretRaavare()">Tilføj råvare</button>
+    </table>
+    <table id="table_raavareFarmaceut" border="1">
+        <thead id="table-head_raavareFarmaceut">
+        <tr>
+            <th>Råvare nummer</th>
+            <th>Råvare</th>
+            <th>Levenradør</th>
+        </tr>
+        </thead>
+    </table>
+
+</form>
+
+<form method="POST" action="" name="raavarebatchFarmaceut" id="raavarebatchFarmaceut"
+      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <b>Indtast værdier</b> <br>
+    <label for="raavarebatchNr">Råvarebatch Nr: </label><br>
+    <input type="text" id="raavarebatchNrFarmaceut" for="raavarebatchNrFarmaceut"
+           name="raavarebatchNrFarmaceut"><br><br>
+    <label for="raavareID">RåvareID: </label><br>
+    <input type="text" id="raavareIDFarmaceut" for="raavareIDFarmaceut" name="raavareIDFarmaceut"><br><br>
+    <label for="maengde">Mængde: </label><br>
+    <input type="text" id="maengdeFarmaceut" for="maengdeFarmaceut" name="maengdeFarmaceut"><br><br>
+    <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
+    <button type="button" onclick="createRaavarebatchComponentFarmaceut()">Tilføj råvarebatch komponent</button>
+    </table>
+    <table id="table_raavarebatchFarmaceut" border="1">
+        <thead id="table-head_raavarebatchFarmaceut">
+        <tr>
+            <th>Råvarebatch Nr.</th>
+            <th>RåvareID</th>
+            <th>Mængde</th>
+        </tr>
+        </thead>
+    </table>
+</form>
+
+<form method="POST" action="" name="produktbatchFarmaceut" id="produktbatchFarmaceut"
+      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <b>Indtast værdier:</b> <br>
+    <label for="receptNrFarmaceut">Recept nummer:</label><br>
+    <input type="text" id="receptNrFarmaceut" name="receptNrFarmaceut"><br><br>
+    <label for="datoFarmaceut">Dato:</label><br>
+    <input type="date" id="datoFarmaceut" name="datoFarmaceut"><br><br>
+    <button type="button" onclick="goToFarmaceut()" value="Gå tilbage">Gå tilbage</button>
+    <button type="button" onclick="finishCreateBatchFarmaceut()" value="Afslut batch">Opret batch</button>
+    <table id="tableBatchFarmaceut" border="1">
+        <thead id="tableBatch-headFarmaceut">
+        <tr>
+            <th>Recept nummer</th>
+            <th>Dato</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+    </table>
+</form>
+
+<form method="POST" action="" name="recept1" id="recept1"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <button type="button" onclick="goToRecept2()">Opret ny recept</button>
+    <button type="button" onclick="goToRecept4()">Vis recepter</button>
+    <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
+</form>
+
+<form method="POST" action="" name="recept2" id="recept2"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="receptNr">Indtast recept nr: </label>
+    <input type="text" id="recept2Nr" name="receptNr"><br><br>
+    <label for="receptNavn">Indtast recept navn: </label>
+    <input type="text" id="receptNavn" name="receptNavn"><br><br>
+    <button type="button" onclick="goToRecept1()">Gå tilbage</button>
+    <button type="button" onclick="goToRecept3()">Opret recept</button>
+</form>
+
+<form method="POST" action="" name="recept3" id="recept3"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="raavareRecept">Indtast råvaren: </label>
+    <input type="text" id="raavareRecept" name="raavareRecept"><br><br>
+    <label for="maengdeRecept">Indtast mængden: </label>
+    <input type="text" id="maengdeRecept" for="maengdeRecept" name="maengdeRecept"><br><br>
+    <label for="tolerance">Indtast tolerancen: </label>
+    <input type="text" id="tolerance" for="tolerance" name="receptNavn"><br><br>
+    <input type="button" value="Tilføj receptkomponent" onClick="addReceptbatchComponent()"><br/><br/>
+    <table id="table_recept" border="1">
+        <thead id="table-head_recept">
+        <tr>
+            <th>Raavare</th>
+            <th>Mængde</th>
+            <th>Tolerance</th>
+        </tr>
+        </thead>
+        <tbody id="table-body_recept">
+        </tbody>
+    </table>
+    <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToRecept2()">Gå tilbage</button>
+    <button type="button" onclick="finishRecept()">Færdiggør</button>
+</form>
+
+<form method="POST" action="" name="recept4" id="recept4"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label>Denne feature er endnu ikke blevet færdig implementeret, da den skal hente informationer fra andre steder, og
+        det er først noget vi påbegynder senere.</label>
+    <table id="table_recept4" border="1">
+        <thead id="table-head_recept4">
+        <tr>
+            <th>Recept nummer</th>
+            <th>Navn</th>
+            <th>Antal receptkomponenter</th>
+        </tr>
+        </thead>
+        <tbody id="table-body_recept4">
+        </tbody>
+    </table>
+    <button type="button" onclick="goToRecept1()">Gå tilbage</button>
+    <button type="button" onclick="goLogIn()">Log ud</button>
+</form>
+
+<form method="POST" action="" name="afvejning1_Farmaceut" id="afvejning1_Farmaceut"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="productbatchID_Farmaceut">Produktbatch ID:</label>
+    <input type="text" id="productbatchID_Farmaceut" name="productbatchID"><br><br>
+    <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToAfvejning2_Farmaceut()">Hent produktbatch information</button>
+</form>
+
+<form method="POST" action="" name="afvejning2_Farmaceut" id="afvejning2_Farmaceut"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="raavare_Farmaceut">Indtast råvaren: </label>
+    <input type="text" id="raavare_Farmaceut" name="raavare"><br><br>
+    <label for="raavarebatchID_Farmaceut">Indtast råvarebatch nr: </label>
+    <input type="text" id="raavarebatchID_Farmaceut" name="raavarebatchNr"><br><br>
+    <label for="weight_Farmaceut">Indtast vægten: </label>
+    <input type="text" id="weight_Farmaceut" name="weight"><br><br>
+    <label for="tara_Farmaceut">Indtast tara: </label>
+    <input type="text" id="tara_Farmaceut" name="tara"><br><br>
+    <input type="button" value="Tilføj produktbatch komponent" onClick="addProductbatchComponent_Farmaceut()"><br/><br/>
+    <table id="table_Farmaceut" border="1">
+        <thead id="table-head_Farmaceut">
+        <tr>
+            <th>Råvare</th>
+            <th>Vægt minus tara</th>
+            <th>Råvarebatch Nr</th>
+        </tr>
+        </thead>
+        <tbody id="table-body_Farmaceut">
+        </tbody>
+    </table>
+    <!---<label id="statusOprettet_Produktionsleder" for="statusOprettet_Produktionsleder"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</-label><br><br>
+    <label id="statusUnderProduktion_Produktionsleder" for="statusUnderProduktion_Produktionsleder"><strong>Status:</strong> Produktbatch er under produktion</label><br><br>-->
+    <button type="button" onclick="goLogIn()">Log ud</button>
+    <button type="button" onclick="goToAfvejning1_Farmaceut()">Gå tilbage</button>
+    <button type="button" onclick="finishProductbatch_Farmaceut()">Afslut produktbatch</button>
+</form>
+
+<!----------------------------------------Other---------------------------------------------------------------->
+<form method="POST" action="" name="afvejning1" id="afvejning1"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+
+    <button type="button" onclick="goToAfvejning2()">Send ind</button>
+</form>
+
+<form method="POST" action="" id="finish"
+      style="position: absolute; visibility: hidden; left: 50px; top: 50px; z-index: 200;">
+    <p>You did it, you crazy son of a bitch</p>
+    <button type="button" onclick="goToWelcomeFromFinish()">
+        <bs>Tilbage til start</bs>
+    </button>
+</form>
+
+<form method="POST" action="" name="afvejning2" id="afvejning2"
+      style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <label for="productbatchID">Produktbatch ID:</label>
+    <input type="text" id="productbatchID" name="productbatchID"><br><br>
+    <label for="raavare">Indtast råvaren: </label>
+    <input type="text" id="raavare" name="raavare"><br><br>
+    <label for="raavarebatchNr">Indtast råvarebatch nr: </label>
+    <input type="text" id="raavarebatchID" name="raavarebatchNr"><br><br>
+    <label for="weight">Indtast vægten: </label>
+    <input type="text" id="weight" name="weight"><br><br>
+    <label for="tara">Indtast tara: </label>
+    <input type="text" id="tara" name="tara"><br><br>
+    <input type="button" value="Tilføj produckbatch komponent" onClick="addProductbatchComponent()" id="addPbComponent"><br/><br/>
+    <table id="table" border="1">
+        <thead id="table-head">
+        <tr>
+            <th>Produktbatch ID</th>
+            <th>Råvare</th>
+            <th>Vægt minus tara</th>
+            <th>Råvarebatch Nr</th>
+        </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+    <label id="statusOprettet" for="statusOprettet"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</label><br><br>
+    <label id="statusUnderProduktion" for="statusUnderProduktion"><strong>Status:</strong> Produktbatch er under
+        produktion</label><br><br>
+    <button type="button" onclick="goToAfvejning2()">Send ind</button>
+    <button type="button" onclick="goToWelcomeFromFinish()">Send ind og afslut</button>
+    <button type="button" onclick="resetTable()">Reset tabel</button>
+</form>
+
+<script>
+    //Common functions
+    var uname;
+    var password;
+
+    function logIn() {
+        hideall();
+        /*uname = document.getElementById("uname").value;
+        password = document.getElementById("password").value;
+        action(uname,password,"rest/actions/confirm-log-in");*/
+        document.getElementById("welcome").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Vælg venligst din bruger";
+    }
+
+    function hideall() {
+        document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";
+        document.getElementById("logInForm").style.visibility = "hidden";
+        document.getElementById("welcome").style.visibility = "hidden";
+        document.getElementById("Produktionsleder").style.visibility = "hidden";
+        document.getElementById("raavarebatch").style.visibility = "hidden";
+        document.getElementById("produktbatch").style.visibility = "hidden"
+        document.getElementById("finish").style.visibility = "hidden";
+        document.getElementById("admin").style.visibility = "hidden";
+        document.getElementById("afvejning1").style.visibility = "hidden";
+        document.getElementById("afvejning1").style.visibility = "hidden";
+        document.getElementById("afvejning2_Produktionsleder").style.visibility = "hidden";
+        document.getElementById("statusOprettet").style.visibility = "hidden";
+        document.getElementById("statusUnderProduktion").style.visibility = "hidden";
+        document.getElementById("farmaceut").style.visibility = "hidden";
+        document.getElementById("recept1").style.visibility = "hidden";
+        document.getElementById("recept2").style.visibility = "hidden";
+        document.getElementById("recept3").style.visibility = "hidden";
+        document.getElementById("recept4").style.visibility = "hidden";
+        document.getElementById("Produktionsleder").style.visibility = "hidden";
+        document.getElementById("afvejning1_Laborant").style.visibility = "hidden";
+        document.getElementById("afvejning2_Laborant").style.visibility = "hidden";
+        document.getElementById("afvejning1_Farmaceut").style.visibility = "hidden";
+        document.getElementById("afvejning2_Farmaceut").style.visibility = "hidden";
+        document.getElementById("raavarebatchFarmaceut").style.visibility = "hidden";
+        document.getElementById("raavareFarmaceut").style.visibility = "hidden";
+        document.getElementById("produktbatchFarmaceut").style.visibility = "hidden";
+    }
+
+    function goLogIn() {
+        hideall();
+        document.getElementById("logInForm").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Login"
+    }
+
+    function goToWelcomeFromFinish() {
+        hideall();
+        document.getElementById("welcome").style.visibility = "visible";
+    }
+
+    function goToWelcomeFromDelete() {
+        hideall();
+        document.getElementById("welcome").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Welcome";
+    }
+
+    function returnToStart() {
+        hideall()
+        document.getElementById("welcome").style.visibility = "visible";
+        document.getElementById("admin").style.visibility = "hidden";
+        resetValuesCreateUser();
+    }
+
+    //Go to different roles
+    function goToAdmin() {
+        hideall();
+        document.getElementById("welcome").style.visibility = "hidden";
+        document.getElementById("admin").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Adminstrator";
+    }
+
+    function goToProduktionsleder() {
+        hideall();
+        document.getElementById("Produktionsleder").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Produktionsleder";
+    }
+
+    function goToLaborant() {
+        hideall();
+        goToAfvejning1_Laborant();
+        document.getElementById("title").innerHTML = "Laborant";
+    }
+
+    function goToFarmaceut() {
+        hideall();
+        document.getElementById("farmaceut").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
+    }
+
+    //Admin functions
+    function finishCreateUser() {
+        if (!document.getElementById("uname").value == "" &&
+            !document.getElementById("ini").value == "" &&
+            !document.getElementById("cpr").value == "" &&
+            !document.getElementById("password").value == "" &&
+            (document.getElementById("Pharmaceut").checked == true ||
+                document.getElementById("AdminID").checked == true ||
+                document.getElementById("ProduktionslederRadio").checked == true ||
+                document.getElementById("Laborant").checked == true)) {
+            postAnUser();
+            resetValuesCreateUser();
+        } else {
+            alert("Please fill out all the fields!");
+        }
+    }
+
+    function postAnUser() {
+        var tableBody = document.getElementById("table-body_user");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var td4 = document.createElement("td");
+        var td5 = document.createElement("td");
+        var td6 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("uname").value;
+        td2.innerHTML = document.getElementById("ini").value;
+        td3.innerHTML = document.getElementById("cpr").value;
+        td4.innerHTML = document.getElementById("password").value;
+        var userRole = document.getElementsByName('Roles');
+        if (document.getElementById("Pharmaceut").checked) {
+            userRole = "Pharmaceut";
+            td5.innerHTML = userRole;
+        }
+        if (document.getElementById("AdminID").checked) {
+            userRole = "Admin";
+            td5.innerHTML = userRole;
+        }
+        if (document.getElementById("ProduktionslederRadio").checked) {
+            userRole = "Produktionsleder";
+            td5.innerHTML = userRole;
+        }
+        if (document.getElementById("Laborant").checked) {
+            userRole = "Laborant";
+            td5.innerHTML = userRole;
+        }
+        var statusUser = "Aktiv";
+        td6.innerHTML = statusUser;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        row.appendChild(td4);
+        row.appendChild(td5);
+        row.appendChild(td6);
+        tableBody.appendChild(row);
+    }
+
+    function resetValuesCreateUser() {
+        document.getElementById("uname").value = "";
+        document.getElementById("ini").value = "";
+        document.getElementById("cpr").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("Pharmaceut").checked = false;
+        document.getElementById("AdminID").checked = false;
+        document.getElementById("ProduktionslederRadio").checked = false;
+        document.getElementById("Laborant").checked = false;
+    }
+
+    //ADMIN MANGLER
+
+    //Produktionsleder functions
+    //Produktionsleder råvarebatch functions
+    function goToRaavarebatch() {
+        hideall();
+        document.getElementById("raavarebatch").style.visibility = "visible";
+    }
+
+    function createRaavarebatchComponent() {
+        var tableBody = document.getElementById("table_raavarebatch");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavarebatchNr").value;
+        td2.innerHTML = document.getElementById("raavareID").value;
+        td3.innerHTML = document.getElementById("maengde").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesCreateRaavarebatch();
+    }
+
+    function resetValuesCreateRaavarebatch() {
+        document.getElementById("raavarebatchNr").value = "";
+        document.getElementById("raavareID").value = "";
+        document.getElementById("maengde").value = "";
+    }
+
+    //Produktionsleder produktbatch functions
+    function goToProduktbatch() {
+        hideall();
+        document.getElementById("produktbatch").style.visibility = "visible";
+    }
+
+    function finishCreateBatch() {
+        var tableBody = document.getElementById("tableBatch");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        var status = "Oprettet"
+        td1.innerHTML = document.getElementById("receptNr").value;
+        td2.innerHTML = document.getElementById("dato").value;
+        td3.innerHTML = status;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesCreateBatch();
+    }
+
+    function resetValuesCreateBatch() {
+        document.getElementById("receptNr").value = "";
+        document.getElementById("dato").value = "";
+    }
+
+    //Produktionsleder afvejning functions
+    function goToAfvejning1_Produktionsleder() {
+        hideall();
+        document.getElementById("afvejning1_Produktionsleder").style.visibility = "visible";
+    }
+
+    function goToAfvejning2_Produktionsleder() {
+        hideall();
+        document.getElementById("productbatchID_Produktionsleder").value = ""
+        document.getElementById("afvejning2_Produktionsleder").style.visibility = "visible";
+        document.getElementById("statusOprettet_Produktionsleder").style.visibility = "visible";
+    }
+
+    function addProductbatchComponent_Produktionsleder() {
+        var tableBody = document.getElementById("table-body_Produktionsleder");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavare_Produktionsleder").value;
+        td2.innerHTML = document.getElementById("weight_Produktionsleder").value - document.getElementById("tara_Produktionsleder").value;
+        td3.innerHTML = document.getElementById("raavarebatchID_Produktionsleder").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesProductbatchComponentProduktionsLeder();
+    }
+
+    function resetValuesProductbatchComponentProduktionsLeder() {
+        document.getElementById("raavare_Produktionsleder").value = "";
+        document.getElementById("weight_Produktionsleder").value = "";
+        document.getElementById("tara_Produktionsleder").value = "";
+        document.getElementById("raavarebatchID_Produktionsleder").value = "";
+    }
+
+    //PRODUKTIONSLEDER MANGLER
+    function finishProductbatch_Produktionsleder() {
+
+    }
+
+    //Laborant functions
+    //Laborant afvejning functions
+    function goToAfvejning1_Laborant() {
+        hideall();
+        document.getElementById("productbatchID_Laborant").value = "";
+        document.getElementById("title").innerHTML = "Laborant";
+        document.getElementById("afvejning1_Laborant").style.visibility = "visible";
+    }
+
+    function goToAfvejning2_Laborant() {
+        hideall();
+        document.getElementById("title").innerHTML = "Laborant";
+        document.getElementById("afvejning2_Laborant").style.visibility = "visible";
+    }
+
+    function addProductbatchComponent_Laborant() {
+        var tableBody = document.getElementById("table-body_Laborant");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavare_Laborant").value;
+        td2.innerHTML = document.getElementById("weight_Laborant").value - document.getElementById("tara_Laborant").value;
+        td3.innerHTML = document.getElementById("raavarebatchID_Laborant").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesProductbatchComponentLaborant()
+    }
+
+    function resetValuesProductbatchComponentLaborant() {
+        document.getElementById("raavare_Laborant").value = "";
+        document.getElementById("weight_Laborant").value = "";
+        document.getElementById("tara_Laborant").value = "";
+        document.getElementById("raavarebatchID_Laborant").value = "";
+    }
+
+    //LABORANT MANGLER
+    function finishProductbatch_Laborant() {
+
+    }
+
+    //Farmaceut Råvarebatch
+    function goToRaavarebatchFarmaceut() {
+        hideall();
+        document.getElementById("raavarebatchFarmaceut").style.visibility = "visible";
+    }
+
+    function createRaavarebatchComponentFarmaceut() {
+        var tableBody = document.getElementById("table_raavarebatchFarmaceut");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavarebatchNrFarmaceut").value;
+        td2.innerHTML = document.getElementById("raavareIDFarmaceut").value;
+        td3.innerHTML = document.getElementById("maengdeFarmaceut").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesCreateRaavarebatchFarmaceut();
+    }
+
+    function resetValuesCreateRaavarebatchFarmaceut() {
+        document.getElementById("raavarebatchNrFarmaceut").value = "";
+        document.getElementById("raavareIDFarmaceut").value = "";
+        document.getElementById("maengdeFarmaceut").value = "";
+    }
+
+    //Farmaceut Produktbatch
+    function goToProduktbatchFarmaceut() {
+        hideall();
+        document.getElementById("produktbatchFarmaceut").style.visibility = "visible";
+    }
+
+    function finishCreateBatchFarmaceut() {
+        var tableBody = document.getElementById("tableBatchFarmaceut");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        var status = "Oprettet"
+        td1.innerHTML = document.getElementById("receptNrFarmaceut").value;
+        td2.innerHTML = document.getElementById("datoFarmaceut").value;
+        td3.innerHTML = status;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesCreateBatchFarmaceut();
+    }
+
+    function resetValuesCreateBatchFarmaceut() {
+        document.getElementById("receptNrFarmaceut").value = "";
+        document.getElementById("datoFarmaceut").value = "";
+    }
+
+    //Farmaceut afvejning functions
+    function goToAfvejning1_Farmaceut() {
+        hideall();
+        document.getElementById("title").innerHTML = "Farmaceut";
+        document.getElementById("productbatchID_Farmaceut").value = "";
+        document.getElementById("afvejning1_Farmaceut").style.visibility = "visible";
+
+    }
+
+    function goToAfvejning2_Farmaceut() {
+        hideall();
+        document.getElementById("title").innerHTML = "Farmaceut";
+        document.getElementById("afvejning2_Farmaceut").style.visibility = "visible";
+    }
+
+    function addProductbatchComponent_Farmaceut() {
+        var tableBody = document.getElementById("table-body_Farmaceut");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavare_Farmaceut").value;
+        td2.innerHTML = document.getElementById("weight_Farmaceut").value - document.getElementById("tara_Farmaceut").value;
+        td3.innerHTML = document.getElementById("raavarebatchID_Farmaceut").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesProductbatchComponentFarmaceut();
+    }
+
+    function resetValuesProductbatchComponentFarmaceut() {
+        document.getElementById("raavare_Farmaceut").value = "";
+        document.getElementById("weight_Farmaceut").value = "";
+        document.getElementById("tara_Farmaceut").value = "";
+        document.getElementById("raavarebatchID_Farmaceut").value = "";
+    }
+
+    //Farmaceut råvare functions
+
+    function goToRaavare() {
+        hideall();
+        document.getElementById("raavareFarmaceut").style.visibility = "visible";
+    }
+
+    function opretRaavare() {
+        var tableBody = document.getElementById("table_raavareFarmaceut");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavareNummer").value;
+        td2.innerHTML = document.getElementById("raavareNavn").value;
+        td3.innerHTML = document.getElementById("levenrandør").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesRaavareFarmaceut();
+    }
+
+    function resetValuesRaavareFarmaceut() {
+        document.getElementById("raavareNummer").value = "";
+        document.getElementById("raavareNavn").value = "";
+        document.getElementById("levenrandør").value = "";
+    }
+
+    //Farmaceut recept functions
+    function goToRecept1() {
+        hideall();
+        document.getElementById("recept1").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
+    }
+
+    function goToRecept2() {
+        hideall();
+        document.getElementById("recept2").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
+    }
+
+    function goToRecept3() {
+        hideall();
+        document.getElementById("recept3").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
+        resetValuesRecept2();
+    }
+
+    function goToRecept4() {
+        hideall();
+        document.getElementById("recept4").style.visibility = "visible";
+        document.getElementById("title").innerHTML = "Farmaceut";
+
+    }
+
+    function addReceptbatchComponent() {
+        var tableBody = document.getElementById("table-body_recept");
+        var td1 = document.createElement("td");
+        var td2 = document.createElement("td");
+        var td3 = document.createElement("td");
+        var row = document.createElement("tr");
+        td1.innerHTML = document.getElementById("raavareRecept").value;
+        td2.innerHTML = document.getElementById("maengdeRecept").value;
+        td3.innerHTML = document.getElementById("tolerance").value;
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        tableBody.appendChild(row);
+        resetValuesReceptComponentFarmaceut();
+    }
+
+    function resetValuesReceptComponentFarmaceut() {
+        document.getElementById("maengdeRecept").value = "";
+        document.getElementById("raavareRecept").value = "";
+        document.getElementById("tolerance").value = "";
+    }
+
+    function resetValuesRecept2() {
+        document.getElementById("recept2Nr").value = "";
+        document.getElementById("receptNavn").value = "";
+    }
+
+    //FARMACEUT MANGLER
+    function finishRecept() {
+
+    }
+
+    function finishProductbatch_Farmaceut() {
+    }
+
+</script>
+</body>
+</html>

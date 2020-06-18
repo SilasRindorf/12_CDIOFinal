@@ -1,0 +1,24 @@
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: white;
+    border-top: black;
+    background: white;
+}
+body {
+    background: lightblue;
+}
+p {
+    font-family: "Lucida Bright";
+}
+
+button {
+    background-color: chocolate;
+    border: black;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: antiquewhite;
+    display: inline-block;
+    font-size: 16px;
+}

@@ -5,6 +5,7 @@ import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
 import DTO.UserDTO;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  *  Assuring wrong or illegal information is not stored
  */
 public class UserDAONonPersistent implements IUserDAO {
-    private List<UserDTO> users;
+    protected List<UserDTO> users;
 
     public UserDAONonPersistent() {
         users = new ArrayList<>();
@@ -61,8 +62,14 @@ public class UserDAONonPersistent implements IUserDAO {
         {
             if (user.getID() == newUser.getID())
             {
+                UserDTO backup = user;
                 users.remove(user);
-                users.add(newUser);
+                try {
+                    createUser(newUser);
+                }catch(Exception e){
+                    users.add(backup);
+                    throw e;
+                }
                 return;
             }
         }
