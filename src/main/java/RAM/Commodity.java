@@ -1,5 +1,7 @@
 package RAM;
 
+import java.io.Serializable;
+
 /***
  * Initial version created by: Silas
  * Edited by: Christoffer
@@ -7,7 +9,8 @@ package RAM;
  * This class is responsible for:
  *  -
  */
-public class Commodity extends IdAndActivatable {
+public class Commodity extends IdAndActivatable implements Serializable {
+    public static final long serialVersionUID = 5432657432645732L;
     private String name;
 
     public Commodity(int commodityNr, String name, boolean isActive) {

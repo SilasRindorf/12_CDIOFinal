@@ -6,6 +6,7 @@ import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.DummyDataGenerator;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
+import DAL.persistent.CommodityDAO;
 import DAL.persistent.FileAPI;
 import DAL.persistent.ReceiptDAO;
 import DAL.nonPersistent.CommodityDAONonPersistent;
@@ -133,14 +134,18 @@ public class TestReceiptDAO {
     public void persistentGetReceipt() throws DALException, IOException, ClassNotFoundException {
         File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
         file.delete();
-        IReceiptDAO DAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
         DummyDataGenerator DDG = new DummyDataGenerator(4);
+        DDG.generateCommodities(cdao);
+
+        IReceiptDAO DAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE, cdao);
         DDG.generateReceipts(DAO);
-        IReceiptDAO newDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE); //creat a new DAO with the data in the file
+
+        IReceiptDAO newDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE,cdao); //creat a new DAO with the data in the file
 
 
         for (int i = 0; i < DAO.getReceiptList().size(); i++) {
-            assertEquals(DAO.getReceipt(i).toString(), newDAO.getReceipt(i).toString());
+            assertEquals(DAO.getReceipt(DAO.getReceiptList().get(i).getID()).toString(), newDAO.getReceipt(DAO.getReceiptList().get(i).getID()).toString());
         }
 
     }
@@ -149,10 +154,14 @@ public class TestReceiptDAO {
     public void persistentGetReceiptList() throws DALException, IOException, ClassNotFoundException {
         File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
         file.delete();
-        IReceiptDAO DAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
         DummyDataGenerator DDG = new DummyDataGenerator(4);
+        DDG.generateCommodities(cdao);
+
+        IReceiptDAO DAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE, cdao);
+
         DDG.generateReceipts(DAO);
-        IReceiptDAO newDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE); //creat a new DAO with the data in the file
+        IReceiptDAO newDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE, cdao); //creat a new DAO with the data in the file
 
         List<Receipt> fromRam = DAO.getReceiptList();
         List<Receipt> fromFile = newDAO.getReceiptList();
@@ -166,7 +175,11 @@ public class TestReceiptDAO {
     public void persistentCreateReceiptTest() throws JunkFormatException, DALException, IOException, ClassNotFoundException {
         File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
         file.delete();
-        IReceiptDAO receiptDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
+        DummyDataGenerator DDG = new DummyDataGenerator(4);
+        DDG.generateCommodities(cdao);
+        IReceiptDAO receiptDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE, cdao);
 
         List<ReceiptComp> compList = new ArrayList<>();
         for (int x = 0; x < 4; x++) {
@@ -176,7 +189,7 @@ public class TestReceiptDAO {
         receiptDAO.createReceipt(randRecipt);
         assertEquals(randRecipt.toString(), receiptDAO.getReceipt(9000).toString());
 
-        IReceiptDAO receiptDAO2 = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        IReceiptDAO receiptDAO2 = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE,cdao);
 
         assertEquals(randRecipt.toString(), receiptDAO2.getReceipt(9000).toString());
     }
@@ -185,8 +198,10 @@ public class TestReceiptDAO {
     public void persistentSetIsActive() throws DALException, JunkFormatException, IOException, ClassNotFoundException {
         File file = new File(FileAPI.TEST_RECEIPT_DAO_FILE);
         file.delete();
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
         DummyDataGenerator DDG = new DummyDataGenerator(4);
-        ReceiptDAO dao = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        DDG.generateCommodities(cdao);
+        ReceiptDAO dao = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE,cdao);
         DDG.generateReceipts(dao);
 
         List<Receipt> fromRam = dao.getReceiptList();
@@ -204,7 +219,7 @@ public class TestReceiptDAO {
 
         // When trying to set all the receipts activity to false, which they already are, an Exception will get thrown.
 
-        ReceiptDAO dao2 = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
+        ReceiptDAO dao2 = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE,cdao);
         List<Receipt> fromFile = dao2.getReceiptList();
 
         fromRam = dao2.getReceiptList();

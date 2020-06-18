@@ -1,6 +1,7 @@
 package DAL.persistent;
 
 import DAL.interfaces.DALException;
+import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
     private final String FILE;
-    public ReceiptDAO(String filepath) throws IOException,ClassNotFoundException {
-        super();
+    public ReceiptDAO(String filepath, ICommodityDAO commodityDAO) throws IOException,ClassNotFoundException {
+        super(commodityDAO);
         FILE = filepath;
         File file = new File(FILE);
         boolean isNew = file.createNewFile();

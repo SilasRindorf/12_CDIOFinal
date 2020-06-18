@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class ReceiptDAONonPersistent implements IReceiptDAO {
 
-    private List<Receipt> receipts;
-    private ICommodityDAO commodityDAO;
+    protected List<Receipt> receipts;
+    protected ICommodityDAO commodityDAO;
 
     public ReceiptDAONonPersistent(ICommodityDAO commodityDAO) {
         this.commodityDAO = commodityDAO;

@@ -1,5 +1,7 @@
 package RAM;
 
+import java.io.Serializable;
+
 /***
  * Initial version created by: Silas
  * Edited by: Christoffer
@@ -7,7 +9,8 @@ package RAM;
  * This class is responsible for:
  *  -
  */
-public class ReceiptComp {
+public class ReceiptComp implements Serializable {
+    public static final long serialVersionUID = 57536453707645L;
     private int commodityNr;
     private double amount;
     private double tolerance;
