@@ -1,18 +1,14 @@
 package test;
 
-import DAL.interfaces.DALException;
-import DAL.interfaces.IProductDAO;
-import DAL.interfaces.IUserDAO;
-import DAL.interfaces.JunkFormatException;
+import DAL.interfaces.*;
+import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.DummyDataGenerator;
 import DAL.nonPersistent.ProductDAONonPersistent;
+import DAL.nonPersistent.ReceiptDAONonPersistent;
 import DAL.persistent.FileAPI;
 import DAL.persistent.ProductDAO;
 import DAL.persistent.UserDAO;
-import DTO.IdAndActivatable;
-import DTO.ProductBatchCompDTO;
-import DTO.ProductBatchDTO;
-import DTO.UserDTO;
+import DTO.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -39,12 +35,15 @@ public class TestProductDAO {
     //and use it to test the other methods in ProductDAONonPersistent
 
     @Test
-    public void testCreateBatch() throws DALException
-    {
+    public void testCreateBatch() throws DALException, JunkFormatException {
         // Create ProductDAONonPersistent instance.
-        IProductDAO batches = new ProductDAONonPersistent();
+        ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
+        commodityDAO.createCommodity(new CommodityDTO(13,"treskaido", true));
+        IReceiptDAO receiptDAO = new ReceiptDAONonPersistent(commodityDAO);
+        receiptDAO.createReceipt(new ReceiptDTO(1, "banana", new ArrayList<>(), true));
+        IProductDAO batches = new ProductDAONonPersistent(receiptDAO);
         Date date = new Date(2014, 02, 11);
-        List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
+        List<ProductBatchCompDTO> products = new ArrayList<>();
 
         List<ProductBatchDTO> productBatches = batches.getBatchList();
         // Before adding anything to the productbatchces, i assume the list has length 0.
@@ -79,9 +78,13 @@ public class TestProductDAO {
     }
 
     @Test
-    public void testGetBatch(){
+    public void testGetBatch() throws JunkFormatException, DALException {
         // Create ProductDAONonPersistent instance.
-        IProductDAO batches = new ProductDAONonPersistent();
+        ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
+        commodityDAO.createCommodity(new CommodityDTO(13,"treskaido", true));
+        IReceiptDAO receiptDAO = new ReceiptDAONonPersistent(commodityDAO);
+        receiptDAO.createReceipt(new ReceiptDTO(1, "banana", new ArrayList<>(), true));
+        IProductDAO batches = new ProductDAONonPersistent(receiptDAO);
         Date date = new Date(2014, 02, 11);
         List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
 
@@ -89,11 +92,8 @@ public class TestProductDAO {
         ProductBatchDTO batch = new ProductBatchDTO(1, 1, date,ProductBatchDTO.Status.CREATED,products, true);
 
         String message = "";
-        try {
-            batches.createBatch(batch);
-        } catch (Exception e){
+        batches.createBatch(batch);
 
-        }
 
         // When trying to get a batch that doesn't exist, we get an exception
 
@@ -114,14 +114,18 @@ public class TestProductDAO {
         } catch (Exception e){
             message = e.getMessage();
         }
-        assertEquals(message, "");
+        assertEquals("", message);
 
     }
 
     @Test
-    public void testUpdateBatch() {
+    public void testUpdateBatch() throws JunkFormatException, DALException {
         // Create ProductDAONonPersistent instance.
-        IProductDAO batches = new ProductDAONonPersistent();
+        ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
+        commodityDAO.createCommodity(new CommodityDTO(13,"treskaido", true));
+        IReceiptDAO receiptDAO = new ReceiptDAONonPersistent(commodityDAO);
+        receiptDAO.createReceipt(new ReceiptDTO(1, "banana", new ArrayList<>(), true));
+        IProductDAO batches = new ProductDAONonPersistent(receiptDAO);
         Date date = new Date(2014, 02, 11);
         List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
 
@@ -149,7 +153,8 @@ public class TestProductDAO {
         // the updated object.
 
         newbatch = new ProductBatchDTO(1, 1, date,ProductBatchDTO.Status.IN_PRODUCTION,products, true);
-        int sizebefore= -1, sizeafter = -2;
+        int sizebefore= -1;
+        int sizeafter = -2;
         try{
             sizebefore = batches.getBatchList().size();
             batches.updateBatch(newbatch);
@@ -164,9 +169,13 @@ public class TestProductDAO {
     }
 
     @Test
-    public void testSetIsActiveBatch(){
+    public void testSetIsActiveBatch() throws JunkFormatException, DALException {
         // Create ProductDAONonPersistent instance.
-        IProductDAO batches = new ProductDAONonPersistent();
+        ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
+        commodityDAO.createCommodity(new CommodityDTO(13,"treskaido", true));
+        IReceiptDAO receiptDAO = new ReceiptDAONonPersistent(commodityDAO);
+        receiptDAO.createReceipt(new ReceiptDTO(1, "banana", new ArrayList<>(), true));
+        IProductDAO batches = new ProductDAONonPersistent(receiptDAO);
         Date date = new Date(2014, 02, 11);
         List<ProductBatchCompDTO> products = new ArrayList<ProductBatchCompDTO>();
 
@@ -222,13 +231,17 @@ public class TestProductDAO {
 
         ProductBatchDTO a = new ProductBatchDTO(1,1, new Date(2014, 02, 11), ProductBatchDTO.Status.CREATED, products, true);
 
-        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+        ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
+        commodityDAO.createCommodity(new CommodityDTO(13,"treskaido", true));
+        IReceiptDAO receiptDAO = new ReceiptDAONonPersistent(commodityDAO);
+        receiptDAO.createReceipt(new ReceiptDTO(1, "banana", new ArrayList<>(), true));
+        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE,receiptDAO);
 
         // dao creates the batch
         dao.createBatch(a);
 
         // When creating dao2, it will load everything in the file at this point in time.
-        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE,receiptDAO);
 
         // both dao and dao2 tries to collect the item, and then compares them.
         ProductBatchDTO expected = dao.getBatchList().get(0);
@@ -251,7 +264,13 @@ public class TestProductDAO {
         File file = new File(FileAPI.TEST_PRODUCT_DAO_FILE);
         file.delete();
 
-        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+
+        ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
+        commodityDAO.createCommodity(new CommodityDTO(13,"treskaido", true));
+        IReceiptDAO receiptDAO = new ReceiptDAONonPersistent(commodityDAO);
+        receiptDAO.createReceipt(new ReceiptDTO(1, "banana", new ArrayList<>(), true));
+        receiptDAO.createReceipt(new ReceiptDTO(1234, "apple", new ArrayList<>(), true));
+        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE,receiptDAO);
 
         ProductBatchDTO a = new ProductBatchDTO(1,1, new Date(2014, 02, 11), ProductBatchDTO.Status.CREATED, products, true);
         ProductBatchDTO b = new ProductBatchDTO(1,1234, new Date(2015, 12, 16), ProductBatchDTO.Status.IN_PRODUCTION, products, false);
@@ -260,7 +279,7 @@ public class TestProductDAO {
         dao.createBatch(a);
         dao.updateBatch(b);
 
-        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE,receiptDAO);
 
         // Then i use dao2 to collect whatever it has stored in the file it's pointed to, and compares it to
         // the second object (b)
@@ -282,7 +301,11 @@ public class TestProductDAO {
         File file = new File(FileAPI.TEST_PRODUCT_DAO_FILE);
         file.delete();
 
-        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+        ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
+        commodityDAO.createCommodity(new CommodityDTO(13,"treskaido", true));
+        IReceiptDAO receiptDAO = new ReceiptDAONonPersistent(commodityDAO);
+        receiptDAO.createReceipt(new ReceiptDTO(1, "banana", new ArrayList<>(), true));
+        IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE,receiptDAO);
 
         ProductBatchDTO a = new ProductBatchDTO(1,1, new Date(2014, 02, 11), ProductBatchDTO.Status.CREATED, products, true);
         dao.createBatch(a);
@@ -290,7 +313,7 @@ public class TestProductDAO {
         // When i try to set the productbatch with ID 1 to false from dao, i expect it to happen in dao2 aswell.
         dao.setIsActive(1,false);
 
-        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE);
+        IProductDAO dao2 = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE,receiptDAO);
 
         assertFalse(dao2.getBatch(1).getIsActive());
 

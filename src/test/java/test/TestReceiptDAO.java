@@ -1,9 +1,12 @@
 package test;
 
 import DAL.interfaces.DALException;
+import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
+import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
+import DTO.CommodityDTO;
 import DTO.ReceiptCompDTO;
 import DTO.ReceiptDTO;
 import org.junit.Test;
@@ -18,9 +21,15 @@ public class TestReceiptDAO {
     @Test
     public void testCreateReceipt() throws DALException, JunkFormatException
     {
-        IReceiptDAO dao = new ReceiptDAONonPersistent();
+
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
+        IReceiptDAO dao = new ReceiptDAONonPersistent(cdao);
+
+        cdao.createCommodity(new CommodityDTO(42, "banana",true));
+
 
         List<ReceiptCompDTO> components = new ArrayList<>();
+        components.add(new ReceiptCompDTO(42,120, 53));
 
         // When i made no changes yet, the list of receipts should be 0, and i get no errors.
 
@@ -41,12 +50,27 @@ public class TestReceiptDAO {
         } catch (Exception e){
             assertTrue(true);
         }
+
+
+        // When I add a receipt which has no valid commodity, then fail.
+        components = new ArrayList<>();
+        components.add(new ReceiptCompDTO(13,120, 53));
+        rec = new ReceiptDTO(2, "name", components, true);
+
+        try{
+            dao.createReceipt(rec);
+            assertTrue(false);
+        } catch (DALException e){
+            assertTrue(true);
+            assertEquals(e.getMessage(), "There is no commodityIds in the database which have the Ids: [[13]]");
+        }
     }
 
     @Test
     public void testGetReceipt() throws DALException, JunkFormatException
     {
-        IReceiptDAO dao = new ReceiptDAONonPersistent();
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
+        IReceiptDAO dao = new ReceiptDAONonPersistent(cdao);
 
         //This is tested in a previous test.
         List<ReceiptCompDTO> components = new ArrayList<>();
@@ -71,7 +95,10 @@ public class TestReceiptDAO {
     @Test
     public void testSetIsActive() throws DALException, JunkFormatException
     {
-        IReceiptDAO dao = new ReceiptDAONonPersistent();
+
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
+        IReceiptDAO dao = new ReceiptDAONonPersistent(cdao);
+
 
         //This is tested in a previous test.
         List<ReceiptCompDTO> components = new ArrayList<>();
