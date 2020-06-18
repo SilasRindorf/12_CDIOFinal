@@ -1,13 +1,14 @@
 package DAL.nonPersistent;
 
+import DAL.interfaces.*;
 import DAL.interfaces.DALException;
 import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
-import RAM.CommodityBatch;
-import RAM.Commodity;
-import RAM.User;
+import RAM.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class DummyDataGenerator {
@@ -68,6 +69,23 @@ public class DummyDataGenerator {
             } catch (DALException e) {
                 continue;
             } catch (JunkFormatException e) {
+                continue;
+            }
+        }
+    }
+    //TODO: Seems broken, ids get too big?
+    //TODO: ID is changed from random to i.
+    public void generateReceipts(IReceiptDAO receiptdao){
+        for(int i = 0; i < 100; i++){
+            List<ReceiptComp> compList = new ArrayList<>();
+            for(int x = 0; x < 4; x++){
+                compList.add(new ReceiptComp(rand.nextInt(100), rand.nextDouble()*100, rand.nextDouble()*100 ));
+                //System.out.println(compList.get(x));
+            }
+            Receipt randRecipt = new Receipt(i,""+randChar()+randChar()+randChar()+ randChar(),compList, true);
+            try {
+                receiptdao.createReceipt(randRecipt);
+            } catch (DALException | JunkFormatException e) {
                 continue;
             }
         }

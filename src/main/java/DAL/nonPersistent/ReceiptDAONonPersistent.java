@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class ReceiptDAONonPersistent implements IReceiptDAO {
 
-    private List<Receipt> receipts;
-    private ICommodityDAO commodityDAO;
+    protected List<Receipt> receipts;
+    protected ICommodityDAO commodityDAO;
 
     public ReceiptDAONonPersistent(ICommodityDAO commodityDAO) {
         this.commodityDAO = commodityDAO;
@@ -45,11 +45,14 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
 
     @Override
     public List<Receipt> getReceiptList() throws DALException {
-        return receipts;
+            return new ArrayList<>(receipts);
     }
 
     @Override
-    public void createReceipt(Receipt newReceipt) throws DALException {
+    public void createReceipt(Receipt newReceipt) throws DALException, JunkFormatException {
+            if(newReceipt.getID() < 0){
+                throw new JunkFormatException("Ids should not be negative, the id was: "+ newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+            }
         for (Receipt rec : receipts)
         {
             if (rec.getID() == newReceipt.getID())

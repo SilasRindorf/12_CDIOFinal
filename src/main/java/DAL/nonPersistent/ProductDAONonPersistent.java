@@ -7,6 +7,7 @@ import DAL.interfaces.JunkFormatException;
 import RAM.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /***
  * Initial version created by: Andreas
@@ -40,11 +41,14 @@ public class ProductDAONonPersistent implements IProductDAO {
 
     @Override
     public List<ProductBatch> getBatchList() throws DALException {
-        return productBatches;
+            return new ArrayList<>(productBatches);
     }
 
     @Override
     public void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException {
+            if(productBatch.getID() < 0){
+                throw new JunkFormatException("Ids should not be negative, the id was: "+ productBatch.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+            }
         for (ProductBatch prod : productBatches)
         {
             if (prod.getID() == productBatch.getID())

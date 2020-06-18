@@ -37,7 +37,7 @@ public class UserDAONonPersistent implements IUserDAO {
 
     public List<User> getUserList() throws DALException
     {
-        return users;
+        return new ArrayList<>(users);
     }
 
     public void createUser(User newUser) throws DALException, JunkFormatException

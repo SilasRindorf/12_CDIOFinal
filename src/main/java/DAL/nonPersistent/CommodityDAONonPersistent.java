@@ -29,13 +29,17 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
         throw new DALException("There is no commodity with: ID=" + commodityID);
     }
 
-    @Override
+
+
     public List<Commodity> getCommodityList() throws DALException {
-        return commodities;
+            return new ArrayList<>(commodities);
     }
 
     @Override
     public void createCommodity(Commodity commodity) throws DALException, JunkFormatException {
+            if(commodity.getID() < 0){
+            throw new JunkFormatException("Ids should not be negative, the id was: "+ commodity.getID(),Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+            }
         for (Commodity com :
                 commodities) {
             if (com.getID() == commodity.getID()) {

@@ -1,6 +1,6 @@
 package DTO;
 
-import java.sql.ResultSet;
+import java.io.Serializable;
 
 /***
  * Initial version created by: Silas
