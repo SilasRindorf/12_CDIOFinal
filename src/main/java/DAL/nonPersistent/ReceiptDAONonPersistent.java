@@ -8,9 +8,9 @@ import DAL.persistent.CommodityDAO;
 import DTO.CommodityDTO;
 import DTO.ReceiptCompDTO;
 import DTO.ReceiptDTO;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /***
@@ -57,23 +57,32 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
                 throw new DALException("There already exists a receipt with ID = " + newReceipt.getID());
             }
         }
-        if()
+        List<Integer> idsNotExisting = commoditiesDoesNotExistForReceipt(newReceipt);
+        if(idsNotExisting.size()>0){
+            throw new DALException("There is no commodityIds in the database which have the Ids: " + Arrays.asList(idsNotExisting));
+        }
         receipts.add(newReceipt);
     }
 
-    private boolean commoditiesExistsForReceipt(ReceiptDTO r){
-        int count = 0;
-        for(ReceiptCompDTO comp : r){
-            try {
-                for(CommodityDTO commodity : commodityDAO.getCommodityList()){
-                    if(commodity.getID() == comp.getCommodity()){
-                        count+=1;
-                        continue;
-                    }
-                }
-            } catch (DALException e) {
-                throw new AssertionError("Should only be used by an initialized ReceiptDAO.");
+    private List<Integer> commoditiesDoesNotExistForReceipt(ReceiptDTO r){
+        List<Integer> res = new ArrayList<>();
+        for(ReceiptCompDTO comp : r.getReceiptComps()){
+            if(!commodityExist(comp.getCommodity())){
+                res.add(comp.getCommodity());
             }
+        }
+        return res;
+    }
+    private boolean commodityExist(int cID){
+        try {
+            for(CommodityDTO c : commodityDAO.getCommodityList()){
+                if(c.getID()==cID){
+                    return true;
+                }
+            }
+        } catch (DALException e) {
+            e.printStackTrace();
+            throw new AssertionError("Should only be used by an initialized ReceiptDAO.");
         }
         return false;
     }
