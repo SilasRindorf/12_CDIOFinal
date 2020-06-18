@@ -34,9 +34,16 @@ public class API {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("create-user")
+    @Path("user-create")
     public String createUser(UserDTO userDTO){
         return controller.createUser(userDTO);
+    }
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("user-get")
+    public String getUsers(){
+        return controller.getUsers();
     }
 
 }

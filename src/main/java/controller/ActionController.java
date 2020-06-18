@@ -7,6 +7,8 @@ import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.UserDAONonPersistent;
 import DTO.UserDTO;
 import RAM.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
@@ -49,5 +51,15 @@ public class ActionController {
             return e.toString();
         }
         return "Bruger lavet";
+    }
+
+    public String getUsers(){
+        ObjectMapper objMapper = new ObjectMapper();
+        try {
+            return objMapper.writeValueAsString(USERS.getUserList());
+        } catch (JsonProcessingException | DALException e){
+            e.printStackTrace();
+            return "Could not get users";
+        }
     }
 }
