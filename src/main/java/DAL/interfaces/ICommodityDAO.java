@@ -1,7 +1,7 @@
 package DAL.interfaces;
 
-import DTO.CommodityBatchDTO;
-import DTO.CommodityDTO;
+import RAM.CommodityBatch;
+import RAM.Commodity;
 
 import java.util.List;
 
@@ -13,15 +13,15 @@ import java.util.List;
  *  -
  */
 public interface ICommodityDAO {
-    CommodityDTO getCommodity(int commodityID) throws DALException;
-    List<CommodityDTO> getCommodityList() throws DALException;
-    void createCommodity(CommodityDTO commodity) throws DALException, JunkFormatException;
-    void updateCommodity(CommodityDTO commodity) throws DALException, JunkFormatException;
+    Commodity getCommodity(int commodityID) throws DALException;
+    List<Commodity> getCommodityList() throws DALException;
+    void createCommodity(Commodity commodity) throws DALException, JunkFormatException;
+    void updateCommodity(Commodity commodity) throws DALException, JunkFormatException;
     void setIsActiveCommodity(int cId, boolean isActive) throws DALException;
 
-    CommodityBatchDTO getCommodityBatch(int commodityBatchID) throws DALException;
-    List<CommodityBatchDTO> getCommodityBatchList() throws DALException;
-    List<CommodityBatchDTO> getCommodityBatchList(int commodityID) throws DALException;
-    void createCommodityBatch(CommodityBatchDTO commodityBatch) throws DALException, JunkFormatException;
+    CommodityBatch getBatch(int commodityBatchID) throws DALException;
+    List<CommodityBatch> getBatchList() throws DALException;
+    List<CommodityBatch> getBatchList(int commodityID) throws DALException;
+    void createBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException;
     void setIsActiveBatch(int cbId, boolean isActive) throws DALException;
 }

@@ -5,6 +5,7 @@ import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
 import DTO.ReceiptDTO;
+import RAM.Receipt;
 
 import java.io.EOFException;
 import java.io.File;
@@ -29,12 +30,12 @@ public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
 
 
     @Override
-    public ReceiptDTO getReceipt(int receiptID) throws DALException {
+    public Receipt getReceipt(int receiptID) throws DALException {
         return super.getReceipt(receiptID);
     }
 
     @Override
-    public void createReceipt(ReceiptDTO receipt) throws DALException, JunkFormatException {
+    public void createReceipt(Receipt receipt) throws DALException, JunkFormatException {
         super.createReceipt(receipt);
         try {
             FileAPI.saveDataToFile(receipts, FILE);

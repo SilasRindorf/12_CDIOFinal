@@ -1,14 +1,17 @@
 package test;
 
 import DAL.interfaces.DALException;
+import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.DummyDataGenerator;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
 import DAL.persistent.FileAPI;
 import DAL.persistent.ReceiptDAO;
-import DTO.ReceiptCompDTO;
-import DTO.ReceiptDTO;
+import DAL.nonPersistent.CommodityDAONonPersistent;
+import RAM.Commodity;
+import RAM.ReceiptComp;
+import RAM.Receipt;
 import org.junit.Test;
 
 import java.io.File;
@@ -21,10 +24,17 @@ import static org.junit.Assert.*;
 public class TestReceiptDAO {
 
     @Test
-    public void testCreateReceipt() throws DALException, JunkFormatException {
-        IReceiptDAO dao = new ReceiptDAONonPersistent();
+    public void testCreateReceipt() throws DALException, JunkFormatException
+    {
 
-        List<ReceiptCompDTO> components = new ArrayList<>();
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
+        IReceiptDAO dao = new ReceiptDAONonPersistent(cdao);
+
+        cdao.createCommodity(new Commodity(42, "banana",true));
+
+
+        List<ReceiptComp> components = new ArrayList<>();
+        components.add(new ReceiptComp(42,120, 53));
 
         // When i made no changes yet, the list of receipts should be 0, and i get no errors.
 
@@ -32,7 +42,7 @@ public class TestReceiptDAO {
 
         // When creating a receipt object, it gets inserted into the receipts list.
 
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         assertTrue(dao.getReceiptList().size() == 1);
@@ -45,15 +55,31 @@ public class TestReceiptDAO {
         } catch (Exception e) {
             assertTrue(true);
         }
+
+
+        // When I add a receipt which has no valid commodity, then fail.
+        components = new ArrayList<>();
+        components.add(new ReceiptComp(13,120, 53));
+        rec = new Receipt(2, "name", components, true);
+
+        try{
+            dao.createReceipt(rec);
+            assertTrue(false);
+        } catch (DALException e){
+            assertTrue(true);
+            assertEquals(e.getMessage(), "There is no commodityIds in the database which have the Ids: [[13]]");
+        }
     }
 
     @Test
-    public void testGetReceipt() throws DALException, JunkFormatException {
-        IReceiptDAO dao = new ReceiptDAONonPersistent();
+    public void testGetReceipt() throws DALException, JunkFormatException
+    {
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
+        IReceiptDAO dao = new ReceiptDAONonPersistent(cdao);
 
         //This is tested in a previous test.
-        List<ReceiptCompDTO> components = new ArrayList<>();
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        List<ReceiptComp> components = new ArrayList<>();
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         // When trying to get a receipt with ID 1, i get a receipt with name "name".
@@ -72,12 +98,16 @@ public class TestReceiptDAO {
     }
 
     @Test
-    public void testSetIsActive() throws DALException, JunkFormatException {
-        IReceiptDAO dao = new ReceiptDAONonPersistent();
+    public void testSetIsActive() throws DALException, JunkFormatException
+    {
+
+        ICommodityDAO cdao = new CommodityDAONonPersistent();
+        IReceiptDAO dao = new ReceiptDAONonPersistent(cdao);
+
 
         //This is tested in a previous test.
-        List<ReceiptCompDTO> components = new ArrayList<>();
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        List<ReceiptComp> components = new ArrayList<>();
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         // When i try to set "isActive" for the receipt with ID 1 to "false", it will do that.
@@ -124,8 +154,8 @@ public class TestReceiptDAO {
         DDG.generateReceipts(DAO);
         IReceiptDAO newDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE); //creat a new DAO with the data in the file
 
-        List<ReceiptDTO> fromRam = DAO.getReceiptList();
-        List<ReceiptDTO> fromFile = newDAO.getReceiptList();
+        List<Receipt> fromRam = DAO.getReceiptList();
+        List<Receipt> fromFile = newDAO.getReceiptList();
 
         for (int i = 0; i < fromRam.size(); i++) {
             assertEquals(fromRam.get(i).toString(), fromFile.get(i).toString());
@@ -138,11 +168,11 @@ public class TestReceiptDAO {
         file.delete();
         IReceiptDAO receiptDAO = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
 
-        List<ReceiptCompDTO> compList = new ArrayList<>();
+        List<ReceiptComp> compList = new ArrayList<>();
         for (int x = 0; x < 4; x++) {
-            compList.add(new ReceiptCompDTO(1 * x, 0.1 * x, 0.2 * x));
+            compList.add(new ReceiptComp(1 * x, 0.1 * x, 0.2 * x));
         }
-        ReceiptDTO randRecipt = new ReceiptDTO(9000, "SKKKK", compList, true);
+        Receipt randRecipt = new Receipt(9000, "SKKKK", compList, true);
         receiptDAO.createReceipt(randRecipt);
         assertEquals(randRecipt.toString(), receiptDAO.getReceipt(9000).toString());
 
@@ -159,9 +189,9 @@ public class TestReceiptDAO {
         ReceiptDAO dao = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
         DDG.generateReceipts(dao);
 
-        List<ReceiptDTO> fromRam = dao.getReceiptList();
+        List<Receipt> fromRam = dao.getReceiptList();
 
-        for(ReceiptDTO rec : fromRam){
+        for(Receipt rec : fromRam){
             assertTrue(rec.getIsActive());
             //System.out.println("Before:");
             //System.out.println(rec.getID() + " " + rec.getIsActive());
@@ -175,11 +205,11 @@ public class TestReceiptDAO {
         // When trying to set all the receipts activity to false, which they already are, an Exception will get thrown.
 
         ReceiptDAO dao2 = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
-        List<ReceiptDTO> fromFile = dao2.getReceiptList();
+        List<Receipt> fromFile = dao2.getReceiptList();
 
         fromRam = dao2.getReceiptList();
 
-        for (ReceiptDTO rec : fromRam)
+        for (Receipt rec : fromRam)
         {
             assertFalse(rec.getIsActive());
 

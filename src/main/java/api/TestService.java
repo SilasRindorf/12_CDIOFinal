@@ -11,6 +11,10 @@ import javax.ws.rs.*;
 
 @Path("test")
 public class TestService {
+
+    public TestService(){
+
+    }
     @GET
     public String helloWorld (){
         return "Hello world";

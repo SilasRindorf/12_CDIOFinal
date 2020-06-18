@@ -1,6 +1,6 @@
 package DAL.interfaces;
 
-import DTO.ReceiptDTO;
+import RAM.Receipt;
 import java.util.List;
 
 /***
@@ -11,8 +11,8 @@ import java.util.List;
  *  -
  */
 public interface IReceiptDAO {
-    ReceiptDTO getReceipt(int receiptID) throws DALException;
-    List<ReceiptDTO> getReceiptList() throws DALException;
-    void createReceipt(ReceiptDTO receipt) throws DALException, JunkFormatException;
+    Receipt getReceipt(int receiptID) throws DALException;
+    List<Receipt> getReceiptList() throws DALException;
+    void createReceipt(Receipt receipt) throws DALException, JunkFormatException;
     void setIsActive(int receiptID, boolean isActive) throws DALException, JunkFormatException;
 }
