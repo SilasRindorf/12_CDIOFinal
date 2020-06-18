@@ -20,6 +20,48 @@ function createUser(url, ID, username, ini, CPR, hashedPass, role, isActive) {
     POST(url, user)
 }
 
+function userTable(tableID,objects){
+    var JSONParsed = JSON.parse(objects);
+    var txt = "<table border='1'>" +
+        "<th>BrugerID</th>" +
+        "<th>Brugernavn</th>" +
+        "<th>Initialer</th>" +
+        "<th>Cpr-nummer</th>" +
+        "<th>Password</th>" +
+        "<th>Rolle</th>" +
+        "<th>Status</th>" +
+        "<th>Inaktiver</th>";
+    console.log("I am here");
+    console.log(JSONParsed);
+    for (let i in JSONParsed) {
+        console.log(JSONParsed[i]);
+        txt += "<tr>" +
+            "<td>" + JSONParsed[i].userID + "</td>" +
+            "<td>" + JSONParsed[i].uname + "</td>" +
+            "<td>" + JSONParsed[i].ini + "</td>" +
+            "<td>" + JSONParsed[i].cpr + "</td>" +
+            "<td>" + JSONParsed[i].password + "</td>" +
+            "<td>" + JSONParsed[i].Roles + "</td>" +
+            "<td><button type=\"button\" onclick=\"JSONDelete(" + div + "," + JSONParsed[i].userID + ")\">Inaktiver user</button></td>" +
+            "</tr>";
+    }
+    txt += "</table>";
+    document.getElementById("UserTable").innerHTML = txt;
+}
+
+JSONDelete = function (div,id) {
+    const request = new XMLHttpRequest();
+    request.open("PUT", "rest/person/delete-user/?id=" + id, true);
+    request.setRequestHeader('Content-type','application/json; charset=utf-8');
+    request.onload = function () {
+        //alert("readyState=" + request.readyState+ "\nstatus=" +  request.status);
+        if (request.readyState === 4 && request.status === 204){
+            getAllUsers();
+        }
+    };
+    request.send();
+};
+
 function createReceipt(url, name, receiptComps) {
     const receipt = {
         "name": name,

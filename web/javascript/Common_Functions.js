@@ -72,6 +72,7 @@ function goToAdmin() {
     document.getElementById("welcome").style.visibility = "hidden";
     document.getElementById("admin").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Adminstrator";
+    userTable("UserTable",GETTable("rest/actions/user-get","UserTable"))
 }
 
 function goToProduktionsleder() {

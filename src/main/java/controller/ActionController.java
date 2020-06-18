@@ -14,7 +14,11 @@ public class ActionController {
     private static ActionController ActionControllerInstance = null;
     private final IUserDAO USERS = new UserDAONonPersistent();
     private ActionController(){
+        try {
+            USERS.createUser(new User(11, "Silas", "SIL", "123", "Abe", User.Role.Administrator, true));
+        } catch (Exception ignored){
 
+        }
     }
     // static method to create instance of Singleton class
     public static ActionController getInstance()

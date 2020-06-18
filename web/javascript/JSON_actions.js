@@ -1,4 +1,4 @@
-function GET(url){
+function GET(url) {
     const obj = {table: "Users", limit: 20};
     const param = JSON.stringify(obj);
     const request = new XMLHttpRequest();
@@ -25,6 +25,21 @@ function POSTAndAlert(url, object) {
 
     request.send(sendStr);
 }
+
+GETTable = function (url, tableName) {
+    const obj = {table: tableName.toString(), limit: 20};
+    const param = JSON.stringify(obj);
+    const request = new XMLHttpRequest();
+
+    request.open("GET", url, true);
+    request.send("x= " + param);
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            return this.responseText;
+        }
+    }
+};
+
 
 function POST(url, object, doFunction) {
     const request = new XMLHttpRequest();
