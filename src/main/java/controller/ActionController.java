@@ -4,11 +4,13 @@ package controller;
 import DAL.interfaces.DALException;
 import DAL.interfaces.IUserDAO;
 import DAL.nonPersistent.UserDAONonPersistent;
+import RAM.User;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
-    private IUserDAO users = new UserDAONonPersistent();
+    private final IUserDAO USERS = new UserDAONonPersistent();
     private ActionController(){
+
     }
     // static method to create instance of Singleton class
     public static ActionController getInstance()
@@ -21,10 +23,11 @@ public class ActionController {
 
     public boolean logIn(String name, String pass){
         try {
-            for (int i = 0; i < users.getUserList().size(); i++) {
-                if (users.getUserList().get(i).getIsActive()
-                        && users.getUserList().get(i).getUsername().equalsIgnoreCase(name)
-                        && users.getUserList().get(i).getHashedPass().equals(pass)){
+            for (int i = 0; i < USERS.getUserList().size(); i++) {
+                System.out.println(USERS.getUserList().get(i).getUsername());
+                if (USERS.getUserList().get(i).getIsActive()
+                        && USERS.getUserList().get(i).getUsername().equalsIgnoreCase(name)
+                        && USERS.getUserList().get(i).getHashedPass().equals(pass)){
                     return true;
                 }
             }

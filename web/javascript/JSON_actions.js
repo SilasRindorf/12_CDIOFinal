@@ -11,35 +11,31 @@ function GET(url){
     request.send("x= " + param);
 }
 
-function POSTAndReceive(url, object) {
+function POSTAndAlert(url, object) {
     const request = new XMLHttpRequest();
     request.open("POST", url, true);
     request.responseType = "text";
-
-    var sendStr = JSON.stringify(object);
+    let sendStr = JSON.stringify(object);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-            console.log(request.responseText);
+            alert(request.responseText);
         }
     };
 
     request.send(sendStr);
-    request.onload = function () {
-        console.log(request.responseText);
-    };
 }
 
-function POST(url, object) {
+function POST(url, object, doFunction) {
     const request = new XMLHttpRequest();
     request.open("POST", url, true);
-    var sendStr = JSON.stringify(object);
+    let sendStr = JSON.stringify(object);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
     request.send(sendStr);
     request.onreadystatechange = function () {
-        if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText);
+        if (request.readyState === 4 && request.status === 200) {
+            doFunction(request.responseText);
         }
     };
 }

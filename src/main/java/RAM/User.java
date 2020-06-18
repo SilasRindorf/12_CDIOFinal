@@ -20,9 +20,6 @@ public class User extends IdAndActivatable implements Serializable {
   private String hashedPass;
   private Role role;
 
-  public User(){
-    super();
-  }
 
   public User(int ID, String username, String ini, String CPR, String hashedPass, Role role, boolean isActive){
     super(ID,isActive);

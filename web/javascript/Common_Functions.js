@@ -4,9 +4,9 @@ var password;
 
 function logIn() {
     hideall();
-    /*uname = document.getElementById("uname").value;
-    password = document.getElementById("password").value;
-    action(uname,password,"rest/actions/confirm-log-in");*/
+    uname = document.getElementById("logInName").value;
+    password = document.getElementById("logInPass").value;
+    logInAction("rest/actions/log-in",uname,password);
     document.getElementById("welcome").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Vælg venligst din bruger";
 }

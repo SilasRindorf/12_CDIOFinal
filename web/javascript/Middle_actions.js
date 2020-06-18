@@ -4,7 +4,7 @@ function logInAction(url, username, password) {
         "username": username,
         "password": password
     };
-    POSTAndReceive(url, logInDTO);
+    POSTAndAlert(url, logInDTO);
 }
 
 function createReceipt(url, name, receiptComps) {
