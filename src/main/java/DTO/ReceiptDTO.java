@@ -12,9 +12,11 @@ public class ReceiptDTO {
     private String name;
     private ReceiptCompDTO[] receiptComps;
     private boolean isActive;
-    public ReceiptDTO(){
+
+    public ReceiptDTO() {
 
     }
+
     public int getReceiptNr() {
         return receiptNr;
     }

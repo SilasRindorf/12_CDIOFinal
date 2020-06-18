@@ -3,8 +3,8 @@ package DAL.nonPersistent;
 import DAL.interfaces.DALException;
 import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.JunkFormatException;
-import RAM.CommodityBatch;
 import RAM.Commodity;
+import RAM.CommodityBatch;
 import RAM.IdAndActivatable;
 
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.List;
 public class CommodityDAONonPersistent implements ICommodityDAO {
     protected List<Commodity> commodities;
     protected List<CommodityBatch> batches;
+
     public CommodityDAONonPersistent() {
         this.commodities = new ArrayList<>();
         this.batches = new ArrayList<>();
@@ -30,16 +31,15 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     }
 
 
-
     public List<Commodity> getCommodityList() throws DALException {
-            return new ArrayList<>(commodities);
+        return new ArrayList<>(commodities);
     }
 
     @Override
     public void createCommodity(Commodity commodity) throws DALException, JunkFormatException {
-            if(commodity.getID() < 0){
-            throw new JunkFormatException("Ids should not be negative, the id was: "+ commodity.getID(),Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
-            }
+        if (commodity.getID() < 0) {
+            throw new JunkFormatException("Ids should not be negative, the id was: " + commodity.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+        }
         for (Commodity com :
                 commodities) {
             if (com.getID() == commodity.getID()) {
@@ -54,29 +54,29 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     @Override
     public void updateCommodity(Commodity commodity) throws DALException, JunkFormatException {
         boolean found = false;
-        for(int i = 0; i<commodities.size(); ++i){
-            if(commodity.getID() == commodities.get(i).getID()){
+        for (int i = 0; i < commodities.size(); ++i) {
+            if (commodity.getID() == commodities.get(i).getID()) {
                 found = true;
                 Commodity backup = commodities.get(i);
                 commodities.remove(i);
                 try {
                     createCommodity(commodity);
-                }catch(Exception e){
+                } catch (Exception e) {
                     commodities.add(backup);
                     throw e;
                 }
             }
         }
-        if(!found){
-           throw new DALException("Commodity with that ID does not exist");
+        if (!found) {
+            throw new DALException("Commodity with that ID does not exist");
         }
     }
 
     @Override
     public void setIsActiveCommodity(int cId, boolean isActive) throws DALException {
         Commodity c = getCommodity(cId);
-        if (c.getIsActive() == isActive){
-            throw new DALException("The commodity activity is already "+isActive);
+        if (c.getIsActive() == isActive) {
+            throw new DALException("The commodity activity is already " + isActive);
         }
         Commodity newC = new Commodity(cId, c.getName(), isActive);
         try {
@@ -90,8 +90,8 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
 
     @Override
     public CommodityBatch getBatch(int commodityBatchID) throws DALException {
-        List<CommodityBatch> list = IdAndActivatable.<CommodityBatch>filterAddIds(batches,Arrays.asList(commodityBatchID));
-        if(list.isEmpty()){
+        List<CommodityBatch> list = IdAndActivatable.<CommodityBatch>filterAddIds(batches, Arrays.asList(commodityBatchID));
+        if (list.isEmpty()) {
             throw new DALException("There is no commoditybatch with: ID=" + commodityBatchID);
         }
         return list.get(0);
@@ -105,12 +105,12 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     @Override
     public List<CommodityBatch> getBatchList(int commodityID) throws DALException {
         List<CommodityBatch> list = new ArrayList<>();
-        for(int i = 0; i<batches.size();++i){
-            if(batches.get(i).getCommodityNr() == commodityID){
+        for (int i = 0; i < batches.size(); ++i) {
+            if (batches.get(i).getCommodityNr() == commodityID) {
                 list.add(batches.get(i));
             }
         }
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             throw new DALException("There is no commoditybatch which contains a commodity of ID=" + commodityID);
         }
         return list;
@@ -124,18 +124,18 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
                 throw new DALException("There is already a commodity with: ID=" + batch.getID());
             }
         }
-        if(!hasCommodityWithId(newBatch.getCommodityNr())){
-            throw new DALException("There are no commodities with the ID: " +newBatch.getCommodityNr());
+        if (!hasCommodityWithId(newBatch.getCommodityNr())) {
+            throw new DALException("There are no commodities with the ID: " + newBatch.getCommodityNr());
         }
         batches.add(newBatch);
     }
 
-    private boolean hasCommodityWithId(int id){
+    private boolean hasCommodityWithId(int id) {
         try {
-            for(Commodity com : getCommodityList()){
-               if(com.getID() == id) {
-                   return true;
-               }
+            for (Commodity com : getCommodityList()) {
+                if (com.getID() == id) {
+                    return true;
+                }
             }
         } catch (DALException e) {
             throw new AssertionError("Should only be used by internal methods, where commodityList is initialized");
@@ -145,20 +145,20 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
 
     private void updateCommodityBatch(CommodityBatch batch) throws DALException, JunkFormatException {
         boolean found = false;
-        for(int i = 0; i<batches.size(); ++i){
-            if(batch.getID() == batches.get(i).getID()){
+        for (int i = 0; i < batches.size(); ++i) {
+            if (batch.getID() == batches.get(i).getID()) {
                 found = true;
                 CommodityBatch backup = batches.get(i);
                 batches.remove(i);
                 try {
                     createBatch(batch);
-                }catch(Exception e){
+                } catch (Exception e) {
                     batches.add(backup);
                     throw e;
                 }
             }
         }
-        if(!found){
+        if (!found) {
             throw new DALException("Commodity with that ID does not exist");
         }
     }
@@ -166,10 +166,10 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     @Override
     public void setIsActiveBatch(int commodityBatchID, boolean isActive) throws DALException {
         CommodityBatch c = getBatch(commodityBatchID);
-        if (c.getIsActive() == isActive){
-            throw new DALException("The commoditybatch activity is already "+isActive);
+        if (c.getIsActive() == isActive) {
+            throw new DALException("The commoditybatch activity is already " + isActive);
         }
-        CommodityBatch newC = new CommodityBatch(c.getID(),c.getCommodityNr(),c.getAmount(),c.getProvider(),isActive);
+        CommodityBatch newC = new CommodityBatch(c.getID(), c.getCommodityNr(), c.getAmount(), c.getProvider(), isActive);
         try {
             updateCommodityBatch(newC);
         } catch (JunkFormatException e) {
@@ -178,7 +178,6 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
                     "This means that the database state was corrupt.");
         }
     }
-
 
 
 }

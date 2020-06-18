@@ -4,7 +4,7 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ProductDAONonPersistent;
-import RAM.*;
+import RAM.ProductBatch;
 
 import java.io.EOFException;
 import java.io.File;

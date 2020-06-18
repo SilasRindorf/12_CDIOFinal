@@ -5,26 +5,25 @@ import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
-import DTO.ReceiptDTO;
 import RAM.Receipt;
 
 import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
     private final String FILE;
-    public ReceiptDAO(String filepath, ICommodityDAO commodityDAO) throws IOException,ClassNotFoundException {
+
+    public ReceiptDAO(String filepath, ICommodityDAO commodityDAO) throws IOException, ClassNotFoundException {
         super(commodityDAO);
         FILE = filepath;
         File file = new File(FILE);
         boolean isNew = file.createNewFile();
-        if(!isNew){
+        if (!isNew) {
             try {
                 receipts = (ArrayList) FileAPI.loadDataFromFile(FILE);
-            }catch(EOFException ignored){ //Means that no objects are in the file
+            } catch (EOFException ignored) { //Means that no objects are in the file
             }
         }
     }
@@ -47,7 +46,7 @@ public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
 
     @Override
     public void setIsActive(int receiptID, boolean isActive) throws DALException, JunkFormatException {
-        super.setIsActive(receiptID,isActive);
+        super.setIsActive(receiptID, isActive);
         try {
             FileAPI.saveDataToFile(receipts, FILE);
         } catch (IOException e) {

@@ -1,7 +1,5 @@
 package DTO;
 
-import java.io.Serializable;
-
 /***
  * Initial version created by: Silas
  * Edited by: 
@@ -15,9 +13,10 @@ public class ReceiptCompDTO {
     private double tolerance;
     private boolean isActive;
 
-    public ReceiptCompDTO(){
+    public ReceiptCompDTO() {
 
     }
+
     public int getCommodityNr() {
         return commodityNr;
     }

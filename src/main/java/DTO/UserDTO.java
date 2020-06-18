@@ -16,9 +16,10 @@ public class UserDTO {
     private String Role;
     private boolean isActive;
 
-    public UserDTO(){
+    public UserDTO() {
 
     }
+
     public String getUsername() {
         return username;
     }
@@ -58,6 +59,7 @@ public class UserDTO {
     public void setRole(String role) {
         Role = role;
     }
+
     public int getID() {
         return ID;
     }

@@ -17,7 +17,7 @@ public class Receipt extends IdAndActivatable implements Serializable {
     private List<ReceiptComp> receiptComps;
 
     public Receipt(int receiptNr, String name, List<ReceiptComp> receiptComps, boolean isActive) {
-        super(receiptNr,isActive);
+        super(receiptNr, isActive);
         this.name = name;
         this.receiptComps = Collections.unmodifiableList(receiptComps);
     }

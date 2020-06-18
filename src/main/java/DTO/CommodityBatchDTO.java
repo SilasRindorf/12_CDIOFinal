@@ -1,7 +1,5 @@
 package DTO;
 
-import java.io.Serializable;
-
 /***
  * Initial version created by: Silas
  * Edited by:
@@ -9,7 +7,7 @@ import java.io.Serializable;
  * This class is responsible for:
  *  -
  */
-public class CommodityBatchDTO  {
+public class CommodityBatchDTO {
     private int commodityBatchNr;
     private int commodityNr;
     private double amount;

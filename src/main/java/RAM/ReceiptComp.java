@@ -34,7 +34,7 @@ public class ReceiptComp implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "commodityNr=" + commodityNr + " | " +
                 "amount=" + amount + " | " +
                 "tolerance=" + tolerance;
