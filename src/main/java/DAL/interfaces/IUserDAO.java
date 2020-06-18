@@ -1,8 +1,7 @@
 package DAL.interfaces;
 
-import DTO.UserDTO;
-import DAL.interfaces.DALException;
-import DAL.interfaces.JunkFormatException;
+import RAM.User;
+
 import java.util.List;
 
 /***
@@ -13,9 +12,9 @@ import java.util.List;
  *
  */
 public interface IUserDAO {
-    UserDTO getUser(int userId) throws DALException;
-    List<UserDTO> getUserList() throws DALException;
-    void createUser(UserDTO user) throws DALException, JunkFormatException;
-    void updateUser(UserDTO user) throws DALException, JunkFormatException;
+    User getUser(int userId) throws DALException;
+    List<User> getUserList() throws DALException;
+    void createUser(User user) throws DALException, JunkFormatException;
+    void updateUser(User user) throws DALException, JunkFormatException;
     void setIsActive(int userId, boolean isActive) throws DALException;
 }

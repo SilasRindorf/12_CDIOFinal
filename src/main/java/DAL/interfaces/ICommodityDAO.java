@@ -1,7 +1,7 @@
 package DAL.interfaces;
 
-import DTO.CommodityBatchDTO;
-import DTO.CommodityDTO;
+import RAM.CommodityBatch;
+import RAM.Commodity;
 
 import java.util.List;
 
@@ -13,74 +13,15 @@ import java.util.List;
  *  -
  */
 public interface ICommodityDAO {
-    /**
-     * Create an interface for getting a commodity that gets implemented by another class.
-     * @param commodityID
-     * @return
-     * @throws DALException
-     */
-    CommodityDTO getCommodity(int commodityID) throws DALException;
-
-    /**
-     * Create an interface for getting a commodity list that gets implemented by another class.
-     * @return
-     * @throws DALException
-     */
-    List<CommodityDTO> getCommodityList() throws DALException;
-
-    /**
-     * Create an interface for creating a commodity that gets implemented by another class.
-     * @param commodity
-     * @throws DALException
-     * @throws JunkFormatException
-     */
-    void createCommodity(CommodityDTO commodity) throws DALException, JunkFormatException;
-
-    /**
-     * Create an interface for updating a commodity that gets implemented by another class.
-     * @param commodity
-     * @throws DALException
-     * @throws JunkFormatException
-     */
-    void updateCommodity(CommodityDTO commodity) throws DALException, JunkFormatException;
-
-    /**
-     * Create an interface for setting a commodity to be active or inactive that gets implemented by another class.
-     * @param cId
-     * @param isActive
-     * @throws DALException
-     */
+    Commodity getCommodity(int commodityID) throws DALException;
+    List<Commodity> getCommodityList() throws DALException;
+    void createCommodity(Commodity commodity) throws DALException, JunkFormatException;
+    void updateCommodity(Commodity commodity) throws DALException, JunkFormatException;
     void setIsActiveCommodity(int cId, boolean isActive) throws DALException;
 
-    /**
-     * Create an interface for getting a commodity batch. This is done with help from the CommodityBatchDTO class and will be implemented further by another class.
-     * @param commodityBatchID
-     * @return
-     * @throws DALException
-     */
-    CommodityBatchDTO getBatch(int commodityBatchID) throws DALException;
-
-    /**
-     * Create an interface for getting a commodity batch list. This is done with help from the CommodityBatchDTO class and will be implemented further by another class.
-     * @return
-     * @throws DALException
-     */
-    List<CommodityBatchDTO> getBatchList() throws DALException;
-    List<CommodityBatchDTO> getBatchList(int commodityID) throws DALException;
-
-    /**
-     * Create an interface for creating a commodity batch that gets implemented later by another class.
-     * @param commodityBatch
-     * @throws DALException
-     * @throws JunkFormatException
-     */
-    void createBatch(CommodityBatchDTO commodityBatch) throws DALException, JunkFormatException;
-
-    /**
-     * Create an interface for setting a batch to be active or inactive that gets implemented later on by another class.
-     * @param cbId
-     * @param isActive
-     * @throws DALException
-     */
+    CommodityBatch getBatch(int commodityBatchID) throws DALException;
+    List<CommodityBatch> getBatchList() throws DALException;
+    List<CommodityBatch> getBatchList(int commodityID) throws DALException;
+    void createBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException;
     void setIsActiveBatch(int cbId, boolean isActive) throws DALException;
 }

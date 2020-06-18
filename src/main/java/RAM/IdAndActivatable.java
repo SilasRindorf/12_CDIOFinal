@@ -1,4 +1,4 @@
-package DTO;
+package RAM;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,6 +24,10 @@ public class IdAndActivatable implements Serializable {
             }
         }
         return arr;
+    }
+
+    public IdAndActivatable(){
+
     }
 
     public IdAndActivatable(int id, boolean isActive) {

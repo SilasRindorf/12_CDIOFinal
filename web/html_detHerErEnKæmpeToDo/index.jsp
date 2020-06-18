@@ -30,7 +30,9 @@
     function logIn(){
       uname = document.getElementById("uname").value;
       password = document.getElementById("password").value;
-      logInAction(uname,password,"rest/actions/log-in");
+      document.getElementById("uname").value = "";
+      document.getElementById("password").value = "";
+      logInAction("rest/actions/log-in",uname,password);
     }
   </script>
 </html>
