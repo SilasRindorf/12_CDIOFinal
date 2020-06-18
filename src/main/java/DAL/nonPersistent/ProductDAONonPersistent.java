@@ -41,7 +41,7 @@ public class ProductDAONonPersistent implements IProductDAO {
 
     @Override
     public List<ProductBatchDTO> getBatchList() throws DALException {
-        return productBatches;
+        return new ArrayList<>(productBatches);
     }
 
     @Override

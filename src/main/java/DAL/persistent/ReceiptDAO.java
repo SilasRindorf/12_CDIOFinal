@@ -34,11 +34,6 @@ public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
     }
 
     @Override
-    public List<ReceiptDTO> getReceiptList() throws DALException {
-        return receipts;
-    }
-
-    @Override
     public void createReceipt(ReceiptDTO receipt) throws DALException, JunkFormatException {
         super.createReceipt(receipt);
         try {

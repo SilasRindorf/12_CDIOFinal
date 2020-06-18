@@ -31,9 +31,7 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
 
     @Override
     public List<CommodityDTO> getCommodityList() throws DALException {
-        if (commodities.isEmpty())
-            throw new DALException("No commodities");
-        return commodities;
+        return new ArrayList<>(commodities);
     }
 
     @Override

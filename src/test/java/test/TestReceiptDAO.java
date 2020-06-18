@@ -160,28 +160,37 @@ public class TestReceiptDAO {
         DDG.generateReceipts(dao);
 
         List<ReceiptDTO> fromRam = dao.getReceiptList();
-        for(ReceiptDTO x : fromRam){
-            assertTrue(x.getIsActive());
+
+        for(ReceiptDTO rec : fromRam){
+            assertTrue(rec.getIsActive());
+            //System.out.println("Before:");
+            //System.out.println(rec.getID() + " " + rec.getIsActive());
+            dao.setIsActive(rec.getID(),false);
+            //System.out.println("After:");
+            //System.out.println(dao.getReceipt(rec.getID()).getIsActive()+ " " + rec.getIsActive());
+            //System.out.println("-------------------");
+            assertFalse(dao.getReceipt(rec.getID()).getIsActive());
         }
-        for(int i = 0; i < fromRam.size(); i++){
-            dao.setIsActive(i,false);
-        }
-        for(ReceiptDTO x : fromRam){
-            assertFalse(x.getIsActive());
-        }
+
+        // When trying to set all the receipts activity to false, which they already are, an Exception will get thrown.
 
         ReceiptDAO dao2 = new ReceiptDAO(FileAPI.TEST_RECEIPT_DAO_FILE);
         List<ReceiptDTO> fromFile = dao2.getReceiptList();
-        for(ReceiptDTO x : fromFile){
-            assertFalse(x.getIsActive());
-        }
-        for(int i = 0; i < fromFile.size(); i++){
-            dao2.setIsActive(i,true);
-        }
-        for(ReceiptDTO x : fromFile){
-            assertTrue(x.getIsActive());
-        }
 
+        fromRam = dao2.getReceiptList();
+
+        for (ReceiptDTO rec : fromRam)
+        {
+            assertFalse(rec.getIsActive());
+
+            try {
+                dao.setIsActive(rec.getID(), false);
+                assertTrue(false);
+            } catch (Exception e){
+                assertTrue(true);
+            }
+            
+        }
 
     }
 }

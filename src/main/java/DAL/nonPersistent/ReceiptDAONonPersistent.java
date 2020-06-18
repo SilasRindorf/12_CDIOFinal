@@ -39,7 +39,7 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
 
     @Override
     public List<ReceiptDTO> getReceiptList() throws DALException {
-        return receipts;
+        return new ArrayList<>(receipts);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
         if (rec.getIsActive() == isActive){
             throw new DALException("The receipt activity is already "+isActive);
         }
-        ReceiptDTO newReceipt = new ReceiptDTO(receiptID, rec.getName(), rec.getReceiptComps(), isActive);
+        ReceiptDTO newReceipt = new ReceiptDTO(receiptID, rec.getName(), rec.getReceiptComps(), !rec.getIsActive());
         try {
             updateReceipt(newReceipt);
         } catch (JunkFormatException e) {
