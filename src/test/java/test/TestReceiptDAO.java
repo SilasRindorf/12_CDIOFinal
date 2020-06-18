@@ -162,10 +162,22 @@ public class TestReceiptDAO {
         List<ReceiptDTO> fromRam = dao.getReceiptList();
         for(ReceiptDTO x : fromRam){
             assertTrue(x.getIsActive());
+            if(x.getID()==0){
+                System.out.println(x + "WTF");
+            }
         }
-        for(int i = 0; i < fromRam.size(); i++){
-            dao.setIsActive(i,false);
+
+        for(int i = 0; i<fromRam.size(); ++i){
+            ReceiptDTO r = fromRam.get(i);
+            System.out.println(r.getID());
+            try {
+                System.out.println("before:" + r.getIsActive());
+                dao.setIsActive(r.getID(), false);
+            }catch(DALException e){
+                System.out.println("EXCEPTION" + " " + r.getIsActive() + " " + e.getMessage());
+            }
         }
+
         for(ReceiptDTO x : fromRam){
             assertFalse(x.getIsActive());
         }
