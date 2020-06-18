@@ -3,7 +3,6 @@ package DAL.nonPersistent;
 import DAL.interfaces.DALException;
 import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IReceiptDAO;
-import DAL.persistent.CommodityDAO;
 import DAL.interfaces.JunkFormatException;
 import RAM.Commodity;
 import RAM.Receipt;
@@ -31,55 +30,51 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
     }
 
     @Override
-    public Receipt getReceipt(int receiptID) throws DALException
-    {
-        for (Receipt rec : receipts)
-        {
-            if (rec.getID() == receiptID)
-            {
+    public Receipt getReceipt(int receiptID) throws DALException {
+        for (Receipt rec : receipts) {
+            if (rec.getID() == receiptID) {
                 return rec;
             }
         }
-        throw new DALException("There is no receipt with ID = "+receiptID);
+        throw new DALException("There is no receipt with ID = " + receiptID);
     }
 
     @Override
     public List<Receipt> getReceiptList() throws DALException {
-            return new ArrayList<>(receipts);
+        return new ArrayList<>(receipts);
     }
 
     @Override
     public void createReceipt(Receipt newReceipt) throws DALException, JunkFormatException {
-            if(newReceipt.getID() < 0){
-                throw new JunkFormatException("Ids should not be negative, the id was: "+ newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
-            }
-        for (Receipt rec : receipts)
-        {
-            if (rec.getID() == newReceipt.getID())
-            {
+        if (newReceipt.getID() < 0) {
+            throw new JunkFormatException("Ids should not be negative, the id was: " + newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+        }
+        for (Receipt rec : receipts) {
+            if (rec.getID() == newReceipt.getID()) {
                 throw new DALException("There already exists a receipt with ID = " + newReceipt.getID());
             }
         }
         List<Integer> idsNotExisting = commoditiesDoesNotExistForReceipt(newReceipt);
-        if(idsNotExisting.size()>0){
+        if (idsNotExisting.size() > 0) {
             throw new DALException("There is no commodityIds in the database which have the Ids: " + Arrays.asList(idsNotExisting));
         }
         receipts.add(newReceipt);
     }
 
-    private List<Integer> commoditiesDoesNotExistForReceipt(Receipt r){
+    private List<Integer> commoditiesDoesNotExistForReceipt(Receipt r) {
         List<Integer> res = new ArrayList<>();
-        for(ReceiptComp comp : r.getReceiptComps()){
-            if(!commodityExist(comp.getCommodity())){
+        for (ReceiptComp comp : r.getReceiptComps()) {
+            if (!commodityExist(comp.getCommodity())) {
                 res.add(comp.getCommodity());
             }
         }
         return res;
     }
-    private boolean commodityExist(int cID){
+
+    private boolean commodityExist(int cID) {
         try {
-            for(Commodity c : commodityDAO.getCommodityList()){
-                if(c.getID()==cID){
+            for (Commodity c : commodityDAO.getCommodityList()) {
+                if (c.getID() == cID) {
                     return true;
                 }
             }
@@ -93,8 +88,8 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
     @Override
     public void setIsActive(int receiptID, boolean isActive) throws DALException, JunkFormatException {
         Receipt rec = getReceipt(receiptID);
-        if (rec.getIsActive() == isActive){
-            throw new DALException("The receipt activity is already "+isActive);
+        if (rec.getIsActive() == isActive) {
+            throw new DALException("The receipt activity is already " + isActive);
         }
         Receipt newReceipt = new Receipt(receiptID, rec.getName(), rec.getReceiptComps(), isActive);
         try {
@@ -106,16 +101,14 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
         }
     }
 
-    private void updateReceipt(Receipt newReceipt) throws DALException, JunkFormatException{
-        for (Receipt rec : receipts)
-        {
-            if (rec.getID() == newReceipt.getID())
-            {
+    private void updateReceipt(Receipt newReceipt) throws DALException, JunkFormatException {
+        for (Receipt rec : receipts) {
+            if (rec.getID() == newReceipt.getID()) {
                 Receipt backup = rec;
                 receipts.remove(rec);
                 try {
                     createReceipt(newReceipt);
-                }catch(Exception e){
+                } catch (Exception e) {
                     receipts.add(backup);
                     throw e;
                 }

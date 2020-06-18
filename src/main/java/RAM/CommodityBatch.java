@@ -16,7 +16,7 @@ public class CommodityBatch extends IdAndActivatable implements Serializable {
     private String provider;
 
     public CommodityBatch(int commodityBatchNr, int commodityNr, double amount, String provider, boolean isActive) {
-        super(commodityBatchNr,isActive);
+        super(commodityBatchNr, isActive);
         this.commodityNr = commodityNr;
         this.amount = amount;
         this.provider = provider;

@@ -14,7 +14,7 @@ public class Commodity extends IdAndActivatable implements Serializable {
     private String name;
 
     public Commodity(int commodityNr, String name, boolean isActive) {
-        super(commodityNr,isActive);
+        super(commodityNr, isActive);
         this.name = name;
     }
 
@@ -23,7 +23,7 @@ public class Commodity extends IdAndActivatable implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Commodity{" + " | " +
                 "commodityNr=" + getID() + " | " +
                 ", name=" + name + " | " +

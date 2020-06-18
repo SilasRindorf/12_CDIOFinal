@@ -3,7 +3,8 @@ package DAL.persistent;
 import DAL.interfaces.DALException;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.CommodityDAONonPersistent;
-import RAM.*;
+import RAM.Commodity;
+import RAM.CommodityBatch;
 
 import java.io.EOFException;
 import java.io.File;
@@ -36,7 +37,7 @@ public class CommodityDAO extends CommodityDAONonPersistent {
         }
     }
 
-    public void updateCommodity(Commodity commodity) throws DALException, JunkFormatException{
+    public void updateCommodity(Commodity commodity) throws DALException, JunkFormatException {
         super.updateCommodity(commodity);
         try {
             FileAPI.saveDataToFile(new CaBPair(getBatchList(), getCommodityList()), FILE);
@@ -45,8 +46,8 @@ public class CommodityDAO extends CommodityDAONonPersistent {
         }
     }
 
-    public void setIsActiveCommodity(int cId, boolean isActive) throws DALException{
-        super.setIsActiveCommodity(cId,isActive);
+    public void setIsActiveCommodity(int cId, boolean isActive) throws DALException {
+        super.setIsActiveCommodity(cId, isActive);
         try {
             FileAPI.saveDataToFile(new CaBPair(getBatchList(), getCommodityList()), FILE);
         } catch (IOException e) {
@@ -54,7 +55,7 @@ public class CommodityDAO extends CommodityDAONonPersistent {
         }
     }
 
-    public void createBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException{
+    public void createBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException {
         super.createBatch(commodityBatch);
         try {
             FileAPI.saveDataToFile(new CaBPair(getBatchList(), getCommodityList()), FILE);
@@ -64,8 +65,8 @@ public class CommodityDAO extends CommodityDAONonPersistent {
 
     }
 
-    public void setIsActiveBatch(int commodityBatchID, boolean isActive) throws DALException{
-        super.setIsActiveBatch(commodityBatchID,isActive);
+    public void setIsActiveBatch(int commodityBatchID, boolean isActive) throws DALException {
+        super.setIsActiveBatch(commodityBatchID, isActive);
         try {
             FileAPI.saveDataToFile(new CaBPair(getBatchList(), getCommodityList()), FILE);
         } catch (IOException e) {

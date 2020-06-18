@@ -40,7 +40,9 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
         return status;
     }
 
-    public List<ProductBatchComp> getProductComps() { return productComps; }
+    public List<ProductBatchComp> getProductComps() {
+        return productComps;
+    }
 
     @Override
     public String toString() {

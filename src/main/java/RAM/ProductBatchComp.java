@@ -49,7 +49,7 @@ public class ProductBatchComp implements Serializable {
     public String toString() {
         return "ProductBatchCompDTO{" + " | " +
                 "tara=" + tara + " | " +
-                "weighted=" + weighted +" | " +
+                "weighted=" + weighted + " | " +
                 "commodityBatchNr=" + commodityBatchNr + " | " +
                 "commodityNr=" + commodityNr + " | " +
                 "weighterID=" + weigherID + '}';
