@@ -4,10 +4,9 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.IProductDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
-import DTO.*;
+import RAM.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 /***
  * Initial version created by: Andreas
@@ -19,7 +18,7 @@ import java.util.List;
  */
 public class ProductDAONonPersistent implements IProductDAO {
 
-    protected List<ProductBatchDTO> productBatches;
+    protected List<ProductBatch> productBatches;
     protected IReceiptDAO receiptDAO;
 
     public ProductDAONonPersistent(IReceiptDAO receiptDAO) {
@@ -28,8 +27,8 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
 
     @Override
-    public ProductBatchDTO getBatch(int pbId) throws DALException {
-        for (ProductBatchDTO prod : productBatches)
+    public ProductBatch getBatch(int pbId) throws DALException {
+        for (ProductBatch prod : productBatches)
         {
             if (prod.getID() == pbId)
             {
@@ -40,13 +39,13 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
 
     @Override
-    public List<ProductBatchDTO> getBatchList() throws DALException {
+    public List<ProductBatch> getBatchList() throws DALException {
         return productBatches;
     }
 
     @Override
-    public void createBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException {
-        for (ProductBatchDTO prod : productBatches)
+    public void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException {
+        for (ProductBatch prod : productBatches)
         {
             if (prod.getID() == productBatch.getID())
             {
@@ -59,7 +58,7 @@ public class ProductDAONonPersistent implements IProductDAO {
         productBatches.add(productBatch);
     }
 
-    private boolean containsCom(List<ReceiptCompDTO> lr, List<ProductBatchCompDTO> lp, int i){
+    private boolean containsCom(List<ReceiptComp> lr, List<ProductBatchComp> lp, int i){
             int comR = lr.get(i).getCommodity();
             for(int k = 0; k<lr.size(); ++k){
                 int comP = lr.get(k).getCommodity();
@@ -71,7 +70,7 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
     private boolean isReceiptInDatabase(int id){
         try {
-            for(ReceiptDTO r : receiptDAO.getReceiptList()){
+            for(Receipt r : receiptDAO.getReceiptList()){
                 if(r.getID() == id){
                     return true;
                 }
@@ -85,9 +84,9 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
 
     @Override
-    public void updateBatch(ProductBatchDTO productBatch) throws DALException, JunkFormatException
+    public void updateBatch(ProductBatch productBatch) throws DALException, JunkFormatException
     {
-        for (ProductBatchDTO prod : productBatches)
+        for (ProductBatch prod : productBatches)
         {
             if (prod.getID() == productBatch.getID())
             {
@@ -101,11 +100,11 @@ public class ProductDAONonPersistent implements IProductDAO {
 
     @Override
     public void setIsActive(int pbId, boolean isActive) throws DALException {
-        ProductBatchDTO prod = getBatch(pbId);
+        ProductBatch prod = getBatch(pbId);
         if (prod.getIsActive() == isActive){
             throw new DALException("The productbatch activity is already "+isActive);
         }
-        ProductBatchDTO newBatch = new ProductBatchDTO(pbId, prod.getReceipt(), prod.getCreated(), prod.getStatus(), prod.getProductComps(), isActive);
+        ProductBatch newBatch = new ProductBatch(pbId, prod.getReceipt(), prod.getCreated(), prod.getStatus(), prod.getProductComps(), isActive);
         try {
             updateBatch(newBatch);
         } catch (JunkFormatException e) {

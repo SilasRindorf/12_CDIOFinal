@@ -1,14 +1,9 @@
 package test;
 
-import DAL.interfaces.DALException;
-import DAL.interfaces.ICommodityDAO;
-import DAL.interfaces.JunkFormatException;
-import DAL.nonPersistent.CommodityDAONonPersistent;
-import DAL.nonPersistent.DummyDataGenerator;
-import DAL.persistent.CommodityDAO;
-import DAL.persistent.FileAPI;
-import DTO.CommodityBatchDTO;
-import DTO.CommodityDTO;
+import DAL.interfaces.*;
+import DAL.nonPersistent.*;
+import DAL.persistent.*;
+import RAM.*;
 import org.junit.Test;
 
 import java.io.File;
@@ -26,8 +21,8 @@ public class TestCommodityDAO {
         DummyDataGenerator data = new DummyDataGenerator(13);
         data.generateCommodities(dao);
         assertTrue(dao.getCommodityList().size() > 20);
-        dao.createCommodity(new CommodityDTO(13, "Banana", true));
-        CommodityDTO ban = dao.getCommodity(13);
+        dao.createCommodity(new Commodity(13, "Banana", true));
+        Commodity ban = dao.getCommodity(13);
         assertEquals(ban.getName(), "Banana");
         assertEquals(ban.getID(), 13);
         assertEquals(ban.getIsActive(), true);
@@ -47,8 +42,8 @@ public class TestCommodityDAO {
         DummyDataGenerator data = new DummyDataGenerator(13);
         data.generateCommodities(dao);
         assertTrue(dao.getCommodityList().size() > 20);
-        dao.createCommodity(new CommodityDTO(13, "Banana", true));
-        CommodityDTO ban = dao.getCommodity(13);
+        dao.createCommodity(new Commodity(13, "Banana", true));
+        Commodity ban = dao.getCommodity(13);
         assertEquals(ban.getName(), "Banana");
         assertEquals(ban.getID(), 13);
         assertEquals(ban.getIsActive(), true);
@@ -60,10 +55,10 @@ public class TestCommodityDAO {
         DummyDataGenerator data = new DummyDataGenerator(13);
         data.generateCommodities(dao);
         assertTrue(dao.getCommodityList().size() > 20);
-        dao.createCommodity(new CommodityDTO(13, "Banana", true));
-        CommodityDTO ban = dao.getCommodity(13);
-        dao.updateCommodity(new CommodityDTO(13, "Apple", true));
-        CommodityDTO get = dao.getCommodity(13);
+        dao.createCommodity(new Commodity(13, "Banana", true));
+        Commodity ban = dao.getCommodity(13);
+        dao.updateCommodity(new Commodity(13, "Apple", true));
+        Commodity get = dao.getCommodity(13);
         assertFalse(dao.getCommodityList().contains(ban));
         assertEquals(get.getName(), "Apple");
         assertEquals(get.getID(), 13);
@@ -101,9 +96,9 @@ public class TestCommodityDAO {
         ICommodityDAO dao = new CommodityDAONonPersistent();
         dummy.generateCommodityBatches(dao);
         //Does exist after generation
-        //CommodityBatchDTO{ | commodityBatchNr=72 | commodityNr=81 | , amount=1255.9104322634005 | , provider='YWCW' | isActive=true}
-        CommodityBatchDTO gotten = dao.getBatch(72);
-        CommodityBatchDTO expected = new CommodityBatchDTO(72, 81, -1234, "YWCW", true);
+        //CommodityBatch{ | commodityBatchNr=72 | commodityNr=81 | , amount=1255.9104322634005 | , provider='YWCW' | isActive=true}
+        CommodityBatch gotten = dao.getBatch(72);
+        CommodityBatch expected = new CommodityBatch(72, 81, -1234, "YWCW", true);
         assertEquals(gotten.getID(), expected.getID());
         assertEquals(gotten.getIsActive(), expected.getIsActive());
         // Not testing double as it is quite imprecise
@@ -117,7 +112,7 @@ public class TestCommodityDAO {
         DummyDataGenerator dummy = new DummyDataGenerator(13);
         ICommodityDAO dao = new CommodityDAONonPersistent();
         dummy.generateCommodityBatches(dao);
-        CommodityBatchDTO expect = new CommodityBatchDTO(72, 81, -1234, "YWCW", true);
+        CommodityBatch expect = new CommodityBatch(72, 81, -1234, "YWCW", true);
         try {
             dao.createBatch(expect);
             assertTrue(false); //No commodity with commoditynr 40
@@ -125,9 +120,9 @@ public class TestCommodityDAO {
             assertTrue(true);
         }
 
-        expect = new CommodityBatchDTO(46, 81, 1234, "Whomst", true);
+        expect = new CommodityBatch(46, 81, 1234, "Whomst", true);
         dao.createBatch(expect);
-        CommodityBatchDTO gotten = dao.getBatch(46);
+        CommodityBatch gotten = dao.getBatch(46);
         assertEquals(gotten.getID(), expect.getID());
         assertEquals(gotten.getIsActive(), expect.getIsActive());
         // Not testing double as it is quite imprecise
@@ -143,7 +138,7 @@ public class TestCommodityDAO {
         ICommodityDAO dao = new CommodityDAONonPersistent();
         dummy.generateCommodityBatches(dao);
         // Does exist in dao after generation:
-        //CommodityBatchDTO expect = new CommodityBatchDTO(72, 81, -1234, "YWCW", true);
+        //CommodityBatch expect = new CommodityBatch(72, 81, -1234, "YWCW", true);
         assertTrue(dao.getBatch(72).getIsActive());
         dao.setIsActiveBatch(72, false);
         assertFalse(dao.getBatch(72).getIsActive());
@@ -177,9 +172,9 @@ public class TestCommodityDAO {
         DummyDataGenerator gen = new DummyDataGenerator(13);
         gen.generateCommodities(dao);
         //Known to exist: Commodity{ | commodityNr=81 | , name=YTVI | , isActive=true}
-        List<CommodityDTO> list1 = dao.getCommodityList();
+        List<Commodity> list1 = dao.getCommodityList();
         ICommodityDAO dao2 = new CommodityDAO(FileAPI.TEST_COMMODITY_DAO_FILE);
-        List<CommodityDTO> list2 = dao2.getCommodityList();
+        List<Commodity> list2 = dao2.getCommodityList();
         for (int i = 0; i < list1.size(); ++i) {
             assertEquals(list1.get(i).getName(), list2.get(i).getName());
             assertEquals(list1.get(i).getIsActive(), list2.get(i).getIsActive());
@@ -200,10 +195,10 @@ public class TestCommodityDAO {
         DummyDataGenerator gen = new DummyDataGenerator(13);
         gen.generateCommodities(dao);
         //Known to exist: Commodity{ | commodityNr=81 | , name=YTVI | , isActive=true}
-        CommodityDTO newCom = new CommodityDTO(81, "Banana", true);
+        Commodity newCom = new Commodity(81, "Banana", true);
         dao.updateCommodity(newCom);
         ICommodityDAO dao2 = new CommodityDAO(FileAPI.TEST_COMMODITY_DAO_FILE);
-        CommodityDTO gotten = dao2.getCommodity(81);
+        Commodity gotten = dao2.getCommodity(81);
         assertEquals(gotten.getIsActive(), newCom.getIsActive());
         assertEquals(gotten.getName(), newCom.getName());
         assertNotEquals(gotten.getName(), "YTVI");
@@ -272,10 +267,10 @@ public class TestCommodityDAO {
 
 
         // Snippet from existing things in the data
-        //CommodityBatchDTO{ | commodityBatchNr=72 | commodityNr=81 | , amount=1255.9104322634005 | , provider='YWCW' | isActive=true}
-        //CommodityBatchDTO{ | commodityBatchNr=8 | commodityNr=19 | , amount=2512.109014746832 | , provider='JZWQ' | isActive=true}
-        //CommodityBatchDTO{ | commodityBatchNr=7 | commodityNr=79 | , amount=1395.8415433633104 | , provider='ZSOT' | isActive=true}
-        //CommodityBatchDTO{ | commodityBatchNr=50 | commodityNr=28 | , amount=2014.5280914550144 | , provider='TETI' | isActive=true}
+        //CommodityBatch{ | commodityBatchNr=72 | commodityNr=81 | , amount=1255.9104322634005 | , provider='YWCW' | isActive=true}
+        //CommodityBatch{ | commodityBatchNr=8 | commodityNr=19 | , amount=2512.109014746832 | , provider='JZWQ' | isActive=true}
+        //CommodityBatch{ | commodityBatchNr=7 | commodityNr=79 | , amount=1395.8415433633104 | , provider='ZSOT' | isActive=true}
+        //CommodityBatch{ | commodityBatchNr=50 | commodityNr=28 | , amount=2014.5280914550144 | , provider='TETI' | isActive=true}
 
         //Commodity{ | commodityNr=80 | , name=QZIA | , isActive=true}
         //Commodity{ | commodityNr=43 | , name=PLMX | , isActive=true}
@@ -284,10 +279,10 @@ public class TestCommodityDAO {
 
         ICommodityDAO dao2 = new CommodityDAO(FileAPI.TEST_COMMODITY_DAO_FILE);
 
-        List<CommodityDTO> list1 = dao.getCommodityList();
-        List<CommodityDTO> list2 = dao2.getCommodityList();
-        List<CommodityBatchDTO> list3 = dao.getBatchList();
-        List<CommodityBatchDTO> list4 = dao.getBatchList();
+        List<Commodity> list1 = dao.getCommodityList();
+        List<Commodity> list2 = dao2.getCommodityList();
+        List<CommodityBatch> list3 = dao.getBatchList();
+        List<CommodityBatch> list4 = dao.getBatchList();
 
         for (int i = 0; i < list1.size(); ++i) {
             assertEquals(list1.get(i).getName(), list2.get(i).getName());
@@ -322,10 +317,10 @@ public class TestCommodityDAO {
 
 
         // Snippet from existing things in the data
-        //CommodityBatchDTO{ | commodityBatchNr=72 | commodityNr=81 | , amount=1255.9104322634005 | , provider='YWCW' | isActive=true}
-        //CommodityBatchDTO{ | commodityBatchNr=8 | commodityNr=19 | , amount=2512.109014746832 | , provider='JZWQ' | isActive=true}
-        //CommodityBatchDTO{ | commodityBatchNr=7 | commodityNr=79 | , amount=1395.8415433633104 | , provider='ZSOT' | isActive=true}
-        //CommodityBatchDTO{ | commodityBatchNr=50 | commodityNr=28 | , amount=2014.5280914550144 | , provider='TETI' | isActive=true}
+        //CommodityBatch{ | commodityBatchNr=72 | commodityNr=81 | , amount=1255.9104322634005 | , provider='YWCW' | isActive=true}
+        //CommodityBatch{ | commodityBatchNr=8 | commodityNr=19 | , amount=2512.109014746832 | , provider='JZWQ' | isActive=true}
+        //CommodityBatch{ | commodityBatchNr=7 | commodityNr=79 | , amount=1395.8415433633104 | , provider='ZSOT' | isActive=true}
+        //CommodityBatch{ | commodityBatchNr=50 | commodityNr=28 | , amount=2014.5280914550144 | , provider='TETI' | isActive=true}
 
         //Commodity{ | commodityNr=80 | , name=QZIA | , isActive=true}
         //Commodity{ | commodityNr=43 | , name=PLMX | , isActive=true}

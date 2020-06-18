@@ -6,9 +6,9 @@ import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
-import DTO.CommodityDTO;
-import DTO.ReceiptCompDTO;
-import DTO.ReceiptDTO;
+import RAM.Commodity;
+import RAM.ReceiptComp;
+import RAM.Receipt;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -25,11 +25,11 @@ public class TestReceiptDAO {
         ICommodityDAO cdao = new CommodityDAONonPersistent();
         IReceiptDAO dao = new ReceiptDAONonPersistent(cdao);
 
-        cdao.createCommodity(new CommodityDTO(42, "banana",true));
+        cdao.createCommodity(new Commodity(42, "banana",true));
 
 
-        List<ReceiptCompDTO> components = new ArrayList<>();
-        components.add(new ReceiptCompDTO(42,120, 53));
+        List<ReceiptComp> components = new ArrayList<>();
+        components.add(new ReceiptComp(42,120, 53));
 
         // When i made no changes yet, the list of receipts should be 0, and i get no errors.
 
@@ -37,7 +37,7 @@ public class TestReceiptDAO {
 
         // When creating a receipt object, it gets inserted into the receipts list.
 
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         assertTrue(dao.getReceiptList().size() == 1);
@@ -54,8 +54,8 @@ public class TestReceiptDAO {
 
         // When I add a receipt which has no valid commodity, then fail.
         components = new ArrayList<>();
-        components.add(new ReceiptCompDTO(13,120, 53));
-        rec = new ReceiptDTO(2, "name", components, true);
+        components.add(new ReceiptComp(13,120, 53));
+        rec = new Receipt(2, "name", components, true);
 
         try{
             dao.createReceipt(rec);
@@ -73,8 +73,8 @@ public class TestReceiptDAO {
         IReceiptDAO dao = new ReceiptDAONonPersistent(cdao);
 
         //This is tested in a previous test.
-        List<ReceiptCompDTO> components = new ArrayList<>();
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        List<ReceiptComp> components = new ArrayList<>();
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         // When trying to get a receipt with ID 1, i get a receipt with name "name".
@@ -101,8 +101,8 @@ public class TestReceiptDAO {
 
 
         //This is tested in a previous test.
-        List<ReceiptCompDTO> components = new ArrayList<>();
-        ReceiptDTO rec = new ReceiptDTO(1, "name", components, true);
+        List<ReceiptComp> components = new ArrayList<>();
+        Receipt rec = new Receipt(1, "name", components, true);
         dao.createReceipt(rec);
 
         // When i try to set "isActive" for the receipt with ID 1 to "false", it will do that.

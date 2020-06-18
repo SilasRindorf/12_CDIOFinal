@@ -3,7 +3,7 @@ package DAL.nonPersistent;
 import DAL.interfaces.DALException;
 import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
-import DTO.UserDTO;
+import RAM.User;
 
 
 import java.util.ArrayList;
@@ -18,14 +18,14 @@ import java.util.List;
  *  Assuring wrong or illegal information is not stored
  */
 public class UserDAONonPersistent implements IUserDAO {
-    protected List<UserDTO> users;
+    protected List<User> users;
 
     public UserDAONonPersistent() {
         users = new ArrayList<>();
     }
 
-    public UserDTO getUser(int userId) throws DALException {
-        for (UserDTO user : users)
+    public User getUser(int userId) throws DALException {
+        for (User user : users)
         {
             if (user.getID() == userId)
             {
@@ -35,18 +35,18 @@ public class UserDAONonPersistent implements IUserDAO {
         throw new DALException("There is no user where ID=" + userId);
     }
 
-    public List<UserDTO> getUserList() throws DALException
+    public List<User> getUserList() throws DALException
     {
         return users;
     }
 
-    public void createUser(UserDTO newUser) throws DALException, JunkFormatException
+    public void createUser(User newUser) throws DALException, JunkFormatException
     {
         if (newUser.getID() < 11 || newUser.getID() > 99)
         {
             throw new DALException("BrugerID skal være mellem 11 og 99 (inklusivt)");
         }
-        for (UserDTO user : users)
+        for (User user : users)
         {
             if (user.getID() == newUser.getID())
             {
@@ -56,13 +56,13 @@ public class UserDAONonPersistent implements IUserDAO {
         users.add(newUser);
     }
 
-    public void updateUser(UserDTO newUser) throws DALException, JunkFormatException
+    public void updateUser(User newUser) throws DALException, JunkFormatException
     {
-        for (UserDTO user : users)
+        for (User user : users)
         {
             if (user.getID() == newUser.getID())
             {
-                UserDTO backup = user;
+                User backup = user;
                 users.remove(user);
                 try {
                     createUser(newUser);
@@ -79,11 +79,11 @@ public class UserDAONonPersistent implements IUserDAO {
 
     @Override
     public void setIsActive(int userId, boolean isActive) throws DALException {
-        UserDTO user = getUser(userId);
+        User user = getUser(userId);
         if (user.getIsActive() == isActive){
             throw new DALException("The user activity is already "+isActive);
         }
-        UserDTO newUser = new UserDTO(user.getID(), user.getUsername(), user.getIni(), user.getCPR(), user.getHashedPass(), user.getRole(), isActive);
+        User newUser = new User(user.getID(), user.getUsername(), user.getIni(), user.getCPR(), user.getHashedPass(), user.getRole(), isActive);
         try {
             updateUser(newUser);
         } catch (JunkFormatException e) {
@@ -95,7 +95,7 @@ public class UserDAONonPersistent implements IUserDAO {
 
     public void setInactiveUser(int userId) throws DALException
     {
-        for (UserDTO user : users)
+        for (User user : users)
         {
             if (user.getID() == userId)
             {
