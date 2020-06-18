@@ -36,6 +36,8 @@
 <!----------------------------------------Admin forms------------------------------------------------------->
 <form method="POST" action="" name="admin" id="admin"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <p>BrugerID</p>
+    <input type="text" id="userID" name="userID">
     <p>Brugernavn</p>
     <input type="text" id="uname" name="uname">
     <p>Initialer</p>
@@ -60,14 +62,15 @@
         </thead>
         <tbody id="table-body_user">
         <tr>
+            <th>BrugerID</th>
             <th>Brugernavn</th>
             <th>Initialer</th>
             <th>Cpr-nummer</th>
             <th>Password</th>
             <th>Rolle</th>
             <th>Status</th>
-        </tr>
-        </tbody>
+    </tr>
+    </tbody>
     </table>
 </form>
 <!----------------------------------------Produktionsleder forms----------------------------------------------->
@@ -543,36 +546,39 @@
         var td4 = document.createElement("td");
         var td5 = document.createElement("td");
         var td6 = document.createElement("td");
+        var td7 = document.createElement("td");
         var row = document.createElement("tr");
-        td1.innerHTML = document.getElementById("uname").value;
-        td2.innerHTML = document.getElementById("ini").value;
-        td3.innerHTML = document.getElementById("cpr").value;
-        td4.innerHTML = document.getElementById("password").value;
+        td1.innerHTML = document.getElementById("userID").value;
+        td2.innerHTML = document.getElementById("uname").value;
+        td3.innerHTML = document.getElementById("ini").value;
+        td4.innerHTML = document.getElementById("cpr").value;
+        td5.innerHTML = document.getElementById("password").value;
         var userRole = document.getElementsByName('Roles');
         if (document.getElementById("Pharmaceut").checked) {
             userRole = "Pharmaceut";
-            td5.innerHTML = userRole;
+            td6.innerHTML = userRole;
         }
         if (document.getElementById("AdminID").checked) {
             userRole = "Admin";
-            td5.innerHTML = userRole;
+            td6.innerHTML = userRole;
         }
         if (document.getElementById("ProduktionslederRadio").checked) {
             userRole = "Produktionsleder";
-            td5.innerHTML = userRole;
+            td6.innerHTML = userRole;
         }
         if (document.getElementById("Laborant").checked) {
             userRole = "Laborant";
-            td5.innerHTML = userRole;
+            td6.innerHTML = userRole;
         }
         var statusUser = "Aktiv";
-        td6.innerHTML = statusUser;
+        td7.innerHTML = statusUser;
         row.appendChild(td1);
         row.appendChild(td2);
         row.appendChild(td3);
         row.appendChild(td4);
         row.appendChild(td5);
         row.appendChild(td6);
+        row.appendChild(td7);
         tableBody.appendChild(row);
     }
 

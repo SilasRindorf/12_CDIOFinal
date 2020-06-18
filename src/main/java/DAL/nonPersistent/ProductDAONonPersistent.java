@@ -2,8 +2,9 @@ package DAL.nonPersistent;
 
 import DAL.interfaces.DALException;
 import DAL.interfaces.IProductDAO;
+import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
-import RAM.ProductBatch;
+import RAM.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,11 @@ import java.util.List;
 public class ProductDAONonPersistent implements IProductDAO {
 
     protected List<ProductBatch> productBatches;
+    protected IReceiptDAO receiptDAO;
 
-    public ProductDAONonPersistent() {
+    public ProductDAONonPersistent(IReceiptDAO receiptDAO) {
         productBatches = new ArrayList<>();
+        this.receiptDAO = receiptDAO;
     }
 
     @Override
@@ -49,7 +52,35 @@ public class ProductDAONonPersistent implements IProductDAO {
                 throw new DALException("There is already a productbatch where ID = " + prod.getID());
             }
         }
+        if(!isReceiptInDatabase(productBatch.getReceipt())){
+            throw new DALException("Receipt id: " + productBatch.getReceipt() + " is not in database");
+        }
         productBatches.add(productBatch);
+    }
+
+    private boolean containsCom(List<ReceiptComp> lr, List<ProductBatchComp> lp, int i){
+            int comR = lr.get(i).getCommodity();
+            for(int k = 0; k<lr.size(); ++k){
+                int comP = lr.get(k).getCommodity();
+                if(comP == comR){
+                    return true;
+                }
+            }
+            return false;
+    }
+    private boolean isReceiptInDatabase(int id){
+        try {
+            for(Receipt r : receiptDAO.getReceiptList()){
+                if(r.getID() == id){
+                    return true;
+                }
+            }
+        } catch (DALException e) {
+            e.printStackTrace();
+            throw new AssertionError("This method should only be used in a fully initialized ProductDAO. Problems with accessing receiptDAO");
+        }
+        return false;
+
     }
 
     @Override

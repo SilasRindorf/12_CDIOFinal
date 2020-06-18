@@ -13,6 +13,7 @@ p {
 }
 
 button {
+    margin-top: 20px;
     background-color: chocolate;
     border: black;
     color: white;
