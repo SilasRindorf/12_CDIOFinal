@@ -64,8 +64,8 @@ public class CommodityDAO extends CommodityDAONonPersistent {
 
     }
 
-    public void setIsActiveBatch(int cbId, boolean isActive) throws DALException{
-        super.setIsActiveBatch(cbId,isActive);
+    public void setIsActiveBatch(int commodityBatchID, boolean isActive) throws DALException{
+        super.setIsActiveBatch(commodityBatchID,isActive);
         try {
             FileAPI.saveDataToFile(new CaBPair(getBatchList(), getCommodityList()), FILE);
         } catch (IOException e) {

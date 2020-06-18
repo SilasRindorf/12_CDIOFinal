@@ -160,8 +160,8 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     }
 
     @Override
-    public void setIsActiveBatch(int cbId, boolean isActive) throws DALException {
-        CommodityBatch c = getBatch(cbId);
+    public void setIsActiveBatch(int commodityBatchID, boolean isActive) throws DALException {
+        CommodityBatch c = getBatch(commodityBatchID);
         if (c.getIsActive() == isActive){
             throw new DALException("The commoditybatch activity is already "+isActive);
         }
