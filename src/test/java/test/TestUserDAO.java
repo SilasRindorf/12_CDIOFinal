@@ -7,16 +7,12 @@ import DAL.nonPersistent.UserDAONonPersistent;
 import DAL.nonPersistent.DummyDataGenerator;
 import DAL.persistent.FileAPI;
 import DAL.persistent.UserDAO;
-import DTO.IdAndActivatable;
-import DTO.UserDTO;
-import org.junit.Assert;
+import RAM.User;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -57,12 +53,12 @@ public class TestUserDAO {
         for(int i = 11; i<100; ++i){
             arr.add(i);
         }
-        for(UserDTO user : userDAO.getUserList() ){
+        for(User user : userDAO.getUserList() ){
             arr.remove((Integer) user.getID());
         }
 
         // Add user
-        UserDTO newUser = new UserDTO(arr.get(0),"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        User newUser = new User(arr.get(0),"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", User.Role.Administrator, true);
         userDAO.createUser(newUser);
         assertTrue(userDAO.getUserList().contains(newUser));
     }
@@ -76,8 +72,8 @@ public class TestUserDAO {
         Random rand = new Random(13);
 
 
-        List<UserDTO> list = userDAO.getUserList();
-        UserDTO someuser = list.get(rand.nextInt(list.size()));
+        List<User> list = userDAO.getUserList();
+        User someuser = list.get(rand.nextInt(list.size()));
         int existingID = someuser.getID();
 
         boolean contains16 = false;
@@ -87,7 +83,7 @@ public class TestUserDAO {
             }
         }
         assertTrue(contains16);
-        UserDTO newUser = new UserDTO(16,"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        User newUser = new User(16,"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", User.Role.Administrator, true);
         try {
             userDAO.createUser(newUser);
             assertTrue(false);
@@ -101,7 +97,7 @@ public class TestUserDAO {
         IUserDAO userDAO = new UserDAONonPersistent();
         DummyDataGenerator generator = new DummyDataGenerator(13);
         generator.generateUsers(userDAO);
-        UserDTO newUser = new UserDTO(11,"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        User newUser = new User(11,"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", User.Role.Administrator, true);
 
         userDAO.createUser(newUser);
 
@@ -111,9 +107,9 @@ public class TestUserDAO {
     @Test
     public void getUserListTest() throws JunkFormatException, DALException {
         IUserDAO userDAO = new UserDAONonPersistent();
-        UserDTO a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, true);
-        UserDTO b = new UserDTO(36,"Bob Brick", "BB", "0505934433", "GQsFm?=Tyoue=HcHGe+y-+", UserDTO.Role.Farmaceut, true);
-        UserDTO c = new UserDTO(29,"Charles Champagne", "CC", "0706034435", "GQsFm?=Ty=HoeucHGe+y-+", UserDTO.Role.Laborant, true);
+        User a = new User(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", User.Role.Administrator, true);
+        User b = new User(36,"Bob Brick", "BB", "0505934433", "GQsFm?=Tyoue=HcHGe+y-+", User.Role.Farmaceut, true);
+        User c = new User(29,"Charles Champagne", "CC", "0706034435", "GQsFm?=Ty=HoeucHGe+y-+", User.Role.Laborant, true);
         userDAO.createUser(a);
         userDAO.createUser(b);
         userDAO.createUser(c);
@@ -125,9 +121,9 @@ public class TestUserDAO {
         assertTrue(userDAO.getUserList().contains(c));
     }
 
-    public List<UserDTO> makeListWithoutID(List<UserDTO> list, int id){
-        List<UserDTO> arr = new ArrayList<>();
-        for(UserDTO user : list){
+    public List<User> makeListWithoutID(List<User> list, int id){
+        List<User> arr = new ArrayList<>();
+        for(User user : list){
             if(user.getID()!=id){
                 arr.add(user);
             }
@@ -144,11 +140,11 @@ public class TestUserDAO {
         DummyDataGenerator generator = new DummyDataGenerator(13);
         generator.generateUsers(userDAO);
 
-        UserDTO pickedUser = userDAO.getUserList().get(5);
-        List<UserDTO> list1 = makeListWithoutID(userDAO.getUserList(),pickedUser.getID());
-        UserDTO updatedUser = new UserDTO(pickedUser.getID(),pickedUser.getUsername()+"e", "HEHE", pickedUser.getCPR(),pickedUser.getHashedPass(), pickedUser.getRole(),pickedUser.getIsActive());
+        User pickedUser = userDAO.getUserList().get(5);
+        List<User> list1 = makeListWithoutID(userDAO.getUserList(),pickedUser.getID());
+        User updatedUser = new User(pickedUser.getID(),pickedUser.getUsername()+"e", "HEHE", pickedUser.getCPR(),pickedUser.getHashedPass(), pickedUser.getRole(),pickedUser.getIsActive());
         userDAO.updateUser(updatedUser);
-        List<UserDTO> list2 = makeListWithoutID(userDAO.getUserList(),pickedUser.getID());
+        List<User> list2 = makeListWithoutID(userDAO.getUserList(),pickedUser.getID());
         assertEquals(list1, list2);
         assertNotEquals(pickedUser, userDAO.getUser(pickedUser.getID()));
         assertEquals(pickedUser.getID(), userDAO.getUser(pickedUser.getID()).getID());
@@ -157,7 +153,7 @@ public class TestUserDAO {
     @Test
     public void disableActivity()throws DALException, JunkFormatException{
         IUserDAO userDAO = new UserDAONonPersistent();
-        UserDTO a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        User a = new User(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", User.Role.Administrator, true);
         userDAO.createUser(a);
         assertTrue(userDAO.getUser(12).getIsActive());
         DummyDataGenerator generator = new DummyDataGenerator(13);
@@ -169,7 +165,7 @@ public class TestUserDAO {
     @Test
     public void enableActivity()throws DALException, JunkFormatException{
         IUserDAO userDAO = new UserDAONonPersistent();
-        UserDTO a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, false);
+        User a = new User(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", User.Role.Administrator, false);
         userDAO.createUser(a);
         assertFalse(userDAO.getUser(12).getIsActive());
         DummyDataGenerator generator = new DummyDataGenerator(13);
@@ -181,7 +177,7 @@ public class TestUserDAO {
     @Test
     public void doubleEnable()throws DALException, JunkFormatException{
         IUserDAO userDAO = new UserDAONonPersistent();
-        UserDTO a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        User a = new User(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", User.Role.Administrator, true);
         userDAO.createUser(a);
         assertTrue(userDAO.getUser(12).getIsActive());
         DummyDataGenerator generator = new DummyDataGenerator(13);
@@ -198,7 +194,7 @@ public class TestUserDAO {
     @Test
     public void doubleDisable()throws DALException, JunkFormatException{
         IUserDAO userDAO = new UserDAONonPersistent();
-        UserDTO a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, false);
+        User a = new User(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", User.Role.Administrator, false);
         userDAO.createUser(a);
         assertFalse(userDAO.getUser(12).getIsActive());
         DummyDataGenerator generator = new DummyDataGenerator(13);
@@ -224,12 +220,12 @@ public class TestUserDAO {
         file.delete();
         IUserDAO dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
         DummyDataGenerator generator = new DummyDataGenerator(13);
-        UserDTO a = new UserDTO(11,"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        User a = new User(11,"Bob Brick", "BB", "0505934433", "GQsFm?=Ty=HcHGe+y-+", User.Role.Administrator, true);
         dao.createUser(a);
         IUserDAO dao2 = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
         for(int i = 0; i<dao.getUserList().size(); ++i) {
-            UserDTO expected = dao.getUserList().get(i);
-            UserDTO got = dao2.getUserList().get(i);
+            User expected = dao.getUserList().get(i);
+            User got = dao2.getUserList().get(i);
             assertEquals(expected.getID(), got.getID());
             assertEquals(expected.getIsActive(), got.getIsActive());
             assertEquals(expected.getCPR(), got.getCPR());
@@ -259,7 +255,7 @@ public class TestUserDAO {
         File file = new File(FileAPI.TEST_USER_DAO_FILE);
         file.delete();
         IUserDAO dao = new UserDAO(FileAPI.TEST_USER_DAO_FILE);
-        UserDTO a = new UserDTO(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", UserDTO.Role.Administrator, true);
+        User a = new User(12,"Alice Andersen", "AA", "0505931234", "GQsFm?=Toeutnhy=HcHGe+y-+", User.Role.Administrator, true);
         dao.createUser(a);
         dao.setIsActive(12,false);
         IUserDAO dao2 = new UserDAO(FileAPI.TEST_USER_DAO_FILE);

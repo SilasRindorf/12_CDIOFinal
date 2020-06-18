@@ -3,8 +3,7 @@ package DAL.persistent;
 import DAL.interfaces.DALException;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.CommodityDAONonPersistent;
-import DTO.CommodityBatchDTO;
-import DTO.CommodityDTO;
+import RAM.*;
 
 import java.io.EOFException;
 import java.io.File;
@@ -28,7 +27,7 @@ public class CommodityDAO extends CommodityDAONonPersistent {
         }
     }
 
-    public void createCommodity(CommodityDTO commodity) throws DALException, JunkFormatException {
+    public void createCommodity(Commodity commodity) throws DALException, JunkFormatException {
         super.createCommodity(commodity);
         try {
             FileAPI.saveDataToFile(new CaBPair(getBatchList(), getCommodityList()), FILE);
@@ -37,7 +36,7 @@ public class CommodityDAO extends CommodityDAONonPersistent {
         }
     }
 
-    public void updateCommodity(CommodityDTO commodity) throws DALException, JunkFormatException{
+    public void updateCommodity(Commodity commodity) throws DALException, JunkFormatException{
         super.updateCommodity(commodity);
         try {
             FileAPI.saveDataToFile(new CaBPair(getBatchList(), getCommodityList()), FILE);
@@ -55,7 +54,7 @@ public class CommodityDAO extends CommodityDAONonPersistent {
         }
     }
 
-    public void createBatch(CommodityBatchDTO commodityBatch) throws DALException, JunkFormatException{
+    public void createBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException{
         super.createBatch(commodityBatch);
         try {
             FileAPI.saveDataToFile(new CaBPair(getBatchList(), getCommodityList()), FILE);

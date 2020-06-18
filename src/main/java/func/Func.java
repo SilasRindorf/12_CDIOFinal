@@ -1,6 +1,6 @@
 package func;
 
-import DTO.UserDTO;
+import RAM.User;
 
 import java.util.List;
 
@@ -12,19 +12,19 @@ import java.util.List;
  *  -
  */
 public class Func implements IFunc {
-    public UserDTO createUser(int userID, String userName, String cpr, List<String> roles) throws UserFormatException, DatabaseException {
+    public User createUser(int userID, String userName, String cpr, List<String> roles) throws UserFormatException, DatabaseException {
         return null;
     }
 
-    public List<UserDTO> getUserList() throws DatabaseException {
+    public List<User> getUserList() throws DatabaseException {
         return null;
     }
 
-    public UserDTO getUser(int userID) throws DatabaseException {
+    public User getUser(int userID) throws DatabaseException {
         return null;
     }
 
-    public UserDTO deleteUser(int userID) throws DatabaseException {
+    public User deleteUser(int userID) throws DatabaseException {
         return null;
     }
 }

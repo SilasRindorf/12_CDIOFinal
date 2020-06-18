@@ -1,6 +1,4 @@
-package DTO;
-
-import java.io.Serializable;
+package RAM;
 
 /***
  * Initial version created by: Silas
@@ -9,12 +7,12 @@ import java.io.Serializable;
  * This class is responsible for:
  *  -
  */
-public class CommodityDTO {
-    private int commodityNr;
+public class Commodity extends IdAndActivatable {
     private String name;
-    private boolean isActive;
 
-    public CommodityDTO() {
+    public Commodity(int commodityNr, String name, boolean isActive) {
+        super(commodityNr,isActive);
+        this.name = name;
     }
 
     public String getName() {
@@ -24,8 +22,8 @@ public class CommodityDTO {
     @Override
     public String toString(){
         return "Commodity{" + " | " +
-                "commodityNr=" + commodityNr + " | " +
+                "commodityNr=" + getID() + " | " +
                 ", name=" + name + " | " +
-                ", isActive=" + isActive + "}";
+                ", isActive=" + getIsActive() + "}";
     }
 }

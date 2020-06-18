@@ -1,15 +1,12 @@
 package DAL.persistent;
 
 import DAL.interfaces.DALException;
-import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.UserDAONonPersistent;
-import DTO.UserDTO;
+import RAM.User;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /***
  * Initial version created by: Silas
@@ -36,7 +33,7 @@ public class UserDAO extends UserDAONonPersistent {
     }
 
 
-    public void createUser(UserDTO user) throws DALException, JunkFormatException{
+    public void createUser(User user) throws DALException, JunkFormatException{
         super.createUser(user);
         try {
             FileAPI.saveDataToFile(getUserList(), FILE);
@@ -45,7 +42,7 @@ public class UserDAO extends UserDAONonPersistent {
         }
     }
 
-    public void updateUser(UserDTO user) throws DALException, JunkFormatException{
+    public void updateUser(User user) throws DALException, JunkFormatException{
         super.updateUser(user);
         try {
             FileAPI.saveDataToFile(getUserList(), FILE);
