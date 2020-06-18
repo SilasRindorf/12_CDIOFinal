@@ -8,7 +8,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="CSS/frontpage.css">
-    <script type="text/javascript" src="javascript/JSON_actions.js"></script>
+    <script type="text/javascript" src="../javascript/JSON_actions.js"></script>
     <title>Apotek</title>
   </head>
   <body>
@@ -21,13 +21,13 @@
     <p>Password</p>
     <input type="text" id="password" name="password">
     <br>
-    <button type="button" onclick="logInDTO();">Log ind</button>
+    <button type="button" onclick="logIn();">Log ind</button>
   </form>
   </body>
   <script>
     var uname;
     var password;
-    function logInDTO(){
+    function logIn(){
       uname = document.getElementById("uname").value;
       password = document.getElementById("password").value;
       document.getElementById("uname").value = "";

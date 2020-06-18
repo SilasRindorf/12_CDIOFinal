@@ -1,41 +1,32 @@
 package DTO;
 
+import java.io.Serializable;
+
 /***
  * Initial version created by: Silas
- * Edited by: 
- * Created: 16-06-2020
+ * Edited by: Christoffer
+ * Created: 09-06-2020
  * This class is responsible for:
- *
+ *  -
  */
-public class CommodityDTO {
-    private int commodityNr;
+public class CommodityDTO extends IdAndActivatable implements Serializable {
+    private static final long serialVersionUID = 354210356105434L;
     private String name;
-    private boolean isActive;
 
-    public CommodityDTO() {
+    public CommodityDTO(int commodityNr, String name, boolean isActive) {
+        super(commodityNr,isActive);
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getCommodityNr() {
-        return commodityNr;
-    }
-
-    public void setCommodityNr(int commodityNr) {
-        this.commodityNr = commodityNr;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
+    @Override
+    public String toString(){
+        return "Commodity{" + " | " +
+                "commodityNr=" + getID() + " | " +
+                ", name=" + name + " | " +
+                ", isActive=" + getIsActive() + "}";
     }
 }

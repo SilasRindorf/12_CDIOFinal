@@ -1,20 +1,25 @@
 package DTO;
 
+import java.io.Serializable;
+
 /***
  * Initial version created by: Silas
- * Edited by: 
+ * Edited by:
  * Created: 16-06-2020
  * This class is responsible for:
- *
+ *  -
  */
-public class CommodityBatchDTO {
-    private int commodityBatchNr;
+public class CommodityBatchDTO extends IdAndActivatable implements Serializable {
+    private static final long serialVersionUID = 1275450134536L;
     private int commodityNr;
     private double amount;
     private String provider;
-    private boolean isActive;
 
-    public CommodityBatchDTO() {
+    public CommodityBatchDTO(int commodityBatchNr, int commodityNr, double amount, String provider, boolean isActive) {
+        super(commodityBatchNr,isActive);
+        this.commodityNr = commodityNr;
+        this.amount = amount;
+        this.provider = provider;
     }
 
     public int getCommodityNr() {
@@ -41,19 +46,13 @@ public class CommodityBatchDTO {
         this.provider = provider;
     }
 
-    public int getCommodityBatchNr() {
-        return commodityBatchNr;
-    }
-
-    public void setCommodityBatchNr(int commodityBatchNr) {
-        this.commodityBatchNr = commodityBatchNr;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
+    @Override
+    public String toString() {
+        return "CommodityBatchDTO{" + " | " +
+                "commodityBatchNr=" + getID() + " | " +
+                "commodityNr=" + commodityNr + " | " +
+                ", amount=" + amount + " | " +
+                ", provider='" + provider + '\'' + " | " +
+                "isActive=" + getIsActive() + '}';
     }
 }

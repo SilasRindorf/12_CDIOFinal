@@ -19,9 +19,9 @@ public interface ICommodityDAO {
     void updateCommodity(Commodity commodity) throws DALException, JunkFormatException;
     void setIsActiveCommodity(int cId, boolean isActive) throws DALException;
 
-    CommodityBatch getCommodityBatch(int commodityBatchID) throws DALException;
-    List<CommodityBatch> getCommodityBatchList() throws DALException;
-    List<CommodityBatch> getCommodityBatchList(int commodityID) throws DALException;
-    void createCommodityBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException;
+    CommodityBatch getBatch(int commodityBatchID) throws DALException;
+    List<CommodityBatch> getBatchList() throws DALException;
+    List<CommodityBatch> getBatchList(int commodityID) throws DALException;
+    void createBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException;
     void setIsActiveBatch(int cbId, boolean isActive) throws DALException;
 }

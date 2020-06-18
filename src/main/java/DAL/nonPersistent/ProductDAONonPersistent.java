@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class ProductDAONonPersistent implements IProductDAO {
 
-    private List<ProductBatch> productBatches;
+    protected List<ProductBatch> productBatches;
 
     public ProductDAONonPersistent() {
         productBatches = new ArrayList<>();
@@ -68,7 +68,7 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
 
     @Override
-    public void setIsActiveBatch(int pbId, boolean isActive) throws DALException {
+    public void setIsActive(int pbId, boolean isActive) throws DALException {
         ProductBatch prod = getBatch(pbId);
         if (prod.getIsActive() == isActive){
             throw new DALException("The productbatch activity is already "+isActive);
