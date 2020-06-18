@@ -2,6 +2,9 @@ package DAL.persistent;
 
 import DAL.interfaces.DALException;
 
+import java.io.*;
+
+
 public class FileAPI {
     public static final String USER_DAO_FILE = "src/main/resources/USER_DAO_DATA";
     public static final String TEST_USER_DAO_FILE = "src/test/resources/USER_DAO_DATA";
