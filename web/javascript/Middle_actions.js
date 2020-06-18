@@ -16,7 +16,8 @@ function createUser(url, ID, username, ini, CPR, hashedPass, role, isActive) {
         "Role": role,
         "isActive": isActive,
     };
-    POST(url, productBatch)
+
+    POST(url, user)
 }
 
 function createReceipt(url, name, receiptComps) {
