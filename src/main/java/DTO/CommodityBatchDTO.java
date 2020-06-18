@@ -9,17 +9,15 @@ import java.io.Serializable;
  * This class is responsible for:
  *  -
  */
-public class CommodityBatchDTO extends IdAndActivatable implements Serializable {
-    private static final long serialVersionUID = 1275450134536L;
+public class CommodityBatchDTO  {
+    private int commodityBatchNr;
     private int commodityNr;
     private double amount;
     private String provider;
+    private boolean isActive;
 
-    public CommodityBatchDTO(int commodityBatchNr, int commodityNr, double amount, String provider, boolean isActive) {
-        super(commodityBatchNr,isActive);
-        this.commodityNr = commodityNr;
-        this.amount = amount;
-        this.provider = provider;
+    public CommodityBatchDTO() {
+
     }
 
     public int getCommodityNr() {
@@ -49,10 +47,10 @@ public class CommodityBatchDTO extends IdAndActivatable implements Serializable 
     @Override
     public String toString() {
         return "CommodityBatchDTO{" + " | " +
-                "commodityBatchNr=" + getID() + " | " +
+                "commodityBatchNr=" + commodityBatchNr + " | " +
                 "commodityNr=" + commodityNr + " | " +
                 ", amount=" + amount + " | " +
                 ", provider='" + provider + '\'' + " | " +
-                "isActive=" + getIsActive() + '}';
+                "isActive=" + isActive + '}';
     }
 }

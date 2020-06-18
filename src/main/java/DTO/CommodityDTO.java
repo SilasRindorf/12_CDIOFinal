@@ -9,13 +9,12 @@ import java.io.Serializable;
  * This class is responsible for:
  *  -
  */
-public class CommodityDTO extends IdAndActivatable implements Serializable {
-    private static final long serialVersionUID = 354210356105434L;
+public class CommodityDTO {
+    private int commodityNr;
     private String name;
+    private boolean isActive;
 
-    public CommodityDTO(int commodityNr, String name, boolean isActive) {
-        super(commodityNr,isActive);
-        this.name = name;
+    public CommodityDTO() {
     }
 
     public String getName() {
@@ -25,8 +24,8 @@ public class CommodityDTO extends IdAndActivatable implements Serializable {
     @Override
     public String toString(){
         return "Commodity{" + " | " +
-                "commodityNr=" + getID() + " | " +
+                "commodityNr=" + commodityNr + " | " +
                 ", name=" + name + " | " +
-                ", isActive=" + getIsActive() + "}";
+                ", isActive=" + isActive + "}";
     }
 }
