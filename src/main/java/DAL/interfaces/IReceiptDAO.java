@@ -4,6 +4,7 @@ import RAM.Receipt;
 
 import java.util.List;
 
+// @formatter:off
 /***
  * Initial version created by: Silas
  * Edited by: 
@@ -11,8 +12,10 @@ import java.util.List;
  * This interface is responsible for:
  *  -
  */
+// @formatter:on
 public interface IReceiptDAO {
 
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for getting a receipt.
      *
@@ -22,15 +25,19 @@ public interface IReceiptDAO {
      *                       Could print "Receipt with " + ID + "do not exist" .
      * Do not change anything, and returns a copy of the data
      */
+// @formatter:on
     Receipt getReceipt(int receiptID) throws DALException;
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for getting a list of all receipts.
      * @return A list of Receipts.
      * @throws DALException: Error might happen if the data do not exist or empty..
      * Do not change anything, and returns a copy of the data
      */
+// @formatter:on
 
     List<Receipt> getReceiptList() throws DALException;
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for creating a receipt.
      *
@@ -40,9 +47,11 @@ public interface IReceiptDAO {
      *                       Could print "Use an id that do not exist" .
      * Adds data to the database.
      */
+// @formatter:on
 
     void createReceipt(Receipt receipt) throws DALException, JunkFormatException;
 
+    // @formatter:off
     /**
      * Responsibility: Changing the status of a receipt.
      *
@@ -54,5 +63,6 @@ public interface IReceiptDAO {
      * @throws JunkFormatException: Error might happen if isActiv is the same as the receipts status.
      * Delets a user and creat a new one with the changed status and the old data.
      */
+// @formatter:on
     void setIsActive(int receiptID, boolean isActive) throws DALException, JunkFormatException;
 }

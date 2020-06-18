@@ -13,6 +13,8 @@ import java.util.List;
  *  -
  */
 public interface ICommodityDAO {
+
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for getting a commodity.
      *
@@ -21,7 +23,9 @@ public interface ICommodityDAO {
      * @throws DALException: Error might happen if the ID doesn't exist.
      *                       Could print "Commodity ID not found. DALException thrown.".
      */
+    // @formatter:on
     Commodity getCommodity(int commodityID) throws DALException;
+
 
     /**
      * Responsibility: Creating an interface for getting a commodity list.
@@ -32,6 +36,7 @@ public interface ICommodityDAO {
      */
     List<Commodity> getCommodityList() throws DALException;
 
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for creating a commodity.
      *
@@ -41,8 +46,10 @@ public interface ICommodityDAO {
      * @throws JunkFormatException: Error might happen if the commodity information isn't within the given boundaries for a given field.
      *                              Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
+    // @formatter:on
     void createCommodity(Commodity commodity) throws DALException, JunkFormatException;
 
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for updating a commodity.
      *
@@ -52,8 +59,10 @@ public interface ICommodityDAO {
      * @throws JunkFormatException: Error might happen if the commodity information isn't within the the given boundaries for a given field.
      *                              Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
+    // @formatter:on
     void updateCommodity(Commodity commodity) throws DALException, JunkFormatException;
 
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for setting a commodity to be active or inactive.
      *
@@ -62,8 +71,10 @@ public interface ICommodityDAO {
      * @throws DALException: Error might happen if requested commodity doesn't exist.
      *                       Could print "Commodity doesn't exist. DALException thrown.".
      */
+    // @formatter:on
     void setIsActiveCommodity(int commodityID, boolean isActive) throws DALException;
 
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for getting a commodity batch.
      *
@@ -72,8 +83,10 @@ public interface ICommodityDAO {
      * @throws DALException: Error might happen if requested commodity batch doesn't exist.
      *                       Could print "Commodity batch doesn't exist. DALException thrown.".
      */
+    // @formatter:on
     CommodityBatch getBatch(int commodityBatchID) throws DALException;
 
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for getting a commodity batch list.
      *
@@ -81,10 +94,14 @@ public interface ICommodityDAO {
      * @throws DALException: Error might happen if requested commodity batch list doesn't exist.
      *                       Could print "Commodity batch list doesn't exist. DALException thrown.".
      */
+    // @formatter:on
     List<CommodityBatch> getBatchList() throws DALException;
 
     List<CommodityBatch> getBatchList(int commodityID) throws DALException;
 
+
+
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for creating a commodity batch.
      *
@@ -94,8 +111,10 @@ public interface ICommodityDAO {
      * @throws JunkFormatException Error might happen if the commodity batch information isn't within the the given boundaries for a given field.
      *                             Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
+    // @formatter:on
     void createBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException;
 
+    // @formatter:off
     /**
      * Responsibility: Creating an interface for setting a commodity batch to be active or inactive.
      *
@@ -104,5 +123,6 @@ public interface ICommodityDAO {
      * @throws DALException: Error might happen if requested commodity batch ID doesn't exist.
      *                       Could print "Commodity batch ID doesn't exist. DALException thrown.".
      */
+    // @formatter:on
     void setIsActiveBatch(int commodityBatchID, boolean isActive) throws DALException;
 }

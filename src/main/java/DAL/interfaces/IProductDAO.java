@@ -4,6 +4,7 @@ import RAM.ProductBatch;
 
 import java.util.List;
 
+// @formatter:off
 /***
  * Initial version created by: Silas
  * Edited by: 
@@ -11,7 +12,10 @@ import java.util.List;
  * This interface is responsible for:
  *  -
  */
+// @formatter:on
 public interface IProductDAO {
+
+// @formatter:off
     /**
      * Responsibility: Creating an interface for getting a product batch.
      *
@@ -20,8 +24,10 @@ public interface IProductDAO {
      * @throws DALException: Error might happen if the ID doesn't exist.
      *                       Could print "Product batch ID not found. DALException thrown.".
      */
+    // @formatter:on
     ProductBatch getBatch(int pbId) throws DALException;
 
+// @formatter:off
     /**
      * Responsibility: Creating an interface for getting a product batch list.
      *
@@ -29,8 +35,12 @@ public interface IProductDAO {
      * @throws DALException: Error might happen if the ID doesn't exist.
      *                       Could print "Product batch list not found. DALException thrown.".
      */
+
+    // @formatter:on
+
     List<ProductBatch> getBatchList() throws DALException;
 
+// @formatter:off
     /**
      * Responsibility: Creating an interface for creating a product batch.
      *
@@ -40,8 +50,10 @@ public interface IProductDAO {
      * @throws JunkFormatException: Error might happen if the product batch information isn't within the given boundaries for a given field.
      *                              Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
+    // @formatter:on
     void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException;
 
+// @formatter:off
     /**
      * Responsibility: Creating an interface for updating a product batch.
      *
@@ -51,8 +63,11 @@ public interface IProductDAO {
      * @throws JunkFormatException: Error might happen if the product batch information isn't within the given boundaries for a given field.
      *                              Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
+    // @formatter:on
+
     void updateBatch(ProductBatch productBatch) throws DALException, JunkFormatException;
 
+// @formatter:off
     /**
      * Responsibility: Creating an interface for setting a product batch ID to be active or inactive.
      *
@@ -61,5 +76,6 @@ public interface IProductDAO {
      * @throws DALException: Error might happen if the product batch ID doesn't exist.
      *                       Could print "Product batch ID not found. DALException thrown.".
      */
+    // @formatter:on
     void setIsActive(int productBatchID, boolean isActive) throws DALException;
 }
