@@ -5,7 +5,9 @@ import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.persistent.CommodityDAO;
 import DAL.interfaces.JunkFormatException;
+import RAM.Commodity;
 import RAM.Receipt;
+import RAM.ReceiptComp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
