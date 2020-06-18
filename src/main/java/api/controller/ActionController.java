@@ -1,6 +1,6 @@
 package api.controller;
 
-import DTO.*;
+import DTO.LogInDTO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -9,12 +9,13 @@ import javax.ws.rs.core.Response;
 @Path("/actions")
 public class ActionController {
 
-    public ActionController(){
+    public ActionController() {
 
     }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getter(){
+    public String getter() {
         return "Action page";
     }
 
@@ -22,7 +23,7 @@ public class ActionController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("log-in")
-    public Response logIn(LogInDTO logInDTO){
+    public Response logIn(LogInDTO logInDTO) {
         System.out.println("logger ind som: " + logInDTO.getUsername() + " With password: " + logInDTO.getPassword());
         return Response.status(201).build();
     }
