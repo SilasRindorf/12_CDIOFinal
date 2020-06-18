@@ -18,7 +18,7 @@ public interface IProductDAO {
      * @return ProductBatch.
      * @throws DALException:
      * Error might happen if the ID doesn't exist.
-     * Could print "Product batch ID not found. DALException thrown."
+     * Could print "Product batch ID not found. DALException thrown.".
      */
     ProductBatch getBatch(int pbId) throws DALException;
 
@@ -27,7 +27,7 @@ public interface IProductDAO {
      * @return List<ProductBatch>.
      * @throws DALException:
      * Error might happen if the ID doesn't exist.
-     * Could print "Product batch list not found. DALException thrown."
+     * Could print "Product batch list not found. DALException thrown.".
      */
     List<ProductBatch> getBatchList() throws DALException;
 
@@ -36,10 +36,10 @@ public interface IProductDAO {
      * @param productBatch: Is the name of a requested product batch.
      * @throws DALException:
      * Error might happen if the name of the product batch already exist.
-     * Could print "Product batch name already exist. DALException thrown."
+     * Could print "Product batch name already exist. DALException thrown.".
      * @throws JunkFormatException:
      * Error might happen if the product batch information isn't within the given boundaries for a given field.
-     * Could print "Please fill out the fields correctly. JunkFormatException thrown."
+     * Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
     void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException;
 
@@ -48,10 +48,10 @@ public interface IProductDAO {
      * @param productBatch: Is the name of a requested product batch.
      * @throws DALException:
      * Error might happen if the name of the product batch already exist.
-     * Could print "Product batch name already exist. DALException thrown."
+     * Could print "Product batch name already exist. DALException thrown.".
      * @throws JunkFormatException:
      * Error might happen if the product batch information isn't within the given boundaries for a given field.
-     * Could print "Please fill out the fields correctly. JunkFormatException thrown."
+     * Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
     void updateBatch(ProductBatch productBatch) throws DALException, JunkFormatException;
 
@@ -61,7 +61,7 @@ public interface IProductDAO {
      * @param isActive: Is a boolean describing whether the requested product batch ID is active or inactive.
      * @throws DALException:
      * Error might happen if the product batch ID doesn't exist.
-     * Could print "Product batch ID not found. DALException thrown."
+     * Could print "Product batch ID not found. DALException thrown.".
      */
     void setIsActive(int productBatchID, boolean isActive) throws DALException;
 }

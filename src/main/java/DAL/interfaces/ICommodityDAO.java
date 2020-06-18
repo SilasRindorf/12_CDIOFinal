@@ -19,7 +19,7 @@ public interface ICommodityDAO {
      * @return Commodity.
      * @throws DALException:
      * Error might happen if the ID doesn't exist.
-     * Could print "Commodity ID not found. DALException thrown."
+     * Could print "Commodity ID not found. DALException thrown.".
      */
     Commodity getCommodity(int commodityID) throws DALException;
 
@@ -28,7 +28,7 @@ public interface ICommodityDAO {
      * @return List<Commodity>.
      * @throws DALException:
      * Error might happen if the list doesn't exist.
-     * Could print "Commodity List not found. DALException thrown."
+     * Could print "Commodity List not found. DALException thrown.".
      */
     List<Commodity> getCommodityList() throws DALException;
 
@@ -40,7 +40,7 @@ public interface ICommodityDAO {
      * Could print "Commodity already exist. DALException thrown.".
      * @throws JunkFormatException:
      * Error might happen if the commodity information isn't within the given boundaries for a given field.
-     * Could print "Please fill out the fields correctly. JunkFormatException thrown."
+     * Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
     void createCommodity(Commodity commodity) throws DALException, JunkFormatException;
 
@@ -49,10 +49,10 @@ public interface ICommodityDAO {
      * @param commodity: The requested commodity to be updated."
      * @throws DALException:
      * Error might happen if the requested commodity doesn't exist.
-     * Could print "Commodity doesn't exist. DALException thrown."
+     * Could print "Commodity doesn't exist. DALException thrown.".
      * @throws JunkFormatException:
      * Error might happen if the commodity information isn't within the the given boundaries for a given field.
-     * Could print "Please fill out the fields correctly. JunkFormatException thrown."
+     * Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
     void updateCommodity(Commodity commodity) throws DALException, JunkFormatException;
 
@@ -62,7 +62,7 @@ public interface ICommodityDAO {
      * @param isActive: Is a boolean that describes whether the requested commodity is active or inactive.
      * @throws DALException:
      * Error might happen if requested commodity doesn't exist.
-     * Could print "Commodity doesn't exist. DALException thrown."
+     * Could print "Commodity doesn't exist. DALException thrown.".
      */
     void setIsActiveCommodity(int commodityID, boolean isActive) throws DALException;
 
@@ -72,7 +72,7 @@ public interface ICommodityDAO {
      * @return CommodityBatch.
      * @throws DALException:
      * Error might happen if requested commodity batch doesn't exist.
-     * Could print "Commodity batch doesn't exist. DALException thrown."
+     * Could print "Commodity batch doesn't exist. DALException thrown.".
      */
     CommodityBatch getBatch(int commodityBatchID) throws DALException;
 
@@ -81,7 +81,7 @@ public interface ICommodityDAO {
      * @return List<CommodityBatch>.
      * @throws DALException:
      * Error might happen if requested commodity batch list doesn't exist.
-     * Could print "Commodity batch list doesn't exist. DALException thrown."
+     * Could print "Commodity batch list doesn't exist. DALException thrown.".
      */
     List<CommodityBatch> getBatchList() throws DALException;
     List<CommodityBatch> getBatchList(int commodityID) throws DALException;
@@ -91,10 +91,10 @@ public interface ICommodityDAO {
      * @param commodityBatch: Is the commodity batch name.
      * @throws DALException:
      * Error might happen if requested commodity batch name already exist.
-     * Could print "Commodity batch already exist. DALException thrown."
+     * Could print "Commodity batch already exist. DALException thrown.".
      * @throws JunkFormatException
      * Error might happen if the commodity batch information isn't within the the given boundaries for a given field.
-     * Could print "Please fill out the fields correctly. JunkFormatException thrown."
+     * Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
     void createBatch(CommodityBatch commodityBatch) throws DALException, JunkFormatException;
 
@@ -104,7 +104,7 @@ public interface ICommodityDAO {
      * @param isActive: Is a boolean that describes whether a commodity batch is active or inactive.
      * @throws DALException:
      * Error might happen if requested commodity batch ID doesn't exist.
-     * Could print "Commodity batch ID doesn't exist. DALException thrown."
+     * Could print "Commodity batch ID doesn't exist. DALException thrown.".
      */
     void setIsActiveBatch(int commodityBatchID, boolean isActive) throws DALException;
 }
