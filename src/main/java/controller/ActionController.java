@@ -48,7 +48,7 @@ public class ActionController {
     public String createUser(UserDTO userDTO){
         try {
             USERS.createUser(new User(userDTO.getID(), userDTO.getUsername(),
-                    userDTO.getIni(), User.hash(userDTO.getNonHashedPassword()), userDTO.getCPR(),
+                    userDTO.getIni(), userDTO.getCPR(),User.hash(userDTO.getNonHashedPassword()) ,
                     User.Role.valueOf(userDTO.getRole()), userDTO.isActive()));
         } catch (DALException | JunkFormatException e){
             e.printStackTrace();
