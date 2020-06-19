@@ -1,5 +1,6 @@
 package api;
 
+import DAL.interfaces.DALException;
 import DTO.*;
 import controller.ActionController;
 
@@ -46,23 +47,23 @@ public class API {
         return controller.getUsers();
     }
 
-  /*  @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("userput")
-    public String putUser(UserDTO userDTO){
-        return controller.createUser(userDTO);
-    }
-
-   */
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("userput")
-    public void deleteUser(@QueryParam("ID") int ID, @QueryParam("username") String username,
-                           @QueryParam("ini") String ini, @QueryParam("CPR") String CPR, @QueryParam("nonHashedPassword") String nonHashedPassword,
-                           @QueryParam("role") String role, @QueryParam("isActive") boolean isActive){
+    public void putUser(@QueryParam("ID") int ID, @QueryParam("username") String username,
+                        @QueryParam("ini") String ini, @QueryParam("CPR") String CPR, @QueryParam("nonHashedPassword") String nonHashedPassword,
+                        @QueryParam("role") String role, @QueryParam("isActive") boolean isActive){
         controller.createUser(new UserDTO(ID,username,ini,CPR,nonHashedPassword,role,isActive));
     }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("setisactive")
+    public void setIsActive(@QueryParam("ID") int ID, @QueryParam("isActive") boolean isActive) {
+        controller.setIsActive(ID, isActive);
+    }
+
 }
 
 

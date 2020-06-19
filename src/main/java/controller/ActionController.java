@@ -66,4 +66,14 @@ public class ActionController {
             return "Could not get users";
         }
     }
+
+    public void setIsActive(int id, boolean status) {
+        try{
+            USERS.setIsActive(id,status);
+        }
+        catch (DALException e){
+            e.printStackTrace();
+        }
+
+    }
 }

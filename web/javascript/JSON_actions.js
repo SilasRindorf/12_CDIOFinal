@@ -39,6 +39,19 @@ PUTUser = function (user) {
 
 };
 
+setIsActiveUser = function (id, isActive) {
+    const request = new XMLHttpRequest();
+    request.open("PUT", "rest/actions/setisactive/?ID=" + id + "&isActive=" + isActive, true);
+    request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    request.onload = function () {
+        if (request.readyState === 4 && request.status === 204) {
+            JSONGetUserTable("rest/actions/user-get","UserTable");
+        }
+    };
+    request.send();
+
+};
+
 
 GETTable = function (url, tableName) {
     const obj = {table: tableName.toString(), limit: 20};
@@ -84,7 +97,7 @@ JSONGetUserTable = function (url, div) {
                 }
                 txt += "<td>" + objects[i].hashedPass + "</td>" +
                     "<td>" + objects[i].role + "</td>" +
-                    "<td><button type=\"button\" onclick=\"JSONDelete(" + div + "," + objects[i].userID + ")\">Inaktiver bruger</button></td>" +
+                    "<td><button type=\"button\" onclick=\"setIsActiveUser("  + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
@@ -108,7 +121,7 @@ function POST(url, object) {
         }
     };
 }
-
+/*
 function POSTUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
     const request = new XMLHttpRequest();
     request.open("POST", url, true);
@@ -137,3 +150,5 @@ function POSTUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
         }
     };
 }
+
+ */
