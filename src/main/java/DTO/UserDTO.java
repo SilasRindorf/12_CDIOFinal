@@ -12,7 +12,7 @@ public class UserDTO {
     private String username;
     private String ini;
     private String CPR;
-    private String hashedPass;
+    private String nonHashedPassword;
     private String Role;
     private boolean isActive;
 
@@ -43,12 +43,12 @@ public class UserDTO {
         this.CPR = CPR;
     }
 
-    public String getHashedPass() {
-        return hashedPass;
+    public String getNonHashedPassword() {
+        return nonHashedPassword;
     }
 
-    public void setHashedPass(String hashedPass) {
-        this.hashedPass = hashedPass;
+    public void setNonHashedPassword(String nonHashedPassword) {
+        this.nonHashedPassword = nonHashedPassword;
     }
 
     public String getRole() {
