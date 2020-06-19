@@ -71,8 +71,6 @@ public class DummyDataGenerator {
         }
     }
 
-    //TODO: Seems broken, ids get too big?
-    //TODO: ID is changed from random to i.
     public void generateReceipts(IReceiptDAO receiptdao) {
         for (int i = 0; i < 100; i++) {
             List<ReceiptComp> compList = new ArrayList<>();
