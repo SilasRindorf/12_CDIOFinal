@@ -4,49 +4,23 @@ function logInAction(url, username, password) {
         "username": username,
         "password": password
     };
+    console.log(logInDTO)
     POSTAndAlert(url, logInDTO);
 }
 function createUser(url, ID, username, ini, CPR, hashedPass, role, isActive) {
+    isActive = isActive === "Aktiv";
+    ID = parseInt(ID);
     const user = {
         "ID": ID,
         "username": username,
         "ini": ini,
         "CPR": CPR,
         "hashedPass": hashedPass,
-        "Role": role,
-        "isActive": isActive,
+        "role": role,
+        "isActive": isActive
     };
-
-    POST(url, user)
-}
-
-function userTable(tableID,objects){
-    var JSONParsed = JSON.parse(objects);
-    var txt = "<table border='1'>" +
-        "<th>BrugerID</th>" +
-        "<th>Brugernavn</th>" +
-        "<th>Initialer</th>" +
-        "<th>Cpr-nummer</th>" +
-        "<th>Password</th>" +
-        "<th>Rolle</th>" +
-        "<th>Status</th>" +
-        "<th>Inaktiver</th>";
-    console.log("I am here");
-    console.log(JSONParsed);
-    for (let i in JSONParsed) {
-        console.log(JSONParsed[i]);
-        txt += "<tr>" +
-            "<td>" + JSONParsed[i].userID + "</td>" +
-            "<td>" + JSONParsed[i].uname + "</td>" +
-            "<td>" + JSONParsed[i].ini + "</td>" +
-            "<td>" + JSONParsed[i].cpr + "</td>" +
-            "<td>" + JSONParsed[i].password + "</td>" +
-            "<td>" + JSONParsed[i].Roles + "</td>" +
-            "<td><button type=\"button\" onclick=\"JSONDelete(" + div + "," + JSONParsed[i].userID + ")\">Inaktiver user</button></td>" +
-            "</tr>";
-    }
-    txt += "</table>";
-    document.getElementById("UserTable").innerHTML = txt;
+    console.log(user)
+    POSTAndAlert(url, user)
 }
 
 JSONDelete = function (div,id) {

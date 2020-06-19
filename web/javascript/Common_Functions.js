@@ -1,8 +1,9 @@
 //Common functions
-var uname;
-var password;
+
 
 function logIn() {
+    var uname;
+    var password;
     hideall();
     uname = document.getElementById("logInName").value;
     password = document.getElementById("logInPass").value;
@@ -72,7 +73,7 @@ function goToAdmin() {
     document.getElementById("welcome").style.visibility = "hidden";
     document.getElementById("admin").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Adminstrator";
-    userTable("UserTable",GETTable("rest/actions/user-get","UserTable"))
+    JSONGetUserTable("rest/actions/user-get","UserTable");
 }
 
 function goToProduktionsleder() {

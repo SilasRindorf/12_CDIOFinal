@@ -13,12 +13,31 @@ public class UserDTO {
     private String ini;
     private String CPR;
     private String hashedPass;
-    private String Role;
+    private String role;
     private boolean isActive;
 
     public UserDTO(){
 
     }
+
+    public UserDTO(int ID, String username, String ini, String CPR, String hashedPass, String role, boolean isActive) {
+        this.ID = ID;
+        this.username = username;
+        this.ini = ini;
+        this.CPR = CPR;
+        this.hashedPass = hashedPass;
+        this.role = role;
+        this.isActive = isActive;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -52,18 +71,11 @@ public class UserDTO {
     }
 
     public String getRole() {
-        return Role;
+        return role;
     }
 
     public void setRole(String role) {
-        Role = role;
-    }
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
+        this.role = role;
     }
 
     public boolean isActive() {
@@ -73,5 +85,4 @@ public class UserDTO {
     public void setActive(boolean active) {
         isActive = active;
     }
-
 }

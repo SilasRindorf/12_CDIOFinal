@@ -26,7 +26,7 @@ public class API {
     @Path("log-in")
     public String logIn(LogInDTO logInDTO){
         if (controller.logIn(logInDTO.getUsername(),logInDTO.getPassword())){
-            return "logget ind";
+            return "Logget ind";
         }
         return "Forkert brugernavn eller kode";
     }
@@ -45,5 +45,6 @@ public class API {
     public String getUsers(){
         return controller.getUsers();
     }
+
 
 }

@@ -32,7 +32,6 @@ public class ActionController {
     public boolean logIn(String name, String pass){
         try {
             for (int i = 0; i < USERS.getUserList().size(); i++) {
-                System.out.println(USERS.getUserList().get(i).getUsername());
                 if (USERS.getUserList().get(i).getIsActive()
                         && USERS.getUserList().get(i).getUsername().equalsIgnoreCase(name)
                         && USERS.getUserList().get(i).getHashedPass().equals(pass)){
@@ -52,7 +51,8 @@ public class ActionController {
                     userDTO.getIni(), userDTO.getHashedPass(), userDTO.getCPR(),
                     User.Role.valueOf(userDTO.getRole()), userDTO.isActive()));
         } catch (DALException | JunkFormatException e){
-            return e.toString();
+            e.printStackTrace();
+            return "Bruger kunne ikke laves";
         }
         return "Bruger lavet";
     }

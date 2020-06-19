@@ -43,23 +43,23 @@
 <form method="POST" action="" name="admin" id="admin"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <p>BrugerID</p>
-    <input type="text" id="userID" name="userID">
+    <input type="text" id="id" name="id">
     <p>Brugernavn</p>
-    <input type="text" id="uname" name="uname">
+    <input type="text" id="username" name="username">
     <p>Initialer</p>
     <input type="text" id="ini" name="ini">
     <p>Cpr-nummer</p>
     <input type="text" id="cpr" name="cpr">
     <p>Password</p>
-    <input type="text" id="password" name="password">
+    <input type="text" id="hashedPass" name="hashedPass">
     <p>Rolle</p>
-    <input type="radio" id="Pharmaceut" name="Roles" value="Pharmaceut">
+    <input type="radio" id="Pharmaceut" name="role" value="Pharmaceut">
     <label for="Pharmaceut"> Pharmaceut</label><br>
-    <input type="radio" id="AdminID" name="Roles" value="Admin">
+    <input type="radio" id="AdminID" name="role" value="Admin">
     <label for="AdminID"> Admin</label><br>
-    <input type="radio" id="ProduktionslederRadio" name="Roles" value="Produktionsleder">
+    <input type="radio" id="ProduktionslederRadio" name="role" value="Produktionsleder">
     <label for="ProduktionslederRadio"> Produktionsleder</label><br>
-    <input type="radio" id="Laborant" name="Roles" value="Laborant">
+    <input type="radio" id="Laborant" name="role" value="Laborant">
     <label for="Laborant"> Laborant</label><br>
     <button type="button" onclick="goLogIn()">Log out</button>
     <button type="button" onclick="finishCreateUser()">Opret bruger</button>
