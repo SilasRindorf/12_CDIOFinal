@@ -2,53 +2,61 @@ package DTO;
 
 /***
  * Initial version created by: Silas
- * Edited by: Christoffer
- * Created: 09-06-2020
+ * Edited by: 
+ * Created: 16-06-2020
  * This class is responsible for:
- *  -
+ *
  */
 public class ProductBatchCompDTO {
     private double tara;
     private double weighted;
     private int commodityBatchNr;
     private int commodityNr;
-    private int weighterID;
+    private int weigherID;
 
-    public ProductBatchCompDTO(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID, boolean isActive) {
-        this.tara = tara;
-        this.weighted = weighted;
-        this.commodityBatchNr = commodityBatchNr;
-        this.commodityNr = commodityNr;
-        this.weighterID = userID;
+    public ProductBatchCompDTO() {
+
     }
 
     public double getTara() {
         return tara;
     }
 
+    public void setTara(double tara) {
+        this.tara = tara;
+    }
+
     public double getWeighted() {
         return weighted;
+    }
+
+    public void setWeighted(double weighted) {
+        this.weighted = weighted;
     }
 
     public int getCommodityBatchNr() {
         return commodityBatchNr;
     }
 
+    public void setCommodityBatchNr(int commodityBatchNr) {
+        this.commodityBatchNr = commodityBatchNr;
+    }
+
     public int getCommodityNr() {
         return commodityNr;
     }
 
-    public int getWeighterID() {
-        return weighterID;
+    public void setCommodityNr(int commodityNr) {
+        this.commodityNr = commodityNr;
     }
 
-    @Override
-    public String toString() {
-        return "ProductBatchCompDTO{" + " | " +
-                "tara=" + tara + " | " +
-                "weighted=" + weighted +" | " +
-                "commodityBatchNr=" + commodityBatchNr + " | " +
-                "commodityNr=" + commodityNr + " | " +
-                "weighterID=" + weighterID + '}';
+    public int getWeigherID() {
+        return weigherID;
     }
+
+    public void setWeigherID(int weigherID) {
+        this.weigherID = weigherID;
+    }
+
+
 }

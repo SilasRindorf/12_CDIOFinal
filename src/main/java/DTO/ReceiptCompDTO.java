@@ -2,38 +2,52 @@ package DTO;
 
 /***
  * Initial version created by: Silas
- * Edited by: Christoffer
- * Created: 09-06-2020
+ * Edited by: 
+ * Created: 16-06-2020
  * This class is responsible for:
- *  -
+ *
  */
-public class ReceiptCompDTO{
+public class ReceiptCompDTO {
     private int commodityNr;
     private double amount;
     private double tolerance;
+    private boolean isActive;
 
-    public ReceiptCompDTO(int commodity, double amount, double tolerance) {
-        this.commodityNr = commodity;
-        this.amount = amount;
-        this.tolerance = tolerance;
+    public ReceiptCompDTO() {
+
     }
 
-    public int getCommodity() {
+    public int getCommodityNr() {
         return commodityNr;
+    }
+
+    public void setCommodityNr(int commodityNr) {
+        this.commodityNr = commodityNr;
     }
 
     public double getAmount() {
         return amount;
     }
 
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
     public double getTolerance() {
         return tolerance;
     }
 
-    @Override
-    public String toString(){
-        return "commodityNr=" + commodityNr + " | " +
-                "amount=" + amount + " | " +
-                "tolerance=" + tolerance;
+    public void setTolerance(double tolerance) {
+        this.tolerance = tolerance;
     }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+
 }

@@ -1,15 +1,14 @@
 package DAL.persistent;
 
 import DAL.interfaces.DALException;
-import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.UserDAONonPersistent;
-import DTO.UserDTO;
+import RAM.User;
 
-import java.io.*;
-import java.lang.reflect.Array;
+import java.io.EOFException;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /***
  * Initial version created by: Silas
@@ -19,7 +18,7 @@ import java.util.List;
  *  -
  */
 
-public class UserDAO extends UserDAONonPersistent implements Serializable {
+public class UserDAO extends UserDAONonPersistent {
     private final String FILE;
 
     public UserDAO(String filepath) throws IOException, ClassNotFoundException {
@@ -27,16 +26,16 @@ public class UserDAO extends UserDAONonPersistent implements Serializable {
         FILE = filepath;
         File file = new File(FILE);
         boolean isNew = file.createNewFile();
-        if(!isNew){
+        if (!isNew) {
             try {
                 users = (ArrayList) FileAPI.loadDataFromFile(FILE);
-            }catch(EOFException ignored){ //Means that no objects are in the file
+            } catch (EOFException ignored) { //Means that no objects are in the file
             }
         }
     }
 
 
-    public void createUser(UserDTO user) throws DALException, JunkFormatException{
+    public void createUser(User user) throws DALException, JunkFormatException {
         super.createUser(user);
         try {
             FileAPI.saveDataToFile(getUserList(), FILE);
@@ -45,7 +44,7 @@ public class UserDAO extends UserDAONonPersistent implements Serializable {
         }
     }
 
-    public void updateUser(UserDTO user) throws DALException, JunkFormatException{
+    public void updateUser(User user) throws DALException, JunkFormatException {
         super.updateUser(user);
         try {
             FileAPI.saveDataToFile(getUserList(), FILE);
@@ -54,7 +53,7 @@ public class UserDAO extends UserDAONonPersistent implements Serializable {
         }
     }
 
-    public void setIsActive(int userId, boolean isActive) throws DALException{
+    public void setIsActive(int userId, boolean isActive) throws DALException {
         super.setIsActive(userId, isActive);
         try {
             FileAPI.saveDataToFile(getUserList(), FILE);
