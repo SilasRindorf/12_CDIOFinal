@@ -21,7 +21,7 @@ public interface IProductDAO {
      *
      * @param pbId: Is the ID of a requested product batch.
      * @return ProductBatch.
-     * @throws DALException: Error might happen if the ID doesn't exist.
+     * @throws DALException: Error if the ID doesn't exist.
      *                       Could print "Product batch ID not found. DALException thrown.".
      */
     // @formatter:on
@@ -32,7 +32,7 @@ public interface IProductDAO {
      * Responsibility: Creating an interface for getting a product batch list.
      *
      * @return List<ProductBatch>.
-     * @throws DALException: Error might happen if the ID doesn't exist.
+     * @throws DALException: Error if the ID doesn't exist.
      *                       Could print "Product batch list not found. DALException thrown.".
      */
 
@@ -45,9 +45,9 @@ public interface IProductDAO {
      * Responsibility: Creating an interface for creating a product batch.
      *
      * @param productBatch: Is the name of a requested product batch.
-     * @throws DALException:        Error might happen if the name of the product batch already exist.
+     * @throws DALException:        Error if the name of the product batch already exist.
      *                              Could print "Product batch name already exist. DALException thrown.".
-     * @throws JunkFormatException: Error might happen if the product batch information isn't within the given boundaries for a given field.
+     * @throws JunkFormatException: Error if the product batch information isn't within the given boundaries for a given field.
      *                              Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
     // @formatter:on
@@ -58,9 +58,9 @@ public interface IProductDAO {
      * Responsibility: Creating an interface for updating a product batch.
      *
      * @param productBatch: Is the name of a requested product batch.
-     * @throws DALException:        Error might happen if the name of the product batch already exist.
+     * @throws DALException:        Error if the name of the product batch already exist.
      *                              Could print "Product batch name already exist. DALException thrown.".
-     * @throws JunkFormatException: Error might happen if the product batch information isn't within the given boundaries for a given field.
+     * @throws JunkFormatException: Error if the product batch information isn't within the given boundaries for a given field.
      *                              Could print "Please fill out the fields correctly. JunkFormatException thrown.".
      */
     // @formatter:on
@@ -73,7 +73,7 @@ public interface IProductDAO {
      *
      * @param productBatchID: Is the ID of a requested product batch.
      * @param isActive:       Is a boolean describing whether the requested product batch ID is active or inactive.
-     * @throws DALException: Error might happen if the product batch ID doesn't exist.
+     * @throws DALException: Error if the product batch ID doesn't exist.
      *                       Could print "Product batch ID not found. DALException thrown.".
      */
     // @formatter:on
