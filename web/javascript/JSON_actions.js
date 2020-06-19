@@ -16,7 +16,6 @@ function POSTAndAlert(url, object) {
     request.open("POST", url, true);
     request.responseType = "text";
     let sendStr = JSON.stringify(object);
-    console.log(sendStr);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -26,6 +25,20 @@ function POSTAndAlert(url, object) {
 
     request.send(sendStr);
 }
+
+PUTUser = function (user) {
+    const request = new XMLHttpRequest();
+    request.open("PUT", "rest/actions/userput/?ID=" + user.ID + "&username=" + user.username + "&ini=" + user.ini + "&CPR=" + user.CPR + "&nonHashedPassword=" + user.nonHashedPass + "&role=" + user.role + "&isActive=true", true);
+    request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    request.onload = function () {
+        if (request.readyState === 4 && request.status === 204) {
+            JSONGetUserTable("rest/actions/user-get","UserTable");
+        }
+    };
+    request.send();
+
+};
+
 
 GETTable = function (url, tableName) {
     const obj = {table: tableName.toString(), limit: 20};
@@ -37,8 +50,6 @@ GETTable = function (url, tableName) {
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             var temp = this.responseText;
-            console.log("I am here");
-            console.log(JSON.parse(temp));
             return temp;
         }
     }
@@ -94,6 +105,35 @@ function POST(url, object) {
     request.send(sendStr);
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
+        }
+    };
+}
+
+function POSTUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
+    const request = new XMLHttpRequest();
+    request.open("POST", url, true);
+    isActive = isActive === "Aktiv";
+    ID = parseInt(ID);
+    const userDTO = {
+        "ID": ID,
+        "username": username,
+        "ini": ini,
+        "CPR": CPR,
+        "nonHashedPass": nonHashedPass,
+        "role": role,
+        "isActive": isActive
+    };
+
+
+    let sendStr = JSON.stringify(userDTO);
+    console.log(sendStr);
+    request.
+    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    request.send(sendStr);
+
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            alert("Succes")
         }
     };
 }

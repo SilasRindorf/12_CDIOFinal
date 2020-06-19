@@ -28,13 +28,24 @@ function finishCreateUser() {
         var username = document.getElementById("username").value;
         var ini = document.getElementById("ini").value;
         var CPR = document.getElementById("cpr").value;
-        var hashedPass = document.getElementById("hashedPass").value;
-        createUser("rest/actions/user-create", ID,username,ini,CPR,hashedPass,role,"Aktiv");
+        var nonHashedPass = document.getElementById("hashedPass").value;
+      //  createUser("rest/actions/user-create", ID,username,ini,CPR,nonHashedPass,role,"Aktiv");
+       // POSTUser("rest/actions/user-create", ID,username,ini,CPR,nonHashedPass,role,"Aktiv")
+        const user = {
+            "ID": ID,
+            "username": username,
+            "ini": ini,
+            "CPR": CPR,
+            "nonHashedPass": nonHashedPass,
+            "role": role,
+            "isActive": true
+        };
+        PUTUser(user)
         resetValuesCreateUser();
     } else {
         alert("Please fill out all the fields!");
     }
-    JSONGetUserTable("rest/actions/user-get","UserTable");
+
 }
 
 

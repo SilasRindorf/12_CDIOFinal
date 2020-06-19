@@ -46,5 +46,23 @@ public class API {
         return controller.getUsers();
     }
 
+  /*  @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("userput")
+    public String putUser(UserDTO userDTO){
+        return controller.createUser(userDTO);
+    }
 
+   */
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("userput")
+    public void deleteUser(@QueryParam("ID") int ID, @QueryParam("username") String username,
+                           @QueryParam("ini") String ini, @QueryParam("CPR") String CPR, @QueryParam("nonHashedPassword") String nonHashedPassword,
+                           @QueryParam("role") String role, @QueryParam("isActive") boolean isActive){
+        controller.createUser(new UserDTO(ID,username,ini,CPR,nonHashedPassword,role,isActive));
+    }
 }
+
+
