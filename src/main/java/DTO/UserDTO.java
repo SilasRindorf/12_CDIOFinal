@@ -71,18 +71,11 @@ public class UserDTO {
     }
 
     public String getRole() {
-        return Role;
+        return role;
     }
 
     public void setRole(String role) {
-        Role = role;
-    }
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
+        this.role = role;
     }
 
     public boolean isActive() {
@@ -92,5 +85,4 @@ public class UserDTO {
     public void setActive(boolean active) {
         isActive = active;
     }
-
 }
