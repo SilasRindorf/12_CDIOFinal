@@ -15,7 +15,7 @@ public class ActionController {
     private final IUserDAO USERS = new UserDAONonPersistent();
     private ActionController(){
         try {
-            USERS.createUser(new User(11, "Silas", "SIL", "123", "Abe", User.Role.Administrator, true));
+            USERS.createUser(new User(11, "Silas", "SIL", "123", User.hash("Abe"), User.Role.Administrator, true));
         } catch (Exception ignored){
 
         }
@@ -34,7 +34,7 @@ public class ActionController {
             for (int i = 0; i < USERS.getUserList().size(); i++) {
                 if (USERS.getUserList().get(i).getIsActive()
                         && USERS.getUserList().get(i).getUsername().equalsIgnoreCase(name)
-                        && USERS.getUserList().get(i).getHashedPass().equals(pass)){
+                        && User.check(pass,USERS.getUserList().get(i).getHashedPass())){
                     return true;
                 }
             }
@@ -48,7 +48,7 @@ public class ActionController {
     public String createUser(UserDTO userDTO){
         try {
             USERS.createUser(new User(userDTO.getID(), userDTO.getUsername(),
-                    userDTO.getIni(), userDTO.getHashedPass(), userDTO.getCPR(),
+                    userDTO.getIni(), User.hash(userDTO.getNonHashedPassword()), userDTO.getCPR(),
                     User.Role.valueOf(userDTO.getRole()), userDTO.isActive()));
         } catch (DALException | JunkFormatException e){
             e.printStackTrace();
