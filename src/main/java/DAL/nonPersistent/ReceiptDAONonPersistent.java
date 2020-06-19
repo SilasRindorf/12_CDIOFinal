@@ -47,7 +47,7 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
     @Override
     public void createReceipt(Receipt newReceipt) throws DALException, JunkFormatException {
         if (newReceipt.getID() < 0) {
-            throw new JunkFormatException("Ids should not be negative, the id was: " + newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+            throw new JunkFormatException("Ids should not be negative, the id was: " + newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.ID));
         }
         for (Receipt rec : receipts) {
             if (rec.getID() == newReceipt.getID()) {

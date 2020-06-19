@@ -38,14 +38,14 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
     @Override
     public void createCommodity(Commodity commodity) throws DALException, JunkFormatException {
         if (commodity.getID() < 0) {
-            throw new JunkFormatException("Ids should not be negative, the id was: " + commodity.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+            throw new JunkFormatException("Ids should not be negative, the id was: " + commodity.getID(), Arrays.asList(JunkFormatException.ErrorList.ID));
         }
         for (Commodity com :
                 commodities) {
             if (com.getID() == commodity.getID()) {
                 throw new DALException("There is already a commodity with: ID=" + commodity.getID());
             } else if (com.getName().equals(commodity.getName())) {
-                throw new JunkFormatException("There is already a commodity with: name=" + commodity.getName(), Arrays.asList(JunkFormatException.ErrorList.NOT_UNIQUE_NAME));
+                throw new DALException("There is already a commodity with: name=" + commodity.getName());
             }
         }
         commodities.add(commodity);

@@ -17,9 +17,7 @@ public class JunkFormatException extends Exception {
     }
 
     public enum ErrorList {
-        // Userformat
-        NOT_UNIQUE_NAME,
-        NEGATIVE_ID
+        ID
     }
 }
 

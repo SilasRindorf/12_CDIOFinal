@@ -49,7 +49,7 @@ public class ProductDAONonPersistent implements IProductDAO {
     @Override
     public void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException {
         if (productBatch.getID() < 0) {
-            throw new JunkFormatException("Ids should not be negative, the id was: " + productBatch.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+            throw new JunkFormatException("Ids should not be negative, the id was: " + productBatch.getID(), Arrays.asList(JunkFormatException.ErrorList.ID));
         }
         for (ProductBatch prod : productBatches) {
             if (prod.getID() == productBatch.getID()) {
