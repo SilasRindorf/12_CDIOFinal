@@ -97,28 +97,29 @@ function resetValuesProductbatchComponentFarmaceut() {
 function goToRaavare() {
     hideall();
     document.getElementById("raavareFarmaceut").style.visibility = "visible";
+    JSONGetCommodityTable("rest/actions/commodity-get", "RaavareTable");
 }
 
 function opretRaavare() {
-    var tableBody = document.getElementById("table_raavareFarmaceut");
-    var td1 = document.createElement("td");
-    var td2 = document.createElement("td");
-    var td3 = document.createElement("td");
-    var row = document.createElement("tr");
-    td1.innerHTML = document.getElementById("raavareNummer").value;
-    td2.innerHTML = document.getElementById("raavareNavn").value;
-    td3.innerHTML = document.getElementById("levenrandør").value;
-    row.appendChild(td1);
-    row.appendChild(td2);
-    row.appendChild(td3);
-    tableBody.appendChild(row);
-    resetValuesRaavareFarmaceut();
+    if(!document.getElementById("raavareNummer").value == "" &&
+    !document.getElementById("raavareNavn").value == ""){
+        var commodityNr = document.getElementById("raavareNummer").value;
+        var name = document.getElementById("raavareNavn").value;
+        const commodity = {
+            "name": name,
+            "commodityNr": commodityNr
+        };
+        resetValuesRaavareFarmaceut()
+        PUTCommodity(commodity)
+    }
+    else {
+        alert("Please fill out all the fields!");
+    }
 }
 
 function resetValuesRaavareFarmaceut() {
     document.getElementById("raavareNummer").value = "";
     document.getElementById("raavareNavn").value = "";
-    document.getElementById("levenrandør").value = "";
 }
 
 //Farmaceut recept functions

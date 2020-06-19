@@ -44,9 +44,9 @@ function hideall() {
 function goLogIn() {
     hideall();
     document.getElementById("logInForm").style.visibility = "visible";
-    document.getElementById("title").innerHTML = "Login"
-    uname = "" ;
-    password = "";
+    document.getElementById("title").innerHTML = "Login";
+    document.getElementById("logInName").value = "";
+    document.getElementById("logInPass").value = "";
 }
 
 function goToWelcomeFromFinish() {

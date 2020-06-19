@@ -19,6 +19,10 @@ public class Commodity extends IdAndActivatable {
         return name;
     }
 
+    public int getCommodityNr(){
+        return getID();
+    }
+
     @Override
     public String toString(){
         return "Commodity{" + " | " +

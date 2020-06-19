@@ -2,6 +2,7 @@ package api;
 
 import DAL.interfaces.DALException;
 import DTO.*;
+import RAM.Commodity;
 import controller.ActionController;
 
 import javax.ws.rs.*;
@@ -39,6 +40,7 @@ public class API {
     public String createUser(UserDTO userDTO){
         return controller.createUser(userDTO);
     }
+
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,10 +61,33 @@ public class API {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("setisactive")
-    public void setIsActive(@QueryParam("ID") int ID, @QueryParam("isActive") boolean isActive) {
-        controller.setIsActive(ID, isActive);
+    @Path("commodityput")
+    public void putUser(@QueryParam("commodityNr") int commodityNr, @QueryParam("name") String name, @QueryParam("isActive") boolean isActive){
+        controller.createCommodity(new Commodity(commodityNr,name,isActive));
     }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("setisactive-user")
+    public void setIsActiveUser(@QueryParam("ID") int ID, @QueryParam("isActive") boolean isActive) {
+        controller.setIsActiveUser(ID, isActive);
+    }
+
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("commodity-get")
+    public String getCommodity(){
+        return controller.getCommodities();
+    }
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("setisactive-commodity")
+    public void setIsActiveCommodity(@QueryParam("commodityNr") int commodityNr, @QueryParam("isActive") boolean isActive) {
+        controller.setIsActiveCommodity(commodityNr, isActive);
+    }
+
+
 
 }
 

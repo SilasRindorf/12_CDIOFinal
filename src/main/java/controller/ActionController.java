@@ -2,10 +2,13 @@ package controller;
 
 
 import DAL.interfaces.DALException;
+import DAL.interfaces.ICommodityDAO;
 import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
+import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.UserDAONonPersistent;
 import DTO.UserDTO;
+import RAM.Commodity;
 import RAM.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,9 +16,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
     private final IUserDAO USERS = new UserDAONonPersistent();
+    private final ICommodityDAO COM = new CommodityDAONonPersistent();
     private ActionController(){
         try {
-            USERS.createUser(new User(11, "Silas", "SIL", "123", User.hash("Abe"), User.Role.Administrator, true));
+            USERS.createUser(new User(11, "Admin", "adm", "123", User.hash("password"), User.Role.Administrator, true));
+            COM.createCommodity(new Commodity(1,"Citron",true));
         } catch (Exception ignored){
 
         }
@@ -67,7 +72,7 @@ public class ActionController {
         }
     }
 
-    public void setIsActive(int id, boolean status) {
+    public void setIsActiveUser(int id, boolean status) {
         try{
             USERS.setIsActive(id,status);
         }
@@ -75,5 +80,34 @@ public class ActionController {
             e.printStackTrace();
         }
 
+    }
+
+    public String getCommodities(){
+        ObjectMapper objMapper = new ObjectMapper();
+        try {
+            return objMapper.writeValueAsString(COM.getCommodityList());
+        } catch (JsonProcessingException | DALException e){
+            e.printStackTrace();
+            return "Could not get commodities";
+        }
+    }
+
+    public void setIsActiveCommodity(int commodityNr, boolean status) {
+        try{
+            COM.setIsActiveCommodity(commodityNr,status);
+        }
+        catch (DALException e){
+            e.printStackTrace();
+        }
+    }
+
+    public String createCommodity(Commodity commodity){
+        try {
+            COM.createCommodity(new Commodity(commodity.getCommodityNr(),commodity.getName(),commodity.getIsActive()));
+        } catch (DALException | JunkFormatException e){
+            e.printStackTrace();
+            return "Råvare kunne ikke laves";
+        }
+        return "Råvare lavet";
     }
 }
