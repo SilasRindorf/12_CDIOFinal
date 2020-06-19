@@ -2,21 +2,30 @@
 function goToRaavarebatchFarmaceut() {
     hideall();
     document.getElementById("raavarebatchFarmaceut").style.visibility = "visible";
+    JSONGetCommodityBatchTable("rest/actions/commoditybatch-get","RaavareBatchTable")
 }
 
 function createRaavarebatchComponentFarmaceut() {
-    var tableBody = document.getElementById("table_raavarebatchFarmaceut");
-    var td1 = document.createElement("td");
-    var td2 = document.createElement("td");
-    var td3 = document.createElement("td");
-    var row = document.createElement("tr");
-    td1.innerHTML = document.getElementById("raavarebatchNrFarmaceut").value;
-    td2.innerHTML = document.getElementById("raavareIDFarmaceut").value;
-    td3.innerHTML = document.getElementById("maengdeFarmaceut").value;
-    row.appendChild(td1);
-    row.appendChild(td2);
-    row.appendChild(td3);
-    tableBody.appendChild(row);
+    if(!document.getElementById("raavarebatchNrFarmaceut").value == "" &&
+        !document.getElementById("raavareIDFarmaceut").value == "" &&
+    !document.getElementById("maengdeFarmaceut").value == "" &&
+    !document.getElementById("leverandoer").value == ""){
+        var commodityBatchNr = document.getElementById("raavarebatchNrFarmaceut").value;
+        var commodityNr = document.getElementById("raavareIDFarmaceut").value;
+        var amount = document.getElementById("maengdeFarmaceut").value;
+        var provider = document.getElementById("leverandoer").value;
+        const commodityBatch = {
+            "commodityBatchNr": commodityBatchNr,
+            "commodityNr": commodityNr,
+            "amount": amount,
+            "provider": provider
+        };
+        resetValuesRaavareFarmaceut()
+        PUTCommodityBatch(commodityBatch)
+    }
+    else {
+        alert("Please fill out all the fields!");
+    }
     resetValuesCreateRaavarebatchFarmaceut();
 }
 
@@ -68,7 +77,6 @@ function goToAfvejning2_Farmaceut() {
     document.getElementById("title").innerHTML = "Farmaceut";
     document.getElementById("afvejning2_Farmaceut").style.visibility = "visible";
 }
-
 function addProductbatchComponent_Farmaceut() {
     var tableBody = document.getElementById("table-body_Farmaceut");
     var td1 = document.createElement("td");

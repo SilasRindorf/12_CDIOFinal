@@ -9,6 +9,7 @@ import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.UserDAONonPersistent;
 import DTO.UserDTO;
 import RAM.Commodity;
+import RAM.CommodityBatch;
 import RAM.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +22,7 @@ public class ActionController {
         try {
             USERS.createUser(new User(11, "Admin", "adm", "123", User.hash("password"), User.Role.Administrator, true));
             COM.createCommodity(new Commodity(1,"Citron",true));
+            COM.createBatch(new CommodityBatch(1,1,5000,"Mærsk",true));
         } catch (Exception ignored){
 
         }
@@ -49,7 +51,7 @@ public class ActionController {
         }
         return false;
     }
-
+    // ------------------------------- User methods ------------------------------------------
     public String createUser(UserDTO userDTO){
         try {
             USERS.createUser(new User(userDTO.getID(), userDTO.getUsername(),
@@ -68,7 +70,7 @@ public class ActionController {
             return objMapper.writeValueAsString(USERS.getUserList());
         } catch (JsonProcessingException | DALException e){
             e.printStackTrace();
-            return "Could not get users";
+            return "Kunne ikke skaffe brugere";
         }
     }
 
@@ -81,14 +83,14 @@ public class ActionController {
         }
 
     }
-
+    // ------------------------------- Commodity methods ------------------------------------------
     public String getCommodities(){
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(COM.getCommodityList());
         } catch (JsonProcessingException | DALException e){
             e.printStackTrace();
-            return "Could not get commodities";
+            return "Kunne ikke skaffe brugere";
         }
     }
 
@@ -109,5 +111,32 @@ public class ActionController {
             return "Råvare kunne ikke laves";
         }
         return "Råvare lavet";
+    }
+    // ------------------------------- CommodityBatch methods ------------------------------------------
+    public String getCommodityBatch(){
+        ObjectMapper objMapper = new ObjectMapper();
+        try {
+            return objMapper.writeValueAsString(COM.getBatchList());
+        } catch (JsonProcessingException | DALException e){
+            e.printStackTrace();
+            return "Kunne ikke skaffe råvarebatches";
+        }
+    }
+    public void setIsActiveCommodityBatch(int commodityBatchNr, boolean status) {
+        try{
+            COM.setIsActiveBatch(commodityBatchNr,status);
+        }
+        catch (DALException e){
+            e.printStackTrace();
+        }
+    }
+    public String createCommodityBatch(CommodityBatch commodityBatch){
+        try {
+            COM.createBatch(new CommodityBatch(commodityBatch.getCommodityBatchNr(),commodityBatch.getCommodityNr(),commodityBatch.getAmount(),commodityBatch.getProvider(),commodityBatch.getIsActive()));
+        } catch (DALException | JunkFormatException e){
+            e.printStackTrace();
+            return " Kunne ikke laves";
+        }
+        return "Råvarebatch lavet";
     }
 }

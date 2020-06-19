@@ -231,18 +231,12 @@
     <input type="text" id="raavareIDFarmaceut" for="raavareIDFarmaceut" name="raavareIDFarmaceut"><br><br>
     <label for="maengde">Mængde: </label><br>
     <input type="text" id="maengdeFarmaceut" for="maengdeFarmaceut" name="maengdeFarmaceut"><br><br>
+    <label for="leverandoer">Leverandør: </label><br>
+    <input type="text" id="leverandoer" name="leverandoer"><br><br>
     <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
     <button type="button" onclick="createRaavarebatchComponentFarmaceut()">Tilføj råvarebatch komponent</button>
-    </table>
-    <table id="table_raavarebatchFarmaceut" border="1">
-        <thead id="table-head_raavarebatchFarmaceut">
-        <tr>
-            <th>Råvarebatch Nr.</th>
-            <th>RåvareID</th>
-            <th>Mængde</th>
-        </tr>
-        </thead>
-    </table>
+    <div id="RaavareBatchTable">
+    </div>
 </form>
 
 <form method="POST" action="" name="produktbatchFarmaceut" id="produktbatchFarmaceut"

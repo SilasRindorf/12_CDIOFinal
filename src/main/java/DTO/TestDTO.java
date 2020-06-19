@@ -1,7 +1,7 @@
 package DTO;
 
 /***
- * Initial version created by: Auezeras
+ * Initial version created by: Morten
  * Edited by: 
  * Created: 19-06-2020
  * This class is responsible for:

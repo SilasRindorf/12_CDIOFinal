@@ -3,6 +3,7 @@ package api;
 import DAL.interfaces.DALException;
 import DTO.*;
 import RAM.Commodity;
+import RAM.CommodityBatch;
 import controller.ActionController;
 
 import javax.ws.rs.*;
@@ -59,18 +60,19 @@ public class API {
         controller.createUser(new UserDTO(ID,username,ini,CPR,nonHashedPassword,role,isActive));
     }
 
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("commodityput")
-    public void putUser(@QueryParam("commodityNr") int commodityNr, @QueryParam("name") String name, @QueryParam("isActive") boolean isActive){
-        controller.createCommodity(new Commodity(commodityNr,name,isActive));
-    }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-user")
     public void setIsActiveUser(@QueryParam("ID") int ID, @QueryParam("isActive") boolean isActive) {
         controller.setIsActiveUser(ID, isActive);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("commodityput")
+    public void putCommodity(@QueryParam("commodityNr") int commodityNr, @QueryParam("name") String name, @QueryParam("isActive") boolean isActive){
+        controller.createCommodity(new Commodity(commodityNr,name,isActive));
     }
 
     @GET
@@ -85,6 +87,27 @@ public class API {
     @Path("setisactive-commodity")
     public void setIsActiveCommodity(@QueryParam("commodityNr") int commodityNr, @QueryParam("isActive") boolean isActive) {
         controller.setIsActiveCommodity(commodityNr, isActive);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("commoditybatchput")
+    public void putCommodityBatch(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive){
+       controller.createCommodityBatch(new CommodityBatch(commodityBatchNr,commodityNr,amount,provider,isActive));
+    }
+
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("commoditybatch-get")
+    public String getCommodityBatch(){
+        return controller.getCommodityBatch();
+    }
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("setisactive-commoditybatch")
+    public void setIsActiveCommodityBatch(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("isActive") boolean isActive) {
+        controller.setIsActiveCommodityBatch(commodityBatchNr, isActive);
     }
 
 

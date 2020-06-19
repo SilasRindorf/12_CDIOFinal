@@ -31,6 +31,11 @@ public class CommodityBatch extends IdAndActivatable {
         return commodityNr;
     }
 
+    public int getCommodityBatchNr(){
+        return getID();
+    }
+
+
     @Override
     public String toString() {
         return "CommodityBatchDTO{" + " | " +

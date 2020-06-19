@@ -20,6 +20,14 @@ public class CommodityBatchDTO  {
 
     }
 
+    public int getCommodityBatchNr() {
+        return commodityBatchNr;
+    }
+
+    public void setCommodityBatchNr(int commodityBatchNr) {
+        this.commodityBatchNr = commodityBatchNr;
+    }
+
     public int getCommodityNr() {
         return commodityNr;
     }
@@ -42,6 +50,14 @@ public class CommodityBatchDTO  {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override
