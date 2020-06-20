@@ -72,7 +72,7 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commodityput")
     public void putCommodity(@QueryParam("commodityNr") int commodityNr, @QueryParam("name") String name, @QueryParam("isActive") boolean isActive){
-        controller.createCommodity(new Commodity(commodityNr,name,isActive));
+        controller.createCommodity(new CommodityDTO(commodityNr,name,isActive));
     }
 
     @GET
@@ -93,7 +93,7 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commoditybatchput")
     public void putCommodityBatch(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive){
-        controller.createCommodityBatch(new CommodityBatch(commodityBatchNr,commodityNr,amount,provider,isActive));
+        controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr,commodityNr,amount,provider,isActive));
     }
 
     @GET

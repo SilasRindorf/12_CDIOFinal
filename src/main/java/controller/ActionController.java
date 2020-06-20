@@ -7,6 +7,8 @@ import DAL.interfaces.IUserDAO;
 import DAL.interfaces.JunkFormatException;
 import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.UserDAONonPersistent;
+import DTO.CommodityBatchDTO;
+import DTO.CommodityDTO;
 import DTO.UserDTO;
 import RAM.Commodity;
 import RAM.CommodityBatch;
@@ -23,6 +25,7 @@ public class ActionController {
             USERS.createUser(new User(11, "Admin", "adm", "123", User.hash("password"), User.Role.Administrator, true));
             COM.createCommodity(new Commodity(1,"Citron",true));
             COM.createBatch(new CommodityBatch(1,1,5000,"Mærsk",true));
+
         } catch (Exception ignored){
 
         }
@@ -103,9 +106,9 @@ public class ActionController {
         }
     }
 
-    public String createCommodity(Commodity commodity){
+    public String createCommodity(CommodityDTO commodityDTO){
         try {
-            COM.createCommodity(new Commodity(commodity.getCommodityNr(),commodity.getName(),commodity.getIsActive()));
+            COM.createCommodity(new Commodity(commodityDTO.getCommodityNr(),commodityDTO.getName(),commodityDTO.isActive()));
         } catch (DALException | JunkFormatException e){
             e.printStackTrace();
             return "Råvare kunne ikke laves";
@@ -130,9 +133,9 @@ public class ActionController {
             e.printStackTrace();
         }
     }
-    public String createCommodityBatch(CommodityBatch commodityBatch){
+    public String createCommodityBatch(CommodityBatchDTO commodityBatchDTO){
         try {
-            COM.createBatch(new CommodityBatch(commodityBatch.getCommodityBatchNr(),commodityBatch.getCommodityNr(),commodityBatch.getAmount(),commodityBatch.getProvider(),commodityBatch.getIsActive()));
+            COM.createBatch(new CommodityBatch(commodityBatchDTO.getCommodityBatchNr(),commodityBatchDTO.getCommodityNr(),commodityBatchDTO.getAmount(),commodityBatchDTO.getProvider(),commodityBatchDTO.isActive()));
         } catch (DALException | JunkFormatException e){
             e.printStackTrace();
             return " Kunne ikke laves";
