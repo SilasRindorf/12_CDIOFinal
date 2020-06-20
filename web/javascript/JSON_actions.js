@@ -53,7 +53,7 @@ PUTCommodity = function (commodity) {
 
 PUTCommodityBatch = function (commodityBatch) {
     const request = new XMLHttpRequest();
-    request.open("PUT", "rest/actions/commoditybatchput/?commodityBatchNr=" + commodityBatch.commodityBatchNr + "&commodityNr=" + commodityBatch.commodityNr + "&amount=" + commodityBatch.amount + "&provider=" + commodityBatch.leverandoer + "&isActive=true", true);
+    request.open("PUT", "rest/actions/commoditybatchput/?commodityBatchNr=" + commodityBatch.commodityBatchNr + "&commodityNr=" + commodityBatch.commodityNr + "&amount=" + commodityBatch.amount + "&provider=" + commodityBatch.provider + "&isActive=true", true);
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
@@ -166,7 +166,6 @@ JSONGetCommodityTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-
                     txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodity("  + objects[i].commodityNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
@@ -184,7 +183,7 @@ setIsActiveCommodity = function (commodityNr, isActive) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetCommodityTable("rest/actions/commodity-get","UserTable");
+            JSONGetCommodityTable("rest/actions/commodity-get","RaavareTable");
         }
     };
     request.send();
@@ -197,7 +196,7 @@ setIsActiveCommodityBatch = function (commodityBatchNr, isActive) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetCommodityTable("rest/actions/commoditybatch-get","UserTable");
+            JSONGetCommodityBatchTable("rest/actions/commoditybatch-get","RaavareBatchTable");
         }
     };
     request.send();
@@ -219,7 +218,7 @@ JSONGetCommodityBatchTable = function (url, div) {
                 "<th>Status</th>" +
                 "<th>Inaktiver</th>";
             for (let i in objects) {
-                console.log(objects[i].provider)
+
                 txt += "<tr>" +
                     "<td>" + objects[i].commodityBatchNr + "</td>" +
                     "<td>" + objects[i].commodityNr + "</td>" +

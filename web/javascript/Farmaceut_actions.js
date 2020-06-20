@@ -20,7 +20,6 @@ function createRaavarebatchComponentFarmaceut() {
             "amount": amount,
             "provider": provider
         };
-        resetValuesRaavareFarmaceut()
         PUTCommodityBatch(commodityBatch)
     }
     else {
@@ -33,6 +32,7 @@ function resetValuesCreateRaavarebatchFarmaceut() {
     document.getElementById("raavarebatchNrFarmaceut").value = "";
     document.getElementById("raavareIDFarmaceut").value = "";
     document.getElementById("maengdeFarmaceut").value = "";
+    document.getElementById("leverandoer").value = "";
 }
 
 //Farmaceut Produktbatch

@@ -13,7 +13,6 @@ public class CommodityDTO {
     private int commodityNr;
     private String name;
     private boolean isActive;
-
     public CommodityDTO() {
     }
 
