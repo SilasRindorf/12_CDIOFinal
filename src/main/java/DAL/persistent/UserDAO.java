@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// @formatter:off
 /***
  * Initial version created by: Silas
  * Edited by: 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
  * This class is responsible for:
  *  -
  */
+// @formatter:on
 
 public class UserDAO extends UserDAONonPersistent {
     private final String FILE;
