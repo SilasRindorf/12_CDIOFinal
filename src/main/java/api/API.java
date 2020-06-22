@@ -108,9 +108,6 @@ public class API {
     }
 
 
-
-
-
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptcompput")
@@ -128,8 +125,6 @@ public class API {
             System.out.println("Der findes allerede en recept med nummer: " + receiptNr);
         }
     }
-
-
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptput")
@@ -143,6 +138,14 @@ public class API {
     @Path("receipt-get")
     public String getReceipt(){
         return controller.getReceipts();
+    }
+
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("receiptcomp-get")
+    public String getReceiptComps(@QueryParam("receiptNr") int receiptNr){
+        return controller.getReceiptComps(receiptNr);
     }
 
     @PUT

@@ -152,6 +152,7 @@ function goToRecept3() {
 
 function goToRecept4() {
     hideall();
+    JSONGetReceptTable();
     document.getElementById("recept4").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Farmaceut";
 
