@@ -19,14 +19,17 @@ public class ActionController {
     private final ICommodityDAO COM = new CommodityDAONonPersistent();
     private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
     private final ReceiptComp RECC = new ReceiptComp(1, 400, 2);
+    private final List<ReceiptComp> receiptCompList = new ArrayList<ReceiptComp>();
     private ArrayList<ReceiptDTO> rList = new ArrayList<>();
+
 
     private ActionController() {
         try {
+            receiptCompList.add(RECC);
             USERS.createUser(new User(11, "Admin", "adm", "123", User.hash("password"), User.Role.Administrator, true));
             COM.createCommodity(new Commodity(1, "Citron", true));
             COM.createBatch(new CommodityBatch(1, 1, 5000, "Mærsk", true));
-            REC.createReceipt(new Receipt(1, "Bajer", (List<ReceiptComp>) RECC, true));
+            REC.createReceipt(new Receipt(1, "Bajer", receiptCompList, true));
         } catch (Exception ignored) {
 
         }
