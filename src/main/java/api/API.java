@@ -92,8 +92,8 @@ public class API {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commoditybatchput")
-    public void putCommodityBatch(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive){
-        controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr,commodityNr,amount,provider,isActive));
+    public void putCommodityBatch(@QueryParam("JSON_Object") String array){
+       controller.createReceipt(new ReceiptDTO());
     }
 
     @GET
@@ -107,6 +107,28 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-commoditybatch")
     public void setIsActiveCommodityBatch(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("isActive") boolean isActive) {
+        controller.setIsActiveCommodityBatch(commodityBatchNr, isActive);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("receiptput")
+    public void putReceipt(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive){
+        controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr,commodityNr,amount,provider,isActive));
+    }
+
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("receipt-get")
+    public String getReceipt(){
+        return controller.getCommodityBatch();
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("setisactive-receipt")
+    public void setIsActiveReceipt(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("isActive") boolean isActive) {
         controller.setIsActiveCommodityBatch(commodityBatchNr, isActive);
     }
 

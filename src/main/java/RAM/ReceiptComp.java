@@ -1,5 +1,7 @@
 package RAM;
 
+import DTO.ReceiptCompDTO;
+
 /***
  * Initial version created by: Silas
  * Edited by: Christoffer
@@ -16,6 +18,12 @@ public class ReceiptComp {
         this.commodityNr = commodity;
         this.amount = amount;
         this.tolerance = tolerance;
+    }
+
+    public ReceiptComp(ReceiptCompDTO receiptCompDTO){
+        this.commodityNr = receiptCompDTO.getCommodityNr();
+        this.amount = receiptCompDTO.getAmount();
+        this.tolerance = receiptCompDTO.getTolerance();
     }
 
     public int getCommodity() {

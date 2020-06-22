@@ -1,6 +1,8 @@
 package DAL.interfaces;
 
 import RAM.Receipt;
+import RAM.ReceiptComp;
+
 import java.util.List;
 
 /***

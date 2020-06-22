@@ -1,5 +1,7 @@
 package RAM;
 
+import DTO.ReceiptDTO;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -18,6 +20,14 @@ public class Receipt extends IdAndActivatable {
         super(receiptNr,isActive);
         this.name = name;
         this.receiptComps = Collections.unmodifiableList(receiptComps);
+    }
+
+    public Receipt(ReceiptDTO receiptDTO){
+        super(receiptDTO.getReceiptNr(),receiptDTO.isActive());
+        this.name = receiptDTO.getName();
+        for (int i = 0; i < receiptDTO.getReceiptComps().length; i++) {
+            receiptComps.add(new ReceiptComp(receiptDTO.getReceiptComps()[i]));
+        }
     }
 
     public String getName() {

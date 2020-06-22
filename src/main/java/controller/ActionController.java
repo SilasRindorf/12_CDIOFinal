@@ -1,31 +1,30 @@
 package controller;
 
 
-import DAL.interfaces.DALException;
-import DAL.interfaces.ICommodityDAO;
-import DAL.interfaces.IUserDAO;
-import DAL.interfaces.JunkFormatException;
+import DAL.interfaces.*;
 import DAL.nonPersistent.CommodityDAONonPersistent;
+import DAL.nonPersistent.ReceiptDAONonPersistent;
 import DAL.nonPersistent.UserDAONonPersistent;
-import DTO.CommodityBatchDTO;
-import DTO.CommodityDTO;
-import DTO.UserDTO;
-import RAM.Commodity;
-import RAM.CommodityBatch;
-import RAM.User;
+import DTO.*;
+import RAM.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
     private final IUserDAO USERS = new UserDAONonPersistent();
     private final ICommodityDAO COM = new CommodityDAONonPersistent();
+    private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
+    private final ReceiptComp RECC = new ReceiptComp(1,400,2);
+
     private ActionController(){
         try {
             USERS.createUser(new User(11, "Admin", "adm", "123", User.hash("password"), User.Role.Administrator, true));
             COM.createCommodity(new Commodity(1,"Citron",true));
             COM.createBatch(new CommodityBatch(1,1,5000,"Mærsk",true));
-
+            REC.createReceipt(new Receipt(1,"Bajer", (List<ReceiptComp>) RECC,true));
         } catch (Exception ignored){
 
         }
@@ -142,4 +141,36 @@ public class ActionController {
         }
         return "Råvarebatch lavet";
     }
+
+// ------------------------------- Receipt methods ------------------------------------------
+
+    public String getReceipt(){
+        ObjectMapper objMapper = new ObjectMapper();
+        try {
+            return objMapper.writeValueAsString(REC.getReceiptList());
+        } catch (JsonProcessingException | DALException e){
+            e.printStackTrace();
+            return "Kunne ikke skaffe recepter";
+        }
+    }
+
+    public void setIsActiveReceipt(int receiptNumber, boolean status) {
+        try{
+            REC.setIsActive(receiptNumber,status);
+        }
+        catch (DALException | JunkFormatException e){
+            e.printStackTrace();
+        }
+    }
+
+    public String createReceipt(ReceiptDTO receiptDTO){
+        try {
+            REC.createReceipt(new Receipt(receiptDTO));
+        } catch (DALException | JunkFormatException e){
+            e.printStackTrace();
+            return " Kunne ikke laves";
+        }
+        return "Recept lavet";
+    }
+
 }
