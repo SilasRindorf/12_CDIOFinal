@@ -22,9 +22,10 @@ public class ReceiptDTO {
         this.isActive = isActive;
     }
 
-    public ReceiptDTO(){
+    public ReceiptDTO (){
 
     }
+
     public int getReceiptNr() {
         return receiptNr;
     }

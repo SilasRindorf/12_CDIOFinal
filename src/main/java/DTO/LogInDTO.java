@@ -4,7 +4,7 @@ public class LogInDTO {
     private String username;
     private String password;
 
-    public LogInDTO(){
+    public LogInDTO() {
 
     }
     public LogInDTO(String username, String password){

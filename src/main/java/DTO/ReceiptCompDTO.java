@@ -1,7 +1,5 @@
 package DTO;
 
-import java.sql.ResultSet;
-
 /***
  * Initial version created by: Silas
  * Edited by: 
@@ -22,9 +20,10 @@ public class ReceiptCompDTO {
         this.isActive = isActive;
     }
 
-    public ReceiptCompDTO(){
+    public ReceiptCompDTO (){
 
     }
+
     public int getCommodityNr() {
         return commodityNr;
     }

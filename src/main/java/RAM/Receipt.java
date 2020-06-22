@@ -1,7 +1,7 @@
 package RAM;
 
 import DTO.ReceiptDTO;
-
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,12 +12,13 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class Receipt extends IdAndActivatable {
+public class Receipt extends IdAndActivatable implements Serializable {
+    public static final long serialVersionUID = 686420351353L;
     private String name;
     private List<ReceiptComp> receiptComps;
 
     public Receipt(int receiptNr, String name, List<ReceiptComp> receiptComps, boolean isActive) {
-        super(receiptNr,isActive);
+        super(receiptNr, isActive);
         this.name = name;
         this.receiptComps = Collections.unmodifiableList(receiptComps);
     }

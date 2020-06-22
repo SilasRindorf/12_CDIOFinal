@@ -1,7 +1,5 @@
 package DTO;
 
-import java.io.Serializable;
-
 /***
  * Initial version created by: Silas
  * Edited by: Christoffer
@@ -48,7 +46,7 @@ public class CommodityDTO {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Commodity{" + " | " +
                 "commodityNr=" + commodityNr + " | " +
                 ", name=" + name + " | " +

@@ -1,5 +1,7 @@
 package RAM;
 
+import java.io.Serializable;
+
 /***
  * Initial version created by: Silas
  * Edited by: Christoffer
@@ -7,7 +9,8 @@ package RAM;
  * This class is responsible for:
  *  -
  */
-public class ProductBatchComp {
+public class ProductBatchComp implements Serializable {
+    public static final long serialVersionUID = 12343365L;
     private double tara;
     private double weighted;
     private int commodityBatchNr;
@@ -46,7 +49,7 @@ public class ProductBatchComp {
     public String toString() {
         return "ProductBatchCompDTO{" + " | " +
                 "tara=" + tara + " | " +
-                "weighted=" + weighted +" | " +
+                "weighted=" + weighted + " | " +
                 "commodityBatchNr=" + commodityBatchNr + " | " +
                 "commodityNr=" + commodityNr + " | " +
                 "weighterID=" + weigherID + '}';

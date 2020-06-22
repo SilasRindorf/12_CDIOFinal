@@ -4,7 +4,6 @@ import RAM.ProductBatch;
 import RAM.ProductBatchComp;
 
 import java.util.Date;
-import java.util.List;
 
 /***
  * Initial version created by: Silas
@@ -20,6 +19,7 @@ public class ProductBatchDTO {
     private ProductBatch.Status status;
     private ProductBatchComp[] productComps;
     private boolean isActive;
+
     public ProductBatchDTO() {
 
     }

@@ -1,5 +1,7 @@
 package RAM;
 
+import java.io.Serializable;
+
 /***
  * Initial version created by: Silas
  * Edited by: Christoffer
@@ -7,13 +9,14 @@ package RAM;
  * This class is responsible for:
  *  -
  */
-public class CommodityBatch extends IdAndActivatable {
+public class CommodityBatch extends IdAndActivatable implements Serializable {
+    public static final long serialVersionUID = 254574532753L;
     private int commodityNr;
     private double amount;
     private String provider;
 
     public CommodityBatch(int commodityBatchNr, int commodityNr, double amount, String provider, boolean isActive) {
-        super(commodityBatchNr,isActive);
+        super(commodityBatchNr, isActive);
         this.commodityNr = commodityNr;
         this.amount = amount;
         this.provider = provider;
