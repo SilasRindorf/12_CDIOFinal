@@ -92,9 +92,11 @@ public class API {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commoditybatchput")
-    public void putCommodityBatch(@QueryParam("JSON_Object") String array){
-       controller.createReceipt(new ReceiptDTO());
+    public void putReceipt(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive){
+        controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr,commodityNr,amount,provider,isActive));
     }
+
+
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
@@ -110,19 +112,25 @@ public class API {
         controller.setIsActiveCommodityBatch(commodityBatchNr, isActive);
     }
 
+
+
+
+
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptput")
-    public void putReceipt(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive){
-        controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr,commodityNr,amount,provider,isActive));
+    public void putCommodityBatch(@QueryParam("JSON_Object") String array){
+        controller.createReceipt(new ReceiptDTO());
     }
+
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("receipt-get")
     public String getReceipt(){
-        return controller.getCommodityBatch();
+        return controller.getReceipt();
     }
 
     @PUT
