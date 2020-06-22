@@ -1,19 +1,14 @@
 package api;
 
-import DAL.interfaces.DALException;
 import DTO.*;
-import RAM.Commodity;
-import RAM.CommodityBatch;
 import controller.ActionController;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 @Path("/actions")
 public class API {
     private ActionController controller = ActionController.getInstance();
-
     public API(){
 
     }
@@ -116,28 +111,45 @@ public class API {
 
 
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("receiptcompput")
+    public void putReceiptComp(@QueryParam("receiptNr") int receiptNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("tolerance") double tolerance, @QueryParam("isActive") boolean isActive){
+      controller.addReceiptComp(receiptNr,new ReceiptCompDTO(commodityNr,amount,tolerance,true));
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("receiptdtoput")
+    public void putReceiptDTO(@QueryParam("receiptNr") int receiptNr, @QueryParam("name") String name){
+        try {
+            controller.createReceiptDTO(receiptNr, name);
+        }catch (Exception e ){
+            System.out.println("Der findes allerede en recept med nummer: " + receiptNr);
+        }
+    }
+
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptput")
-    public void putCommodityBatch(@QueryParam("JSON_Object") String array){
-        controller.createReceipt(new ReceiptDTO());
+    public void putReceipt(@QueryParam("receiptNr") int receiptNr){
+        controller.createReceipt(receiptNr);
     }
-
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("receipt-get")
     public String getReceipt(){
-        return controller.getReceipt();
+        return controller.getReceipts();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-receipt")
-    public void setIsActiveReceipt(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("isActive") boolean isActive) {
-        controller.setIsActiveCommodityBatch(commodityBatchNr, isActive);
+    public void setIsActiveReceipt(@QueryParam("receiptNr") int receiptNr, @QueryParam("isActive") boolean isActive) {
+        controller.setIsActiveReceipt(receiptNr, isActive);
     }
 
 

@@ -15,6 +15,13 @@ public class ReceiptCompDTO {
     private double tolerance;
     private boolean isActive;
 
+    public ReceiptCompDTO(int commodityNr, double amount, double tolerance, boolean isActive) {
+        this.commodityNr = commodityNr;
+        this.amount = amount;
+        this.tolerance = tolerance;
+        this.isActive = isActive;
+    }
+
     public ReceiptCompDTO(){
 
     }

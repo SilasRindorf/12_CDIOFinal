@@ -10,6 +10,7 @@ import RAM.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActionController {
@@ -18,6 +19,7 @@ public class ActionController {
     private final ICommodityDAO COM = new CommodityDAONonPersistent();
     private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
     private final ReceiptComp RECC = new ReceiptComp(1,400,2);
+    private ArrayList<ReceiptDTO> rList = new ArrayList<>();
 
     private ActionController(){
         try {
@@ -144,7 +146,7 @@ public class ActionController {
 
 // ------------------------------- Receipt methods ------------------------------------------
 
-    public String getReceipt(){
+    public String getReceipts(){
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(REC.getReceiptList());
@@ -162,15 +164,46 @@ public class ActionController {
             e.printStackTrace();
         }
     }
-
-    public String createReceipt(ReceiptDTO receiptDTO){
-        try {
-            REC.createReceipt(new Receipt(receiptDTO));
-        } catch (DALException | JunkFormatException e){
-            e.printStackTrace();
-            return " Kunne ikke laves";
+    public void createReceiptDTO(int receiptNr, String name) throws DALException {
+        for (ReceiptDTO receiptDTO: rList) {
+            if(receiptDTO.getReceiptNr() == receiptNr){
+                throw new DALException("Id findes i forvejen");
+            }
         }
-        return "Recept lavet";
+        for (Receipt receipt: REC.getReceiptList()) {
+            if(receipt.getID() == receiptNr){
+                throw new DALException("Id findes i forvejen");
+            }
+        }
+
+        rList.add(new ReceiptDTO(receiptNr,name, new ArrayList<>(),true));
+    }
+
+    public String createReceipt(int receiptNr){
+        for (ReceiptDTO receiptDTO: rList) {
+            if (receiptDTO.getReceiptNr() == receiptNr){
+                try {
+                    REC.createReceipt(new Receipt(receiptDTO));
+                } catch (DALException | JunkFormatException e){
+                    e.printStackTrace();
+                    return " Kunne ikke laves";
+                }
+                return "Recept lavet";
+            }
+        }
+
+        return "Recept ikke lavet";
+    }
+
+    public String addReceiptComp(int receiptID ,ReceiptCompDTO receiptCompDTO) {
+        for (ReceiptDTO receiptDTO : rList) {
+            if (receiptDTO.getReceiptNr() == receiptID) {
+                receiptDTO.addReceiptComp(receiptCompDTO);
+                return "Komponent tilføjet";
+            }
+        }
+        return "Kunne ikke tilføje komponent";
+
     }
 
 }

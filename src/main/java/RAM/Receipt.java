@@ -25,8 +25,8 @@ public class Receipt extends IdAndActivatable {
     public Receipt(ReceiptDTO receiptDTO){
         super(receiptDTO.getReceiptNr(),receiptDTO.isActive());
         this.name = receiptDTO.getName();
-        for (int i = 0; i < receiptDTO.getReceiptComps().length; i++) {
-            receiptComps.add(new ReceiptComp(receiptDTO.getReceiptComps()[i]));
+        for (int i = 0; i < receiptDTO.getReceiptComps().size(); i++) {
+            receiptComps.add(new ReceiptComp(receiptDTO.getReceiptComps().get(i)));
         }
     }
 

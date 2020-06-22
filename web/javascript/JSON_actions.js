@@ -239,6 +239,45 @@ JSONGetCommodityBatchTable = function (url, div) {
     request.open("GET", url, true);
     request.send("x= " + param);
 };
+
+JSONGetCommodityBatchTable = function (url, div) {
+    const obj = {table: "RaavareBatchTable", limit: 20};
+    const param = JSON.stringify(obj);
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            var objects = JSON.parse(this.responseText);
+            var txt = "<table border='1'>" +
+                "<th>Råvarebatch Nr</th>" +
+                "<th>RåvareID</th>" +
+                "<th>Mængde</th>" +
+                "<th>Leverandør</th>" +
+                "<th>Status</th>" +
+                "<th>Inaktiver</th>";
+            for (let i in objects) {
+
+                txt += "<tr>" +
+                    "<td>" + objects[i].commodityBatchNr + "</td>" +
+                    "<td>" + objects[i].commodityNr + "</td>" +
+                    "<td>" + objects[i].amount + "</td>" +
+                    "<td>" + objects[i].provider + "</td>";
+                if (objects[i].isActive === true) {
+                    txt += "<td>" + "Aktiv" + "</td>";
+                } else {
+                    txt += "<td>" + "Inaktiv" + "</td>";
+                }
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodityBatch("  + objects[i].commodityBatchNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                    "</tr>";
+            }
+            txt += "</table>";
+            document.getElementById("RaavareBatchTable").innerHTML = txt;
+        }
+    };
+    request.open("GET", url, true);
+    request.send("x= " + param);
+};
+
+
 /*
 function POSTUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
     const request = new XMLHttpRequest();
