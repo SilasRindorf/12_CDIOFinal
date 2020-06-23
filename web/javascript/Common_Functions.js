@@ -2,12 +2,8 @@
 
 
 function logIn() {
-    var uname;
-    var password;
     hideall();
-    uname = document.getElementById("logInName").value;
-    password = document.getElementById("logInPass").value;
-    logInAction("rest/actions/log-in",uname,password);
+    logInAction("rest/actions/log-in",document.getElementById("logInName").value, document.getElementById("logInPass").value);
     document.getElementById("welcome").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Vælg venligst din bruger";
 }

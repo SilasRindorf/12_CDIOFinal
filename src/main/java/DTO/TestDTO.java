@@ -8,24 +8,24 @@ package DTO;
  *  -
  */
 public class TestDTO {
-    private int ID;
+    private int id;
     private String username;
 
     public TestDTO(){
 
     }
 
-    public TestDTO(int ID, String username) {
-        this.ID = ID;
+    public TestDTO(int id, String username) {
+        this.id = id;
         this.username = username;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

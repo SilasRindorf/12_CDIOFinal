@@ -32,6 +32,14 @@ public class API {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @Path("test")
+    public String test(TestDTO testDTO){
+        return "Success is at hand";
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("user-create")
     public String createUser(UserDTO userDTO){
         return controller.createUser(userDTO);
@@ -51,8 +59,18 @@ public class API {
     @Path("userput")
     public void putUser(@QueryParam("ID") int ID, @QueryParam("username") String username,
                         @QueryParam("ini") String ini, @QueryParam("CPR") String CPR, @QueryParam("nonHashedPassword") String nonHashedPassword,
-                        @QueryParam("role") String role, @QueryParam("isActive") boolean isActive){
-        controller.createUser(new UserDTO(ID,username,ini,CPR,nonHashedPassword,role,isActive));
+                        @QueryParam("role") String role, @QueryParam("isActive") boolean isActive
+                        ){
+
+            controller.createUser(new UserDTO(ID,username,ini,CPR,nonHashedPassword,role,isActive));
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("user-post")
+    public String putUser(UserDTO userDTO) {
+        controller.createUser(userDTO);
+        return "SUCCESS MY FRIEND";
     }
 
 

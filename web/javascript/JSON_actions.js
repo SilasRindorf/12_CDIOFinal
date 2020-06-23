@@ -10,6 +10,21 @@ function GET(url) {
     request.open("GET", url, true);
     request.send("x= " + param);
 }
+function POSTF(url, object, doFunction) {
+    const request = new XMLHttpRequest();
+    request.open("POST", url, true);
+    request.responseType = "text";
+    let sendStr = JSON.stringify(object);
+    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            console.log(request.responseText);
+            JSONGetUserTable("rest/actions/user-get", "UserTable");
+            doFunction(request.responseText);
+        }
+    };
+    request.send(sendStr);
+}
 
 function POSTAndAlert(url, object) {
     const request = new XMLHttpRequest();
@@ -19,13 +34,7 @@ function POSTAndAlert(url, object) {
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-            if (document.readyState === "complete") {
-                alert(request.responseText);
-            } else {
-                window.addEventListener("load", () =>{
-                    alert(request.responseText);
-                });
-            }
+            alert(request.responseText);
         }
     };
 
@@ -34,7 +43,9 @@ function POSTAndAlert(url, object) {
 
 PUTUser = function (user) {
     const request = new XMLHttpRequest();
-    request.open("PUT", "rest/actions/userput/?ID=" + user.ID + "&username=" + user.username + "&ini=" + user.ini + "&CPR=" + user.CPR + "&nonHashedPassword=" + user.nonHashedPass + "&role=" + user.role + "&isActive=true", true);
+    request.open("PUT", "rest/actions/userput/?ID=" + user.ID + "&username=" + user.username + "&ini=" + user.ini +
+        "&CPR=" + user.CPR + "&nonHashedPassword=" + user.nonHashedPass + "&role=" + user.role + "&isActive=true");
+
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
@@ -83,7 +94,6 @@ PUTReceiptDTO = function (receipt) {
     };
     request.send();
 };
-
 
 
 setIsActiveUser = function (id, isActive) {
@@ -300,7 +310,7 @@ JSONGetReceiptTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceipt("  + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceipt(" + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
@@ -335,7 +345,7 @@ JSONGetReceiptCompTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceiptComp("  + objects[i].commodityNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceiptComp(" + objects[i].commodityNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
             txt += "</table>";

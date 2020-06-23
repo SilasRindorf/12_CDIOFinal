@@ -1,18 +1,18 @@
 function finishCreateUser() {
     let role;
-    if (document.getElementById("Pharmaceut").checked === true){
-        role = "Pharmaceut";
+    if (document.getElementById("Pharmaceut").checked === true) {
+        role = "Farmaceut";
     }
 
-    if (document.getElementById("AdminID").checked === true){
-        role = "Adminstrator";
+    if (document.getElementById("AdminID").checked === true) {
+        role = "Administrator";
     }
 
-    if (document.getElementById("ProduktionslederRadio").checked === true){
+    if (document.getElementById("ProduktionslederRadio").checked === true) {
         role = "Produktionsleder";
     }
 
-    if (document.getElementById("Laborant").checked === true){
+    if (document.getElementById("Laborant").checked === true) {
         role = "Laborant";
     }
     if (!document.getElementById("id").value == "" &&
@@ -29,8 +29,8 @@ function finishCreateUser() {
         var ini = document.getElementById("ini").value;
         var CPR = document.getElementById("cpr").value;
         var nonHashedPass = document.getElementById("hashedPass").value;
-      //  createUser("rest/actions/user-create", ID,username,ini,CPR,nonHashedPass,role,"Aktiv");
-       // POSTUser("rest/actions/user-create", ID,username,ini,CPR,nonHashedPass,role,"Aktiv")
+        createUser("rest/actions/user-post", ID, username, ini, CPR, nonHashedPass, role, "Aktiv");
+        // POSTUser("rest/actions/user-create", ID,username,ini,CPR,nonHashedPass,role,"Aktiv")
         const user = {
             "ID": ID,
             "username": username,
@@ -40,7 +40,7 @@ function finishCreateUser() {
             "role": role,
             "isActive": true
         };
-        PUTUser(user)
+        //PUTUser(user);
         resetValuesCreateUser();
     } else {
         alert("Please fill out all the fields!");

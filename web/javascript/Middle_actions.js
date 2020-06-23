@@ -4,22 +4,33 @@ function logInAction(url, username, password) {
         "username": username,
         "password": password
     };
+
     POSTAndAlert(url, logInDTO);
+
+    /*const testDTO = {
+        "id": 10,
+        "username": "Mein name bist"
+    };
+
+    POSTAndAlert("rest/actions/test",testDTO);*/
+
 }
+
+
 function createUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
     isActive = isActive === "Aktiv";
     ID = parseInt(ID);
     const userDTO = {
-        "ID": ID,
+        "id": ID,
         "username": username,
         "ini": ini,
-        "CPR": CPR,
-        "nonHashedPass": nonHashedPass,
+        "cpr": CPR,
+        "nonHashedPassword": nonHashedPass,
         "role": role,
-        "isActive": isActive
+        "active": isActive
     };
-    console.log(userDTO)
-    PUTUser(userDTO)
+    //PUTUser(userDTO)
+    POSTF(url,userDTO);
 }
 
 JSONDelete = function (div,id) {
