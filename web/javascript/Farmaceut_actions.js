@@ -1,4 +1,6 @@
 //Farmaceut Råvarebatch
+
+var receiptNrMemory;
 function goToRaavarebatchFarmaceut() {
     hideall();
     document.getElementById("raavarebatchFarmaceut").style.visibility = "visible";
@@ -135,6 +137,7 @@ function createReceipt(){
             "receiptNr": receiptNr,
             "name": name
         };
+        receiptNrMemory = receiptNr;
         resetValuesRecept2()
         PUTReceiptDTO(receipt)
     }
@@ -182,11 +185,19 @@ function addReceptbatchComponent() {
     if(!document.getElementById("raavareRecept").value =="" &&
         !document.getElementById("maengdeRecept").value == "" &&
         !document.getElementById("tolerance").value == "" ){
+        var receiptNr = receiptNrMemory
+        var commodityNr = document.getElementById("raavareRecept").value;
+        var amount = document.getElementById("maengdeRecept").value;
+        var tolerance = document.getElementById("tolerance").value;
+
         const receiptComp = {
             "receiptNr": receiptNr,
-            "name": name
+            "commodityNr": commodityNr,
+            "amount": amount,
+            "tolerance": tolerance,
         };
-
+        resetValuesReceptComponentFarmaceut()
+        PUTReceiptComp(receiptComp);
     }
 }
 
@@ -203,7 +214,10 @@ function resetValuesRecept2() {
 
 //FARMACEUT MANGLER
 function finishRecept() {
-
+    hideall();
+    document.getElementById("recept2").style.visibility = "visible";
+    document.getElementById("title").innerHTML = "Farmaceut";
+    PUTReceipt(receiptNrMemory)
 }
 
 function finishProductbatch_Farmaceut() {

@@ -65,14 +65,34 @@ PUTCommodityBatch = function (commodityBatch) {
 
 PUTReceiptDTO = function (receipt) {
     const request = new XMLHttpRequest();
-    console.log(receipt);
-    console.log(receipt.receiptNr)
     request.open("PUT", "rest/actions/receiptdtoput/?receiptNr=" + receipt.receiptNr + "&name=" + receipt.name, true);
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            console.log(this.responseText)
             JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr);
+        }
+    };
+    request.send();
+};
+
+PUTReceiptComp = function (comp) {
+    const request = new XMLHttpRequest();
+    request.open("PUT", "rest/actions/receiptcompput/?receiptNr=" + comp.receiptNr + "&commodityNr=" + comp.commodityNr + "&amount=" + comp.amount + "&tolerance=" + comp.tolerance ,true);
+    request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    request.onload = function () {
+        if (request.readyState === 4 && request.status === 204) {
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + comp.receiptNr);
+        }
+    };
+    request.send();
+};
+
+PUTReceipt = function (receiptNr) {
+    const request = new XMLHttpRequest();
+    request.open("PUT", "rest/actions/receiptput/?receiptNr=" + receiptNr,true);
+    request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    request.onload = function () {
+        if (request.readyState === 4 && request.status === 204) {
         }
     };
     request.send();
@@ -308,6 +328,7 @@ JSONGetReceiptCompTable = function (url, div) {
     const obj = {table: "ReceptCompTable", limit: 20};
     const param = JSON.stringify(obj);
     const request = new XMLHttpRequest();
+
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             console.log(this.responseText)
@@ -315,20 +336,12 @@ JSONGetReceiptCompTable = function (url, div) {
             var txt = "<table border='1'>" +
                 "<th>Råvare</th>" +
                 "<th>Mængde</th>" +
-                "<th>Tolerance</th>" +
-                "<th>Status</th>" +
-                "<th>Inaktiver</th>";
+                "<th>Tolerance</th>";
             for (let i in objects) {
                 txt += "<tr>" +
                     "<td>" + objects[i].commodityNr + "</td>" +
                     "<td>" + objects[i].amount + "</td>" +
-                    "<td>" + objects[i].tolerance + "</td>";
-                if (objects[i].isActive === true) {
-                    txt += "<td>" + "Aktiv" + "</td>";
-                } else {
-                    txt += "<td>" + "Inaktiv" + "</td>";
-                }
-                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceiptComp("  + objects[i].commodityNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                    "<td>" + objects[i].tolerance + "</td>" +
                     "</tr>";
             }
             txt += "</table>";

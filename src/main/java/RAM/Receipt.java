@@ -2,6 +2,7 @@ package RAM;
 
 import DTO.ReceiptDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Receipt extends IdAndActivatable implements Serializable {
 
     public Receipt(ReceiptDTO receiptDTO){
         super(receiptDTO.getReceiptNr(),receiptDTO.isActive());
+        receiptComps = new ArrayList<>();
         this.name = receiptDTO.getName();
         for (int i = 0; i < receiptDTO.getReceiptComps().size(); i++) {
             receiptComps.add(new ReceiptComp(receiptDTO.getReceiptComps().get(i)));
