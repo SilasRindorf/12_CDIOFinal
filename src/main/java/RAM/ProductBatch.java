@@ -1,5 +1,6 @@
 package RAM;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
  * This class is responsible for:
  *  -
  */
-public class ProductBatch extends IdAndActivatable {
+public class ProductBatch extends IdAndActivatable implements Serializable {
+    public static final long serialVersionUID = 567501352532323232L;
     private int receiptNr;
     private Date created;
     private Status status;
@@ -38,7 +40,9 @@ public class ProductBatch extends IdAndActivatable {
         return status;
     }
 
-    public List<ProductBatchComp> getProductComps() { return productComps; }
+    public List<ProductBatchComp> getProductComps() {
+        return productComps;
+    }
 
     @Override
     public String toString() {

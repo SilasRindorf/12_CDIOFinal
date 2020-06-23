@@ -3,7 +3,7 @@ package DAL.persistent;
 import DAL.interfaces.DALException;
 
 import java.io.*;
-import java.util.ArrayList;
+
 
 public class FileAPI {
     public static final String USER_DAO_FILE = "src/main/resources/USER_DAO_DATA";

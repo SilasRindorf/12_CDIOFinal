@@ -16,7 +16,7 @@ public class UserDTO {
     private String role;
     private boolean isActive;
 
-    public UserDTO(){
+    public UserDTO() {
 
     }
 

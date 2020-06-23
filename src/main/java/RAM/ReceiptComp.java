@@ -2,6 +2,8 @@ package RAM;
 
 import DTO.ReceiptCompDTO;
 
+import java.io.Serializable;
+
 /***
  * Initial version created by: Silas
  * Edited by: Christoffer
@@ -9,7 +11,8 @@ import DTO.ReceiptCompDTO;
  * This class is responsible for:
  *  -
  */
-public class ReceiptComp {
+public class ReceiptComp implements Serializable {
+    public static final long serialVersionUID = 57536453707645L;
     private int commodityNr;
     private double amount;
     private double tolerance;
@@ -39,7 +42,7 @@ public class ReceiptComp {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "commodityNr=" + commodityNr + " | " +
                 "amount=" + amount + " | " +
                 "tolerance=" + tolerance;

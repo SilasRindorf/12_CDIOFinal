@@ -1,7 +1,5 @@
 package DTO;
 
-import java.sql.ResultSet;
-
 /***
  * Initial version created by: Silas
  * Edited by: 
@@ -15,9 +13,17 @@ public class ReceiptCompDTO {
     private double tolerance;
     private boolean isActive;
 
-    public ReceiptCompDTO(){
+    public ReceiptCompDTO(int commodityNr, double amount, double tolerance, boolean isActive) {
+        this.commodityNr = commodityNr;
+        this.amount = amount;
+        this.tolerance = tolerance;
+        this.isActive = isActive;
+    }
+
+    public ReceiptCompDTO (){
 
     }
+
     public int getCommodityNr() {
         return commodityNr;
     }

@@ -125,6 +125,25 @@ function opretRaavare() {
     }
 }
 
+function createReceipt(){
+    if(!document.getElementById("recept2Nr").value =="" &&
+    !document.getElementById("receptNavn").value == ""){
+        var receiptNr = document.getElementById("recept2Nr").value;
+        var name = document.getElementById("receptNavn").value;
+
+        const receipt = {
+            "receiptNr": receiptNr,
+            "name": name
+        };
+        resetValuesRecept2()
+        PUTReceiptDTO(receipt)
+    }
+    else
+    {
+        alert("Please fill out all the fields!");
+    }
+}
+
 function resetValuesRaavareFarmaceut() {
     document.getElementById("raavareNummer").value = "";
     document.getElementById("raavareNavn").value = "";
@@ -147,30 +166,28 @@ function goToRecept3() {
     hideall();
     document.getElementById("recept3").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Farmaceut";
+    createReceipt();
     resetValuesRecept2();
 }
 
 function goToRecept4() {
     hideall();
+    JSONGetReceiptTable("rest/actions/receipt-get");
     document.getElementById("recept4").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Farmaceut";
 
 }
 
 function addReceptbatchComponent() {
-    var tableBody = document.getElementById("table-body_recept");
-    var td1 = document.createElement("td");
-    var td2 = document.createElement("td");
-    var td3 = document.createElement("td");
-    var row = document.createElement("tr");
-    td1.innerHTML = document.getElementById("raavareRecept").value;
-    td2.innerHTML = document.getElementById("maengdeRecept").value;
-    td3.innerHTML = document.getElementById("tolerance").value;
-    row.appendChild(td1);
-    row.appendChild(td2);
-    row.appendChild(td3);
-    tableBody.appendChild(row);
-    resetValuesReceptComponentFarmaceut();
+    if(!document.getElementById("raavareRecept").value =="" &&
+        !document.getElementById("maengdeRecept").value == "" &&
+        !document.getElementById("tolerance").value == "" ){
+        const receiptComp = {
+            "receiptNr": receiptNr,
+            "name": name
+        };
+
+    }
 }
 
 function resetValuesReceptComponentFarmaceut() {

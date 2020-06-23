@@ -12,21 +12,21 @@ import java.util.List;
  *  -
  */
 public class IdAndActivatable implements Serializable {
-
+    public static final long serialVersionUID = 4447252752752745257L;
     private boolean active;
     private int ID;
 
-    public static <T> List<T> filterAddIds(List<T> list, List<Integer> ids){
+    public static <T> List<T> filterAddIds(List<T> list, List<Integer> ids) {
         List<T> arr = new ArrayList<T>();
-        for(T elem : list) {
-            if(ids.contains(((IdAndActivatable) elem).getID())) {
+        for (T elem : list) {
+            if (ids.contains(((IdAndActivatable) elem).getID())) {
                 arr.add(elem);
             }
         }
         return arr;
     }
 
-    public IdAndActivatable(){
+    public IdAndActivatable() {
 
     }
 

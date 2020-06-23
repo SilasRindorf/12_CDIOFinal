@@ -1,6 +1,7 @@
 package DAL.persistent;
 
-import RAM.*;
+import RAM.Commodity;
+import RAM.CommodityBatch;
 
 import java.io.Serializable;
 import java.util.List;

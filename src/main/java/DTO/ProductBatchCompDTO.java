@@ -13,9 +13,11 @@ public class ProductBatchCompDTO {
     private int commodityBatchNr;
     private int commodityNr;
     private int weigherID;
-    public ProductBatchCompDTO(){
+
+    public ProductBatchCompDTO() {
 
     }
+
     public double getTara() {
         return tara;
     }
