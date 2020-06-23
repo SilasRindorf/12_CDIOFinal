@@ -19,7 +19,13 @@ function POSTAndAlert(url, object) {
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-            alert(request.responseText);
+            if (document.readyState === "complete") {
+                alert(request.responseText);
+            } else {
+                window.addEventListener("load", () =>{
+                    alert(request.responseText);
+                });
+            }
         }
     };
 
@@ -32,7 +38,7 @@ PUTUser = function (user) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetUserTable("rest/actions/user-get","UserTable");
+            JSONGetUserTable("rest/actions/user-get", "UserTable");
         }
     };
     request.send();
@@ -45,7 +51,7 @@ PUTCommodity = function (commodity) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetCommodityTable("rest/actions/commodity-get","UserTable");
+            JSONGetCommodityTable("rest/actions/commodity-get", "UserTable");
         }
     };
     request.send();
@@ -57,7 +63,7 @@ PUTCommodityBatch = function (commodityBatch) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetCommodityBatchTable("rest/actions/commoditybatch-get","UserTable");
+            JSONGetCommodityBatchTable("rest/actions/commoditybatch-get", "UserTable");
         }
     };
     request.send();
@@ -106,7 +112,7 @@ setIsActiveUser = function (id, isActive) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetUserTable("rest/actions/user-get","UserTable");
+            JSONGetUserTable("rest/actions/user-get", "UserTable");
         }
     };
     request.send();
@@ -158,7 +164,7 @@ JSONGetUserTable = function (url, div) {
                 }
                 txt += "<td>" + objects[i].hashedPass + "</td>" +
                     "<td>" + objects[i].role + "</td>" +
-                    "<td><button type=\"button\" onclick=\"setIsActiveUser("  + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                    "<td><button type=\"button\" onclick=\"setIsActiveUser(" + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
@@ -182,6 +188,7 @@ function POST(url, object) {
         }
     };
 }
+
 JSONGetCommodityTable = function (url, div) {
     const obj = {table: "RaavareTable", limit: 20};
     const param = JSON.stringify(obj);
@@ -203,7 +210,7 @@ JSONGetCommodityTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-                    txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodity("  + objects[i].commodityNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodity(" + objects[i].commodityNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
@@ -220,7 +227,7 @@ setIsActiveCommodity = function (commodityNr, isActive) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetCommodityTable("rest/actions/commodity-get","RaavareTable");
+            JSONGetCommodityTable("rest/actions/commodity-get", "RaavareTable");
         }
     };
     request.send();
@@ -233,7 +240,7 @@ setIsActiveCommodityBatch = function (commodityBatchNr, isActive) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetCommodityBatchTable("rest/actions/commoditybatch-get","RaavareBatchTable");
+            JSONGetCommodityBatchTable("rest/actions/commoditybatch-get", "RaavareBatchTable");
         }
     };
     request.send();
@@ -266,7 +273,7 @@ JSONGetCommodityBatchTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-                txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodityBatch("  + objects[i].commodityBatchNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodityBatch(" + objects[i].commodityBatchNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
