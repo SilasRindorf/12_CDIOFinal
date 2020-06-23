@@ -11,21 +11,24 @@ import javax.ws.rs.core.MediaType;
 public class API {
     //_______________________________ SETUP _______________________________
     private ActionController controller = ActionController.getInstance();
-    public API(){
+
+    public API() {
 
     }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getter(){
+    public String getter() {
         return "Action page";
     }
+
     //_______________________________ LOGIN _______________________________
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("log-in")
-    public String logIn(LogInDTO logInDTO){
-        if (controller.logIn(logInDTO.getUsername(),logInDTO.getPassword())){
+    public String logIn(LogInDTO logInDTO) {
+        if (controller.logIn(logInDTO.getUsername(), logInDTO.getPassword())) {
             return "Logget ind";
         }
         return "Forkert brugernavn eller kode";
@@ -36,7 +39,7 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user-create")
-    public String createUser(UserDTO userDTO){
+    public String createUser(UserDTO userDTO) {
         return controller.createUser(userDTO);
     }
 
@@ -44,7 +47,7 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user-get")
-    public String getUsers(){
+    public String getUsers() {
         return controller.getUsers();
     }
 
@@ -55,9 +58,9 @@ public class API {
     public void putUser(@QueryParam("ID") int ID, @QueryParam("username") String username,
                         @QueryParam("ini") String ini, @QueryParam("CPR") String CPR, @QueryParam("nonHashedPassword") String nonHashedPassword,
                         @QueryParam("role") String role, @QueryParam("isActive") boolean isActive
-                        ){
+    ) {
 
-            controller.createUser(new UserDTO(ID,username,ini,CPR,nonHashedPassword,role,isActive));
+        controller.createUser(new UserDTO(ID, username, ini, CPR, nonHashedPassword, role, isActive));
     }
 
     @POST
@@ -79,7 +82,6 @@ public class API {
     //_______________________________ Commodity _______________________________
 
 
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commodity-post")
@@ -91,17 +93,18 @@ public class API {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commodityput")
-    public void putCommodity(@QueryParam("commodityNr") int commodityNr, @QueryParam("name") String name, @QueryParam("isActive") boolean isActive){
-        controller.createCommodity(new CommodityDTO(commodityNr,name,isActive));
+    public void putCommodity(@QueryParam("commodityNr") int commodityNr, @QueryParam("name") String name, @QueryParam("isActive") boolean isActive) {
+        controller.createCommodity(new CommodityDTO(commodityNr, name, isActive));
     }
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("commodity-get")
-    public String getCommodity(){
+    public String getCommodity() {
         return controller.getCommodities();
     }
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-commodity")
@@ -114,8 +117,8 @@ public class API {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commoditybatchput")
-    public void putReceipt(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive){
-        controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr,commodityNr,amount,provider,isActive));
+    public void putReceipt(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive) {
+        controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr, commodityNr, amount, provider, isActive));
     }
 
     @POST
@@ -130,9 +133,10 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("commoditybatch-get")
-    public String getCommodityBatch(){
+    public String getCommodityBatch() {
         return controller.getCommodityBatch();
     }
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-commoditybatch")
@@ -145,8 +149,8 @@ public class API {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptcompput")
-    public void putReceiptComp(@QueryParam("receiptNr") int receiptNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("tolerance") double tolerance){
-      controller.addReceiptComp(receiptNr,new ReceiptCompDTO(receiptNr,commodityNr,amount,tolerance,true));
+    public void putReceiptComp(@QueryParam("receiptNr") int receiptNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("tolerance") double tolerance) {
+        controller.addReceiptComp(receiptNr, new ReceiptCompDTO(receiptNr, commodityNr, amount, tolerance, true));
     }
 
     @POST
@@ -161,7 +165,7 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("receiptcomp-get")
-    public String getReceiptComps(@QueryParam("receiptNr") int receiptNr){
+    public String getReceiptComps(@QueryParam("receiptNr") int receiptNr) {
         return controller.getReceiptComps(receiptNr);
     }
     //_______________________________ Receipt DTO _______________________________
@@ -169,21 +173,22 @@ public class API {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptdtoput")
-    public void putReceiptDTO(@QueryParam("receiptNr") int receiptNr, @QueryParam("name") String name){
+    public void putReceiptDTO(@QueryParam("receiptNr") int receiptNr, @QueryParam("name") String name) {
         try {
             controller.createReceiptDTO(receiptNr, name);
-        }catch (Exception e ){
+        } catch (Exception e) {
             System.out.println("Der findes allerede en recept med nummer: " + receiptNr);
         }
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("receipt-dto-post")
     public String postReceiptDTO(ReceiptDTO receiptDTO) {
         try {
             controller.createReceiptDTO(receiptDTO.getReceiptNr(), receiptDTO.getName());
-        } catch (DALException e){
-            System.out.println("ReceiptDTO post: " + receiptDTO.getReceiptNr() + " " +  receiptDTO.getName());
+        } catch (DALException e) {
             e.printStackTrace();
             return "Kunne ikke lave recept";
         }
@@ -197,7 +202,7 @@ public class API {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptput")
-    public void putReceipt(@QueryParam("receiptNr") int receiptNr){
+    public void putReceipt(@QueryParam("receiptNr") int receiptNr) {
         controller.createReceipt(receiptNr);
     }
 
@@ -205,7 +210,7 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("receipt-get")
-    public String getReceipt(){
+    public String getReceipt() {
         return controller.getReceipts();
     }
 
@@ -216,6 +221,22 @@ public class API {
         controller.setIsActiveReceipt(receiptNr, isActive);
     }
 
+
+    //_______________________________ Product Batch _______________________________
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("product-batch-post")
+    public String postReceiptDTO(ProductBatchDTO productBatchDTO) {
+        return controller.createProductBatch(productBatchDTO);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("setisactive-receipt")
+    public String getProductbatches() {
+        return controller.getProductBathes();
+    }
 
 
 }

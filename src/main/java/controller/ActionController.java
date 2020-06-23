@@ -3,7 +3,6 @@ package controller;
 
 import DAL.interfaces.*;
 import DAL.nonPersistent.*;
-import DAL.persistent.*;
 import DTO.*;
 import RAM.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ActionController {
@@ -32,6 +32,9 @@ public class ActionController {
             COM.createCommodity(new Commodity(1, "Citron", true));
             COM.createBatch(new CommodityBatch(1, 1, 5000, "Mærsk", true));
             REC.createReceipt(new Receipt(1, "Bajer", receiptCompList, true));
+            ArrayList<ProductBatchComp> listie = new ArrayList<>();
+            listie.add(new ProductBatchComp(2.2,2.1,1,2,11,true));
+            PRO.createBatch(new ProductBatch(1,1,new Date(), ProductBatch.Status.IN_PRODUCTION,listie,true));
         } catch (Exception ignored) {
 
         }
@@ -233,4 +236,24 @@ public class ActionController {
 
     }
 
+    public String createProductBatch(ProductBatchDTO productBatchDTO) {
+        try {
+            PRO.createBatch(new ProductBatch(productBatchDTO));
+        } catch (DALException | JunkFormatException e) {
+            e.printStackTrace();
+            return "Kunne ikke laves";
+        }
+        return "produkt batch lavet";
+    }
+
+    public String getProductBathes() {
+        ObjectMapper objMapper = new ObjectMapper();
+        try {
+            return objMapper.writeValueAsString(PRO.getBatchList());
+        } catch (JsonProcessingException | DALException e) {
+            e.printStackTrace();
+            return "Kunne ikke skaffe produkt batches";
+        }
+    }
 }
+

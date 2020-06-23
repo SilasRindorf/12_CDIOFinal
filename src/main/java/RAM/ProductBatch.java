@@ -1,5 +1,7 @@
 package RAM;
 
+import DTO.ProductBatchDTO;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
@@ -24,6 +26,14 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
         this.receiptNr = receiptNr;
         this.created = created;
         this.status = status;
+        this.productComps = Collections.unmodifiableList(productComps);
+    }
+
+    public ProductBatch(ProductBatchDTO productBatchDTO) {
+        super(productBatchDTO.getProductBatchNr(), productBatchDTO.isActive());
+        this.receiptNr = productBatchDTO.getReceiptNr();
+        this.created = productBatchDTO.getCreated();
+        this.status = productBatchDTO.getStatus();
         this.productComps = Collections.unmodifiableList(productComps);
     }
 
@@ -58,7 +68,6 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
                 "id = " + getID() + " | " +
                 "productComps=" + builder.toString() + '}';
     }
-
 
     public enum Status {
         CREATED,
