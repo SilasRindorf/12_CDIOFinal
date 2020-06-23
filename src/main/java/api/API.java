@@ -1,6 +1,7 @@
 package api;
 
 import DAL.interfaces.DALException;
+import DAL.interfaces.JunkFormatException;
 import DTO.*;
 import controller.ActionController;
 
@@ -39,7 +40,7 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user-create")
-    public String createUser(UserDTO userDTO) {
+    public String createUser(UserDTO userDTO) throws JunkFormatException, DALException {
         return controller.createUser(userDTO);
     }
 
@@ -58,7 +59,7 @@ public class API {
     public void putUser(@QueryParam("ID") int ID, @QueryParam("username") String username,
                         @QueryParam("ini") String ini, @QueryParam("CPR") String CPR, @QueryParam("nonHashedPassword") String nonHashedPassword,
                         @QueryParam("role") String role, @QueryParam("isActive") boolean isActive
-    ) {
+    ) throws JunkFormatException, DALException {
 
         controller.createUser(new UserDTO(ID, username, ini, CPR, nonHashedPassword, role, isActive));
     }
@@ -67,7 +68,12 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("user-post")
     public String postUser(UserDTO userDTO) {
-        controller.createUser(userDTO);
+        try {
+            controller.createUser(userDTO);
+        } catch (JunkFormatException | DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
         return "SUCCESS MY FRIEND";
     }
 

@@ -31,7 +31,6 @@ function finishCreateUser() {
         var nonHashedPass = document.getElementById("hashedPass").value;
         try {
             createUser("rest/actions/user-post", ID, username, ini, CPR, nonHashedPass, role, "Aktiv");
-            alert("everything went just right now go fuck yourself")
         }
         catch(e) {
             alert("Wrong error handling");

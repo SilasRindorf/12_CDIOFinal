@@ -17,7 +17,12 @@ function POSTF(url, object, caseNumber) {
     let sendStr = JSON.stringify(object);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
+
         if (request.readyState === 4 && request.status === 200) {
+            if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
+                alert(request.responseText.substring(6,request.responseText.length-1));
+                return;
+            }
             doFunction(caseNumber,request.responseText);
         }
     };

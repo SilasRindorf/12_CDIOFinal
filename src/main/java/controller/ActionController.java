@@ -71,15 +71,12 @@ public class ActionController {
     }
 
     // ------------------------------- User methods ------------------------------------------
-    public String createUser(UserDTO userDTO) {
-        try {
+    public String createUser(UserDTO userDTO) throws JunkFormatException, DALException {
+
             USERS.createUser(new User(userDTO.getID(), userDTO.getUsername(),
                     userDTO.getIni(), userDTO.getCPR(), User.hash(userDTO.getNonHashedPassword()),
                     User.Role.valueOf(userDTO.getRole()), userDTO.isActive()));
-        } catch (DALException | JunkFormatException e) {
-            e.printStackTrace();
-            return "Bruger kunne ikke laves";
-        }
+
         return "Bruger lavet";
     }
 
