@@ -1,6 +1,7 @@
 package DTO;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class PrintDTO {
     public PrintDTO() {
     }
 
-    public PrintDTO(int receiptNr, int productBatchNr, List<innerClass> list, Date date, double tara, double netto) {
+    public PrintDTO(int receiptNr, int productBatchNr, ArrayList<innerClass> list, Date date, double tara, double netto) {
         this.receiptNr = receiptNr;
         this.productBatchNr = productBatchNr;
         this.list = list;
@@ -31,7 +32,7 @@ public class PrintDTO {
         this.netto = netto;
     }
 
-    private double getNetto(){
+    public double getNetto(){
         double counter = 0;
         for (innerClass inner:
              list) {
@@ -40,7 +41,7 @@ public class PrintDTO {
         return counter;
     }
 
-    private double getTara(){
+    public double getTara(){
         double counter = 0;
         for (innerClass inner:
                 list) {
@@ -101,9 +102,8 @@ public class PrintDTO {
                 '}';
     }
 
-    private static class innerClass{
-        private int part;
-        private int amount;
+    public static class innerClass{
+        private double amount;
         private double tolerance;
         private double tara;
         private double netto;
@@ -116,55 +116,22 @@ public class PrintDTO {
         }
 
 
-        public innerClass(int part, int amount, double tolerance, double netto, double tara, int commodityBatchNr, int commodityNr, String commodityName, String ini) {
-            this.part = part;
+        public innerClass(double amount, double tolerance, double tara, double netto, int commodityBatchNr, int commodityNr, String commodityName, String ini) {
             this.amount = amount;
             this.tolerance = tolerance;
-            this.netto = netto;
             this.tara = tara;
+            this.netto = netto;
             this.commodityBatchNr = commodityBatchNr;
             this.commodityNr = commodityNr;
             this.commodityName = commodityName;
             this.ini = ini;
         }
 
-        public double getTara() {
-            return tara;
-        }
-
-        public void setTara(double tara) {
-            this.tara = tara;
-        }
-
-        public int getCommodityNr() {
-            return commodityNr;
-        }
-
-        public void setCommodityNr(int commodityNr) {
-            this.commodityNr = commodityNr;
-        }
-
-        public String getCommodityName() {
-            return commodityName;
-        }
-
-        public void setCommodityName(String commodityName) {
-            this.commodityName = commodityName;
-        }
-
-        public int getPart() {
-            return part;
-        }
-
-        public void setPart(int part) {
-            this.part = part;
-        }
-
-        public int getAmount() {
+        public double getAmount() {
             return amount;
         }
 
-        public void setAmount(int amount) {
+        public void setAmount(double amount) {
             this.amount = amount;
         }
 
@@ -174,6 +141,14 @@ public class PrintDTO {
 
         public void setTolerance(double tolerance) {
             this.tolerance = tolerance;
+        }
+
+        public double getTara() {
+            return tara;
+        }
+
+        public void setTara(double tara) {
+            this.tara = tara;
         }
 
         public double getNetto() {
@@ -192,27 +167,28 @@ public class PrintDTO {
             this.commodityBatchNr = commodityBatchNr;
         }
 
+        public int getCommodityNr() {
+            return commodityNr;
+        }
+
+        public void setCommodityNr(int commodityNr) {
+            this.commodityNr = commodityNr;
+        }
+
+        public String getCommodityName() {
+            return commodityName;
+        }
+
+        public void setCommodityName(String commodityName) {
+            this.commodityName = commodityName;
+        }
+
         public String getIni() {
             return ini;
         }
 
         public void setIni(String ini) {
             this.ini = ini;
-        }
-
-        @Override
-        public String toString() {
-            return "innerClass{" +
-                    "part=" + part +
-                    ", amount=" + amount +
-                    ", tolerance=" + tolerance +
-                    ", tara=" + tara +
-                    ", netto=" + netto +
-                    ", commodityBatchNr=" + commodityBatchNr +
-                    ", commodityNr=" + commodityNr +
-                    ", commodityName='" + commodityName + '\'' +
-                    ", ini='" + ini + '\'' +
-                    '}';
         }
     }
 }

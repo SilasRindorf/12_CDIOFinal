@@ -1,8 +1,10 @@
 package RAM;
 
+import DTO.PrintDTO;
 import DTO.ProductBatchDTO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -19,9 +21,10 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
     private int receiptNr;
     private Date created;
     private Status status;
+    private PrintDTO printDTO;
     private List<ProductBatchComp> productComps;
 
-    public ProductBatch(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchComp> productComps, boolean isActive) {
+    public ProductBatch(int productBatchNr, int receiptNr, Date created, Status status, PrintDTO printDTO , List<ProductBatchComp> productComps, boolean isActive) {
         super(productBatchNr, isActive);
         this.receiptNr = receiptNr;
         this.created = created;
@@ -34,39 +37,62 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
         this.receiptNr = productBatchDTO.getReceiptNr();
         this.created = productBatchDTO.getCreated();
         this.status = productBatchDTO.getStatus();
-        this.productComps = Collections.unmodifiableList(productComps);
+        productComps = new ArrayList<>();
+        for (int i = 0; i < productBatchDTO.getProductComps().size(); i++) {
+            productComps.add(new ProductBatchComp(productBatchDTO.getProductComps().get(i)));
+        }
     }
 
 
-    public int getReceipt() {
+    public int getReceiptNr() {
         return receiptNr;
+    }
+
+    public void setReceiptNr(int receiptNr) {
+        this.receiptNr = receiptNr;
     }
 
     public Date getCreated() {
         return created;
     }
 
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     public Status getStatus() {
         return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public PrintDTO getPrintDTO() {
+        return printDTO;
+    }
+
+    public void setPrintDTO(PrintDTO printDTO) {
+        this.printDTO = printDTO;
     }
 
     public List<ProductBatchComp> getProductComps() {
         return productComps;
     }
 
+    public void setProductComps(List<ProductBatchComp> productComps) {
+        this.productComps = productComps;
+    }
+
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (ProductBatchComp pbc :
-                productComps) {
-            builder.append("\n\t").append(pbc.toString());
-        }
-        return "ProductBatchDTO{" + "receiptNr=" + receiptNr + " | " +
-                "created=" + created + " | " +
-                "status=" + status + " | " +
-                "isActive=" + getIsActive() + " | " +
-                "id = " + getID() + " | " +
-                "productComps=" + builder.toString() + '}';
+        return "ProductBatch{" +
+                "receiptNr=" + receiptNr +
+                ", created=" + created +
+                ", status=" + status +
+                ", printDTO=" + printDTO +
+                ", productComps=" + productComps +
+                '}';
     }
 
     public enum Status {

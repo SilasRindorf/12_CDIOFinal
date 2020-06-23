@@ -77,7 +77,7 @@ function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodity
     POSTF(url, productBatchComp,9)
 }
 
-// Made something
+
 function createProductBatch(url, receiptNr, created, status, productComps) {
     const productBatch = {
         "receiptNr": receiptNr,

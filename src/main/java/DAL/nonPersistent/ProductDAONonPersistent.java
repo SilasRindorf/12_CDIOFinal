@@ -56,8 +56,8 @@ public class ProductDAONonPersistent implements IProductDAO {
                 throw new DALException("There is already a productbatch where ID = " + prod.getID());
             }
         }
-        if (!isReceiptInDatabase(productBatch.getReceipt())) {
-            throw new DALException("Receipt id: " + productBatch.getReceipt() + " is not in database");
+        if (!isReceiptInDatabase(productBatch.getReceiptNr())) {
+            throw new DALException("Receipt id: " + productBatch.getReceiptNr() + " is not in database");
         }
         productBatches.add(productBatch);
     }
@@ -106,7 +106,7 @@ public class ProductDAONonPersistent implements IProductDAO {
         if (prod.getIsActive() == isActive) {
             throw new DALException("The productbatch activity is already " + isActive);
         }
-        ProductBatch newBatch = new ProductBatch(pbId, prod.getReceipt(), prod.getCreated(), prod.getStatus(), prod.getProductComps(), isActive);
+        ProductBatch newBatch = new ProductBatch(pbId, prod.getReceiptNr(), prod.getCreated(), prod.getStatus(),prod.getPrintDTO(), isActive);
         try {
             updateBatch(newBatch);
         } catch (JunkFormatException e) {

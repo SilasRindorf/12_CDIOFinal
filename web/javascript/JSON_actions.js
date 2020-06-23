@@ -58,7 +58,6 @@ function doFunction(caseNumber, text){
             console.log(text);
             break;
     }
-
 }
 
 PUTUser = function (user) {

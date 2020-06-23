@@ -18,11 +18,30 @@ public class ProductBatchDTO {
     private int receiptNr;
     private Date created;
     private ProductBatch.Status status;
+    private PrintDTO printDTO;
     private List<ProductBatchCompDTO> productComps;
     private boolean isActive;
 
     public ProductBatchDTO() {
 
+    }
+
+    public ProductBatchDTO(int productBatchNr, int receiptNr, Date created, ProductBatch.Status status, PrintDTO printDTO, List<ProductBatchCompDTO> productComps,  boolean isActive) {
+        this.productBatchNr = productBatchNr;
+        this.receiptNr = receiptNr;
+        this.created = created;
+        this.status = status;
+        this.printDTO = printDTO;
+        this.productComps = productComps;
+        this.isActive = isActive;
+    }
+
+    public PrintDTO getPrintDTO() {
+        return printDTO;
+    }
+
+    public void setPrintDTO(PrintDTO printDTO) {
+        this.printDTO = printDTO;
     }
 
     public int getProductBatchNr() {
@@ -72,4 +91,6 @@ public class ProductBatchDTO {
     public void setProductComps(List<ProductBatchCompDTO> productComps) {
         this.productComps = productComps;
     }
+
+
 }

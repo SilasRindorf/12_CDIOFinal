@@ -4,14 +4,10 @@ import DAL.interfaces.*;
 import DAL.nonPersistent.*;
 import DAL.persistent.*;
 import RAM.*;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -247,7 +243,7 @@ public class TestProductDAO {
         assertEquals(expected.getIsActive(), got.getIsActive());
         assertEquals(expected.getStatus(), got.getStatus());
         assertEquals(expected.getCreated(), got.getCreated());
-        assertEquals(expected.getReceipt(), got.getReceipt());
+        assertEquals(expected.getReceiptNr(), got.getReceiptNr());
         assertEquals(expected.getProductComps(), got.getProductComps());
 
     }
@@ -286,7 +282,7 @@ public class TestProductDAO {
         assertEquals(expected.getIsActive(), got.getIsActive());
         assertEquals(expected.getStatus(), got.getStatus());
         assertEquals(expected.getCreated(), got.getCreated());
-        assertEquals(expected.getReceipt(), got.getReceipt());
+        assertEquals(expected.getReceiptNr(), got.getReceiptNr());
         assertEquals(expected.getProductComps(), got.getProductComps());
     }
 
