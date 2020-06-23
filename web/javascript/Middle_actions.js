@@ -42,6 +42,7 @@ function createCommodity(url, name, commodityNr) {
     const commodity = {
         "name": name,
         "commodityNr": commodityNr,
+        "active" : true
     };
     POSTF(url, commodity,6)
     //PUTCommodity(commodity)

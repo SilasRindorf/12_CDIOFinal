@@ -176,12 +176,6 @@ function addReceptbatchComponent() {
         var amount = document.getElementById("maengdeRecept").value;
         var tolerance = document.getElementById("tolerance").value;
 
-        const receiptComp = {
-            "receiptNr": receiptNr,
-            "commodityNr": commodityNr,
-            "amount": amount,
-            "tolerance": tolerance,
-        };
         createReceiptComp("rest/actions/receipt-comp-post",receiptNr,commodityNr,amount,tolerance);
         resetValuesReceptComponentFarmaceut()
     }
