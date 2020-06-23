@@ -255,5 +255,19 @@ public class ActionController {
             return "Kunne ikke skaffe produkt batches";
         }
     }
+
+    //_______________________________ Printer _______________________________
+    public String getPrint(){
+        PrintDTO printer = new PrintDTO();
+
+        ObjectMapper objMapper = new ObjectMapper();
+        try {
+            return objMapper.writeValueAsString(printer);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "Kunne ikke printe";
+        }
+    }
+
 }
 
