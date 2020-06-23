@@ -3,11 +3,13 @@ package controller;
 
 import DAL.interfaces.*;
 import DAL.nonPersistent.*;
+import DAL.persistent.*;
 import DTO.*;
 import RAM.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,10 +17,10 @@ import java.util.List;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
-    private final IUserDAO USERS = new UserDAONonPersistent();
-    private final ICommodityDAO COM = new CommodityDAONonPersistent();
-    private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
-    private final IProductDAO PRO = new ProductDAONonPersistent(REC);
+    private final IUserDAO USERS = new UserDAO(FileAPI.USER_DAO_FILE);
+    private final ICommodityDAO COM = new CommodityDAO(FileAPI.COMMODITY_DAO_FILE);
+    private final IReceiptDAO REC = new ReceiptDAO(FileAPI.RECEIPT_DAO_FILE,COM);
+    private final IProductDAO PRO = new ProductDAO(FileAPI.PRODUCT_DAO_FILE,REC);
     // TODO: Remove test fields
     private final ReceiptComp RECC = new ReceiptComp(1, 400, 2);
     private final List<ReceiptComp> receiptCompList = new ArrayList<ReceiptComp>();
