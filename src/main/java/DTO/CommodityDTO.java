@@ -53,4 +53,3 @@ public class CommodityDTO {
                 ", isActive=" + isActive + "}";
     }
 }
-//I  MADE SOMETHING
