@@ -407,14 +407,14 @@ JSONGetProductBatchTable = function (url, div) {
 };
 
 printProductionBatch = function (productBatchNr) {
-    hideall();
+    hideallProductBatch();
     document.getElementById("printPlace").style.visibility = "true";
     POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr,productBatchNr,2);
 
 }
 
 // DENNE HIDEALL RØRES IKKE, JAVASCRIPT ER LORT OG DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
-function hideall() {
+function hideallProductBatch() {
     document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";
     document.getElementById("logInForm").style.visibility = "hidden";
     document.getElementById("welcome").style.visibility = "hidden";
