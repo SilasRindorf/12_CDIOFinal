@@ -175,6 +175,14 @@ public class API {
         return "SUCCESS MY FRIEND";
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("receipt-comp-post")
+    public String postReceiptComp(ReceiptCompDTO receiptCompDTO) {
+        controller.addReceiptComp(receiptCompDTO.getReceiptNr(), receiptCompDTO);
+        return "SUCCESS MY FRIEND";
+    }
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptput")
