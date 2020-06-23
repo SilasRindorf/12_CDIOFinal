@@ -10,7 +10,7 @@ function GET(url) {
     request.open("GET", url, true);
     request.send("x= " + param);
 }
-function POSTF(url, object, doFunction) {
+function POSTF(url, object, caseNumber) {
     const request = new XMLHttpRequest();
     request.open("POST", url, true);
     request.responseType = "text";
@@ -18,25 +18,47 @@ function POSTF(url, object, doFunction) {
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-            doFunction(request.responseText);
+            doFunction(caseNumber,request.responseText);
         }
     };
     request.send(sendStr);
 }
 
-function POSTAndAlert(url, object) {
-    const request = new XMLHttpRequest();
-    request.open("POST", url, true);
-    request.responseType = "text";
-    let sendStr = JSON.stringify(object);
-    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-    request.onreadystatechange = function () {
-        if (request.readyState === 4 && request.status === 200) {
-            alert(request.responseText);
-        }
-    };
+function doFunction(caseNumber, text){
+    switch (caseNumber) {
+        case 1:
+            break;
+        case 2:
+            console.log(text);
+            break;
+        case 3:
+            alert(text);
+            break;
+        case 4:
+            JSONGetUserTable("rest/actions/user-get");
+            break;
+        case 5:
+            JSONGetCommodityBatchTable("rest/actions/commoditybatch-get");
+            break;
+        case 6:
+            JSONGetCommodityTable("rest/actions/commodity-get");
+            break;
+        case 7:
+            JSONGetReceiptTable("rest/actions/receipt-get");
+            break;
+        case 8:
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get");
+            break;
+        case 9:
+            //product Batch comp
+            console.log(text);
+            break;
+        case 10:
+            //product Batch
+            console.log(text);
+            break;
+    }
 
-    request.send(sendStr);
 }
 
 PUTUser = function (user) {
@@ -182,20 +204,6 @@ JSONGetUserTable = function (url, div) {
     request.open("GET", url, true);
     request.send("x= " + param);
 };
-
-
-function POST(url, object) {
-    const request = new XMLHttpRequest();
-    request.open("POST", url, true);
-    let sendStr = JSON.stringify(object);
-    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-
-    request.send(sendStr);
-    request.onreadystatechange = function () {
-        if (request.readyState === 4 && request.status === 200) {
-        }
-    };
-}
 
 JSONGetCommodityTable = function (url, div) {
     const obj = {table: "RaavareTable", limit: 20};
@@ -366,35 +374,3 @@ JSONGetReceiptCompTable = function (url, div) {
     request.open("GET", url, true);
     request.send("x= " + param);
 };
-
-/*
-function POSTUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
-    const request = new XMLHttpRequest();
-    request.open("POST", url, true);
-    isActive = isActive === "Aktiv";
-    ID = parseInt(ID);
-    const userDTO = {
-        "ID": ID,
-        "username": username,
-        "ini": ini,
-        "CPR": CPR,
-        "nonHashedPass": nonHashedPass,
-        "role": role,
-        "isActive": isActive
-    };
-
-
-    let sendStr = JSON.stringify(userDTO);
-    console.log(sendStr);
-    request.
-    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-    request.send(sendStr);
-
-    request.onreadystatechange = function () {
-        if (request.readyState === 4 && request.status === 200) {
-            alert("Succes")
-        }
-    };
-}
-
- */

@@ -107,14 +107,10 @@ function goToRaavare() {
 function opretRaavare() {
     if(!document.getElementById("raavareNummer").value == "" &&
     !document.getElementById("raavareNavn").value == ""){
-        var commodityNr = document.getElementById("raavareNummer").value;
-        var name = document.getElementById("raavareNavn").value;
-        const commodity = {
-            "name": name,
-            "commodityNr": commodityNr
-        };
+        const commodityNr = document.getElementById("raavareNummer").value;
+        const name = document.getElementById("raavareNavn").value;
         resetValuesRaavareFarmaceut();
-        createCommodity();
+        createCommodity("rest/actions/commodity-post",name,commodityNr);
     }
     else {
         alert("Please fill out all the fields!");
@@ -124,16 +120,12 @@ function opretRaavare() {
 function createReceipt(){
     if(!document.getElementById("recept2Nr").value =="" &&
     !document.getElementById("receptNavn").value == ""){
-        var receiptNr = document.getElementById("recept2Nr").value;
-        var name = document.getElementById("receptNavn").value;
+        const receiptNr = document.getElementById("recept2Nr").value;
+        const name = document.getElementById("receptNavn").value;
 
-        const receipt = {
-            "receiptNr": receiptNr,
-            "name": name
-        };
         receiptNrMemory = receiptNr;
-        resetValuesRecept2()
-        PUTReceiptDTO(receipt)
+        resetValuesRecept2();
+        createReceiptAction("rest/actions/receipt-dto-post",receiptNr,name);
     }
     else
     {
@@ -190,8 +182,8 @@ function addReceptbatchComponent() {
             "amount": amount,
             "tolerance": tolerance,
         };
+        createReceiptComp("rest/actions/receipt-comp-post",receiptNr,commodityNr,amount,tolerance);
         resetValuesReceptComponentFarmaceut()
-        PUTReceiptComp(receiptComp);
     }
 }
 

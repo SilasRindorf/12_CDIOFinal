@@ -2,10 +2,7 @@ package controller;
 
 
 import DAL.interfaces.*;
-import DAL.nonPersistent.CommodityDAONonPersistent;
-import DAL.nonPersistent.ProductDAONonPersistent;
-import DAL.nonPersistent.ReceiptDAONonPersistent;
-import DAL.nonPersistent.UserDAONonPersistent;
+import DAL.nonPersistent.*;
 import DAL.persistent.*;
 import DTO.*;
 import RAM.*;

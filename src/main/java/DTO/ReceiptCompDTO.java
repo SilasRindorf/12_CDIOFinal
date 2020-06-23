@@ -8,12 +8,14 @@ package DTO;
  *
  */
 public class ReceiptCompDTO {
+    private int receiptNr;
     private int commodityNr;
     private double amount;
     private double tolerance;
     private boolean isActive;
 
-    public ReceiptCompDTO(int commodityNr, double amount, double tolerance, boolean isActive) {
+    public ReceiptCompDTO(int receiptNr, int commodityNr, double amount, double tolerance, boolean isActive) {
+        this.receiptNr = receiptNr;
         this.commodityNr = commodityNr;
         this.amount = amount;
         this.tolerance = tolerance;
@@ -22,6 +24,14 @@ public class ReceiptCompDTO {
 
     public ReceiptCompDTO (){
 
+    }
+
+    public int getReceiptNr() {
+        return receiptNr;
+    }
+
+    public void setReceiptNr(int receiptNr) {
+        this.receiptNr = receiptNr;
     }
 
     public int getCommodityNr() {

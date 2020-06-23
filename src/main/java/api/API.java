@@ -1,5 +1,6 @@
 package api;
 
+import DAL.interfaces.DALException;
 import DTO.*;
 import controller.ActionController;
 
@@ -146,7 +147,7 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptcompput")
     public void putReceiptComp(@QueryParam("receiptNr") int receiptNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("tolerance") double tolerance){
-      controller.addReceiptComp(receiptNr,new ReceiptCompDTO(commodityNr,amount,tolerance,true));
+      controller.addReceiptComp(receiptNr,new ReceiptCompDTO(receiptNr,commodityNr,amount,tolerance,true));
     }
 
     @PUT
@@ -159,6 +160,19 @@ public class API {
             System.out.println("Der findes allerede en recept med nummer: " + receiptNr);
         }
     }
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("receipt-dto-post")
+    public String postReceiptDTO(ReceiptDTO receiptDTO) {
+        try {
+            controller.createReceiptDTO(receiptDTO.getReceiptNr(), receiptDTO.getName());
+        } catch (DALException e){
+            return "Kunne ikke lave recept";
+        }
+
+        return "SUCCESS MY FRIEND";
+    }
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptput")

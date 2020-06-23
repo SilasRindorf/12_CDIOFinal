@@ -5,7 +5,7 @@ function logInAction(url, username, password) {
         "password": password
     };
 
-    POSTAndAlert(url, logInDTO);
+    POSTF(url, logInDTO,3);
 
 }
 
@@ -23,58 +23,9 @@ function createUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) 
         "active": isActive
     };
     //PUTUser(userDTO)
-    POSTF(url,userDTO,JSONGetUserTable("rest/actions/user-get", "UserTable"));
+    POSTF(url,userDTO,4);
 }
 
-JSONDelete = function (div,id) {
-    const request = new XMLHttpRequest();
-    request.open("PUT", "rest/person/delete-user/?id=" + id, true);
-    request.setRequestHeader('Content-type','application/json; charset=utf-8');
-    request.onload = function () {
-        //alert("readyState=" + request.readyState+ "\nstatus=" +  request.status);
-        if (request.readyState === 4 && request.status === 204){
-            getAllUsers();
-        }
-    };
-    request.send();
-};
-
-function createReceipt(url, name, receiptComps) {
-    const receipt = {
-        "name": name,
-        "receiptComps": receiptComps,
-    };
-    POSTF(url, receipt)
-}
-
-function createReceiptComp(url, commodityNr, amount, tolerance) {
-    const receiptComp = {
-        "commodityNr": commodityNr,
-        "amount": amount,
-        "tolerance": tolerance
-    };
-    POSTF(url, receiptComp)
-}
-function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodityNr, userID) {
-    const productBatchComp = {
-        "tara": tara,
-        "weighted": weighted,
-        "commodityBatchNr": commodityBatchNr,
-        "commodityNr": commodityNr,
-        "userID": userID
-    };
-    POSTF(url, productBatchComp)
-}
-
-function createCommodity(url, name, commodityNr) {
-    const commodity = {
-        "name": name,
-        "commodityNr": commodityNr,
-    };
-    POSTF(url, commodity)
-    //PUTCommodity(commodity)
-
-}
 function createCommodityBatch(url, commodityBatchNr, commodityNr, amount, provider) {
     const commodityBatch = {
         "commodityBatchNr": commodityBatchNr,
@@ -84,8 +35,48 @@ function createCommodityBatch(url, commodityBatchNr, commodityNr, amount, provid
         "active": true
     };
     //PUTCommodityBatch(commodityBatch);
-    POSTF(url, commodityBatch);
+    POSTF(url, commodityBatch,5);
 }
+
+function createCommodity(url, name, commodityNr) {
+    const commodity = {
+        "name": name,
+        "commodityNr": commodityNr,
+    };
+    POSTF(url, commodity,6)
+    //PUTCommodity(commodity)
+
+}
+function createReceiptAction(url, receiptNr, name) {
+    const receipt = {
+        "receiptNr": receiptNr,
+        "name": name,
+    };
+    //PUTReceiptDTO(receipt)
+    POSTF(url, receipt,7)
+}
+
+function createReceiptComp(url,receiptNr, commodityNr, amount, tolerance) {
+    const receiptComp = {
+        "receiptNr" : receiptNr,
+        "commodityNr": commodityNr,
+        "amount": amount,
+        "tolerance": tolerance
+    };
+    //PUTReceiptComp(receiptComp)
+    POSTF(url, receiptComp,8)
+}
+function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodityNr, userID) {
+    const productBatchComp = {
+        "tara": tara,
+        "weighted": weighted,
+        "commodityBatchNr": commodityBatchNr,
+        "commodityNr": commodityNr,
+        "userID": userID
+    };
+    POSTF(url, productBatchComp,9)
+}
+
 
 function createProductBatch(url, receiptNr, created, status, productComps) {
     const productBatch = {
@@ -94,5 +85,5 @@ function createProductBatch(url, receiptNr, created, status, productComps) {
         "status": status,
         "productComps": productComps
     };
-    POSTF(url, productBatch)
+    POSTF(url, productBatch,10)
 }
