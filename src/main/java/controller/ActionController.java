@@ -3,6 +3,7 @@ package controller;
 
 import DAL.interfaces.*;
 import DAL.nonPersistent.CommodityDAONonPersistent;
+import DAL.nonPersistent.ProductDAONonPersistent;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
 import DAL.nonPersistent.UserDAONonPersistent;
 import DAL.persistent.*;
@@ -17,10 +18,10 @@ import java.util.List;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
-    private final IUserDAO USERS = new UserDAO(FileAPI.USER_DAO_FILE);
-    private final ICommodityDAO COM = new CommodityDAO(FileAPI.COMMODITY_DAO_FILE);
-    private final IReceiptDAO REC = new ReceiptDAO(FileAPI.RECEIPT_DAO_FILE,COM);
-    private final IProductDAO PRO = new ProductDAO(FileAPI.RECEIPT_DAO_FILE,REC);
+    private final IUserDAO USERS = new UserDAONonPersistent();
+    private final ICommodityDAO COM = new CommodityDAONonPersistent();
+    private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
+    private final IProductDAO PRO = new ProductDAONonPersistent(REC);
     // TODO: Remove test fields
     private final ReceiptComp RECC = new ReceiptComp(1, 400, 2);
     private final List<ReceiptComp> receiptCompList = new ArrayList<ReceiptComp>();
@@ -44,10 +45,10 @@ public class ActionController {
         if (ActionControllerInstance == null) {
             try {
                 ActionControllerInstance = new ActionController();
-            } catch(Exception e) {
+            } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
-                throw new AssertionError("Getting an instance should not fail");
             }
+
         }
 
         return ActionControllerInstance;
