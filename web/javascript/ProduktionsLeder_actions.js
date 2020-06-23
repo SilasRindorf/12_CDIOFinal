@@ -31,22 +31,6 @@ function goToProduktbatch() {
     document.getElementById("produktbatch").style.visibility = "visible";
 }
 
-function finishCreateBatch() {
-    var tableBody = document.getElementById("tableBatch");
-    var td1 = document.createElement("td");
-    var td2 = document.createElement("td");
-    var td3 = document.createElement("td");
-    var row = document.createElement("tr");
-    var status = "Oprettet"
-    td1.innerHTML = document.getElementById("receptNr").value;
-    td2.innerHTML = document.getElementById("dato").value;
-    td3.innerHTML = status;
-    row.appendChild(td1);
-    row.appendChild(td2);
-    row.appendChild(td3);
-    tableBody.appendChild(row);
-    resetValuesCreateBatch();
-}
 
 function resetValuesCreateBatch() {
     document.getElementById("receptNr").value = "";
@@ -61,7 +45,7 @@ function goToAfvejning1_Produktionsleder() {
 
 function goToAfvejning2_Produktionsleder() {
     hideall();
-    document.getElementById("productbatchID_Produktionsleder").value = ""
+    document.getElementById("productbatchID_Produktionsleder").value = "";
     document.getElementById("afvejning2_Produktionsleder").style.visibility = "visible";
     document.getElementById("statusOprettet_Produktionsleder").style.visibility = "visible";
 }

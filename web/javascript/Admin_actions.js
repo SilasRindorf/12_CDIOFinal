@@ -38,7 +38,6 @@ function finishCreateUser() {
 
 }
 
-
 function resetValuesCreateUser() {
     document.getElementById("id").value = "";
     document.getElementById("username").value = "";

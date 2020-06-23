@@ -53,4 +53,3 @@ public class CommodityDTO {
                 ", isActive=" + isActive + "}";
     }
 }
-//ARBEJDER HÅRDT

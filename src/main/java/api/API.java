@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/actions")
 public class API {
+    //_______________________________ SETUP _______________________________
     private ActionController controller = ActionController.getInstance();
     public API(){
 
@@ -18,7 +19,7 @@ public class API {
     public String getter(){
         return "Action page";
     }
-
+    //_______________________________ LOGIN _______________________________
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -29,14 +30,7 @@ public class API {
         }
         return "Forkert brugernavn eller kode";
     }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("test")
-    public String test(TestDTO testDTO){
-        return "Success is at hand";
-    }
+    //_______________________________ USER _______________________________
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -82,13 +76,9 @@ public class API {
         controller.setIsActiveUser(ID, isActive);
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("commodity-batch-post")
-    public String postCommodityBatch(CommodityBatchDTO commodityBatchDTO) {
-        controller.createCommodityBatch(commodityBatchDTO);
-        return "SUCCESS MY FRIEND";
-    }
+    //_______________________________ Commodity _______________________________
+
+
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -119,6 +109,8 @@ public class API {
         controller.setIsActiveCommodity(commodityNr, isActive);
     }
 
+    //_______________________________ Commodity Batch _______________________________
+
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commoditybatchput")
@@ -126,7 +118,13 @@ public class API {
         controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr,commodityNr,amount,provider,isActive));
     }
 
-
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("commodity-batch-post")
+    public String postCommodityBatch(CommodityBatchDTO commodityBatchDTO) {
+        controller.createCommodityBatch(commodityBatchDTO);
+        return "SUCCESS MY FRIEND";
+    }
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
@@ -142,6 +140,7 @@ public class API {
         controller.setIsActiveCommodityBatch(commodityBatchNr, isActive);
     }
 
+    //_______________________________ Receipt Comp _______________________________
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -149,6 +148,23 @@ public class API {
     public void putReceiptComp(@QueryParam("receiptNr") int receiptNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("tolerance") double tolerance){
       controller.addReceiptComp(receiptNr,new ReceiptCompDTO(receiptNr,commodityNr,amount,tolerance,true));
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("receipt-comp-post")
+    public String postReceiptComp(ReceiptCompDTO receiptCompDTO) {
+        controller.addReceiptComp(receiptCompDTO.getReceiptNr(), receiptCompDTO);
+        return "SUCCESS MY FRIEND";
+    }
+
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("receiptcomp-get")
+    public String getReceiptComps(@QueryParam("receiptNr") int receiptNr){
+        return controller.getReceiptComps(receiptNr);
+    }
+    //_______________________________ Receipt DTO _______________________________
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -175,13 +191,8 @@ public class API {
         return "SUCCESS MY FRIEND";
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("receipt-comp-post")
-    public String postReceiptComp(ReceiptCompDTO receiptCompDTO) {
-        controller.addReceiptComp(receiptCompDTO.getReceiptNr(), receiptCompDTO);
-        return "SUCCESS MY FRIEND";
-    }
+
+    //_______________________________ Receipt _______________________________
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -196,14 +207,6 @@ public class API {
     @Path("receipt-get")
     public String getReceipt(){
         return controller.getReceipts();
-    }
-
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("receiptcomp-get")
-    public String getReceiptComps(@QueryParam("receiptNr") int receiptNr){
-        return controller.getReceiptComps(receiptNr);
     }
 
     @PUT

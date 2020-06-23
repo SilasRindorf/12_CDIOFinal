@@ -9,7 +9,6 @@ function logInAction(url, username, password) {
 
 }
 
-
 function createUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
     isActive = isActive === "Aktiv";
     ID = parseInt(ID);
