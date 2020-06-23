@@ -4,6 +4,7 @@ import RAM.ProductBatch;
 import RAM.ProductBatchComp;
 
 import java.util.Date;
+import java.util.List;
 
 /***
  * Initial version created by: Silas
@@ -17,7 +18,7 @@ public class ProductBatchDTO {
     private int receiptNr;
     private Date created;
     private ProductBatch.Status status;
-    private ProductBatchComp[] productComps;
+    private List<ProductBatchCompDTO> productComps;
     private boolean isActive;
 
     public ProductBatchDTO() {
@@ -64,12 +65,11 @@ public class ProductBatchDTO {
         this.status = status;
     }
 
-    public ProductBatchComp[] getProductComps() {
+    public List<ProductBatchCompDTO> getProductComps() {
         return productComps;
     }
 
-    public void setProductComps(ProductBatchComp[] productComps) {
+    public void setProductComps(List<ProductBatchCompDTO> productComps) {
         this.productComps = productComps;
     }
-
 }

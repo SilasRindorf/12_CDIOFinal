@@ -257,9 +257,8 @@ public class ActionController {
     }
 
     //_______________________________ Printer _______________________________
-    public String getPrint(){
+    public String getPrint(int productBatchNr){
         PrintDTO printer = new PrintDTO();
-
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(printer);
