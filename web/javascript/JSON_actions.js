@@ -374,3 +374,32 @@ JSONGetReceiptCompTable = function (url, div) {
     request.open("GET", url, true);
     request.send("x= " + param);
 };
+JSONGetProductbatchTable = function (url, div){
+    const obj = {table: "table_Farmaceut", limit: 20};
+    const param = JSON.stringify(obj);
+    const request = new XMLHttpRequest();
+
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText)
+            var objects = JSON.parse(this.responseText);
+            var txt = "<table border='1'>" +
+                "<th>Råvare</th>" +
+                "<th>Tara</th>" +
+                "<th>Vægt</th>" +
+                "<th>Råvarebatch Nr</th>";
+            for (let i in objects) {
+                txt += "<tr>" +
+                    "<td>" + objects[i].raavare + "</td>" +
+                    "<td>" + objects[i].tara+ "</td>" +
+                    "<td>" + objects[i].weight + "</td>" +
+                    "<td>" + objects[i].raavarebatchNr + "</td>" +
+                    "</tr>";
+            }
+            txt += "</table>";
+            document.getElementById("table_Farmaceut").innerHTML = txt;
+        }
+    };
+    request.open("GET", url, true);
+    request.send("x= " + param);
+}
