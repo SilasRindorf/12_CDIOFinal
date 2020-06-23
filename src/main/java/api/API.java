@@ -167,6 +167,8 @@ public class API {
         try {
             controller.createReceiptDTO(receiptDTO.getReceiptNr(), receiptDTO.getName());
         } catch (DALException e){
+            System.out.println("ReceiptDTO post: " + receiptDTO.getReceiptNr() + " " +  receiptDTO.getName());
+            e.printStackTrace();
             return "Kunne ikke lave recept";
         }
 

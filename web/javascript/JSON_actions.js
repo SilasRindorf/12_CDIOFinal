@@ -47,7 +47,7 @@ function doFunction(caseNumber, text){
             JSONGetReceiptTable("rest/actions/receipt-get");
             break;
         case 8:
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get");
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" +  receiptNrMemory);
             break;
         case 9:
             //product Batch comp

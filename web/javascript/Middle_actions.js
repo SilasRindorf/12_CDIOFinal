@@ -53,7 +53,7 @@ function createReceiptAction(url, receiptNr, name) {
         "name": name,
     };
     //PUTReceiptDTO(receipt)
-    POSTF(url, receipt,7)
+    POSTF(url, receipt,8)
 }
 
 function createReceiptComp(url,receiptNr, commodityNr, amount, tolerance) {
