@@ -394,13 +394,52 @@ JSONGetProductBatchTable = function (url, div) {
                     "<td>" + objects[i].receiptNr + "</td>" +
                     "<td>" + new Date(objects[i].created).toUTCString() + "</td>" +
                     "<td>" + objects[i].status + "</td>";
-                    txt += "<td><button type=\"button\" onclick=\"printProductionBatch("  + objects[i].id + "," + !objects[i].isActive + ")\">Print</button></td>" +
+                    txt += "<td><button type=\"button\" onclick=\"printProductionBatch("  + objects[i].id + ")\">Print</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
             document.getElementById("tableBatchFarmaceut").innerHTML = txt;
         }
     };
+    console.log(param)
     request.open("GET", url, true);
     request.send("x= " + param);
 };
+
+printProductionBatch = function (productBatchNr) {
+    hideall();
+    document.getElementById("printPlace").style.visibility = "true";
+    POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr,productBatchNr,2);
+
+}
+
+// DENNE HIDEALL RØRES IKKE, JAVASCRIPT ER LORT OG DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
+function hideall() {
+    document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";
+    document.getElementById("logInForm").style.visibility = "hidden";
+    document.getElementById("welcome").style.visibility = "hidden";
+    document.getElementById("Produktionsleder").style.visibility = "hidden";
+    document.getElementById("raavarebatch").style.visibility = "hidden";
+    document.getElementById("produktbatch").style.visibility = "hidden"
+    document.getElementById("finish").style.visibility = "hidden";
+    document.getElementById("admin").style.visibili1ty = "hidden";
+    document.getElementById("afvejning1").style.visibility = "hidden";
+    document.getElementById("afvejning1").style.visibility = "hidden";
+    document.getElementById("afvejning2_Produktionsleder").style.visibility = "hidden";
+    document.getElementById("statusOprettet").style.visibility = "hidden";
+    document.getElementById("statusUnderProduktion").style.visibility = "hidden";
+    document.getElementById("farmaceut").style.visibility = "hidden";
+    document.getElementById("recept2").style.visibility = "hidden";
+    document.getElementById("recept3").style.visibility = "hidden";
+    document.getElementById("recept4").style.visibility = "hidden";
+    document.getElementById("Produktionsleder").style.visibility = "hidden";
+    document.getElementById("afvejning1_Laborant").style.visibility = "hidden";
+    document.getElementById("afvejning2_Laborant").style.visibility = "hidden";
+    document.getElementById("afvejning1_Farmaceut").style.visibility = "hidden";
+    document.getElementById("afvejning2_Farmaceut").style.visibility = "hidden";
+    document.getElementById("raavarebatchFarmaceut").style.visibility = "hidden";
+    document.getElementById("raavareFarmaceut").style.visibility = "hidden";
+    document.getElementById("produktbatchFarmaceut").style.visibility = "hidden";
+    document.getElementById("printPlace").style.visibility = "hidden";
+    document.getElementById("recept1").style.visibility = "hidden";
+}

@@ -8,6 +8,7 @@ import controller.ActionController;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Path("/actions")
 public class API {
@@ -230,17 +231,36 @@ public class API {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("product-batch-post")
     public String postProductBatch(ProductBatchDTO productBatchDTO) {
+        try{
         return controller.createProductBatch(productBatchDTO.getProductBatchNr(),true,
                 productBatchDTO.getReceiptNr(),productBatchDTO.getCreated(),
-                ProductBatch.Status.CREATED,new PrintDTO(),new ArrayList<>());
+                ProductBatch.Status.CREATED,new PrintDTO(0,0,new ArrayList<>(),new Date(),0,0),new ArrayList<>());
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Lortet virker ikke";
+        }
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("product-batch-get")
     public String getProductbatches() {
-        return controller.getProductBatches();
+            return controller.getProductBatches();
+
     }
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("print-product-batch")
+    public String postPrint(@QueryParam("productBatchid") int productBatchID){
+        try {
+            return controller.createAndGetPrint(productBatchID);
+        } catch (DALException e) {
+            e.printStackTrace();
+            return "ARGHHHHHHHHHHHHH intet tårn hihi";
+        }
+    }
+
 
 
 }

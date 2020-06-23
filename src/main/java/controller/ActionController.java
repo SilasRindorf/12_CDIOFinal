@@ -17,10 +17,10 @@ import java.util.List;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
-    private final IUserDAO USERS = new UserDAO(FileAPI.USER_DAO_FILE);
-    private final ICommodityDAO COM = new CommodityDAO(FileAPI.COMMODITY_DAO_FILE);
-    private final IReceiptDAO REC = new ReceiptDAO(FileAPI.RECEIPT_DAO_FILE,COM);
-    private final IProductDAO PRO = new ProductDAO(FileAPI.PRODUCT_DAO_FILE,REC);
+    private final IUserDAO USERS = new UserDAONonPersistent();
+    private final ICommodityDAO COM = new CommodityDAONonPersistent();
+    private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
+    private final IProductDAO PRO = new ProductDAONonPersistent(REC);
     // TODO: Remove test fields
     private final ReceiptComp RECC = new ReceiptComp(1, 400, 2);
     private final List<ReceiptComp> receiptCompList = new ArrayList<ReceiptComp>();
@@ -36,7 +36,7 @@ public class ActionController {
             REC.createReceipt(new Receipt(1, "Bajer", receiptCompList, true));
             ArrayList<ProductBatchComp> listie = new ArrayList<>();
             listie.add(new ProductBatchComp(2.2,2.1,1,2,"SIL",true));
-            PrintDTO printDTO = new PrintDTO();
+            PrintDTO printDTO = new PrintDTO(0,0,new ArrayList<>(),new Date(),0,0);
             PRO.createBatch(new ProductBatch(1,true,1,new Date(), ProductBatch.Status.IN_PRODUCTION,printDTO,new ArrayList<>()));
         } catch (Exception ignored) {
 
@@ -263,20 +263,36 @@ public class ActionController {
     //_______________________________ Printer _______________________________
 
 
-    public String createAndGetPrint(int productBatchNr, int commodityBatchNr) throws DALException {
+    public String createAndGetPrint(int productBatchNr) throws DALException {
         ProductBatch pB = PRO.getBatch(productBatchNr);
+        pB.getPrintDTO().getList().clear();
 
-        for (int i = 0; i < REC.getReceipt(pB.getReceiptNr()).getReceiptComps().size(); i++) {
-            PrintDTO.innerClass currentObj = pB.getPrintDTO().getList().get(i);
-            currentObj.setAmount(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getAmount());
-            currentObj.setTolerance(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getTolerance());
-            currentObj.setTara(pB.getProductComps().get(i).getTara());
-            currentObj.setNetto(pB.getProductComps().get(i).getWeighted());
-            currentObj.setCommodityBatchNr(commodityBatchNr);
-            currentObj.setCommodityNr(COM.getCommodity(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity()).getCommodityNr());
-            currentObj.setCommodityName(COM.getCommodity(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity()).getName());
-            currentObj.setIni(pB.getProductComps().get(i).getIni());
+        for (int i = 0; i < REC.getReceipt(pB.getReceiptNr()).getReceiptComps().size(); i++) { // getReceiptComps().size() = 3
+            if(!pB.getProductComps().isEmpty()){
+                if (REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i) != null){
+                ReceiptComp rC = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i);
+                ProductBatchComp pBC = pB.getProductComps().get(i);
+                double amount = rC.getAmount();
+                double tolerance = rC.getTolerance();
+                double tara = pBC.getTara();
+                double netto = pBC.getWeighted();
+                int commodityBatchNr = pBC.getCommodityBatchNr();
+                int commodityNr = pBC.getCommodityNr();
+                String name = COM.getCommodity(rC.getCommodity()).getName();
+                String ini = pBC.getIni();
+                pB.getPrintDTO().getList().add(new PrintDTO.innerClass(amount,tolerance,tara,netto,commodityBatchNr,commodityNr,name,ini));
+                }
+                else {
+                    createInnerClassComps(pB, i);
+                }
+            }
+            else {
+                createInnerClassComps(pB, i);
+            }
+
         }
+        pB.getPrintDTO().setReceiptNr(pB.getReceiptNr());
+        pB.getPrintDTO().setProductBatchNr(pB.getProductBatchID());
         pB.getPrintDTO().setNetto(pB.getPrintDTO().calcNetto());
         pB.getPrintDTO().setTara(pB.getPrintDTO().calcTara());
         ObjectMapper objMapper = new ObjectMapper();
@@ -289,6 +305,20 @@ public class ActionController {
 
     }
 
+    // TODO: 23-06-2020 Lav en toString metode for print så det ser lækkert ud c:
+
+    private void createInnerClassComps(ProductBatch pB, int i) throws DALException {
+        ReceiptComp rC = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i);
+        double amount = rC.getAmount();
+        double tolerance = rC.getTolerance();
+        double tara = -1;
+        double netto = -1;
+        int commodityBatchNr = -1;
+        int commodityNr = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity();
+        String name = COM.getCommodity(rC.getCommodity()).getName();
+        String ini = "";
+        pB.getPrintDTO().getList().add(new PrintDTO.innerClass(amount,tolerance,tara,netto,commodityBatchNr,commodityNr,name,ini));
+    }
 
 
 }
