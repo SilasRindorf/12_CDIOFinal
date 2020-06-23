@@ -26,7 +26,7 @@ public class ProductBatchDTO {
 
     }
 
-    public ProductBatchDTO(int productBatchNr, int receiptNr, Date created, ProductBatch.Status status, PrintDTO printDTO, List<ProductBatchCompDTO> productComps,  boolean isActive) {
+    public ProductBatchDTO(int productBatchNr,  boolean isActive , int receiptNr, Date created, ProductBatch.Status status, PrintDTO printDTO, List<ProductBatchCompDTO> productComps) {
         this.productBatchNr = productBatchNr;
         this.receiptNr = receiptNr;
         this.created = created;

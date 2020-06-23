@@ -35,7 +35,7 @@ public class ActionController {
             ArrayList<ProductBatchComp> listie = new ArrayList<>();
             listie.add(new ProductBatchComp(2.2,2.1,1,2,"SIL",true));
             PrintDTO printDTO = new PrintDTO();
-            PRO.createBatch(new ProductBatch(1,1,new Date(), ProductBatch.Status.IN_PRODUCTION,printDTO,new ArrayList<>(),true));
+            PRO.createBatch(new ProductBatch(1,true,1,new Date(), ProductBatch.Status.IN_PRODUCTION,printDTO,new ArrayList<>()));
         } catch (Exception ignored) {
 
         }
@@ -236,10 +236,11 @@ public class ActionController {
         return "Kunne ikke tilføje komponent";
 
     }
+//_______________________________ ProductBatch ________________________________
 
-    public String createProductBatch(ProductBatchDTO productBatchDTO) {
+    public String createProductBatch(int id, boolean isActive, int receiptNr, Date created, ProductBatch.Status status, PrintDTO printDTO, List<ProductBatchComp> productComps) {
         try {
-            PRO.createBatch(new ProductBatch(productBatchDTO));
+            PRO.createBatch(new ProductBatch(id,isActive,receiptNr,created,status,printDTO,productComps));
         } catch (DALException | JunkFormatException e) {
             e.printStackTrace();
             return "Kunne ikke laves";
@@ -247,7 +248,7 @@ public class ActionController {
         return "produkt batch lavet";
     }
 
-    public String getProductBathes() {
+    public String getProductBatches() {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(PRO.getBatchList());
@@ -258,35 +259,35 @@ public class ActionController {
     }
 
     //_______________________________ Printer _______________________________
-    public String getPrint(int productBatchNr){
-        PrintDTO printer = new PrintDTO();
+
+
+    public String createAndGetPrint(int productBatchNr, int commodityBatchNr) throws DALException {
+        ProductBatch pB = PRO.getBatch(productBatchNr);
+
+        for (int i = 0; i < REC.getReceipt(pB.getReceiptNr()).getReceiptComps().size(); i++) {
+            PrintDTO.innerClass currentObj = pB.getPrintDTO().getList().get(i);
+            currentObj.setAmount(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getAmount());
+            currentObj.setTolerance(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getTolerance());
+            currentObj.setTara(pB.getProductComps().get(i).getTara());
+            currentObj.setNetto(pB.getProductComps().get(i).getWeighted());
+            currentObj.setCommodityBatchNr(commodityBatchNr);
+            currentObj.setCommodityNr(COM.getCommodity(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity()).getCommodityNr());
+            currentObj.setCommodityName(COM.getCommodity(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity()).getName());
+            currentObj.setIni(pB.getProductComps().get(i).getIni());
+        }
+        pB.getPrintDTO().setNetto(pB.getPrintDTO().calcNetto());
+        pB.getPrintDTO().setTara(pB.getPrintDTO().calcTara());
         ObjectMapper objMapper = new ObjectMapper();
         try {
-            return objMapper.writeValueAsString(PRO.getBatch(productBatchNr).getPrintDTO());
-        } catch (JsonProcessingException | DALException e) {
+            return objMapper.writeValueAsString(pB.getPrintDTO());
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Kunne ikke printe";
         }
+
     }
 
-    public String createPrint(int productBatchNr, int commodityBatchNr) throws DALException {
-        ProductBatch pB = PRO.getBatch(productBatchNr);
-        PRO.getBatch(productBatchNr).setPrintDTO(new PrintDTO(pB.getReceiptNr(),productBatchNr, new ArrayList<>(),pB.getCreated(),0,0));
-        for (int i = 0; i < REC.getReceipt(pB.getReceiptNr()).getReceiptComps().size(); i++) {
-            pB.getPrintDTO().getList().get(i).setAmount(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getAmount());
-            pB.getPrintDTO().getList().get(i).setTolerance(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getTolerance());
-            pB.getPrintDTO().getList().get(i).setTara(pB.getProductComps().get(i).getTara());
-            pB.getPrintDTO().getList().get(i).setNetto(pB.getProductComps().get(i).getWeighted());
-            pB.getPrintDTO().getList().get(i).setCommodityBatchNr(commodityBatchNr);
-            pB.getPrintDTO().getList().get(i).setCommodityNr(COM.getCommodity(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity()).getCommodityNr());
-            pB.getPrintDTO().getList().get(i).setCommodityName(COM.getCommodity(REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity()).getName());
-            pB.getPrintDTO().getList().get(i).setIni(pB.getProductComps().get(i).getIni());
-        }
-        pB.getPrintDTO().setNetto(pB.getPrintDTO().getNetto());
-        pB.getPrintDTO().setTara(pB.getPrintDTO().getTara());
 
-        return "sut den";
-    }
 
 }
 

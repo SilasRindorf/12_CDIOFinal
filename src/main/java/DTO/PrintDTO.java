@@ -32,23 +32,14 @@ public class PrintDTO {
         this.netto = netto;
     }
 
-    public double getNetto(){
-        double counter = 0;
-        for (innerClass inner:
-             list) {
-            counter += inner.getNetto();
-        }
-        return counter;
+    public double getTara() {
+        return tara;
     }
 
-    public double getTara(){
-        double counter = 0;
-        for (innerClass inner:
-                list) {
-            counter += inner.getTara();
-        }
-        return counter;
+    public double getNetto() {
+        return netto;
     }
+
 
     public int getReceiptNr() {
         return receiptNr;
@@ -101,6 +92,26 @@ public class PrintDTO {
                 ", netto=" + netto +
                 '}';
     }
+
+    public double calcNetto(){
+        double counter = 0;
+        for (innerClass inner:
+                list) {
+            counter += inner.getNetto();
+        }
+        return counter;
+    }
+
+    public double calcTara(){
+        double counter = 0;
+        for (innerClass inner:
+                list) {
+            counter += inner.getTara();
+        }
+        return counter;
+    }
+
+
 
     public static class innerClass{
         private double amount;

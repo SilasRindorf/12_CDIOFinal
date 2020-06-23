@@ -24,12 +24,13 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
     private PrintDTO printDTO;
     private List<ProductBatchComp> productComps;
 
-    public ProductBatch(int productBatchNr, int receiptNr, Date created, Status status, PrintDTO printDTO , List<ProductBatchComp> productComps, boolean isActive) {
-        super(productBatchNr, isActive);
+    public ProductBatch(int id, boolean isActive, int receiptNr, Date created, Status status, PrintDTO printDTO, List<ProductBatchComp> productComps) {
+        super(id, isActive);
         this.receiptNr = receiptNr;
         this.created = created;
         this.status = status;
-        this.productComps = Collections.unmodifiableList(productComps);
+        this.printDTO = printDTO;
+        this.productComps = productComps;
     }
 
     public ProductBatch(ProductBatchDTO productBatchDTO) {
@@ -43,6 +44,9 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
         }
     }
 
+    public int getProductBatchID(){
+        return getID();
+    }
 
     public int getReceiptNr() {
         return receiptNr;

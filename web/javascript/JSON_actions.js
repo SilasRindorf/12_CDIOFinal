@@ -54,8 +54,7 @@ function doFunction(caseNumber, text){
             console.log(text);
             break;
         case 10:
-            //product Batch
-            console.log(text);
+            JSONGetProductBatchTable("rest/actions/product-batch-get")
             break;
     }
 }
@@ -368,6 +367,38 @@ JSONGetReceiptCompTable = function (url, div) {
             }
             txt += "</table>";
             document.getElementById("ReceptCompTable").innerHTML = txt;
+        }
+    };
+    request.open("GET", url, true);
+    request.send("x= " + param);
+};
+
+JSONGetProductBatchTable = function (url, div) {
+    const obj = {table: "tableBatchFarmaceut", limit: 20};
+    const param = JSON.stringify(obj);
+    const request = new XMLHttpRequest();
+
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText)
+            var objects = JSON.parse(this.responseText);
+            var txt = "<table border='1'>" +
+                "<th>Produktbatch ID</th>" +
+                "<th>Recept nummer</th>" +
+                "<th>Dato</th>" +
+                "<th>Status</th>" +
+                "<th>Print</th>" ;
+            for (let i in objects) {
+                txt += "<tr>" +
+                    "<td>" + objects[i].id + "</td>" +
+                    "<td>" + objects[i].receiptNr + "</td>" +
+                    "<td>" + new Date(objects[i].created).toUTCString() + "</td>" +
+                    "<td>" + objects[i].status + "</td>";
+                    txt += "<td><button type=\"button\" onclick=\"printProductionBatch("  + objects[i].id + "," + !objects[i].isActive + ")\">Print</button></td>" +
+                    "</tr>";
+            }
+            txt += "</table>";
+            document.getElementById("tableBatchFarmaceut").innerHTML = txt;
         }
     };
     request.open("GET", url, true);

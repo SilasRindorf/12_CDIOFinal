@@ -35,13 +35,14 @@ function resetValuesCreateRaavarebatchFarmaceut() {
 function goToProduktbatchFarmaceut() {
     hideall();
     document.getElementById("produktbatchFarmaceut").style.visibility = "visible";
+    JSONGetProductBatchTable("rest/actions/product-batch-get")
 }
 
 function finishCreateBatchFarmaceut() {
-    if(!document.getElementById("raavarebatchNrFarmaceut").value == "" &&
+    if(!document.getElementById("productbatchID_Farmaceut_produktbatchside").value == "" &&
         !document.getElementById("datoFarmaceut").value == "" &&
-        !document.getElementById("productbatchID_Farmaceut_produktbatchside").value == ""){
-        var productBatchNr = document.getElementById("maengdeFarmaceut").value;
+        !document.getElementById("receptNrFarmaceut").value == ""){
+        var productBatchNr = document.getElementById("productbatchID_Farmaceut_produktbatchside").value;
         var receiptNr = document.getElementById("receptNrFarmaceut").value;
         var created = document.getElementById("datoFarmaceut").value;
 

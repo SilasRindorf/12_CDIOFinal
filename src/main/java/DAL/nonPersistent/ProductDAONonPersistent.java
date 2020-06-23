@@ -101,20 +101,9 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
 
     @Override
-    public void setIsActive(int pbId, boolean isActive) throws DALException {
-        ProductBatch prod = getBatch(pbId);
-        if (prod.getIsActive() == isActive) {
-            throw new DALException("The productbatch activity is already " + isActive);
-        }
-        ProductBatch newBatch = new ProductBatch(pbId, prod.getReceiptNr(), prod.getCreated(), prod.getStatus(),prod.getPrintDTO(), isActive);
-        try {
-            updateBatch(newBatch);
-        } catch (JunkFormatException e) {
-            throw new AssertionError("Changing isActive should not result in " +
-                    "JunkFormatException, since it should only modify one and only one variable (isActive). " +
-                    "This means that the database state was corrupt.");
-        }
+    public void setIsActive(int productBatchID, boolean isActive) throws DALException {
 
     }
+
 
 }

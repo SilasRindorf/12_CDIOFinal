@@ -2,10 +2,12 @@ package api;
 
 import DAL.interfaces.DALException;
 import DTO.*;
+import RAM.ProductBatch;
 import controller.ActionController;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 @Path("/actions")
 public class API {
@@ -227,15 +229,17 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("product-batch-post")
-    public String postReceiptDTO(ProductBatchDTO productBatchDTO) {
-        return controller.createProductBatch(productBatchDTO);
+    public String postProductBatch(ProductBatchDTO productBatchDTO) {
+        return controller.createProductBatch(productBatchDTO.getProductBatchNr(),true,
+                productBatchDTO.getReceiptNr(),productBatchDTO.getCreated(),
+                ProductBatch.Status.CREATED,new PrintDTO(),new ArrayList<>());
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("setisactive-receipt")
+    @Path("product-batch-get")
     public String getProductbatches() {
-        return controller.getProductBathes();
+        return controller.getProductBatches();
     }
 
 
