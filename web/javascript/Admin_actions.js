@@ -30,16 +30,6 @@ function finishCreateUser() {
         var CPR = document.getElementById("cpr").value;
         var nonHashedPass = document.getElementById("hashedPass").value;
         createUser("rest/actions/user-post", ID, username, ini, CPR, nonHashedPass, role, "Aktiv");
-        // POSTUser("rest/actions/user-create", ID,username,ini,CPR,nonHashedPass,role,"Aktiv")
-        const user = {
-            "ID": ID,
-            "username": username,
-            "ini": ini,
-            "CPR": CPR,
-            "nonHashedPass": nonHashedPass,
-            "role": role,
-            "isActive": true
-        };
         //PUTUser(user);
         resetValuesCreateUser();
     } else {

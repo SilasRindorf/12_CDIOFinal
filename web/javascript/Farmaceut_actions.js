@@ -16,13 +16,7 @@ function createRaavarebatchComponentFarmaceut() {
         var commodityNr = document.getElementById("raavareIDFarmaceut").value;
         var amount = document.getElementById("maengdeFarmaceut").value;
         var provider = document.getElementById("leverandoer").value;
-        const commodityBatch = {
-            "commodityBatchNr": commodityBatchNr,
-            "commodityNr": commodityNr,
-            "amount": amount,
-            "provider": provider
-        };
-        PUTCommodityBatch(commodityBatch)
+        createCommodityBatch("rest/actions/commodity-batch-post",commodityBatchNr,commodityNr,amount,provider);
     }
     else {
         alert("Please fill out all the fields!");
@@ -119,8 +113,8 @@ function opretRaavare() {
             "name": name,
             "commodityNr": commodityNr
         };
-        resetValuesRaavareFarmaceut()
-        PUTCommodity(commodity)
+        resetValuesRaavareFarmaceut();
+        createCommodity();
     }
     else {
         alert("Please fill out all the fields!");

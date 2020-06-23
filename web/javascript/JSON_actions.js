@@ -18,8 +18,6 @@ function POSTF(url, object, doFunction) {
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-            console.log(request.responseText);
-            JSONGetUserTable("rest/actions/user-get", "UserTable");
             doFunction(request.responseText);
         }
     };

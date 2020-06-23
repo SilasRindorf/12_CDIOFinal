@@ -57,7 +57,7 @@ function goToWelcomeFromDelete() {
 }
 
 function returnToStart() {
-    hideall()
+    hideall();
     document.getElementById("welcome").style.visibility = "visible";
     document.getElementById("admin").style.visibility = "hidden";
     resetValuesCreateUser();

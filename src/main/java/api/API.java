@@ -68,7 +68,7 @@ public class API {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("user-post")
-    public String putUser(UserDTO userDTO) {
+    public String postUser(UserDTO userDTO) {
         controller.createUser(userDTO);
         return "SUCCESS MY FRIEND";
     }
@@ -79,6 +79,22 @@ public class API {
     @Path("setisactive-user")
     public void setIsActiveUser(@QueryParam("ID") int ID, @QueryParam("isActive") boolean isActive) {
         controller.setIsActiveUser(ID, isActive);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("commodity-batch-post")
+    public String postCommodityBatch(CommodityBatchDTO commodityBatchDTO) {
+        controller.createCommodityBatch(commodityBatchDTO);
+        return "SUCCESS MY FRIEND";
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("commodity-post")
+    public String postCommodity(CommodityDTO commodityDTO) {
+        controller.createCommodity(commodityDTO);
+        return "SUCCESS MY FRIEND";
     }
 
     @PUT

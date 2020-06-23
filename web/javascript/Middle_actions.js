@@ -7,13 +7,6 @@ function logInAction(url, username, password) {
 
     POSTAndAlert(url, logInDTO);
 
-    /*const testDTO = {
-        "id": 10,
-        "username": "Mein name bist"
-    };
-
-    POSTAndAlert("rest/actions/test",testDTO);*/
-
 }
 
 
@@ -30,7 +23,7 @@ function createUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) 
         "active": isActive
     };
     //PUTUser(userDTO)
-    POSTF(url,userDTO);
+    POSTF(url,userDTO,JSONGetUserTable("rest/actions/user-get", "UserTable"));
 }
 
 JSONDelete = function (div,id) {
@@ -51,7 +44,7 @@ function createReceipt(url, name, receiptComps) {
         "name": name,
         "receiptComps": receiptComps,
     };
-    POST(url, receipt)
+    POSTF(url, receipt)
 }
 
 function createReceiptComp(url, commodityNr, amount, tolerance) {
@@ -60,7 +53,7 @@ function createReceiptComp(url, commodityNr, amount, tolerance) {
         "amount": amount,
         "tolerance": tolerance
     };
-    POST(url, receiptComp)
+    POSTF(url, receiptComp)
 }
 function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodityNr, userID) {
     const productBatchComp = {
@@ -70,7 +63,7 @@ function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodity
         "commodityNr": commodityNr,
         "userID": userID
     };
-    POST(url, productBatchComp)
+    POSTF(url, productBatchComp)
 }
 
 function createCommodity(url, name, commodityNr) {
@@ -78,7 +71,20 @@ function createCommodity(url, name, commodityNr) {
         "name": name,
         "commodityNr": commodityNr,
     };
-    POST(url, commodity)
+    POSTF(url, commodity)
+    //PUTCommodity(commodity)
+
+}
+function createCommodityBatch(url, commodityBatchNr, commodityNr, amount, provider) {
+    const commodityBatch = {
+        "commodityBatchNr": commodityBatchNr,
+        "commodityNr": commodityNr,
+        "amount": amount,
+        "provider": provider,
+        "active": true
+    };
+    //PUTCommodityBatch(commodityBatch);
+    POSTF(url, commodityBatch);
 }
 
 function createProductBatch(url, receiptNr, created, status, productComps) {
@@ -88,5 +94,5 @@ function createProductBatch(url, receiptNr, created, status, productComps) {
         "status": status,
         "productComps": productComps
     };
-    POST(url, productBatch)
+    POSTF(url, productBatch)
 }
