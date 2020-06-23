@@ -5,25 +5,29 @@ import DAL.interfaces.*;
 import DAL.nonPersistent.CommodityDAONonPersistent;
 import DAL.nonPersistent.ReceiptDAONonPersistent;
 import DAL.nonPersistent.UserDAONonPersistent;
+import DAL.persistent.*;
 import DTO.*;
 import RAM.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
-    private final IUserDAO USERS = new UserDAONonPersistent();
-    private final ICommodityDAO COM = new CommodityDAONonPersistent();
-    private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
+    private final IUserDAO USERS = new UserDAO(FileAPI.USER_DAO_FILE);
+    private final ICommodityDAO COM = new CommodityDAO(FileAPI.COMMODITY_DAO_FILE);
+    private final IReceiptDAO REC = new ReceiptDAO(FileAPI.RECEIPT_DAO_FILE,COM);
+    private final IProductDAO PRO = new ProductDAO(FileAPI.RECEIPT_DAO_FILE,REC);
+    // TODO: Remove test fields
     private final ReceiptComp RECC = new ReceiptComp(1, 400, 2);
     private final List<ReceiptComp> receiptCompList = new ArrayList<ReceiptComp>();
     private ArrayList<ReceiptDTO> rList = new ArrayList<>();
 
 
-    private ActionController() {
+    private ActionController() throws IOException, ClassNotFoundException {
         try {
             receiptCompList.add(RECC);
             USERS.createUser(new User(11, "Admin", "adm", "123", User.hash("password"), User.Role.Administrator, true));
@@ -37,8 +41,14 @@ public class ActionController {
 
     // static method to create instance of Singleton class
     public static ActionController getInstance() {
-        if (ActionControllerInstance == null)
-            ActionControllerInstance = new ActionController();
+        if (ActionControllerInstance == null) {
+            try {
+                ActionControllerInstance = new ActionController();
+            } catch(Exception e) {
+                e.printStackTrace();
+                throw new AssertionError("Getting an instance should not fail");
+            }
+        }
 
         return ActionControllerInstance;
     }
