@@ -129,7 +129,7 @@ public class API {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptcompput")
-    public void putReceiptComp(@QueryParam("receiptNr") int receiptNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("tolerance") double tolerance, @QueryParam("isActive") boolean isActive){
+    public void putReceiptComp(@QueryParam("receiptNr") int receiptNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("tolerance") double tolerance){
       controller.addReceiptComp(receiptNr,new ReceiptCompDTO(commodityNr,amount,tolerance,true));
     }
 
