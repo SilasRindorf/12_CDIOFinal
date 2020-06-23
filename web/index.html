@@ -29,6 +29,7 @@
     <input type="text" id="logInPass" for="password" name="password">
     <br><br>
     <button type="button" onclick="logIn()">Log ind</button>
+    <button type="button" onclick="goToWelcomeFromDelete()">Censor knap</button>
 </form>
 
 <form method="POST" action="" name="welcome" id="welcome"
@@ -131,13 +132,13 @@
 
 <form method="POST" action="" name="afvejning2_Produktionsleder" id="afvejning2_Produktionsleder"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-    <label for="raavare_Produktionsleder">Indtast råvaren: </label>
+    <label for="raavare_Produktionsleder">Råvaren: </label>
     <input type="text" id="raavare_Produktionsleder" name="raavare"><br><br>
-    <label for="raavarebatchID_Produktionsleder">Indtast råvarebatch nr: </label>
+    <label for="raavarebatchID_Produktionsleder">Råvarebatch nr: </label>
     <input type="text" id="raavarebatchID_Produktionsleder" name="raavarebatchNr"><br><br>
-    <label for="weight_Produktionsleder">Indtast vægten: </label>
+    <label for="weight_Produktionsleder">Vægt: </label>
     <input type="text" id="weight_Produktionsleder" name="weight"><br><br>
-    <label for="tara_Produktionsleder">Indtast tara: </label>
+    <label for="tara_Produktionsleder">Tara: </label>
     <input type="text" id="tara_Produktionsleder" name="tara"><br><br>
     <input type="button" value="Tilføj produckbatch komponent"
            onClick="addProductbatchComponent_Produktionsleder()"><br/><br/>
@@ -308,20 +309,21 @@
 
 <form method="POST" action="" name="afvejning2_Farmaceut" id="afvejning2_Farmaceut"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
-    <label for="raavare_Farmaceut">Indtast råvaren: </label>
+    <label for="raavare_Farmaceut">Råvare ID: </label>
     <input type="text" id="raavare_Farmaceut" name="raavare"><br><br>
-    <label for="raavarebatchID_Farmaceut">Indtast råvarebatch nr: </label>
+    <label for="raavarebatchID_Farmaceut">Råvarebatch nr: </label>
     <input type="text" id="raavarebatchID_Farmaceut" name="raavarebatchNr"><br><br>
-    <label for="weight_Farmaceut">Indtast vægten: </label>
+    <label for="weight_Farmaceut">Vægt: </label>
     <input type="text" id="weight_Farmaceut" name="weight"><br><br>
-    <label for="tara_Farmaceut">Indtast tara: </label>
+    <label for="tara_Farmaceut">Tara: </label>
     <input type="text" id="tara_Farmaceut" name="tara"><br><br>
     <input type="button" value="Tilføj produktbatch komponent" onClick="addProductbatchComponent_Farmaceut()"><br/><br/>
     <table id="table_Farmaceut" border="1">
         <thead id="table-head_Farmaceut">
         <tr>
             <th>Råvare</th>
-            <th>Vægt minus tara</th>
+            <th>Tara</th>
+            <th>Vægt</th>
             <th>Råvarebatch Nr</th>
         </tr>
         </thead>

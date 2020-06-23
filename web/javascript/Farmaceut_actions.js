@@ -78,13 +78,16 @@ function addProductbatchComponent_Farmaceut() {
     var td1 = document.createElement("td");
     var td2 = document.createElement("td");
     var td3 = document.createElement("td");
+    var td4 = document.createElement("td");
     var row = document.createElement("tr");
     td1.innerHTML = document.getElementById("raavare_Farmaceut").value;
-    td2.innerHTML = document.getElementById("weight_Farmaceut").value - document.getElementById("tara_Farmaceut").value;
-    td3.innerHTML = document.getElementById("raavarebatchID_Farmaceut").value;
+    td2.innerHTML = document.getElementById("tara_Farmaceut").value
+    td3.innerHTML = document.getElementById("weight_Farmaceut").value;
+    td4.innerHTML = document.getElementById("raavarebatchID_Farmaceut").value;
     row.appendChild(td1);
     row.appendChild(td2);
     row.appendChild(td3);
+    row.appendChild(td4);
     tableBody.appendChild(row);
     resetValuesProductbatchComponentFarmaceut();
 }
