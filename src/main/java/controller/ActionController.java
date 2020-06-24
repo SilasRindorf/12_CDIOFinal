@@ -288,6 +288,10 @@ public class ActionController {
     }
     public String createProductBatchComp(int productBatchNr, ProductBatchCompDTO productBatchCompDTO) {
         try {
+            double curTol = REC.getReceipt(PRO.getBatch(productBatchNr).getReceiptNr()).getReceiptComps().get().getTolerance();
+            double curNetto = productBatchCompDTO.getWeighted() - productBatchCompDTO.getTara();
+            if (curNetto <= (curTol / 100) * )
+
             PRO.getBatch(productBatchNr).getProductComps().add(new ProductBatchComp(productBatchCompDTO));
             ProductBatch pB = PRO.getBatch(productBatchNr);
             PRO.updateBatch(new ProductBatch(pB.getID(),pB.getIsActive(),pB.getReceiptNr(),pB.getCreated(), ProductBatch.Status.IN_PRODUCTION,pB.getProductComps()));
