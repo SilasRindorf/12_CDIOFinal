@@ -1,3 +1,7 @@
+/**
+ * Main responsible: Morten, Silas
+ * Edited by: Christoffer, Andreas, Alexander, Sejr
+ */
 function GET(url) {
     const obj = {table: "Users", limit: 20};
     const param = JSON.stringify(obj);
@@ -493,9 +497,7 @@ JSONGetAfvejningTable = function (url, div) {
 
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText)
             const objects = JSON.parse(this.responseText);
-            console.log(objects)
             let txt = "<table border='1'>" +
                 "<th>Råvare Nr</th>" +
                 "<th>Vægt minus tara</th>" +

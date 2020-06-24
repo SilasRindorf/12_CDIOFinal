@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /***
- * Initial version created by: Silas
- * Edited by: 
- * Created: 11-06-2020
- * This class is responsible for:
- *  -
+ * Main responsible: Christoffer
+ * Edited and reviewed by: Sejr, Morten, Andreas, Alexander, Silas
  */
+
 public class IdAndActivatable implements Serializable {
     public static final long serialVersionUID = 4447252752752745257L;
     private boolean active;

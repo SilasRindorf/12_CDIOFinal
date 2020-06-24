@@ -3,11 +3,8 @@ package RAM;
 import java.io.Serializable;
 
 /***
- * Initial version created by: Silas
- * Edited by: Christoffer
- * Created: 09-06-2020
- * This class is responsible for:
- *  -
+ * Main responsible: Christoffer
+ * Edited and reviewed by: Sejr, Morten, Andreas, Alexander, Silas
  */
 public class Commodity extends IdAndActivatable implements Serializable {
     public static final long serialVersionUID = 5432657432645732L;

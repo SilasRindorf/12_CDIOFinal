@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/***
+ * Main responsible: Christoffer, Andreas
+ * Edited by: Silas, Alexander, Sejr
+ */
 public class CommodityDAONonPersistent implements ICommodityDAO {
     protected List<Commodity> commodities;
     protected List<CommodityBatch> batches;

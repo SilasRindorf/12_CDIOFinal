@@ -13,12 +13,12 @@ import java.util.Arrays;
 import java.util.List;
 
 /***
- * Initial version created by: Andreas
- * Edited by:
- * Created: 16-06-2020
- * This class is responsible for:
+ * Main responsible: Christoffer, Andreas
+ * Edited by: Silas, Alexander, Sejr
+ *This class is responsible for:
  * Non persistent storage of ReceiptDTO objects
  */
+
 public class ReceiptDAONonPersistent implements IReceiptDAO {
 
     protected List<Receipt> receipts;

@@ -1,3 +1,7 @@
+/**
+ * Main responsible: Morten, Silas
+ * Edited by: Christoffer, Andreas, Alexander, Sejr
+ */
 function goToRaavarebatch() {
     hideall();
     document.getElementById("raavarebatch").style.visibility = "visible";

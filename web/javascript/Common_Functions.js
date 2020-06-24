@@ -1,4 +1,8 @@
 //Common functions
+/**
+ * Main responsible: Morten, Silas
+ * Edited by: Christoffer, Andreas, Alexander, Sejr
+ */
 
 
 function logIn() {

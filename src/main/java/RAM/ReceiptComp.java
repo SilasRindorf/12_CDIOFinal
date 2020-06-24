@@ -5,12 +5,10 @@ import DTO.ReceiptCompDTO;
 import java.io.Serializable;
 
 /***
- * Initial version created by: Silas
- * Edited by: Christoffer
- * Created: 09-06-2020
- * This class is responsible for:
- *  -
+ * Main responsible: Christoffer
+ * Edited and reviewed by: Sejr, Morten, Andreas, Alexander, Silas
  */
+
 public class ReceiptComp implements Serializable {
     public static final long serialVersionUID = 57536453707645L;
     private int commodityNr;

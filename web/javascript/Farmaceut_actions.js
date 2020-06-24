@@ -1,4 +1,8 @@
 //Farmaceut Råvarebatch
+/**
+ * Main responsible: Morten, Silas
+ * Edited by: Christoffer, Andreas, Alexander, Sejr
+ */
 var receiptNrMemory;
 
 

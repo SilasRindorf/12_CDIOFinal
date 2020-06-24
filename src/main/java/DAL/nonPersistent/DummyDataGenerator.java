@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/***
+ * Main responsible: Christoffer, Andreas
+ * Edited by: Silas, Alexander, Sejr
+ */
 public class DummyDataGenerator {
     Random rand;
 

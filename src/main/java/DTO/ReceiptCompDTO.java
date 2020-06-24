@@ -1,12 +1,10 @@
 package DTO;
 
 /***
- * Initial version created by: Silas
- * Edited by: 
- * Created: 16-06-2020
- * This class is responsible for:
- *
+ * Main responsible: Silas
+ * Edited by: Christoffer, Morten
  */
+
 public class ReceiptCompDTO {
     private int receiptNr;
     private int commodityNr;

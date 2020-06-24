@@ -1,8 +1,8 @@
 package DAL.interfaces;
 
 /***
- * Initial version created by: Taken from CDIO 1
- * Edited by: Silas
+ * Main responsible: Christoffer
+ * Edited by: Silas, Alexander, Sejr, Andreas
  * Created: 08-06-2020
  * This class is responsible for:
  *  Exception class

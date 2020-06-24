@@ -5,7 +5,9 @@ import DAL.interfaces.DALException;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-
+/***
+ * Main responsible: Christoffer
+ */
 
 public class FileAPI {
     public static String USER_DAO_FILE;

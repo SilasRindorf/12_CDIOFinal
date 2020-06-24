@@ -10,11 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 /***
- * Initial version created by: Silas
- * Edited by: Christoffer
- * Created: 09-06-2020
- * This class is responsible for:
- *  -
+ * Main responsible: Christoffer
+ * Edited and reviewed by: Sejr, Morten, Andreas, Alexander, Silas
  */
 public class ProductBatch extends IdAndActivatable implements Serializable {
     public static final long serialVersionUID = 567501352532323232L;

@@ -12,6 +12,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/***
+ * Main responsible: Christoffer
+ * Edited by: Silas, Alexander, Sejr, Andreas
+ */
 public class ReceiptDAO extends ReceiptDAONonPersistent implements IReceiptDAO {
     private final String FILE;
 

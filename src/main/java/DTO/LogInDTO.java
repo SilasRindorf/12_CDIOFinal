@@ -1,5 +1,8 @@
 package DTO;
-
+/***
+ * Main responsible: Silas
+ * Edited by: Christoffer, Morten
+ */
 public class LogInDTO {
     private String username;
     private String password;

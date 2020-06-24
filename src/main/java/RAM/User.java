@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /***
- * Initial version created by: Taken from CDIO 1
- * Edited by: Silas Rindorf
- * Created: 08-06-2020
- * This class is responsible for:
- *  Storing information about users in Java
+ * Main responsible: Christoffer
+ * Edited and reviewed by: Sejr, Morten, Andreas, Alexander, Silas
  */
+
 public class User extends IdAndActivatable implements Serializable {
     // UID is Serializable magic and should not be touched!
     private static final long serialVersionUID = 4545864587995944260L;

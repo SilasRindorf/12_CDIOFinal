@@ -11,6 +11,14 @@ import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.Date;
 
+
+
+
+/***
+ * Main responsible: Silas, Morten
+ * Edited by: Christoffer, Andreas
+ */
+
 @Path("/actions")
 public class API {
     //_______________________________ SETUP _______________________________

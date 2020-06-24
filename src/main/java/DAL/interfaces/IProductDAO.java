@@ -6,8 +6,8 @@ import java.util.List;
 
 // @formatter:off
 /***
- * Initial version created by: Silas
- * Edited by: 
+ * Main responsible: Christoffer
+ * Edited by: Silas, Alexander, Sejr, Andreas
  * Created: 09-06-2020
  * This interface is responsible for:
  *  -

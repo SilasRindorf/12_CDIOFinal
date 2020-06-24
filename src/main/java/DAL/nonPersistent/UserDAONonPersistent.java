@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 /***
- * Initial version created by: Silas
- * Edited by: Andreas, Christoffer
- * Created: 08-06-2020
- * This class is responsible for:
- *  Storing information about users in a non persistent manner
- *  Assuring wrong or illegal information is not stored
+ * Main responsible: Christoffer, Andreas
+ * Edited by: Silas, Alexander, Sejr
+ *- *  Storing information about users in a non persistent manner
+ * - *  Assuring wrong or illegal information is not stored
  */
 public class UserDAONonPersistent implements IUserDAO {
     protected List<User> users;

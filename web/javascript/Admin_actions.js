@@ -1,3 +1,8 @@
+/**
+ * Main responsible: Morten, Silas
+ * Edited by: Christoffer, Andreas, Alexander, Sejr
+ */
+
 function finishCreateUser() {
     let role;
     if (document.getElementById("Pharmaceut").checked === true) {

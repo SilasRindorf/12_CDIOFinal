@@ -20,7 +20,10 @@ import java.util.ArrayList;
  * Persistent storage of Product-objects.
  */
 
-
+/***
+ * Main responsible: Christoffer
+ * Edited by: Silas, Alexander, Sejr, Andreas
+ */
 public class ProductDAO extends ProductDAONonPersistent implements Serializable {
     private final String FILE;
 

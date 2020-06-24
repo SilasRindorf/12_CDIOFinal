@@ -11,12 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /***
- * Initial version created by: Andreas
- * Edited by:
- * Created: 15-06-2020
- * This class is responsible for:
- *  Storing information about productbatches in a non persistent manner
- *  Assuring wrong or illegal information is not stored
+ * Main responsible: Christoffer, Andreas
+ * Edited by: Silas, Alexander, Sejr
+ *
+ * Storing information about productbatches in a non persistent manner
+ * Assuring wrong or illegal information is not stored
  */
 public class ProductDAONonPersistent implements IProductDAO {
 

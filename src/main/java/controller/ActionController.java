@@ -15,12 +15,10 @@ import java.util.Date;
 import java.util.List;
 
 /***
- * Initial version created by: Morten
- * Edited by: Silas, Christoffer
- * Created: 19-06-2020
- * This class is responsible for:
- *  -
+ * Main responsible: Silas, Morten
+ * Edited by: Christoffer, Andreas
  */
+
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
     //private final IUserDAO USERS = new UserDAONonPersistent();
@@ -43,6 +41,8 @@ public class ActionController {
             receiptCompList.add(RECC);
             USERS.createUser(new User(11, "Admin", "adm", "123", User.hash("password"), User.Role.Administrator, true));
             COM.createCommodity(new Commodity(1, "Citron", true));
+            COM.createCommodity(new Commodity(1, "Banan", true));
+            COM.createCommodity(new Commodity(1, "Æble", true));
             COM.createBatch(new CommodityBatch(1, 1, 5000, "Mærsk", true));
             REC.createReceipt(new Receipt(1, "Bajer", receiptCompList, true));
             ArrayList<ProductBatchComp> listie = new ArrayList<>();

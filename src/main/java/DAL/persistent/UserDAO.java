@@ -12,11 +12,8 @@ import java.util.ArrayList;
 
 // @formatter:off
 /***
- * Initial version created by: Silas
- * Edited by: 
- * Created: 09-06-2020
- * This class is responsible for:
- *  -
+ * Main responsible: Christoffer
+ * Edited by: Silas, Alexander, Sejr, Andreas
  */
 // @formatter:on
 

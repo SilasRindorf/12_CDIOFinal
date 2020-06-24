@@ -1,3 +1,8 @@
+/**
+ * Main responsible: Morten, Silas
+ * Edited by: Christoffer, Andreas, Alexander, Sejr
+ */
+
 //This function functions as a test class currently
 function logInAction(url, username, password) {
     const logInDTO = {

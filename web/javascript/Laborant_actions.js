@@ -1,3 +1,7 @@
+/**
+ * Main responsible: Morten, Silas
+ * Edited by: Christoffer, Andreas, Alexander, Sejr
+ */
 //Laborant functions
 //Laborant afvejning functions
 

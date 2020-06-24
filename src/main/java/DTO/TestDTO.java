@@ -1,12 +1,10 @@
 package DTO;
 
 /***
- * Initial version created by: Morten
- * Edited by: 
- * Created: 19-06-2020
- * This class is responsible for:
- *  -
+ * Main responsible: Silas
+ * Edited by: Christoffer, Morten
  */
+
 public class TestDTO {
     private int id;
     private String username;

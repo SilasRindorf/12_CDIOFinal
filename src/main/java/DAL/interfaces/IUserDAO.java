@@ -6,11 +6,9 @@ import java.util.List;
 
 // @formatter:off
 /***
- * Initial version created by: Taken from CDIO 1
- * Edited by: Silas
+ * Main responsible: Christoffer
+ * Edited by: Silas, Alexander, Sejr, Andreas
  * Created: 08-06-2020
- * This interface is responsible for:
- *
  */
 // @formatter:on
 public interface IUserDAO {

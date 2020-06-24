@@ -2,7 +2,13 @@ package DAL.interfaces;
 
 import java.util.List;
 
+
 // @formatter:off
+/***
+ * Main responsible: Christoffer
+ * Edited by: Silas, Alexander, Sejr, Andreas
+ *
+ */
 /**
  * Whenever the business logic restrictions on the format is violated,
  * throw this exception, with perhaps an accumulated list of all that went wrong

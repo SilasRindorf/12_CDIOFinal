@@ -7,11 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 /***
- * Initial version created by: Silas
- * Edited by: Christoffer
- * Created: 09-06-2020
- * This class is responsible for:
- *  -
+ * Main responsible: Christoffer
+ * Edited and reviewed by: Sejr, Morten, Andreas, Alexander, Silas
  */
 public class Receipt extends IdAndActivatable implements Serializable {
     public static final long serialVersionUID = 686420351353L;

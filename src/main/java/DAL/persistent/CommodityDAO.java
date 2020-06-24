@@ -10,6 +10,11 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 
+/***
+ * Main responsible: Christoffer
+ * Edited by: Silas, Alexander, Sejr, Andreas
+ */
+
 public class CommodityDAO extends CommodityDAONonPersistent {
     private final String FILE;
 
