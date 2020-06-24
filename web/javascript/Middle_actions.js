@@ -103,5 +103,5 @@ function createProductBatchProduktionsLeader(url, productBatchNr, receiptNr, cre
         "receiptNr": receiptNr,
         "created": created
     };
-    POSTF(url, productBatch,11)
+    POSTF(url, productBatch,12)
 }
