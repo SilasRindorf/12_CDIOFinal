@@ -76,6 +76,7 @@ function goToAfvejning2_Farmaceut() {
     hideall();
     document.getElementById("title").innerHTML = "Farmaceut";
     document.getElementById("afvejning2_Farmaceut").style.visibility = "visible";
+    document.getElementById("productbatchID_Farmaceut").value = "";
 }
 function addProductbatchComponent_Farmaceut() {
     var tableBody = document.getElementById("table-body_Farmaceut");
