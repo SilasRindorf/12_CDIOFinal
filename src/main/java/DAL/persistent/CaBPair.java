@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.List;
 
 
-
+/***
+ * Main responsible: Christoffer
+ */
 // Commodity and Batch Pair
 public class CaBPair implements Serializable {
     private static final long serialVersionUID = 503723103259767L;

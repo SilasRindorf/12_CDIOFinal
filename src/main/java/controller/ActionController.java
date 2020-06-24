@@ -41,8 +41,8 @@ public class ActionController {
             receiptCompList.add(RECC);
             USERS.createUser(new User(11, "Admin", "adm", "123", User.hash("password"), User.Role.Administrator, true));
             COM.createCommodity(new Commodity(1, "Citron", true));
-            COM.createCommodity(new Commodity(1, "Banan", true));
-            COM.createCommodity(new Commodity(1, "Æble", true));
+            COM.createCommodity(new Commodity(2, "Banan", true));
+            COM.createCommodity(new Commodity(3, "Æble", true));
             COM.createBatch(new CommodityBatch(1, 1, 5000, "Mærsk", true));
             REC.createReceipt(new Receipt(1, "Bajer", receiptCompList, true));
             ArrayList<ProductBatchComp> listie = new ArrayList<>();

@@ -12,13 +12,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/***
- * Initial version created by: Andreas
- * Edited by:
- * Created: 16-06-2020
- * This class is responsible for:
- * Persistent storage of Product-objects.
- */
 
 /***
  * Main responsible: Christoffer
