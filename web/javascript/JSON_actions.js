@@ -75,16 +75,24 @@ function preparePrint(text) {
     document.getElementById("printHeader").innerHTML = "<strong>Udskrevet</strong> " + new Date() +
         "<br><strong>Produkt Batch nr.</strong> " + parsedText.productBatchNr +
         "<br><strong>Recept nr.</strong> " + parsedText.receiptNr + "</p>";
+    let totalNetto = 0;
+    let totalTara = 0;
     for (let i in parsedText.list) {
-        document.getElementById("printHeader").innerHTML += "<div id='printCommodity"+i+"'></div>";
+        document.getElementById("printHeader").innerHTML += "<div id='printCommodity" + i + "'></div>";
         if (parsedText.list[i].amount === -1)
             parsedText.list[i].amount = "";
         if (parsedText.list[i].tolerance === -1)
             parsedText.list[i].tolerance = "";
         if (parsedText.list[i].tara === -1)
             parsedText.list[i].tara = "";
+        else {
+            totalTara += parsedText.list[i].tara;
+        }
         if (parsedText.list[i].netto === -1)
             parsedText.list[i].netto = "";
+        else {
+            totalNetto += parsedText.list[i].netto;
+        }
         if (parsedText.list[i].commodityBatchNr === -1)
             parsedText.list[i].commodityBatchNr = "";
 
@@ -98,17 +106,21 @@ function preparePrint(text) {
         table += "<tr>" +
             "<td>" + parsedText.list[i].amount + "</td>" +
             "<td>" + parsedText.list[i].tolerance + "</td>" +
-            "<td>" + parsedText.list[i].tara + "</td>" +
+            "<td>&#177;" + parsedText.list[i].tara + " %</td>" +
             "<td>" + parsedText.list[i].netto + "</td>" +
             "<td>" + parsedText.list[i].commodityBatchNr + "</td>" +
             "<td>" + parsedText.list[i].ini + "</td>" +
             "</tr>";
         console.log(parsedText.list[i]);
         table += "</table>";
+
         document.getElementById("printCommodity" + i).innerHTML = "<strong>Råvare nr.:</strong> " + parsedText.list[i].commodityNr +
             "<br><strong>Råvare navn:</strong> " + parsedText.list[i].commodityName + table;
 
     }
+    let endOfDoc = "<br>Sum Tara: " + totalTara + "<br>Simp Netto: " + totalNetto +
+        "<br>Produktion Status: " + parsedText.status;
+    document.getElementById("printCommodity" + i).innerHTML += endOfDoc;
 }
 
 PUTUser = function (user) {
