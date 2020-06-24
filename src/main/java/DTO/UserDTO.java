@@ -12,12 +12,30 @@ public class UserDTO {
     private String username;
     private String ini;
     private String CPR;
-    private String hashedPass;
-    private String Role;
+    private String nonHashedPassword;
+    private String role;
     private boolean isActive;
 
     public UserDTO() {
 
+    }
+
+    public UserDTO(int ID, String username, String ini, String CPR, String hashedPass, String role, boolean isActive) {
+        this.ID = ID;
+        this.username = username;
+        this.ini = ini;
+        this.CPR = CPR;
+        this.nonHashedPassword = hashedPass;
+        this.role = role;
+        this.isActive = isActive;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getUsername() {
@@ -44,28 +62,20 @@ public class UserDTO {
         this.CPR = CPR;
     }
 
-    public String getHashedPass() {
-        return hashedPass;
+    public String getNonHashedPassword() {
+        return nonHashedPassword;
     }
 
-    public void setHashedPass(String hashedPass) {
-        this.hashedPass = hashedPass;
+    public void setNonHashedPassword(String nonHashedPassword) {
+        this.nonHashedPassword = nonHashedPassword;
     }
 
     public String getRole() {
-        return Role;
+        return role;
     }
 
     public void setRole(String role) {
-        Role = role;
-    }
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
+        this.role = role;
     }
 
     public boolean isActive() {
@@ -75,5 +85,4 @@ public class UserDTO {
     public void setActive(boolean active) {
         isActive = active;
     }
-
 }

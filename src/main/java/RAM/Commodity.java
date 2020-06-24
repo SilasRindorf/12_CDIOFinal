@@ -22,6 +22,10 @@ public class Commodity extends IdAndActivatable implements Serializable {
         return name;
     }
 
+    public int getCommodityNr(){
+        return getID();
+    }
+
     @Override
     public String toString() {
         return "Commodity{" + " | " +

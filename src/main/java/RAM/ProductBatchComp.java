@@ -1,5 +1,7 @@
 package RAM;
 
+import DTO.ProductBatchCompDTO;
+
 import java.io.Serializable;
 
 /***
@@ -15,43 +17,72 @@ public class ProductBatchComp implements Serializable {
     private double weighted;
     private int commodityBatchNr;
     private int commodityNr;
-    private int weigherID;
+    private String ini;
 
-    public ProductBatchComp(double tara, double weighted, int commodityBatchNr, int commodityNr, int userID, boolean isActive) {
+    public ProductBatchComp(double tara, double weighted, int commodityBatchNr, int commodityNr, String ini, boolean isActive) {
         this.tara = tara;
         this.weighted = weighted;
         this.commodityBatchNr = commodityBatchNr;
         this.commodityNr = commodityNr;
-        this.weigherID = userID;
+        this.ini = ini;
+    }
+
+    public ProductBatchComp(ProductBatchCompDTO productBatchCompDTO){
+        this.tara = productBatchCompDTO.getTara();
+        this.weighted = productBatchCompDTO.getWeighted();
+        this.commodityBatchNr = productBatchCompDTO.getCommodityBatchNr();
+        this.commodityNr = productBatchCompDTO.getCommodityNr();
+        this.ini = productBatchCompDTO.getIni();
     }
 
     public double getTara() {
         return tara;
     }
 
+    public void setTara(double tara) {
+        this.tara = tara;
+    }
+
     public double getWeighted() {
         return weighted;
+    }
+
+    public void setWeighted(double weighted) {
+        this.weighted = weighted;
     }
 
     public int getCommodityBatchNr() {
         return commodityBatchNr;
     }
 
+    public void setCommodityBatchNr(int commodityBatchNr) {
+        this.commodityBatchNr = commodityBatchNr;
+    }
+
     public int getCommodityNr() {
         return commodityNr;
     }
 
-    public int getWeigherID() {
-        return weigherID;
+    public void setCommodityNr(int commodityNr) {
+        this.commodityNr = commodityNr;
+    }
+
+    public String getIni() {
+        return ini;
+    }
+
+    public void setIni(String ini) {
+        this.ini = ini;
     }
 
     @Override
     public String toString() {
-        return "ProductBatchCompDTO{" + " | " +
-                "tara=" + tara + " | " +
-                "weighted=" + weighted + " | " +
-                "commodityBatchNr=" + commodityBatchNr + " | " +
-                "commodityNr=" + commodityNr + " | " +
-                "weighterID=" + weigherID + '}';
+        return "ProductBatchComp{" +
+                "tara=" + tara +
+                ", weighted=" + weighted +
+                ", commodityBatchNr=" + commodityBatchNr +
+                ", commodityNr=" + commodityNr +
+                ", ini='" + ini + '\'' +
+                '}';
     }
 }

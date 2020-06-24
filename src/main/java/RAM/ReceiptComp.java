@@ -1,5 +1,7 @@
 package RAM;
 
+import DTO.ReceiptCompDTO;
+
 import java.io.Serializable;
 
 /***
@@ -19,6 +21,12 @@ public class ReceiptComp implements Serializable {
         this.commodityNr = commodity;
         this.amount = amount;
         this.tolerance = tolerance;
+    }
+
+    public ReceiptComp(ReceiptCompDTO receiptCompDTO){
+        this.commodityNr = receiptCompDTO.getCommodityNr();
+        this.amount = receiptCompDTO.getAmount();
+        this.tolerance = receiptCompDTO.getTolerance();
     }
 
     public int getCommodity() {

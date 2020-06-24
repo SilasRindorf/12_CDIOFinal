@@ -16,10 +16,14 @@ import java.util.List;
 public class main {
     public static void main(String[] args) {
         List<ProductBatchComp> listie = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+       /* for (int i = 0; i < 10; i++) {
             listie.add(new ProductBatchComp(i, i, i, i, i, true));
         }
         ProductBatch pbd = new ProductBatch(0, 0, new Date(), ProductBatch.Status.IN_PRODUCTION, listie, true);
+
+
         System.out.println(pbd.toString());
+
+        */
     }
 }

@@ -24,7 +24,7 @@ public class DummyDataGenerator {
                     String.valueOf(randChar()) + randChar() + randChar() + randChar(),
                     String.valueOf(randChar()) + randChar(),
                     "0707070707",
-                    User.newPassword(),
+                    User.hash(User.newPassword()),
                     User.Role.values()[rand.nextInt(4)],
                     true);
             try {
