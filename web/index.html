@@ -29,6 +29,7 @@
     <input type="text" id="logInPass" for="password" name="password">
     <br><br>
     <button type="button" onclick="logIn()">Log ind</button>
+    <button type="button" onclick="goToWelcomeFromDelete()">Censor knap</button>
 </form>
 
 <form method="POST" action="" name="welcome" id="welcome"
@@ -84,8 +85,10 @@
     <input type="text" id="raavareID" for="raavareID" name="raavareID"><br><br>
     <label for="maengde">Mængde: </label><br>
     <input type="text" id="maengde" for="maengde" name="maengde"><br><br>
+    <label for="leverandoer_produktionsleder">Leverandør: </label><br>
+    <input type="text" id="leverandoer_produktionsleder" for="leverandoer_produktionsleder" name="leverandoer_produktionsleder"><br><br>
     <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
-    <button type="button" onclick="createRaavarebatchComponent()">Tilføj råvarebatch komponent</button>
+    <button type="button" onclick="createRaavarebatchComponent()" value="Opret råvarebatch">Tilføj råvarebatch</button>
     </table>
     <table id="table_raavarebatch" border="1">
         <thead id="table-head_raavarebatch">
@@ -93,6 +96,7 @@
             <th>Råvarebatch Nr.</th>
             <th>RåvareID</th>
             <th>Mængde</th>
+            <th>Leverandør</th>
         </tr>
         </thead>
     </table>
@@ -108,7 +112,7 @@
     <label for="dato">Dato:</label><br>
     <input type="date" id="dato" name="dato"><br><br>
     <button type="button" onclick="goToProduktionsleder()" value="Gå tilbage">Gå tilbage</button>
-    <button type="button" onclick="finishCreateBatch()" value="Afslut batch">Opret batch</button>
+    <button type="button" onclick="finishCreateBatch()" value="Afslut batch">Opret produktbatch</button>
     <table id="tableBatch" border="1">
         <thead id="tableBatch-head">
         <tr>
@@ -139,7 +143,7 @@
     <input type="text" id="weight_Produktionsleder" name="weight"><br><br>
     <label for="tara_Produktionsleder">Indtast tara: </label>
     <input type="text" id="tara_Produktionsleder" name="tara"><br><br>
-    <input type="button" value="Tilføj produckbatch komponent"
+    <input type="button" value="Tilføj produktbatch komponent"
            onClick="addProductbatchComponent_Produktionsleder()"><br/><br/>
     <table id="table_Produktionsleder" border="1">
         <thead id="table-head_Produktionsleder">
@@ -236,7 +240,7 @@
     <label for="leverandoer">Leverandør: </label><br>
     <input type="text" id="leverandoer" name="leverandoer"><br><br>
     <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
-    <button type="button" onclick="createRaavarebatchComponentFarmaceut()">Tilføj råvarebatch komponent</button>
+    <button type="button" onclick="createRaavarebatchComponentFarmaceut()">Tilføj råvarebatch</button>
     <div id="RaavareBatchTable">
     </div>
 </form>
@@ -253,15 +257,21 @@
     <button type="button" onclick="goToFarmaceut()" value="Gå tilbage">Gå tilbage</button>
     <button type="button" onclick="finishCreateBatchFarmaceut()" value="Afslut batch">Opret batch</button>
     <div id="tableBatchFarmaceut">
-        
+
     </div>
 </form>
 
+<form method="POST" action="" name="printPlace" id="printPlace"
+      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <div id="tablePrint">
+
+    </div>
+</form>
 <form method="POST" action="" name="recept1" id="recept1"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
+    <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
     <button type="button" onclick="goToRecept2()">Opret ny recept</button>
     <button type="button" onclick="goToRecept4()">Vis recepter</button>
-    <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
 </form>
 
 <form method="POST" action="" name="recept2" id="recept2"
@@ -283,8 +293,8 @@
     <label for="tolerance">Indtast tolerancen: </label>
     <input type="text" id="tolerance" for="tolerance" name="receptNavn"><br><br>
     <input type="button" value="Tilføj receptkomponent" onClick="addReceptbatchComponent()"><br/><br/>
-    <button type="button" onclick="goLogIn()">Log ud</button>
     <button type="button" onclick="goToRecept2()">Gå tilbage</button>
+    <button type="button" onclick="goLogIn()">Log ud</button>
     <button type="button" onclick="finishRecept()">Færdiggør</button>
     <div id="ReceptCompTable"></div>
 </form>
@@ -302,6 +312,7 @@
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <label for="productbatchID_Farmaceut">Produktbatch ID:</label>
     <input type="text" id="productbatchID_Farmaceut" name="productbatchID"><br><br>
+    <button type="button" onclick="goToFarmaceut()">Gå tilbage</button>
     <button type="button" onclick="goLogIn()">Log ud</button>
     <button type="button" onclick="goToAfvejning2_Farmaceut()">Hent produktbatch information</button>
 </form>
@@ -330,8 +341,8 @@
     </table>
     <!---<label id="statusOprettet_Produktionsleder" for="statusOprettet_Produktionsleder"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</-label><br><br>
     <label id="statusUnderProduktion_Produktionsleder" for="statusUnderProduktion_Produktionsleder"><strong>Status:</strong> Produktbatch er under produktion</label><br><br>-->
-    <button type="button" onclick="goLogIn()">Log ud</button>
     <button type="button" onclick="goToAfvejning1_Farmaceut()">Gå tilbage</button>
+    <button type="button" onclick="goLogIn()">Log ud</button>
     <button type="button" onclick="finishProductbatch_Farmaceut()">Afslut produktbatch</button>
 </form>
 

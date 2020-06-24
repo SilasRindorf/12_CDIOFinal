@@ -3,6 +3,7 @@ package controller;
 
 import DAL.interfaces.*;
 import DAL.nonPersistent.*;
+import DAL.persistent.*;
 import DTO.*;
 import RAM.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,10 +16,15 @@ import java.util.List;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
-    private final IUserDAO USERS = new UserDAONonPersistent();
-    private final ICommodityDAO COM = new CommodityDAONonPersistent();
-    private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
-    private final IProductDAO PRO = new ProductDAONonPersistent(REC);
+    //private final IUserDAO USERS = new UserDAONonPersistent();
+    //private final ICommodityDAO COM = new CommodityDAONonPersistent();
+    //private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
+    //private final IProductDAO PRO = new ProductDAONonPersistent(REC);
+    private final IUserDAO USERS = new UserDAO(FileAPI.USER_DAO_FILE);
+    private final ICommodityDAO COM = new CommodityDAO(FileAPI.USER_DAO_FILE);
+    private final IReceiptDAO REC = new ReceiptDAO( FileAPI.RECEIPT_DAO_FILE,COM );
+    private final IProductDAO PRO = new ProductDAO(FileAPI.PRODUCT_DAO_FILE,REC);
+
     // TODO: Remove test fields
     private final ReceiptComp RECC = new ReceiptComp(1, 400, 2);
     private final List<ReceiptComp> receiptCompList = new ArrayList<ReceiptComp>();
@@ -33,8 +39,8 @@ public class ActionController {
             COM.createBatch(new CommodityBatch(1, 1, 5000, "Mærsk", true));
             REC.createReceipt(new Receipt(1, "Bajer", receiptCompList, true));
             ArrayList<ProductBatchComp> listie = new ArrayList<>();
-            listie.add(new ProductBatchComp(2.2,2.1,1,2,11,true));
-            PRO.createBatch(new ProductBatch(1,1,new Date(), ProductBatch.Status.IN_PRODUCTION,listie,true));
+            listie.add(new ProductBatchComp(2.2,2.1,1,2,"SIL",true));
+            PRO.createBatch(new ProductBatch(1,true,1,new Date(), ProductBatch.Status.IN_PRODUCTION,new ArrayList<>()));
         } catch (Exception ignored) {
 
         }
@@ -150,7 +156,7 @@ public class ActionController {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(REC.getReceiptList());
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | DALException e) {
             e.printStackTrace();
             return "Kunne ikke skaffe recepter";
         }
@@ -214,11 +220,15 @@ public class ActionController {
         return "Kunne ikke tilføje komponent";
 
     }
+//_______________________________ ProductBatch ________________________________
 
-    public String createProductBatch(ProductBatchDTO productBatchDTO) throws JunkFormatException, DALException {
-
-        PRO.createBatch(new ProductBatch(productBatchDTO));
-
+    public String createProductBatch(int id, boolean isActive, int receiptNr, Date created, ProductBatch.Status status, List<ProductBatchComp> productComps) {
+        try {
+            PRO.createBatch(new ProductBatch(id,isActive,receiptNr,created,status,productComps));
+        } catch (DALException | JunkFormatException e) {
+            e.printStackTrace();
+            return "Kunne ikke laves";
+        }
         return "produkt batch lavet";
     }
 
@@ -233,16 +243,26 @@ public class ActionController {
     }
 
     //_______________________________ Printer _______________________________
-    public String getPrint(int productBatchNr){
-        PrintDTO printer = new PrintDTO();
+
+
+    public String createAndGetPrint(int productBatchNr) throws DALException {
+        ProductBatch pB = PRO.getBatch(productBatchNr);
+        // REC and COM must only call non-modifiable methods!
+        PrintProductBatchDTO printPB = new PrintProductBatchDTO(pB, REC, COM);
+
         ObjectMapper objMapper = new ObjectMapper();
         try {
-            return objMapper.writeValueAsString(printer);
+            return objMapper.writeValueAsString(printPB);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Kunne ikke printe";
         }
+
     }
+
+
+
+
 
 }
 

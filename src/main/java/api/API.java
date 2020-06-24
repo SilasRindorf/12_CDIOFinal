@@ -3,10 +3,13 @@ package api;
 import DAL.interfaces.DALException;
 import DAL.interfaces.JunkFormatException;
 import DTO.*;
+import RAM.ProductBatch;
 import controller.ActionController;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.Date;
 
 @Path("/actions")
 public class API {
@@ -294,10 +297,12 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("product-batch-post")
-    public String postReceiptDTO(ProductBatchDTO productBatchDTO) {
-        try {
-            return controller.createProductBatch(productBatchDTO);
-        } catch (JunkFormatException | DALException e) {
+    public String postProductBatch(ProductBatchDTO productBatchDTO) {
+        try{
+        return controller.createProductBatch(productBatchDTO.getProductBatchNr(),true,
+                productBatchDTO.getReceiptNr(),productBatchDTO.getCreated(),
+                ProductBatch.Status.CREATED,new ArrayList<>());
+        }catch (JunkFormatException | DALException e){
             e.printStackTrace();
             return "Alert " + e.getMessage();
         }
@@ -305,7 +310,7 @@ public class API {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("setisactive-receipt")
+    @Path("product-batch-get")
     public String getProductbatches() {
         try {
             return controller.getProductBathes();
@@ -314,6 +319,19 @@ public class API {
             return "Alert " + e.getMessage();
         }
     }
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("print-product-batch")
+    public String postPrint(@QueryParam("productBatchid") int productBatchID){
+        try {
+            return controller.createAndGetPrint(productBatchID);
+        } catch (DALException e) {
+            e.printStackTrace();
+            return "ARGHHHHHHHHHHHHH intet tårn hihi";
+        }
+    }
+
 
 
 }

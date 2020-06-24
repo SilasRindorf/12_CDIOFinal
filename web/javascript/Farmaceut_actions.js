@@ -35,28 +35,29 @@ function resetValuesCreateRaavarebatchFarmaceut() {
 function goToProduktbatchFarmaceut() {
     hideall();
     document.getElementById("produktbatchFarmaceut").style.visibility = "visible";
+    JSONGetProductBatchTable("rest/actions/product-batch-get")
 }
 
 function finishCreateBatchFarmaceut() {
-    var tableBody = document.getElementById("tableBatchFarmaceut");
-    var td1 = document.createElement("td");
-    var td2 = document.createElement("td");
-    var td3 = document.createElement("td");
-    var row = document.createElement("tr");
-    var status = "Oprettet"
-    td1.innerHTML = document.getElementById("receptNrFarmaceut").value;
-    td2.innerHTML = document.getElementById("datoFarmaceut").value;
-    td3.innerHTML = status;
-    row.appendChild(td1);
-    row.appendChild(td2);
-    row.appendChild(td3);
-    tableBody.appendChild(row);
+    if(!document.getElementById("productbatchID_Farmaceut_produktbatchside").value == "" &&
+        !document.getElementById("datoFarmaceut").value == "" &&
+        !document.getElementById("receptNrFarmaceut").value == ""){
+        var productBatchNr = document.getElementById("productbatchID_Farmaceut_produktbatchside").value;
+        var receiptNr = document.getElementById("receptNrFarmaceut").value;
+        var created = document.getElementById("datoFarmaceut").value;
+
+        createProductBatch("rest/actions/product-batch-post",productBatchNr,receiptNr,created);
+    }
+    else {
+        alert("Please fill out all the fields!");
+    }
     resetValuesCreateBatchFarmaceut();
 }
 
 function resetValuesCreateBatchFarmaceut() {
     document.getElementById("receptNrFarmaceut").value = "";
     document.getElementById("datoFarmaceut").value = "";
+    document.getElementById("productbatchID_Farmaceut_produktbatchside").value = "";
 }
 
 //Farmaceut afvejning functions

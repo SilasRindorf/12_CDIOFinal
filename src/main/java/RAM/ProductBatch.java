@@ -1,9 +1,11 @@
 package RAM;
 
+import DAL.interfaces.DALException;
+import DTO.PrintProductBatchDTO;
 import DTO.ProductBatchDTO;
 
 import java.io.Serializable;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,12 +23,12 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
     private Status status;
     private List<ProductBatchComp> productComps;
 
-    public ProductBatch(int productBatchNr, int receiptNr, Date created, Status status, List<ProductBatchComp> productComps, boolean isActive) {
-        super(productBatchNr, isActive);
+    public ProductBatch(int id, boolean isActive, int receiptNr, Date created, Status status, List<ProductBatchComp> productComps) {
+        super(id, isActive);
         this.receiptNr = receiptNr;
         this.created = created;
         this.status = status;
-        this.productComps = Collections.unmodifiableList(productComps);
+        this.productComps = productComps;
     }
 
     public ProductBatch(ProductBatchDTO productBatchDTO) {
@@ -34,11 +36,17 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
         this.receiptNr = productBatchDTO.getReceiptNr();
         this.created = productBatchDTO.getCreated();
         this.status = productBatchDTO.getStatus();
-        this.productComps = Collections.unmodifiableList(productComps);
+        productComps = new ArrayList<>();
+        for (int i = 0; i < productBatchDTO.getProductComps().size(); i++) {
+            productComps.add(new ProductBatchComp(productBatchDTO.getProductComps().get(i)));
+        }
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
-    public int getReceipt() {
+    public int getReceiptNr() {
         return receiptNr;
     }
 
@@ -54,19 +62,15 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
         return productComps;
     }
 
+
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (ProductBatchComp pbc :
-                productComps) {
-            builder.append("\n\t").append(pbc.toString());
-        }
-        return "ProductBatchDTO{" + "receiptNr=" + receiptNr + " | " +
-                "created=" + created + " | " +
-                "status=" + status + " | " +
-                "isActive=" + getIsActive() + " | " +
-                "id = " + getID() + " | " +
-                "productComps=" + builder.toString() + '}';
+        return "ProductBatch{" +
+                "receiptNr=" + receiptNr +
+                ", created=" + created +
+                ", status=" + status +
+                ", productComps=" + productComps +
+                '}';
     }
 
     public enum Status {

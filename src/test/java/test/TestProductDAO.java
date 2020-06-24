@@ -3,15 +3,12 @@ package test;
 import DAL.interfaces.*;
 import DAL.nonPersistent.*;
 import DAL.persistent.*;
+import DTO.PrintProductBatchDTO;
 import RAM.*;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -31,7 +28,7 @@ public class TestProductDAO {
 
     @Test
     public void testCreateBatch() throws DALException, JunkFormatException {
-        // Create ProductDAONonPersistent instance.
+               // Create ProductDAONonPersistent instance.
         ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
         commodityDAO.createCommodity(new Commodity(13,"treskaido", true));
         IReceiptDAO receiptDAO = new ReceiptDAONonPersistent(commodityDAO);
@@ -45,7 +42,7 @@ public class TestProductDAO {
         assertTrue(productBatches.size() == 0);
 
         // When adding a new batch, i expect no exceptions.
-        ProductBatch batch = new ProductBatch(1, 1, date,ProductBatch.Status.CREATED,products, true);
+        ProductBatch batch = new ProductBatch(1,true, 1, date,ProductBatch.Status.CREATED, products);
         String message = "";
         try {
             batches.createBatch(batch);
@@ -84,7 +81,7 @@ public class TestProductDAO {
         List<ProductBatchComp> products = new ArrayList<ProductBatchComp>();
 
         // These lines are tested in a previous test, so i assume they work.
-        ProductBatch batch = new ProductBatch(1, 1, date,ProductBatch.Status.CREATED,products, true);
+        ProductBatch batch = new ProductBatch(1,true, 1, date,ProductBatch.Status.CREATED, products);
 
         String message = "";
         batches.createBatch(batch);
@@ -125,7 +122,7 @@ public class TestProductDAO {
         List<ProductBatchComp> products = new ArrayList<ProductBatchComp>();
 
         // These lines are tested in a previous test, so i assume they work.
-        ProductBatch batch = new ProductBatch(1, 1, date,ProductBatch.Status.CREATED,products, true);
+        ProductBatch batch = new ProductBatch(1,true, 1, date,ProductBatch.Status.CREATED,products);
 
         String message = "";
         try {
@@ -135,7 +132,7 @@ public class TestProductDAO {
         }
 
         // Tying to update the Status on a productbatch that doesn't exist should throw an exception
-        ProductBatch newbatch = new ProductBatch(1234, 1, date,ProductBatch.Status.IN_PRODUCTION,products, true);
+        ProductBatch newbatch = new ProductBatch(1234, true, 1, date,ProductBatch.Status.IN_PRODUCTION, products);
         message = "";
         try{
             batches.updateBatch(newbatch);
@@ -147,7 +144,7 @@ public class TestProductDAO {
         // When updating a productbatch that exists, the list should stay the same size, and the list should contain
         // the updated object.
 
-        newbatch = new ProductBatch(1, 1, date,ProductBatch.Status.IN_PRODUCTION,products, true);
+        newbatch = new ProductBatch(1, true, 1, date,ProductBatch.Status.IN_PRODUCTION,products);
         int sizebefore= -1;
         int sizeafter = -2;
         try{
@@ -176,7 +173,7 @@ public class TestProductDAO {
         List<ProductBatchComp> products = new ArrayList<ProductBatchComp>();
 
         // These lines are tested in a previous test, so i assume they work.
-        ProductBatch batch = new ProductBatch(1, 1, date,ProductBatch.Status.CREATED,products, true);
+        ProductBatch batch = new ProductBatch(1 ,true, 1, date,ProductBatch.Status.CREATED,products);
 
         String message = "";
         try {
@@ -225,7 +222,7 @@ public class TestProductDAO {
         File file = new File(FileAPI.TEST_PRODUCT_DAO_FILE);
         file.delete();
 
-        ProductBatch a = new ProductBatch(1,1, new Date(2014, 02, 11), ProductBatch.Status.CREATED, products, true);
+        ProductBatch a = new ProductBatch(1, true,1, new Date(2014, 02, 11), ProductBatch.Status.CREATED,products);
 
         ICommodityDAO commodityDAO = new CommodityDAONonPersistent();
         commodityDAO.createCommodity(new Commodity(13,"treskaido", true));
@@ -247,7 +244,7 @@ public class TestProductDAO {
         assertEquals(expected.getIsActive(), got.getIsActive());
         assertEquals(expected.getStatus(), got.getStatus());
         assertEquals(expected.getCreated(), got.getCreated());
-        assertEquals(expected.getReceipt(), got.getReceipt());
+        assertEquals(expected.getReceiptNr(), got.getReceiptNr());
         assertEquals(expected.getProductComps(), got.getProductComps());
 
     }
@@ -269,8 +266,8 @@ public class TestProductDAO {
         receiptDAO.createReceipt(new Receipt(1234, "apple", new ArrayList<>(), true));
         IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE,receiptDAO);
 
-        ProductBatch a = new ProductBatch(1,1, new Date(2014, 02, 11), ProductBatch.Status.CREATED, products, true);
-        ProductBatch b = new ProductBatch(1,1234, new Date(2015, 12, 16), ProductBatch.Status.IN_PRODUCTION, products, false);
+        ProductBatch a = new ProductBatch(1,true,1, new Date(2014, 02, 11), ProductBatch.Status.CREATED, products);
+        ProductBatch b = new ProductBatch(1,false,1234, new Date(2015, 12, 16), ProductBatch.Status.IN_PRODUCTION,products);
 
         // I create the first object (a) from dao, then overwrite it with the second object (b) from dao.
         dao.createBatch(a);
@@ -286,7 +283,7 @@ public class TestProductDAO {
         assertEquals(expected.getIsActive(), got.getIsActive());
         assertEquals(expected.getStatus(), got.getStatus());
         assertEquals(expected.getCreated(), got.getCreated());
-        assertEquals(expected.getReceipt(), got.getReceipt());
+        assertEquals(expected.getReceiptNr(), got.getReceiptNr());
         assertEquals(expected.getProductComps(), got.getProductComps());
     }
 
@@ -304,7 +301,7 @@ public class TestProductDAO {
         receiptDAO.createReceipt(new Receipt(1, "banana", new ArrayList<>(), true));
         IProductDAO dao = new ProductDAO(FileAPI.TEST_PRODUCT_DAO_FILE,receiptDAO);
 
-        ProductBatch a = new ProductBatch(1,1, new Date(2014, 02, 11), ProductBatch.Status.CREATED, products, true);
+        ProductBatch a = new ProductBatch(1,true,1, new Date(2014, 02, 11), ProductBatch.Status.CREATED,products );
         dao.createBatch(a);
 
         // When i try to set the productbatch with ID 1 to false from dao, i expect it to happen in dao2 aswell.
@@ -323,7 +320,10 @@ public class TestProductDAO {
         } catch (Exception e){
             assertTrue(true);
         }
+
+
     }
 }
+
 
 

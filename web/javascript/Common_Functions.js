@@ -16,14 +16,13 @@ function hideall() {
     document.getElementById("raavarebatch").style.visibility = "hidden";
     document.getElementById("produktbatch").style.visibility = "hidden"
     document.getElementById("finish").style.visibility = "hidden";
-    document.getElementById("admin").style.visibility = "hidden";
+    document.getElementById("admin").style.visibili1ty = "hidden";
     document.getElementById("afvejning1").style.visibility = "hidden";
     document.getElementById("afvejning1").style.visibility = "hidden";
     document.getElementById("afvejning2_Produktionsleder").style.visibility = "hidden";
     document.getElementById("statusOprettet").style.visibility = "hidden";
     document.getElementById("statusUnderProduktion").style.visibility = "hidden";
     document.getElementById("farmaceut").style.visibility = "hidden";
-    document.getElementById("recept1").style.visibility = "hidden";
     document.getElementById("recept2").style.visibility = "hidden";
     document.getElementById("recept3").style.visibility = "hidden";
     document.getElementById("recept4").style.visibility = "hidden";
@@ -35,6 +34,8 @@ function hideall() {
     document.getElementById("raavarebatchFarmaceut").style.visibility = "hidden";
     document.getElementById("raavareFarmaceut").style.visibility = "hidden";
     document.getElementById("produktbatchFarmaceut").style.visibility = "hidden";
+    document.getElementById("printPlace").style.visibility = "hidden";
+    document.getElementById("recept1").style.visibility = "hidden";
 }
 
 function goLogIn() {
@@ -43,6 +44,7 @@ function goLogIn() {
     document.getElementById("title").innerHTML = "Login";
     document.getElementById("logInName").value = "";
     document.getElementById("logInPass").value = "";
+    document.getElementById("admin").style.visibility = "hidden";
 }
 
 function goToWelcomeFromFinish() {
@@ -88,5 +90,10 @@ function goToFarmaceut() {
     hideall();
     document.getElementById("farmaceut").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Farmaceut";
+}
+function printHideAll() {
+    hideall();
+    document.getElementById("printPlace").style.visibility = "true";
+
 }
 

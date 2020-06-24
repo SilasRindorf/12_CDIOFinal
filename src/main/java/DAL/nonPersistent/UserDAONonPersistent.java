@@ -82,13 +82,4 @@ public class UserDAONonPersistent implements IUserDAO {
         }
     }
 
-    public void setInactiveUser(int userId) throws DALException {
-        for (User user : users) {
-            if (user.getID() == userId) {
-                users.remove(user);
-                return;
-            }
-        }
-        throw new DALException("Der fandtes ingen bruger med ID " + userId);
-    }
 }

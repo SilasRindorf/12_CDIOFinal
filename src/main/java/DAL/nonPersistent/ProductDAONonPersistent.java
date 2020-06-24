@@ -4,10 +4,7 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.IProductDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
-import RAM.ProductBatch;
-import RAM.ProductBatchComp;
-import RAM.Receipt;
-import RAM.ReceiptComp;
+import RAM.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,8 +53,8 @@ public class ProductDAONonPersistent implements IProductDAO {
                 throw new DALException("There is already a productbatch where ID = " + prod.getID());
             }
         }
-        if (!isReceiptInDatabase(productBatch.getReceipt())) {
-            throw new DALException("Receipt id: " + productBatch.getReceipt() + " is not in database");
+        if (!isReceiptInDatabase(productBatch.getReceiptNr())) {
+            throw new DALException("Receipt id: " + productBatch.getReceiptNr() + " is not in database");
         }
         productBatches.add(productBatch);
     }
@@ -101,12 +98,12 @@ public class ProductDAONonPersistent implements IProductDAO {
     }
 
     @Override
-    public void setIsActive(int pbId, boolean isActive) throws DALException {
-        ProductBatch prod = getBatch(pbId);
-        if (prod.getIsActive() == isActive) {
+    public void setIsActive(int productBatchID, boolean isActive) throws DALException {
+        ProductBatch pb = getBatch(productBatchID);
+        if (pb.getIsActive() == isActive) {
             throw new DALException("The productbatch activity is already " + isActive);
         }
-        ProductBatch newBatch = new ProductBatch(pbId, prod.getReceipt(), prod.getCreated(), prod.getStatus(), prod.getProductComps(), isActive);
+        ProductBatch newBatch = new ProductBatch(pb.getID(), isActive, pb.getReceiptNr(), pb.getCreated(),pb.getStatus(),pb.getProductComps());
         try {
             updateBatch(newBatch);
         } catch (JunkFormatException e) {
@@ -114,7 +111,7 @@ public class ProductDAONonPersistent implements IProductDAO {
                     "JunkFormatException, since it should only modify one and only one variable (isActive). " +
                     "This means that the database state was corrupt.");
         }
-
     }
+
 
 }
