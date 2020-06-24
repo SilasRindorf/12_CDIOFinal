@@ -414,7 +414,6 @@ printProductionBatch = function (productBatchNr) {
     hideallProductBatch();
     document.getElementById("printPlace").style.visibility = "visible";
     POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr,productBatchNr,2);
-
 };
 
 // DENNE HIDEALL RØRES IKKE, JAVASCRIPT DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
