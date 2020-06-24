@@ -46,8 +46,8 @@ public class UserDAONonPersistent implements IUserDAO {
             if (user.getID() == newUser.getID()) {
                 throw new DALException("User with id already exists for: " + user.getID());
             }
-            if (user.getIni() == newUser.getIni()){
-                throw new DALException("User with name already exists for: " + user.getUsername());
+            if (user.getIni().equals(newUser.getIni())){
+                throw new DALException("A user with those initials already exists, with the username: " + user.getUsername());
             }
         }
         users.add(newUser);

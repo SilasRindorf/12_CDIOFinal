@@ -14,6 +14,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/***
+ * Initial version created by: Morten
+ * Edited by: Silas, Christoffer
+ * Created: 19-06-2020
+ * This class is responsible for:
+ *  -
+ */
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
     //private final IUserDAO USERS = new UserDAONonPersistent();
@@ -22,8 +29,8 @@ public class ActionController {
     //private final IProductDAO PRO = new ProductDAONonPersistent(REC);
     private final IUserDAO USERS = new UserDAO(FileAPI.USER_DAO_FILE);
     private final ICommodityDAO COM = new CommodityDAO(FileAPI.COMMODITY_DAO_FILE);
-    private final IReceiptDAO REC = new ReceiptDAO( FileAPI.RECEIPT_DAO_FILE,COM );
-    private final IProductDAO PRO = new ProductDAO(FileAPI.PRODUCT_DAO_FILE,REC);
+    private final IReceiptDAO REC = new ReceiptDAO(FileAPI.RECEIPT_DAO_FILE, COM);
+    private final IProductDAO PRO = new ProductDAO(FileAPI.PRODUCT_DAO_FILE, REC);
 
     // TODO: Remove test fields
     private final ReceiptComp RECC = new ReceiptComp(1, 400, 2);
@@ -39,8 +46,8 @@ public class ActionController {
             COM.createBatch(new CommodityBatch(1, 1, 5000, "Mærsk", true));
             REC.createReceipt(new Receipt(1, "Bajer", receiptCompList, true));
             ArrayList<ProductBatchComp> listie = new ArrayList<>();
-            listie.add(new ProductBatchComp(2.2,2.1,1,2,"SIL",true));
-            PRO.createBatch(new ProductBatch(1,true,1,new Date(), ProductBatch.Status.IN_PRODUCTION,new ArrayList<>()));
+            listie.add(new ProductBatchComp(2.2, 2.1, 1, 2, "SIL", true));
+            PRO.createBatch(new ProductBatch(1, true, 1, new Date(), ProductBatch.Status.IN_PRODUCTION, new ArrayList<>()));
         } catch (Exception ignored) {
 
         }
@@ -79,9 +86,9 @@ public class ActionController {
     // ------------------------------- User methods ------------------------------------------
     public String createUser(UserDTO userDTO) throws JunkFormatException, DALException {
 
-            USERS.createUser(new User(userDTO.getID(), userDTO.getUsername(),
-                    userDTO.getIni(), userDTO.getCPR(), User.hash(userDTO.getNonHashedPassword()),
-                    User.Role.valueOf(userDTO.getRole()), userDTO.isActive()));
+        USERS.createUser(new User(userDTO.getID(), userDTO.getUsername(),
+                userDTO.getIni(), userDTO.getCPR(), User.hash(userDTO.getNonHashedPassword()),
+                User.Role.valueOf(userDTO.getRole()), userDTO.isActive()));
 
         return "Bruger lavet";
     }
@@ -98,7 +105,7 @@ public class ActionController {
 
     public void setIsActiveUser(int id, boolean status) throws DALException {
 
-            USERS.setIsActive(id, status);
+        USERS.setIsActive(id, status);
 
 
     }
@@ -108,20 +115,20 @@ public class ActionController {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(COM.getCommodityList());
-        } catch (JsonProcessingException  e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Kunne ikke skaffe brugere";
         }
     }
 
     public void setIsActiveCommodity(int commodityNr, boolean status) throws DALException {
-            COM.setIsActiveCommodity(commodityNr, status);
+        COM.setIsActiveCommodity(commodityNr, status);
 
     }
 
     public String createCommodity(CommodityDTO commodityDTO) throws JunkFormatException, DALException {
 
-            COM.createCommodity(new Commodity(commodityDTO.getCommodityNr(), commodityDTO.getName(), commodityDTO.isActive()));
+        COM.createCommodity(new Commodity(commodityDTO.getCommodityNr(), commodityDTO.getName(), commodityDTO.isActive()));
 
         return "Råvare lavet";
     }
@@ -131,7 +138,7 @@ public class ActionController {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(COM.getBatchList());
-        } catch (JsonProcessingException  e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Kunne ikke skaffe råvarebatches";
         }
@@ -139,13 +146,13 @@ public class ActionController {
 
     public void setIsActiveCommodityBatch(int commodityBatchNr, boolean status) throws DALException {
 
-            COM.setIsActiveBatch(commodityBatchNr, status);
+        COM.setIsActiveBatch(commodityBatchNr, status);
 
     }
 
     public String createCommodityBatch(CommodityBatchDTO commodityBatchDTO) throws JunkFormatException, DALException {
 
-            COM.createBatch(new CommodityBatch(commodityBatchDTO.getCommodityBatchNr(), commodityBatchDTO.getCommodityNr(), commodityBatchDTO.getAmount(), commodityBatchDTO.getProvider(), commodityBatchDTO.isActive()));
+        COM.createBatch(new CommodityBatch(commodityBatchDTO.getCommodityBatchNr(), commodityBatchDTO.getCommodityNr(), commodityBatchDTO.getAmount(), commodityBatchDTO.getProvider(), commodityBatchDTO.isActive()));
 
         return "Råvarebatch lavet";
     }
@@ -178,7 +185,7 @@ public class ActionController {
 
     public void setIsActiveReceipt(int receiptNumber, boolean status) throws JunkFormatException, DALException {
 
-            REC.setIsActive(receiptNumber, status);
+        REC.setIsActive(receiptNumber, status);
 
     }
 
@@ -224,7 +231,7 @@ public class ActionController {
 
     public String createProductBatch(int id, boolean isActive, int receiptNr, Date created, ProductBatch.Status status, List<ProductBatchComp> productComps) {
         try {
-            PRO.createBatch(new ProductBatch(id,isActive,receiptNr,created,status,productComps));
+            PRO.createBatch(new ProductBatch(id, isActive, receiptNr, created, status, productComps));
         } catch (DALException | JunkFormatException e) {
             e.printStackTrace();
             return "Kunne ikke laves";
@@ -261,6 +268,47 @@ public class ActionController {
     }
 
 
+    //_______________________________ Afvejning _________________________________
+
+    public String getProductComps(int productBatchNr) throws DALException {
+        ObjectMapper objMapper = new ObjectMapper();
+        if (PRO.getBatch(productBatchNr).getProductComps() != null) {
+            ProductBatch pB = PRO.getBatch(productBatchNr);
+            try {
+                return objMapper.writeValueAsString(pB.getProductComps());
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return "Kunne ikke skaffe product komponenter";
+            }
+
+        }
+        else{
+            return "";
+        }
+    }
+    public String createProductBatchComp(int productBatchNr, ProductBatchCompDTO productBatchCompDTO) {
+        try {
+            PRO.getBatch(productBatchNr).getProductComps().add(new ProductBatchComp(productBatchCompDTO));
+            ProductBatch pB = PRO.getBatch(productBatchNr);
+            PRO.updateBatch(new ProductBatch(pB.getID(),pB.getIsActive(),pB.getReceiptNr(),pB.getCreated(), ProductBatch.Status.IN_PRODUCTION,pB.getProductComps()));
+        } catch (DALException | JunkFormatException e) {
+            e.printStackTrace();
+            return "Kunne ikke lave product batch comp";
+        }
+
+        return "Product batch comp lavet";
+    }
+
+    public String finishProductBatch(int productBatchNr){
+        try {
+            ProductBatch pB = PRO.getBatch(productBatchNr);
+            PRO.updateBatch(new ProductBatch(pB.getID(),pB.getIsActive(),pB.getReceiptNr(),pB.getCreated(), ProductBatch.Status.DONE,pB.getProductComps()));
+        } catch (DALException | JunkFormatException e) {
+            e.printStackTrace();
+            return "Det var ikke muligt at færdigøre den";
+        }
+        return "Den er blevet færdiggjort";
+    }
 
 
 

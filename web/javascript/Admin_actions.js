@@ -4,10 +4,6 @@ function finishCreateUser() {
         role = "Farmaceut";
     }
 
-    if (document.getElementById("AdminID").checked === true) {
-        role = "Administrator";
-    }
-
     if (document.getElementById("ProduktionslederRadio").checked === true) {
         role = "Produktionsleder";
     }
@@ -21,7 +17,6 @@ function finishCreateUser() {
         !document.getElementById("cpr").value == "" &&
         !document.getElementById("hashedPass").value == "" &&
         (document.getElementById("Pharmaceut").checked == true ||
-            document.getElementById("AdminID").checked == true ||
             document.getElementById("ProduktionslederRadio").checked == true ||
             document.getElementById("Laborant").checked == true)) {
         var ID = document.getElementById("id").value;
@@ -47,7 +42,6 @@ function resetValuesCreateUser() {
     document.getElementById("cpr").value = "";
     document.getElementById("hashedPass").value = "";
     document.getElementById("Pharmaceut").checked = false;
-    document.getElementById("AdminID").checked = false;
     document.getElementById("ProduktionslederRadio").checked = false;
     document.getElementById("Laborant").checked = false;
 }
