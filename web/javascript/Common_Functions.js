@@ -44,6 +44,7 @@ function goLogIn() {
     document.getElementById("title").innerHTML = "Login";
     document.getElementById("logInName").value = "";
     document.getElementById("logInPass").value = "";
+    document.getElementById("admin").style.visibility = "hidden";
 }
 
 function goToWelcomeFromFinish() {
