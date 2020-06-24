@@ -34,6 +34,11 @@ public class CommodityBatch extends IdAndActivatable implements Serializable {
         return commodityNr;
     }
 
+    public int getCommodityBatchNr(){
+        return getID();
+    }
+
+
     @Override
     public String toString() {
         return "CommodityBatchDTO{" + " | " +

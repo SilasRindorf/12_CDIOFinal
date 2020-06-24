@@ -6,6 +6,7 @@ import DAL.interfaces.JunkFormatException;
 import RAM.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /***
@@ -37,12 +38,16 @@ public class UserDAONonPersistent implements IUserDAO {
     }
 
     public void createUser(User newUser) throws DALException, JunkFormatException {
-        if (newUser.getID() < 11 || newUser.getID() > 99) {
-            throw new DALException("BrugerID skal være mellem 11 og 99 (inklusivt)");
-        }
+
+    if (!(11<= newUser.getID() && newUser.getID() <= 99)){ 
+            throw new JunkFormatException("UserID needs to be between 11 and 99 inclusive", Arrays.asList(JunkFormatException.ErrorList.ID));
+    }
         for (User user : users) {
             if (user.getID() == newUser.getID()) {
-                throw new DALException("Der findes allerede en bruger med ID " + user.getID());
+                throw new DALException("User with id already exists for: " + user.getID());
+            }
+            if (user.getIni() == newUser.getIni()){
+                throw new DALException("User with name already exists for: " + user.getUsername());
             }
         }
         users.add(newUser);
@@ -62,7 +67,7 @@ public class UserDAONonPersistent implements IUserDAO {
                 return;
             }
         }
-        throw new DALException("Brugeren du prøvede at opdatere fandtes ikke");
+        throw new DALException("The user you tried to update does not exist: " + newUser);
     }
 
 
@@ -82,13 +87,4 @@ public class UserDAONonPersistent implements IUserDAO {
         }
     }
 
-    public void setInactiveUser(int userId) throws DALException {
-        for (User user : users) {
-            if (user.getID() == userId) {
-                users.remove(user);
-                return;
-            }
-        }
-        throw new DALException("Der fandtes ingen bruger med ID " + userId);
-    }
 }

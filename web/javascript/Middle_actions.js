@@ -4,25 +4,67 @@ function logInAction(url, username, password) {
         "username": username,
         "password": password
     };
-    GET("rest/test/form");
-    POST(url, logInDTO);
+
+    POSTF(url, logInDTO,3);
+
 }
 
-function createReceipt(url, name, receiptComps) {
-    const receipt = {
-        "name": name,
-        "receiptComps": receiptComps,
+function createUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
+    isActive = isActive === "Aktiv";
+    ID = parseInt(ID);
+    const userDTO = {
+        "id": ID,
+        "username": username,
+        "ini": ini,
+        "cpr": CPR,
+        "nonHashedPassword": nonHashedPass,
+        "role": role,
+        "active": isActive
     };
-    POST(url, receipt)
+    //PUTUser(userDTO)
+    POSTF(url,userDTO,4);
 }
 
-function createReceiptComp(url, commodityNr, amount, tolerance) {
+function createCommodityBatch(url, commodityBatchNr, commodityNr, amount, provider) {
+    const commodityBatch = {
+        "commodityBatchNr": commodityBatchNr,
+        "commodityNr": commodityNr,
+        "amount": amount,
+        "provider": provider,
+        "active": true
+    };
+    //PUTCommodityBatch(commodityBatch);
+    POSTF(url, commodityBatch,5);
+}
+
+function createCommodity(url, name, commodityNr) {
+    const commodity = {
+        "name": name,
+        "commodityNr": commodityNr,
+        "active" : true
+    };
+    POSTF(url, commodity,6)
+    //PUTCommodity(commodity)
+
+}
+function createReceiptAction(url, receiptNr, name) {
+    const receipt = {
+        "receiptNr": receiptNr,
+        "name": name,
+    };
+    //PUTReceiptDTO(receipt)
+    POSTF(url, receipt,8)
+}
+
+function createReceiptComp(url,receiptNr, commodityNr, amount, tolerance) {
     const receiptComp = {
+        "receiptNr" : receiptNr,
         "commodityNr": commodityNr,
         "amount": amount,
         "tolerance": tolerance
     };
-    POST(url, receiptComp)
+    //PUTReceiptComp(receiptComp)
+    POSTF(url, receiptComp,8)
 }
 function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodityNr, userID) {
     const productBatchComp = {
@@ -32,23 +74,15 @@ function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodity
         "commodityNr": commodityNr,
         "userID": userID
     };
-    POST(url, productBatchComp)
+    POSTF(url, productBatchComp,9)
 }
 
-function createCommodity(url, name, commodityNr) {
-    const commodity = {
-        "name": name,
-        "commodityNr": commodityNr,
-    };
-    POST(url, commodity)
-}
 
-function createProductBatch(url, receiptNr, created, status, productComps) {
+function createProductBatch(url, productBatchNr, receiptNr, created, status, productComps) {
     const productBatch = {
+        "productBatchNr": productBatchNr,
         "receiptNr": receiptNr,
-        "created": created,
-        "status": status,
-        "productComps": productComps
+        "created": created
     };
-    POST(url, productBatch)
+    POSTF(url, productBatch,10)
 }

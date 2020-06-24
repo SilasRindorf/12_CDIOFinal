@@ -1,9 +1,9 @@
 package DTO;
 
 import RAM.ProductBatch;
-import RAM.ProductBatchComp;
 
 import java.util.Date;
+import java.util.List;
 
 /***
  * Initial version created by: Silas
@@ -17,12 +17,23 @@ public class ProductBatchDTO {
     private int receiptNr;
     private Date created;
     private ProductBatch.Status status;
-    private ProductBatchComp[] productComps;
+    private List<ProductBatchCompDTO> productComps;
     private boolean isActive;
 
     public ProductBatchDTO() {
 
     }
+
+    public ProductBatchDTO(int productBatchNr, boolean isActive , int receiptNr, Date created, ProductBatch.Status status, List<ProductBatchCompDTO> productComps) {
+        this.productBatchNr = productBatchNr;
+        this.receiptNr = receiptNr;
+        this.created = created;
+        this.status = status;
+        this.productComps = productComps;
+        this.isActive = isActive;
+    }
+
+
 
     public int getProductBatchNr() {
         return productBatchNr;
@@ -64,12 +75,13 @@ public class ProductBatchDTO {
         this.status = status;
     }
 
-    public ProductBatchComp[] getProductComps() {
+    public List<ProductBatchCompDTO> getProductComps() {
         return productComps;
     }
 
-    public void setProductComps(ProductBatchComp[] productComps) {
+    public void setProductComps(List<ProductBatchCompDTO> productComps) {
         this.productComps = productComps;
     }
+
 
 }

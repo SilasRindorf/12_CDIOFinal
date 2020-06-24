@@ -12,10 +12,18 @@ public class ProductBatchCompDTO {
     private double weighted;
     private int commodityBatchNr;
     private int commodityNr;
-    private int weigherID;
+    private String ini;
 
     public ProductBatchCompDTO() {
 
+    }
+
+    public ProductBatchCompDTO(double tara, double weighted, int commodityBatchNr, int commodityNr, String ini) {
+        this.tara = tara;
+        this.weighted = weighted;
+        this.commodityBatchNr = commodityBatchNr;
+        this.commodityNr = commodityNr;
+        this.ini = ini;
     }
 
     public double getTara() {
@@ -50,13 +58,11 @@ public class ProductBatchCompDTO {
         this.commodityNr = commodityNr;
     }
 
-    public int getWeigherID() {
-        return weigherID;
+    public String getIni() {
+        return ini;
     }
 
-    public void setWeigherID(int weigherID) {
-        this.weigherID = weigherID;
+    public void setIni(String ini) {
+        this.ini = ini;
     }
-
-
 }

@@ -1,5 +1,7 @@
 package DTO;
 
+import java.util.List;
+
 /***
  * Initial version created by: Silas
  * Edited by: 
@@ -10,10 +12,17 @@ package DTO;
 public class ReceiptDTO {
     private int receiptNr;
     private String name;
-    private ReceiptCompDTO[] receiptComps;
+    private List<ReceiptCompDTO> receiptComps;
     private boolean isActive;
 
-    public ReceiptDTO() {
+    public ReceiptDTO(int receiptNr, String name, List<ReceiptCompDTO> receiptComps, boolean isActive) {
+        this.receiptNr = receiptNr;
+        this.name = name;
+        this.receiptComps = receiptComps;
+        this.isActive = isActive;
+    }
+
+    public ReceiptDTO (){
 
     }
 
@@ -33,11 +42,15 @@ public class ReceiptDTO {
         this.name = name;
     }
 
-    public ReceiptCompDTO[] getReceiptComps() {
+    public List<ReceiptCompDTO> getReceiptComps() {
         return receiptComps;
     }
 
-    public void setReceiptComps(ReceiptCompDTO[] receiptComps) {
+    public void addReceiptComp(ReceiptCompDTO receiptCompDTO){
+        receiptComps.add(receiptCompDTO);
+    }
+
+    public void setReceiptComps(List<ReceiptCompDTO> receiptComps) {
         this.receiptComps = receiptComps;
     }
 
