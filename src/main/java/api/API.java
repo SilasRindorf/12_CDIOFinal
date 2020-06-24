@@ -298,14 +298,9 @@ public class API {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("product-batch-post")
     public String postProductBatch(ProductBatchDTO productBatchDTO) {
-        try{
         return controller.createProductBatch(productBatchDTO.getProductBatchNr(),true,
                 productBatchDTO.getReceiptNr(),productBatchDTO.getCreated(),
                 ProductBatch.Status.CREATED,new ArrayList<>());
-        }catch (JunkFormatException | DALException e){
-            e.printStackTrace();
-            return "Alert " + e.getMessage();
-        }
     }
 
     @GET
