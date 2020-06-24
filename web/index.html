@@ -85,8 +85,10 @@
     <input type="text" id="raavareID" for="raavareID" name="raavareID"><br><br>
     <label for="maengde">Mængde: </label><br>
     <input type="text" id="maengde" for="maengde" name="maengde"><br><br>
+    <label for="leverandoer_produktionsleder">Leverandør: </label><br>
+    <input type="text" id="leverandoer_produktionsleder" for="leverandoer_produktionsleder" name="leverandoer_produktionsleder"><br><br>
     <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
-    <button type="button" onclick="createRaavarebatchComponent()">Tilføj råvarebatch komponent</button>
+    <button type="button" onclick="createRaavarebatchComponent()" value="Tilføj råvarebatch">Tilføj råvarebatch</button>
     </table>
     <table id="table_raavarebatch" border="1">
         <thead id="table-head_raavarebatch">
@@ -94,6 +96,7 @@
             <th>Råvarebatch Nr.</th>
             <th>RåvareID</th>
             <th>Mængde</th>
+            <th>Leverandør</th>
         </tr>
         </thead>
     </table>
