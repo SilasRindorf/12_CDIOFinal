@@ -14,7 +14,7 @@ function hideall() {
     document.getElementById("welcome").style.visibility = "hidden";
     document.getElementById("Produktionsleder").style.visibility = "hidden";
     document.getElementById("raavarebatch").style.visibility = "hidden";
-    document.getElementById("produktbatch").style.visibility = "hidden"
+    document.getElementById("produktbatch").style.visibility = "hidden";
     document.getElementById("finish").style.visibility = "hidden";
     document.getElementById("admin").style.visibili1ty = "hidden";
     document.getElementById("afvejning1").style.visibility = "hidden";
@@ -49,6 +49,7 @@ function goLogIn() {
 
 function goToWelcomeFromFinish() {
     hideall();
+    document.getElementById("title").innerHTML = "Velkommen";
     document.getElementById("welcome").style.visibility = "visible";
 }
 
@@ -66,7 +67,11 @@ function returnToStart() {
 }
 
 function printPage(){
+    hideall();
+    document.getElementById("title").style.visibility = "hidden";
     window.print();
+    document.getElementById("title").style.visibility = "visible";
+    goToWelcomeFromFinish();
 }
 
 //Go to different roles

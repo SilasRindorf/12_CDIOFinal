@@ -61,7 +61,7 @@ function doFunction(caseNumber, text){
             console.log(text);
             break;
         case 10:
-            JSONGetProductBatchTable("rest/actions/product-batch-get")
+            JSONGetProductBatchTable("rest/actions/product-batch-get");
             break;
     }
 }
@@ -412,12 +412,12 @@ JSONGetProductBatchTable = function (url, div) {
 
 printProductionBatch = function (productBatchNr) {
     hideallProductBatch();
-    document.getElementById("printPlace").style.visibility = "true";
+    document.getElementById("printPlace").style.visibility = "visible";
     POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr,productBatchNr,2);
 
-}
+};
 
-// DENNE HIDEALL RØRES IKKE, JAVASCRIPT ER LORT OG DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
+// DENNE HIDEALL RØRES IKKE, JAVASCRIPT DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
 function hideallProductBatch() {
     document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";
     document.getElementById("logInForm").style.visibility = "hidden";
