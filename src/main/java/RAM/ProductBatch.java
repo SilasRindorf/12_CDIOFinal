@@ -1,11 +1,11 @@
 package RAM;
 
-import DTO.PrintDTO;
+import DAL.interfaces.DALException;
+import DTO.PrintProductBatchDTO;
 import DTO.ProductBatchDTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -21,15 +21,13 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
     private int receiptNr;
     private Date created;
     private Status status;
-    private PrintDTO printDTO;
     private List<ProductBatchComp> productComps;
 
-    public ProductBatch(int id, boolean isActive, int receiptNr, Date created, Status status, PrintDTO printDTO, List<ProductBatchComp> productComps) {
+    public ProductBatch(int id, boolean isActive, int receiptNr, Date created, Status status, List<ProductBatchComp> productComps) {
         super(id, isActive);
         this.receiptNr = receiptNr;
         this.created = created;
         this.status = status;
-        this.printDTO = printDTO;
         this.productComps = productComps;
     }
 
@@ -44,49 +42,26 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
         }
     }
 
-    public int getProductBatchID(){
-        return getID();
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public int getReceiptNr() {
         return receiptNr;
     }
 
-    public void setReceiptNr(int receiptNr) {
-        this.receiptNr = receiptNr;
-    }
-
     public Date getCreated() {
         return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public PrintDTO getPrintDTO() {
-        return printDTO;
-    }
-
-    public void setPrintDTO(PrintDTO printDTO) {
-        this.printDTO = printDTO;
-    }
-
     public List<ProductBatchComp> getProductComps() {
         return productComps;
     }
 
-    public void setProductComps(List<ProductBatchComp> productComps) {
-        this.productComps = productComps;
-    }
 
     @Override
     public String toString() {
@@ -94,7 +69,6 @@ public class ProductBatch extends IdAndActivatable implements Serializable {
                 "receiptNr=" + receiptNr +
                 ", created=" + created +
                 ", status=" + status +
-                ", printDTO=" + printDTO +
                 ", productComps=" + productComps +
                 '}';
     }

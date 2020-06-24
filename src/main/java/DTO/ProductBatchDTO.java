@@ -1,7 +1,6 @@
 package DTO;
 
 import RAM.ProductBatch;
-import RAM.ProductBatchComp;
 
 import java.util.Date;
 import java.util.List;
@@ -18,7 +17,6 @@ public class ProductBatchDTO {
     private int receiptNr;
     private Date created;
     private ProductBatch.Status status;
-    private PrintDTO printDTO;
     private List<ProductBatchCompDTO> productComps;
     private boolean isActive;
 
@@ -26,23 +24,16 @@ public class ProductBatchDTO {
 
     }
 
-    public ProductBatchDTO(int productBatchNr,  boolean isActive , int receiptNr, Date created, ProductBatch.Status status, PrintDTO printDTO, List<ProductBatchCompDTO> productComps) {
+    public ProductBatchDTO(int productBatchNr, boolean isActive , int receiptNr, Date created, ProductBatch.Status status, List<ProductBatchCompDTO> productComps) {
         this.productBatchNr = productBatchNr;
         this.receiptNr = receiptNr;
         this.created = created;
         this.status = status;
-        this.printDTO = printDTO;
         this.productComps = productComps;
         this.isActive = isActive;
     }
 
-    public PrintDTO getPrintDTO() {
-        return printDTO;
-    }
 
-    public void setPrintDTO(PrintDTO printDTO) {
-        this.printDTO = printDTO;
-    }
 
     public int getProductBatchNr() {
         return productBatchNr;

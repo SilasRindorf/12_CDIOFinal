@@ -4,10 +4,7 @@ import DAL.interfaces.DALException;
 import DAL.interfaces.IProductDAO;
 import DAL.interfaces.IReceiptDAO;
 import DAL.interfaces.JunkFormatException;
-import RAM.ProductBatch;
-import RAM.ProductBatchComp;
-import RAM.Receipt;
-import RAM.ReceiptComp;
+import RAM.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,7 +99,18 @@ public class ProductDAONonPersistent implements IProductDAO {
 
     @Override
     public void setIsActive(int productBatchID, boolean isActive) throws DALException {
-
+        ProductBatch pb = getBatch(productBatchID);
+        if (pb.getIsActive() == isActive) {
+            throw new DALException("The productbatch activity is already " + isActive);
+        }
+        ProductBatch newBatch = new ProductBatch(pb.getID(), isActive, pb.getReceiptNr(), pb.getCreated(),pb.getStatus(),pb.getProductComps());
+        try {
+            updateBatch(newBatch);
+        } catch (JunkFormatException e) {
+            throw new AssertionError("Changing isActive should not result in " +
+                    "JunkFormatException, since it should only modify one and only one variable (isActive). " +
+                    "This means that the database state was corrupt.");
+        }
     }
 
 

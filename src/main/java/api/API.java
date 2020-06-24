@@ -234,7 +234,7 @@ public class API {
         try{
         return controller.createProductBatch(productBatchDTO.getProductBatchNr(),true,
                 productBatchDTO.getReceiptNr(),productBatchDTO.getCreated(),
-                ProductBatch.Status.CREATED,new PrintDTO(0,0,new ArrayList<>(),new Date(),0,0),new ArrayList<>());
+                ProductBatch.Status.CREATED,new ArrayList<>());
         }catch (Exception e){
             e.printStackTrace();
             return "Lortet virker ikke";

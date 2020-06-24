@@ -9,7 +9,6 @@ import RAM.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,10 +16,15 @@ import java.util.List;
 
 public class ActionController {
     private static ActionController ActionControllerInstance = null;
-    private final IUserDAO USERS = new UserDAONonPersistent();
-    private final ICommodityDAO COM = new CommodityDAONonPersistent();
-    private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
-    private final IProductDAO PRO = new ProductDAONonPersistent(REC);
+    //private final IUserDAO USERS = new UserDAONonPersistent();
+    //private final ICommodityDAO COM = new CommodityDAONonPersistent();
+    //private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
+    //private final IProductDAO PRO = new ProductDAONonPersistent(REC);
+    private final IUserDAO USERS = new UserDAO(FileAPI.USER_DAO_FILE);
+    private final ICommodityDAO COM = new CommodityDAO(FileAPI.USER_DAO_FILE);
+    private final IReceiptDAO REC = new ReceiptDAO( FileAPI.RECEIPT_DAO_FILE,COM );
+    private final IProductDAO PRO = new ProductDAO(FileAPI.PRODUCT_DAO_FILE,REC);
+
     // TODO: Remove test fields
     private final ReceiptComp RECC = new ReceiptComp(1, 400, 2);
     private final List<ReceiptComp> receiptCompList = new ArrayList<ReceiptComp>();
@@ -36,8 +40,7 @@ public class ActionController {
             REC.createReceipt(new Receipt(1, "Bajer", receiptCompList, true));
             ArrayList<ProductBatchComp> listie = new ArrayList<>();
             listie.add(new ProductBatchComp(2.2,2.1,1,2,"SIL",true));
-            PrintDTO printDTO = new PrintDTO(0,0,new ArrayList<>(),new Date(),0,0);
-            PRO.createBatch(new ProductBatch(1,true,1,new Date(), ProductBatch.Status.IN_PRODUCTION,printDTO,new ArrayList<>()));
+            PRO.createBatch(new ProductBatch(1,true,1,new Date(), ProductBatch.Status.IN_PRODUCTION,new ArrayList<>()));
         } catch (Exception ignored) {
 
         }
@@ -240,9 +243,9 @@ public class ActionController {
     }
 //_______________________________ ProductBatch ________________________________
 
-    public String createProductBatch(int id, boolean isActive, int receiptNr, Date created, ProductBatch.Status status, PrintDTO printDTO, List<ProductBatchComp> productComps) {
+    public String createProductBatch(int id, boolean isActive, int receiptNr, Date created, ProductBatch.Status status, List<ProductBatchComp> productComps) {
         try {
-            PRO.createBatch(new ProductBatch(id,isActive,receiptNr,created,status,printDTO,productComps));
+            PRO.createBatch(new ProductBatch(id,isActive,receiptNr,created,status,productComps));
         } catch (DALException | JunkFormatException e) {
             e.printStackTrace();
             return "Kunne ikke laves";
@@ -265,39 +268,12 @@ public class ActionController {
 
     public String createAndGetPrint(int productBatchNr) throws DALException {
         ProductBatch pB = PRO.getBatch(productBatchNr);
-        pB.getPrintDTO().getList().clear();
+        // REC and COM must only call non-modifiable methods!
+        PrintProductBatchDTO printPB = new PrintProductBatchDTO(pB, REC, COM);
 
-        for (int i = 0; i < REC.getReceipt(pB.getReceiptNr()).getReceiptComps().size(); i++) { // getReceiptComps().size() = 3
-            if(!pB.getProductComps().isEmpty()){
-                if (REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i) != null){
-                ReceiptComp rC = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i);
-                ProductBatchComp pBC = pB.getProductComps().get(i);
-                double amount = rC.getAmount();
-                double tolerance = rC.getTolerance();
-                double tara = pBC.getTara();
-                double netto = pBC.getWeighted();
-                int commodityBatchNr = pBC.getCommodityBatchNr();
-                int commodityNr = pBC.getCommodityNr();
-                String name = COM.getCommodity(rC.getCommodity()).getName();
-                String ini = pBC.getIni();
-                pB.getPrintDTO().getList().add(new PrintDTO.innerClass(amount,tolerance,tara,netto,commodityBatchNr,commodityNr,name,ini));
-                }
-                else {
-                    createInnerClassComps(pB, i);
-                }
-            }
-            else {
-                createInnerClassComps(pB, i);
-            }
-
-        }
-        pB.getPrintDTO().setReceiptNr(pB.getReceiptNr());
-        pB.getPrintDTO().setProductBatchNr(pB.getProductBatchID());
-        pB.getPrintDTO().setNetto(pB.getPrintDTO().calcNetto());
-        pB.getPrintDTO().setTara(pB.getPrintDTO().calcTara());
         ObjectMapper objMapper = new ObjectMapper();
         try {
-            return objMapper.writeValueAsString(pB.getPrintDTO());
+            return objMapper.writeValueAsString(printPB);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Kunne ikke printe";
@@ -305,20 +281,8 @@ public class ActionController {
 
     }
 
-    // TODO: 23-06-2020 Lav en toString metode for print så det ser lækkert ud c:
 
-    private void createInnerClassComps(ProductBatch pB, int i) throws DALException {
-        ReceiptComp rC = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i);
-        double amount = rC.getAmount();
-        double tolerance = rC.getTolerance();
-        double tara = -1;
-        double netto = -1;
-        int commodityBatchNr = -1;
-        int commodityNr = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity();
-        String name = COM.getCommodity(rC.getCommodity()).getName();
-        String ini = "";
-        pB.getPrintDTO().getList().add(new PrintDTO.innerClass(amount,tolerance,tara,netto,commodityBatchNr,commodityNr,name,ini));
-    }
+
 
 
 }

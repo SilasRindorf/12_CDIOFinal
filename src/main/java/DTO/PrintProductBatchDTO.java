@@ -1,6 +1,13 @@
 package DTO;
 
 
+import DAL.interfaces.DALException;
+import DAL.interfaces.ICommodityDAO;
+import DAL.interfaces.IReceiptDAO;
+import RAM.ProductBatch;
+import RAM.ProductBatchComp;
+import RAM.ReceiptComp;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +19,7 @@ import java.util.List;
  * This class is responsible for:
  *
  */
-public class PrintDTO {
+public class PrintProductBatchDTO {
     private int receiptNr;
     private int productBatchNr;
     private List<innerClass> list;
@@ -20,10 +27,58 @@ public class PrintDTO {
     private double tara;
     private double netto;
 
-    public PrintDTO() {
+    public PrintProductBatchDTO() {
+    }
+    //REC and COM are only used on construction.
+    public PrintProductBatchDTO(ProductBatch pB, IReceiptDAO REC, ICommodityDAO COM) throws DALException {
+        receiptNr = pB.getReceiptNr();
+        productBatchNr = pB.getID();
+        list = new ArrayList<>();
+
+        for (int i = 0; i < REC.getReceipt(pB.getReceiptNr()).getReceiptComps().size(); i++) { // getReceiptComps().size() = 3
+            if(!pB.getProductComps().isEmpty()){
+                if (REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i) != null){
+                    ReceiptComp rC = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i);
+                    ProductBatchComp pBC = pB.getProductComps().get(i);
+                    double amount = rC.getAmount();
+                    double tolerance = rC.getTolerance();
+                    double tara = pBC.getTara();
+                    double netto = pBC.getWeighted();
+                    int commodityBatchNr = pBC.getCommodityBatchNr();
+                    int commodityNr = pBC.getCommodityNr();
+                    String name = COM.getCommodity(rC.getCommodity()).getName();
+                    String ini = pBC.getIni();
+                    list.add(new PrintProductBatchDTO.innerClass(amount,tolerance,tara,netto,commodityBatchNr,commodityNr,name,ini));
+                }
+                else {
+                    createInnerClassComps(pB, REC, COM, i);
+                }
+            }
+            else {
+                createInnerClassComps(pB, REC, COM, i);
+            }
+
+        }
+        netto = calcNetto();
+        tara = calcTara();
     }
 
-    public PrintDTO(int receiptNr, int productBatchNr, ArrayList<innerClass> list, Date date, double tara, double netto) {
+    // REC and COM must only call non-modifiable methods!
+    private void createInnerClassComps(ProductBatch pB, IReceiptDAO REC, ICommodityDAO COM, int i) throws DALException {
+        ReceiptComp rC = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i);
+        double amount = rC.getAmount();
+        double tolerance = rC.getTolerance();
+        double tara = -1;
+        double netto = -1;
+        int commodityBatchNr = -1;
+        int commodityNr = REC.getReceipt(pB.getReceiptNr()).getReceiptComps().get(i).getCommodity();
+        String name = COM.getCommodity(rC.getCommodity()).getName();
+        String ini = "";
+        list.add(new PrintProductBatchDTO.innerClass(amount,tolerance,tara,netto,commodityBatchNr,commodityNr,name,ini));
+    }
+
+
+    public PrintProductBatchDTO(int receiptNr, int productBatchNr, ArrayList<innerClass> list, Date date, double tara, double netto) {
         this.receiptNr = receiptNr;
         this.productBatchNr = productBatchNr;
         this.list = list;
@@ -113,7 +168,7 @@ public class PrintDTO {
 
 
 
-    public static class innerClass{
+    public class innerClass{
         private double amount;
         private double tolerance;
         private double tara;
