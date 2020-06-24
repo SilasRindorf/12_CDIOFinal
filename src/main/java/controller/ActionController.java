@@ -21,7 +21,7 @@ public class ActionController {
     //private final IReceiptDAO REC = new ReceiptDAONonPersistent(COM);
     //private final IProductDAO PRO = new ProductDAONonPersistent(REC);
     private final IUserDAO USERS = new UserDAO(FileAPI.USER_DAO_FILE);
-    private final ICommodityDAO COM = new CommodityDAO(FileAPI.USER_DAO_FILE);
+    private final ICommodityDAO COM = new CommodityDAO(FileAPI.COMMODITY_DAO_FILE);
     private final IReceiptDAO REC = new ReceiptDAO( FileAPI.RECEIPT_DAO_FILE,COM );
     private final IProductDAO PRO = new ProductDAO(FileAPI.PRODUCT_DAO_FILE,REC);
 
