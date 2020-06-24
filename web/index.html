@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="frontend-style/userTable.css">
+    <link rel="stylesheet" href="frontend-style/main.css">
+
     <meta charset="UTF-8">
     <title>CDIO Final</title>
 </head>
@@ -62,6 +64,7 @@
     <label for="Laborant"> Laborant</label><br>
     <button type="button" onclick="goLogIn()">Log out</button>
     <button type="button" onclick="finishCreateUser()">Opret bruger</button>
+    <button type="button" onclick="modifyExistingUser()">Modificer bruger ud fra givet ID</button>
     <div id="UserTable">
     </div>
 </form>
@@ -70,7 +73,6 @@
       style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <button type="button" onclick="goToRaavarebatch()">Råvarebatches</button>
     <button type="button" onclick="goToProduktbatch()">Produktbatches</button>
-    <button type="button" onclick="goToAfvejning1_Produktionsleder()">Afvejning</button>
     <button type="button" onclick="goLogIn()">Log out</button>
 </form>
 
@@ -102,17 +104,8 @@
     <input type="date" id="dato" name="dato"><br><br>
     <button type="button" onclick="goToProduktionsleder()" value="Gå tilbage">Gå tilbage</button>
     <button type="button" onclick="finishCreateBatch()" value="Afslut batch">Opret produktbatch</button>
-    <table id="tableBatch" border="1">
-        <thead id="tableBatch-head">
-        <tr>
-            "<th>Produktbatch ID</th>" +
-            "<th>Recept nummer</th>" +
-            "<th>Dato</th>" +
-            "<th>Status</th>" +
-            "<th>Print</th>" ;
-        </tr>
-        </thead>
-    </table>
+    <div id="tableBatch">
+    </div>
 </form>
 
 <form method="POST" action="" name="afvejning1_Produktionsleder" id="afvejning1_Produktionsleder"
@@ -189,7 +182,6 @@
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
     <button type="button" onclick="goToRaavarebatchFarmaceut()">Råvarebatches</button>
     <button type="button" onclick="goToProduktbatchFarmaceut()">Produktbatches</button>
-    <button type="button" onclick="goToAfvejning1_Farmaceut()">Afvejning</button>
     <button type="button" onclick="goToRecept1()">Recept</button>
     <button type="button" onclick="goToRaavare()">Råvare</button>
     <button type="button" onclick="goLogIn()">Log out
@@ -243,12 +235,11 @@
 
     </div>
 </form>
+<!-- -------------------- PRINT -------------------- -->
+<form method="POST" action="" name="printPlace" id="printPlace" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <button type="button" style="margin-left:600px;" onclick="goToWelcomeFromFinish()" value="Gå tilbage">Gå tilbage</button>
+    <button type="button" onclick="printPage()" value="Afslut batch">Print side</button>
 
-<form method="POST" action="" name="printPlace" id="printPlace"
-      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-    <div id="tablePrint">
-
-    </div>
 </form>
 <form method="POST" action="" name="recept1" id="recept1"
       style="position: absolute; left: 50px; top: 70px; visibility: hidden">
@@ -382,5 +373,12 @@
     <alert id="errorHandlingAdministratorAlert">Udfyld venligst felterne således at: <br> BrugerID er mellem 11 og 99. <br> </alert>
 </form>
 --->
+
+<div id="printBodyDiv" style="visibility: hidden;">
+    <h1><i>Produktbatch</i> under produktion</h1>
+    <p id="printHeader"></p>
+
+</div>
+
 </body>
 </html>

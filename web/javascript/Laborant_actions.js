@@ -13,6 +13,7 @@ function goToAfvejning2_Laborant() {
     hideall();
     productBatchGlobal = document.getElementById("productbatchID_Laborant").value
     document.getElementById("title").innerHTML = "Laborant";
+    document.getElementById("productbatchID_Laborant").value = "";
     document.getElementById("afvejning2_Laborant").style.visibility = "visible";
     JSONGetAfvejningTable("rest/actions/get-afvejning/?productBatchNr=" + productBatchGlobal,"table_Laborant_Afvejning")
 }

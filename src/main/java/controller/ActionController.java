@@ -93,6 +93,14 @@ public class ActionController {
         return "Bruger lavet";
     }
 
+    public String updateUser(UserDTO userDTO) throws JunkFormatException, DALException {
+
+        USERS.updateUser(new User(userDTO.getID(), userDTO.getUsername(),
+                userDTO.getIni(), userDTO.getCPR(), User.hash(userDTO.getNonHashedPassword()),
+                User.Role.valueOf(userDTO.getRole()), userDTO.isActive()));
+
+        return "Bruger lavet";
+    }
     public String getUsers() throws DALException {
         ObjectMapper objMapper = new ObjectMapper();
         try {
