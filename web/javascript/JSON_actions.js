@@ -1,4 +1,3 @@
-var Kinosertest = "hejsa";
 function GET(url) {
     const obj = {table: "Users", limit: 20};
     const param = JSON.stringify(obj);
