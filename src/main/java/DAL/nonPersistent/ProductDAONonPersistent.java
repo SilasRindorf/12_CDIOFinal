@@ -48,6 +48,9 @@ public class ProductDAONonPersistent implements IProductDAO {
 
     @Override
     public void createBatch(ProductBatch productBatch) throws DALException, JunkFormatException {
+        if(productBatch.getID() >= 10E8){
+            throw new JunkFormatException("Id must be 8 digits, but was more: " + productBatch, Arrays.asList(JunkFormatException.ErrorList.TOO_BIG_ID));
+        }
         if (productBatch.getID() < 0) {
             throw new JunkFormatException("Ids should not be negative, the id was: " + productBatch.getID(), Arrays.asList(JunkFormatException.ErrorList.ID));
         }

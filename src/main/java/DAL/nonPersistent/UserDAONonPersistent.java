@@ -38,9 +38,10 @@ public class UserDAONonPersistent implements IUserDAO {
     }
 
     public void createUser(User newUser) throws DALException, JunkFormatException {
-        if (newUser.getID() < 11 || newUser.getID() > 99) {
+
+    if (!(11<= newUser.getID() && newUser.getID() <= 99)){ 
             throw new JunkFormatException("UserID needs to be between 11 and 99 inclusive", Arrays.asList(JunkFormatException.ErrorList.ID));
-        }
+    }
         for (User user : users) {
             if (user.getID() == newUser.getID()) {
                 throw new DALException("User with id already exists for: " + user.getID());

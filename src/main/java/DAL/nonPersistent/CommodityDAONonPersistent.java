@@ -37,6 +37,9 @@ public class CommodityDAONonPersistent implements ICommodityDAO {
 
     @Override
     public void createCommodity(Commodity commodity) throws DALException, JunkFormatException {
+        if(commodity.getID() >= 10E8){
+            throw new JunkFormatException("Id must be 8 digits, but was more: " + commodity, Arrays.asList(JunkFormatException.ErrorList.TOO_BIG_ID));
+        }
         if (commodity.getID() < 0) {
             throw new JunkFormatException("Ids should not be negative, the id was: " + commodity.getID(), Arrays.asList(JunkFormatException.ErrorList.ID));
         }
