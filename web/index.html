@@ -79,27 +79,18 @@
 <form method="POST" action="" name="raavarebatch" id="raavarebatch"
       style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <b>Indtast værdier</b> <br>
-    <label for="raavarebatchNr">Råvarebatch Nr: </label><br>
-    <input type="text" id="raavarebatchNr" for="raavarebatchNr" name="raavarebatchNr"><br><br>
-    <label for="raavareID">RåvareID: </label><br>
-    <input type="text" id="raavareID" for="raavareID" name="raavareID"><br><br>
-    <label for="maengde">Mængde: </label><br>
-    <input type="text" id="maengde" for="maengde" name="maengde"><br><br>
-    <label for="leverandoer_produktionsleder">Leverandør: </label><br>
-    <input type="text" id="leverandoer_produktionsleder" for="leverandoer_produktionsleder" name="leverandoer_produktionsleder"><br><br>
+    <label for="raavarebatchNrProd">Råvarebatch Nr: </label><br>
+    <input type="text" id="raavarebatchNrProd" for="raavarebatchNrProd" name="raavarebatchNrProd"><br><br>
+    <label for="raavareIDProd">RåvareID: </label><br>
+    <input type="text" id="raavareIDProd" for="raavareIDProd" name="raavareIDProd"><br><br>
+    <label for="maengdeProd">Mængde: </label><br>
+    <input type="text" id="maengdeProd" for="maengdeProd" name="maengdeProd"><br><br>
+    <label for="leverandoerProd">Leverandør: </label><br>
+    <input type="text" id="leverandoerProd" for="leverandoerProd" name="leverandoerProd"><br><br>
     <button type="button" onclick="goToProduktionsleder()">Gå tilbage</button>
     <button type="button" onclick="createRaavarebatchComponent()" value="Opret råvarebatch">Tilføj råvarebatch</button>
-    </table>
-    <table id="table_raavarebatch" border="1">
-        <thead id="table-head_raavarebatch">
-        <tr>
-            <th>Råvarebatch Nr.</th>
-            <th>RåvareID</th>
-            <th>Mængde</th>
-            <th>Leverandør</th>
-        </tr>
-        </thead>
-    </table>
+    <div id="RaavareBatchTableProduktionsleder">
+    </div>
 </form>
 
 <form method="POST" action="" name="produktbatch" id="produktbatch"
@@ -230,12 +221,12 @@
 <form method="POST" action="" name="raavarebatchFarmaceut" id="raavarebatchFarmaceut"
       style="position: absolute; left: 50px; top: 50px;visibility: hidden">
     <b>Indtast værdier</b> <br>
-    <label for="raavarebatchNr">Råvarebatch Nr: </label><br>
+    <label for="raavarebatchNrFarmaceut">Råvarebatch Nr: </label><br>
     <input type="text" id="raavarebatchNrFarmaceut" for="raavarebatchNrFarmaceut"
            name="raavarebatchNrFarmaceut"><br><br>
-    <label for="raavareID">RåvareID: </label><br>
+    <label for="raavareIDFarmaceut">RåvareID: </label><br>
     <input type="text" id="raavareIDFarmaceut" for="raavareIDFarmaceut" name="raavareIDFarmaceut"><br><br>
-    <label for="maengde">Mængde: </label><br>
+    <label for="maengdeFarmaceut">Mængde: </label><br>
     <input type="text" id="maengdeFarmaceut" for="maengdeFarmaceut" name="maengdeFarmaceut"><br><br>
     <label for="leverandoer">Leverandør: </label><br>
     <input type="text" id="leverandoer" name="leverandoer"><br><br>

@@ -266,15 +266,18 @@ setIsActiveCommodityBatch = function (commodityBatchNr, isActive) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetCommodityBatchTable("rest/actions/commoditybatch-get", "RaavareBatchTable");
+            sleep(100).then(() => {
+                JSONGetCommodityBatchTable("rest/actions/commoditybatch-get", "RaavareBatchTableProduktionsleder");
+                JSONGetCommodityBatchTable("rest/actions/commoditybatch-get", "RaavareBatchTable");
+            });
         }
     };
     request.send();
 
 };
 
-JSONGetCommodityBatchTable = function (url, div) {
-    const obj = {table: "RaavareBatchTable", limit: 20};
+JSONGetCommodityBatchTable = function (url, tabelNavn) {
+    const obj = {table: tabelNavn, limit: 20};
     const param = JSON.stringify(obj);
     const request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -299,11 +302,13 @@ JSONGetCommodityBatchTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-                txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodityBatch(" + objects[i].commodityBatchNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
-                    "</tr>";
+                var commodity = objects[i].commodityBatchNr;
+                var isActive = !objects[i].isActive;
+                var args = commodity + "," + isActive;
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodityBatch(" + args + ")" + "\">Ændre Status</button></td>" + "</tr>";
             }
             txt += "</table>";
-            document.getElementById("RaavareBatchTable").innerHTML = txt;
+            document.getElementById(tabelNavn).innerHTML = txt;
         }
     };
     request.open("GET", url, true);
