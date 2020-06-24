@@ -9,6 +9,7 @@ function logIn() {
 }
 
 function hideall() {
+    document.getElementById("printBodyDiv").style.visibility = "hidden";
     document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";
     document.getElementById("logInForm").style.visibility = "hidden";
     document.getElementById("welcome").style.visibility = "hidden";
@@ -69,6 +70,7 @@ function returnToStart() {
 function printPage(){
     hideall();
     document.getElementById("title").style.visibility = "hidden";
+    document.getElementById("printBodyDiv").style.visibility = "visible";
     window.print();
     document.getElementById("title").style.visibility = "visible";
     goToWelcomeFromFinish();

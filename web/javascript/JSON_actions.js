@@ -4,7 +4,7 @@ function GET(url) {
     const request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
+            if (request.responseText.substring(0, 5).toLowerCase() === "alert") {
                 alert(request.responseText);
             }
         }
@@ -12,6 +12,7 @@ function GET(url) {
     request.open("GET", url, true);
     request.send("x= " + param);
 }
+
 function POSTF(url, object, caseNumber) {
     const request = new XMLHttpRequest();
     request.open("POST", url, true);
@@ -21,17 +22,17 @@ function POSTF(url, object, caseNumber) {
     request.onreadystatechange = function () {
 
         if (request.readyState === 4 && request.status === 200) {
-            if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
+            if (request.responseText.substring(0, 5).toLowerCase() === "alert") {
                 alert(request.responseText);
                 return;
             }
-            doFunction(caseNumber,request.responseText);
+            doFunction(caseNumber, request.responseText);
         }
     };
     request.send(sendStr);
 }
 
-function doFunction(caseNumber, text){
+function doFunction(caseNumber, text) {
     switch (caseNumber) {
         case 1:
             break;
@@ -54,14 +55,59 @@ function doFunction(caseNumber, text){
             JSONGetReceiptTable("rest/actions/receipt-get");
             break;
         case 8:
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" +  receiptNrMemory, "ReceptCompTable");
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receiptNrMemory, "ReceptCompTable");
             break;
         case 9:
-            JSONGetAfvejningTable("rest/actions/get-afvejning/?productBatchNr=" + productBatchGlobal,"table_Laborant_Afvejning")
+            JSONGetAfvejningTable("rest/actions/get-afvejning/?productBatchNr=" + productBatchGlobal, "table_Laborant_Afvejning")
             break;
         case 10:
-            JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatchFarmaceut")
+            JSONGetProductBatchTable("rest/actions/product-batch-get", "tableBatchFarmaceut")
             break;
+        case 11:
+            preparePrint(text);
+            break;
+    }
+}
+
+function preparePrint(text) {
+    let parsedText = JSON.parse(text);
+    document.getElementById("printBodyDiv").style.visibility = "visible";
+    document.getElementById("printHeader").innerHTML = "<strong>Udskrevet</strong> " + new Date() +
+        "<br><strong>Produkt Batch nr.</strong> " + parsedText.productBatchNr +
+        "<br><strong>Recept nr.</strong> " + parsedText.receiptNr + "</p>";
+    for (let i in parsedText.list) {
+        document.getElementById("printHeader").innerHTML += "<div id='printCommodity"+i+"'></div>";
+        if (parsedText.list[i].amount === -1)
+            parsedText.list[i].amount = "";
+        if (parsedText.list[i].tolerance === -1)
+            parsedText.list[i].tolerance = "";
+        if (parsedText.list[i].tara === -1)
+            parsedText.list[i].tara = "";
+        if (parsedText.list[i].netto === -1)
+            parsedText.list[i].netto = "";
+        if (parsedText.list[i].commodityBatchNr === -1)
+            parsedText.list[i].commodityBatchNr = "";
+
+        let table = "<table>" +
+            "<th>Mængde</th>" +
+            "<th>Tolerance</th>" +
+            "<th>Tara</th>" +
+            "<th>Netto (kg)</th>" +
+            "<th>Batch</th>" +
+            "<th>Opr.</th>";
+        table += "<tr>" +
+            "<td>" + parsedText.list[i].amount + "</td>" +
+            "<td>" + parsedText.list[i].tolerance + "</td>" +
+            "<td>" + parsedText.list[i].tara + "</td>" +
+            "<td>" + parsedText.list[i].netto + "</td>" +
+            "<td>" + parsedText.list[i].commodityBatchNr + "</td>" +
+            "<td>" + parsedText.list[i].ini + "</td>" +
+            "</tr>";
+        console.log(parsedText.list[i]);
+        table += "</table>";
+        document.getElementById("printCommodity" + i).innerHTML = "<strong>Råvare nr.:</strong> " + parsedText.list[i].commodityNr +
+            "<br><strong>Råvare navn:</strong> " + parsedText.list[i].commodityName + table;
+
     }
 }
 
@@ -122,7 +168,7 @@ PUTReceiptDTO = function (receipt) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr,"ReceptCompTable");
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr, "ReceptCompTable");
         }
     };
     request.send();
@@ -130,7 +176,7 @@ PUTReceiptDTO = function (receipt) {
 
 PUTReceiptComp = function (comp) {
     const request = new XMLHttpRequest();
-    request.open("PUT", "rest/actions/receiptcompput/?receiptNr=" + comp.receiptNr + "&commodityNr=" + comp.commodityNr + "&amount=" + comp.amount + "&tolerance=" + comp.tolerance ,true);
+    request.open("PUT", "rest/actions/receiptcompput/?receiptNr=" + comp.receiptNr + "&commodityNr=" + comp.commodityNr + "&amount=" + comp.amount + "&tolerance=" + comp.tolerance, true);
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
@@ -142,7 +188,7 @@ PUTReceiptComp = function (comp) {
 
 PUTReceipt = function (receiptNr) {
     const request = new XMLHttpRequest();
-    request.open("PUT", "rest/actions/receiptput/?receiptNr=" + receiptNr,true);
+    request.open("PUT", "rest/actions/receiptput/?receiptNr=" + receiptNr, true);
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
@@ -357,7 +403,7 @@ JSONGetReceiptTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceipt("  + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceipt(" + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
@@ -408,14 +454,14 @@ JSONGetProductBatchTable = function (url, div) {
                 "<th>Recept nummer</th>" +
                 "<th>Dato</th>" +
                 "<th>Status</th>" +
-                "<th>Print</th>" ;
+                "<th>Print</th>";
             for (let i in objects) {
                 txt += "<tr>" +
                     "<td>" + objects[i].id + "</td>" +
                     "<td>" + objects[i].receiptNr + "</td>" +
                     "<td>" + new Date(objects[i].created).toUTCString() + "</td>" +
                     "<td>" + objects[i].status + "</td>";
-                    txt += "<td><button type=\"button\" onclick=\"printProductionBatch("  + objects[i].id + ")\">Print</button></td>" +
+                txt += "<td><button type=\"button\" onclick=\"printProductionBatch(" + objects[i].id + ")\">Print</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
@@ -459,10 +505,13 @@ JSONGetAfvejningTable = function (url, div) {
 
 printProductionBatch = function (productBatchNr) {
     hideallProductBatch();
+    document.getElementById("printBodyDiv").style.visibility = "visible";
     document.getElementById("printPlace").style.visibility = "visible";
-    POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr, productBatchNr, 2);
 
+    POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr, productBatchNr, 11);
+    document.getElementById("printBodyDiv").style.visibility = "hidden";
 };
+
 // DENNE HIDEALL RØRES IKKE, JAVASCRIPT DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
 function hideallProductBatch() {
     document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";

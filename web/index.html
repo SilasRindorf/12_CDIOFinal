@@ -244,11 +244,9 @@
     </div>
 </form>
 <!-- -------------------- PRINT -------------------- -->
-<form method="POST" action="" name="printPlace" id="printPlace"
-      style="position: absolute; left: 50px; top: 50px;visibility: hidden">
-    <button type="button" onclick="goToWelcomeFromFinish()" value="Gå tilbage">Gå tilbage</button>
+<form method="POST" action="" name="printPlace" id="printPlace" style="position: absolute; left: 50px; top: 50px;visibility: hidden">
+    <button type="button" style="margin-left:600px;" onclick="goToWelcomeFromFinish()" value="Gå tilbage">Gå tilbage</button>
     <button type="button" onclick="printPage()" value="Afslut batch">Print side</button>
-
 
 </form>
 <form method="POST" action="" name="recept1" id="recept1"
@@ -384,7 +382,9 @@
 </form>
 --->
 
-<div id="printDiv">
+<div id="printBodyDiv" style="visibility: hidden;">
+    <h1><i>Produktbatch</i> under produktion</h1>
+    <p id="printHeader"></p>
 
 </div>
 
