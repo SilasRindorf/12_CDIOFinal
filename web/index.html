@@ -102,17 +102,8 @@
     <input type="date" id="dato" name="dato"><br><br>
     <button type="button" onclick="goToProduktionsleder()" value="Gå tilbage">Gå tilbage</button>
     <button type="button" onclick="finishCreateBatch()" value="Afslut batch">Opret produktbatch</button>
-    <table id="tableBatch" border="1">
-        <thead id="tableBatch-head">
-        <tr>
-            "<th>Produktbatch ID</th>" +
-            "<th>Recept nummer</th>" +
-            "<th>Dato</th>" +
-            "<th>Status</th>" +
-            "<th>Print</th>" ;
-        </tr>
-        </thead>
-    </table>
+    <div id="tableBatch">
+    </div>
 </form>
 
 <form method="POST" action="" name="afvejning1_Produktionsleder" id="afvejning1_Produktionsleder"
