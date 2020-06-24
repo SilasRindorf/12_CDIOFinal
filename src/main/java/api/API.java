@@ -323,11 +323,37 @@ public class API {
             return controller.createAndGetPrint(productBatchID);
         } catch (DALException e) {
             e.printStackTrace();
-            return "ARGHHHHHHHHHHHHH intet tårn hihi";
+            return "Kan ikke printe product batch'en";
         }
     }
 
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("get-afvejning")
+    public String getProductComps(@QueryParam("productBatchNr") int productBatchNr){
+        try {
+            return controller.getProductComps(productBatchNr);
+        } catch (DALException e) {
+            e.printStackTrace();
+            return "Kan ikke finde product komponenter";
+        }
+    }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("product-batch-comp-post")
+    public String postPrint(@QueryParam("productBatchNr") int productBatchNr, ProductBatchCompDTO productBatchCompDTO){
+        return controller.createProductBatchComp(productBatchNr,productBatchCompDTO);
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("product-batch-done")
+    public void finishProductBatch(@QueryParam("productBatchNr") int productBatchNr) {
+        controller.finishProductBatch(productBatchNr);
+    }
 
 }
 

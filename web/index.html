@@ -172,20 +172,12 @@
     <input type="text" id="weight_Laborant" name="weight"><br><br>
     <label for="tara_Laborant">Indtast tara: </label>
     <input type="text" id="tara_Laborant" name="tara"><br><br>
+    <label for="tara_Laborant">Indtast initialer: </label>
+    <input type="text" id="initialer_Laborant" name="initialer_Laborant"><br><br>
     <input type="button" value="Tilføj produktbatch komponent" onClick="addProductbatchComponent_Laborant()"><br/><br/>
-    <table id="table_Laborant" border="1">
-        <thead id="table-head_Laborant">
-        <tr>
-            <th>Råvare</th>
-            <th>Vægt minus tara</th>
-            <th>Råvarebatch Nr</th>
-        </tr>
-        </thead>
-        <tbody id="table-body_Laborant">
-        </tbody>
-    </table>
-    <!---<label id="statusOprettet_Produktionsleder" for="statusOprettet_Produktionsleder"><strong>Status:</strong> Nyt produktbatch kan påbegyndes</-label><br><br>
-    <label id="statusUnderProduktion_Produktionsleder" for="statusUnderProduktion_Produktionsleder"><strong>Status:</strong> Produktbatch er under produktion</label><br><br>-->
+    <div id="table_Laborant_Afvejning">
+
+    </div>
     <button type="button" onclick="goLogIn()">Log ud</button>
     <button type="button" onclick="goToAfvejning1_Laborant()">Gå tilbage</button>
     <button type="button" onclick="finishProductbatch_Laborant()">Afslut produktbatch</button>

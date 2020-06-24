@@ -14,7 +14,7 @@ import java.util.List;
 
 /***
  * Initial version created by: Silas
- * Edited by: 
+ * Edited by: Morten, Christoffer
  * Created: 23-06-2020
  * This class is responsible for:
  *
