@@ -29,7 +29,9 @@ function finishCreateUser() {
         var ini = document.getElementById("ini").value;
         var CPR = document.getElementById("cpr").value;
         var nonHashedPass = document.getElementById("hashedPass").value;
+
         createUser("rest/actions/user-post", ID, username, ini, CPR, nonHashedPass, role, "Aktiv");
+
         //PUTUser(user);
         resetValuesCreateUser();
     } else {

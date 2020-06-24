@@ -4,6 +4,11 @@ function GET(url) {
     const request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
+            if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
+                console.log("Kørt makker"+request.responseText);
+                alert(request.responseText);
+                return;
+            }
             console.log(request.responseText);
         }
     };
@@ -17,7 +22,14 @@ function POSTF(url, object, caseNumber) {
     let sendStr = JSON.stringify(object);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
+
         if (request.readyState === 4 && request.status === 200) {
+            if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
+                console.log("Kørt makker"+request.responseText);
+                alert(request.responseText);
+
+                return;
+            }
             doFunction(caseNumber,request.responseText);
         }
     };
