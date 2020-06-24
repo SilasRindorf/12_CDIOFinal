@@ -59,14 +59,14 @@ function doFunction(caseNumber, text){
             JSONGetReceiptTable("rest/actions/receipt-get");
             break;
         case 8:
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" +  receiptNrMemory);
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" +  receiptNrMemory, "ReceptCompTable");
             break;
         case 9:
             //product Batch comp
             console.log(text);
             break;
         case 10:
-            JSONGetProductBatchTable("rest/actions/product-batch-get")
+            JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatchFarmaceut")
             break;
     }
 }
@@ -116,7 +116,7 @@ PUTReceiptDTO = function (receipt) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr);
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr,"ReceptCompTable");
         }
     };
     request.send();
@@ -128,7 +128,7 @@ PUTReceiptComp = function (comp) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + comp.receiptNr);
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + comp.receiptNr, "ReceptCompTable");
         }
     };
     request.send();
@@ -363,7 +363,7 @@ JSONGetReceiptTable = function (url, div) {
 };
 
 JSONGetReceiptCompTable = function (url, div) {
-    const obj = {table: "ReceptCompTable", limit: 20};
+    const obj = {table: div, limit: 20};
     const param = JSON.stringify(obj);
     const request = new XMLHttpRequest();
 
@@ -383,7 +383,7 @@ JSONGetReceiptCompTable = function (url, div) {
                     "</tr>";
             }
             txt += "</table>";
-            document.getElementById("ReceptCompTable").innerHTML = txt;
+            document.getElementById(div).innerHTML = txt;
         }
     };
     request.open("GET", url, true);
@@ -391,7 +391,7 @@ JSONGetReceiptCompTable = function (url, div) {
 };
 
 JSONGetProductBatchTable = function (url, div) {
-    const obj = {table: "tableBatchFarmaceut", limit: 20};
+    const obj = {table: div, limit: 20};
     const param = JSON.stringify(obj);
     const request = new XMLHttpRequest();
 
@@ -415,7 +415,7 @@ JSONGetProductBatchTable = function (url, div) {
                     "</tr>";
             }
             txt += "</table>";
-            document.getElementById("tableBatchFarmaceut").innerHTML = txt;
+            document.getElementById(div).innerHTML = txt;
         }
     };
     console.log(param)

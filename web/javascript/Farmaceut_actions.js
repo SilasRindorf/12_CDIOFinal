@@ -39,7 +39,7 @@ function resetValuesCreateRaavarebatchFarmaceut() {
 function goToProduktbatchFarmaceut() {
     hideall();
     document.getElementById("produktbatchFarmaceut").style.visibility = "visible";
-    JSONGetProductBatchTable("rest/actions/product-batch-get")
+    JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatchFarmaceut")
 }
 
 function finishCreateBatchFarmaceut() {
