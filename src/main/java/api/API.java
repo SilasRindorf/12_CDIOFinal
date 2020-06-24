@@ -49,7 +49,12 @@ public class API {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user-get")
     public String getUsers() {
-        return controller.getUsers();
+        try {
+            return controller.getUsers();
+        } catch (DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
     }
 
 
@@ -82,7 +87,11 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-user")
     public void setIsActiveUser(@QueryParam("ID") int ID, @QueryParam("isActive") boolean isActive) {
-        controller.setIsActiveUser(ID, isActive);
+        try {
+            controller.setIsActiveUser(ID, isActive);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
     }
 
     //_______________________________ Commodity _______________________________
@@ -92,7 +101,12 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commodity-post")
     public String postCommodity(CommodityDTO commodityDTO) {
-        controller.createCommodity(commodityDTO);
+        try {
+            controller.createCommodity(commodityDTO);
+        } catch (JunkFormatException | DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
         return "SUCCESS MY FRIEND";
     }
 
@@ -100,7 +114,11 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commodityput")
     public void putCommodity(@QueryParam("commodityNr") int commodityNr, @QueryParam("name") String name, @QueryParam("isActive") boolean isActive) {
-        controller.createCommodity(new CommodityDTO(commodityNr, name, isActive));
+        try {
+            controller.createCommodity(new CommodityDTO(commodityNr, name, isActive));
+        } catch (JunkFormatException | DALException e) {
+            e.printStackTrace();
+        }
     }
 
     @GET
@@ -108,14 +126,23 @@ public class API {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("commodity-get")
     public String getCommodity() {
-        return controller.getCommodities();
+        try {
+            return controller.getCommodities();
+        } catch (DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-commodity")
     public void setIsActiveCommodity(@QueryParam("commodityNr") int commodityNr, @QueryParam("isActive") boolean isActive) {
-        controller.setIsActiveCommodity(commodityNr, isActive);
+        try {
+            controller.setIsActiveCommodity(commodityNr, isActive);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
     }
 
     //_______________________________ Commodity Batch _______________________________
@@ -124,14 +151,25 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commoditybatchput")
     public void putReceipt(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("commodityNr") int commodityNr, @QueryParam("amount") double amount, @QueryParam("provider") String provider, @QueryParam("isActive") boolean isActive) {
-        controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr, commodityNr, amount, provider, isActive));
+        try {
+            controller.createCommodityBatch(new CommodityBatchDTO(commodityBatchNr, commodityNr, amount, provider, isActive));
+        } catch (JunkFormatException e) {
+            e.printStackTrace();
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("commodity-batch-post")
     public String postCommodityBatch(CommodityBatchDTO commodityBatchDTO) {
-        controller.createCommodityBatch(commodityBatchDTO);
+        try {
+            controller.createCommodityBatch(commodityBatchDTO);
+        } catch (JunkFormatException | DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
         return "SUCCESS MY FRIEND";
     }
 
@@ -140,14 +178,23 @@ public class API {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("commoditybatch-get")
     public String getCommodityBatch() {
-        return controller.getCommodityBatch();
+        try {
+            return controller.getCommodityBatch();
+        } catch (DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-commoditybatch")
     public void setIsActiveCommodityBatch(@QueryParam("commodityBatchNr") int commodityBatchNr, @QueryParam("isActive") boolean isActive) {
-        controller.setIsActiveCommodityBatch(commodityBatchNr, isActive);
+        try {
+            controller.setIsActiveCommodityBatch(commodityBatchNr, isActive);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
     }
 
     //_______________________________ Receipt Comp _______________________________
@@ -196,7 +243,7 @@ public class API {
             controller.createReceiptDTO(receiptDTO.getReceiptNr(), receiptDTO.getName());
         } catch (DALException e) {
             e.printStackTrace();
-            return "Kunne ikke lave recept";
+            return "Alert " + e.getMessage();
         }
 
         return "SUCCESS MY FRIEND";
@@ -209,7 +256,12 @@ public class API {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("receiptput")
     public void putReceipt(@QueryParam("receiptNr") int receiptNr) {
-        controller.createReceipt(receiptNr);
+        try {
+            controller.createReceipt(receiptNr);
+        } catch (JunkFormatException | DALException e) {
+            e.printStackTrace();
+
+        }
     }
 
     @GET
@@ -217,14 +269,23 @@ public class API {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("receipt-get")
     public String getReceipt() {
-        return controller.getReceipts();
+        try {
+            return controller.getReceipts();
+        } catch (DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("setisactive-receipt")
     public void setIsActiveReceipt(@QueryParam("receiptNr") int receiptNr, @QueryParam("isActive") boolean isActive) {
-        controller.setIsActiveReceipt(receiptNr, isActive);
+        try {
+            controller.setIsActiveReceipt(receiptNr, isActive);
+        } catch (JunkFormatException | DALException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -234,14 +295,24 @@ public class API {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("product-batch-post")
     public String postReceiptDTO(ProductBatchDTO productBatchDTO) {
-        return controller.createProductBatch(productBatchDTO);
+        try {
+            return controller.createProductBatch(productBatchDTO);
+        } catch (JunkFormatException | DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("setisactive-receipt")
     public String getProductbatches() {
-        return controller.getProductBathes();
+        try {
+            return controller.getProductBathes();
+        } catch (DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
     }
 
 

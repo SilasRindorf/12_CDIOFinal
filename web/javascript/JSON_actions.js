@@ -4,6 +4,10 @@ function GET(url) {
     const request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
+            if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
+                alert(request.responseText.substring(6, request.responseText.length - 1));
+                return;
+            }
             console.log(request.responseText);
         }
     };

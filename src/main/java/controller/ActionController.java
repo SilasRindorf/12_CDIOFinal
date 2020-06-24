@@ -80,90 +80,77 @@ public class ActionController {
         return "Bruger lavet";
     }
 
-    public String getUsers() {
+    public String getUsers() throws DALException {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(USERS.getUserList());
-        } catch (JsonProcessingException | DALException e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Kunne ikke skaffe brugere";
         }
     }
 
-    public void setIsActiveUser(int id, boolean status) {
-        try {
+    public void setIsActiveUser(int id, boolean status) throws DALException {
+
             USERS.setIsActive(id, status);
-        } catch (DALException e) {
-            e.printStackTrace();
-        }
+
 
     }
 
     // ------------------------------- Commodity methods ------------------------------------------
-    public String getCommodities() {
+    public String getCommodities() throws DALException {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(COM.getCommodityList());
-        } catch (JsonProcessingException | DALException e) {
+        } catch (JsonProcessingException  e) {
             e.printStackTrace();
             return "Kunne ikke skaffe brugere";
         }
     }
 
-    public void setIsActiveCommodity(int commodityNr, boolean status) {
-        try {
+    public void setIsActiveCommodity(int commodityNr, boolean status) throws DALException {
             COM.setIsActiveCommodity(commodityNr, status);
-        } catch (DALException e) {
-            e.printStackTrace();
-        }
+
     }
 
-    public String createCommodity(CommodityDTO commodityDTO) {
-        try {
+    public String createCommodity(CommodityDTO commodityDTO) throws JunkFormatException, DALException {
+
             COM.createCommodity(new Commodity(commodityDTO.getCommodityNr(), commodityDTO.getName(), commodityDTO.isActive()));
-        } catch (DALException | JunkFormatException e) {
-            e.printStackTrace();
-            return "Råvare kunne ikke laves";
-        }
+
         return "Råvare lavet";
     }
 
     // ------------------------------- CommodityBatch methods ------------------------------------------
-    public String getCommodityBatch() {
+    public String getCommodityBatch() throws DALException {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(COM.getBatchList());
-        } catch (JsonProcessingException | DALException e) {
+        } catch (JsonProcessingException  e) {
             e.printStackTrace();
             return "Kunne ikke skaffe råvarebatches";
         }
     }
 
-    public void setIsActiveCommodityBatch(int commodityBatchNr, boolean status) {
-        try {
+    public void setIsActiveCommodityBatch(int commodityBatchNr, boolean status) throws DALException {
+
             COM.setIsActiveBatch(commodityBatchNr, status);
-        } catch (DALException e) {
-            e.printStackTrace();
-        }
+
     }
 
-    public String createCommodityBatch(CommodityBatchDTO commodityBatchDTO) {
-        try {
+    public String createCommodityBatch(CommodityBatchDTO commodityBatchDTO) throws JunkFormatException, DALException {
+
             COM.createBatch(new CommodityBatch(commodityBatchDTO.getCommodityBatchNr(), commodityBatchDTO.getCommodityNr(), commodityBatchDTO.getAmount(), commodityBatchDTO.getProvider(), commodityBatchDTO.isActive()));
-        } catch (DALException | JunkFormatException e) {
-            e.printStackTrace();
-            return " Kunne ikke laves";
-        }
+
         return "Råvarebatch lavet";
     }
 
 // ------------------------------- Receipt methods ------------------------------------------
 
-    public String getReceipts() {
+    public String getReceipts() throws DALException {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(REC.getReceiptList());
-        } catch (JsonProcessingException | DALException e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Kunne ikke skaffe recepter";
         }
@@ -183,12 +170,10 @@ public class ActionController {
         return "Ingen recepter med nummer: " + receiptNr;
     }
 
-    public void setIsActiveReceipt(int receiptNumber, boolean status) {
-        try {
+    public void setIsActiveReceipt(int receiptNumber, boolean status) throws JunkFormatException, DALException {
+
             REC.setIsActive(receiptNumber, status);
-        } catch (DALException | JunkFormatException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public void createReceiptDTO(int receiptNr, String name) throws DALException {
@@ -206,15 +191,12 @@ public class ActionController {
         rList.add(new ReceiptDTO(receiptNr, name, new ArrayList<>(), true));
     }
 
-    public String createReceipt(int receiptNr) {
+    public String createReceipt(int receiptNr) throws JunkFormatException, DALException {
         for (ReceiptDTO receiptDTO : rList) {
             if (receiptDTO.getReceiptNr() == receiptNr) {
-                try {
-                    REC.createReceipt(new Receipt(receiptDTO));
-                } catch (DALException | JunkFormatException e) {
-                    e.printStackTrace();
-                    return " Kunne ikke laves";
-                }
+
+                REC.createReceipt(new Receipt(receiptDTO));
+
                 return "Recept lavet";
             }
         }
@@ -233,21 +215,18 @@ public class ActionController {
 
     }
 
-    public String createProductBatch(ProductBatchDTO productBatchDTO) {
-        try {
-            PRO.createBatch(new ProductBatch(productBatchDTO));
-        } catch (DALException | JunkFormatException e) {
-            e.printStackTrace();
-            return "Kunne ikke laves";
-        }
+    public String createProductBatch(ProductBatchDTO productBatchDTO) throws JunkFormatException, DALException {
+
+        PRO.createBatch(new ProductBatch(productBatchDTO));
+
         return "produkt batch lavet";
     }
 
-    public String getProductBathes() {
+    public String getProductBathes() throws DALException {
         ObjectMapper objMapper = new ObjectMapper();
         try {
             return objMapper.writeValueAsString(PRO.getBatchList());
-        } catch (JsonProcessingException | DALException e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "Kunne ikke skaffe produkt batches";
         }
