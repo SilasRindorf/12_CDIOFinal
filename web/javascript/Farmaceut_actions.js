@@ -1,5 +1,4 @@
 //Farmaceut Råvarebatch
-
 var receiptNrMemory;
 function goToRaavarebatchFarmaceut() {
     hideall();

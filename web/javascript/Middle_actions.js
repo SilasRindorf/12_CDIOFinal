@@ -66,13 +66,13 @@ function createReceiptComp(url,receiptNr, commodityNr, amount, tolerance) {
     //PUTReceiptComp(receiptComp)
     POSTF(url, receiptComp,8)
 }
-function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodityNr, userID) {
+function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodityNr, ini) {
     const productBatchComp = {
         "tara": tara,
         "weighted": weighted,
         "commodityBatchNr": commodityBatchNr,
         "commodityNr": commodityNr,
-        "userID": userID
+        "ini": ini
     };
     POSTF(url, productBatchComp,9)
 }

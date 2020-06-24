@@ -1,3 +1,4 @@
+var Kinosertest = "hejsa";
 function GET(url) {
     const obj = {table: "Users", limit: 20};
     const param = JSON.stringify(obj);
@@ -19,7 +20,7 @@ function POSTF(url, object, caseNumber) {
     const request = new XMLHttpRequest();
     request.open("POST", url, true);
     request.responseType = "text";
-    let sendStr = JSON.stringify(object);
+    var sendStr = JSON.stringify(object);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
 
@@ -62,8 +63,7 @@ function doFunction(caseNumber, text){
             JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" +  receiptNrMemory);
             break;
         case 9:
-            //product Batch comp
-            console.log(text);
+            JSONGetAfvejningTable("rest/actions/get-afvejning/?productBatchNr=" + productBatchGlobal,"table_Laborant_Afvejning")
             break;
         case 10:
             JSONGetProductBatchTable("rest/actions/product-batch-get")
@@ -80,6 +80,18 @@ PUTUser = function (user) {
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
             JSONGetUserTable("rest/actions/user-get", "UserTable");
+        }
+    };
+    request.send();
+
+};
+
+PUTFinishProductBatch = function (productBatchNr) {
+    const request = new XMLHttpRequest();
+    request.open("PUT", "rest/actions/product-batch-done/?productBatchNr=" + productBatchNr);
+    request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    request.onload = function () {
+        if (request.readyState === 4 && request.status === 204) {
         }
     };
     request.send();
@@ -411,6 +423,38 @@ JSONGetProductBatchTable = function (url, div) {
             }
             txt += "</table>";
             document.getElementById("tableBatchFarmaceut").innerHTML = txt;
+        }
+    };
+    console.log(param)
+    request.open("GET", url, true);
+    request.send("x= " + param);
+};
+
+JSONGetAfvejningTable = function (url, div) {
+    const obj = {table: div, limit: 50};
+    const param = JSON.stringify(obj);
+    const request = new XMLHttpRequest();
+
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText)
+            const objects = JSON.parse(this.responseText);
+            console.log(objects)
+            let txt = "<table border='1'>" +
+                "<th>Råvare Nr</th>" +
+                "<th>Vægt minus tara</th>" +
+                "<th>Råvarebatch Nr</th>" +
+                "<th>Initialer</th>";
+            for (let i in objects) {
+                txt += "<tr>" +
+                    "<td>" + objects[i].commodityNr + "</td>" +
+                    "<td>" + (objects[i].weighted - objects[i].tara) + "</td>" +
+                    "<td>" + objects[i].commodityBatchNr + "</td>" +
+                    "<td>" + objects[i].ini + "</td>" +
+                    "</tr>";
+            }
+            txt += "</table>";
+            document.getElementById(div).innerHTML = txt;
         }
     };
     console.log(param)
