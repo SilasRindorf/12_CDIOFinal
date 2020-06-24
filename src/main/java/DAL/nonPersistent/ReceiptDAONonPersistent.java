@@ -46,6 +46,9 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
 
     @Override
     public void createReceipt(Receipt newReceipt) throws DALException, JunkFormatException {
+        if(newReceipt.getID() >= 10E8){
+            throw new JunkFormatException("Id must be 8 digits, but was more: " + newReceipt, Arrays.asList(JunkFormatException.ErrorList.TOO_BIG_ID));
+        }
         if (newReceipt.getID() < 0) {
             throw new JunkFormatException("Ids should not be negative, the id was: " + newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
         }

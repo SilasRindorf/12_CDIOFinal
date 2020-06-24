@@ -37,7 +37,7 @@ public class UserDAONonPersistent implements IUserDAO {
     }
 
     public void createUser(User newUser) throws DALException, JunkFormatException {
-        if (newUser.getID() < 11 || newUser.getID() > 99) {
+        if (!(11<= newUser.getID() && newUser.getID() <= 99)) {
             throw new DALException("BrugerID skal være mellem 11 og 99 (inklusivt)");
         }
         for (User user : users) {
