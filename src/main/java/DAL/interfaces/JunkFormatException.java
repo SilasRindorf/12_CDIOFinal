@@ -17,7 +17,8 @@ public class JunkFormatException extends Exception {
     }
 
     public enum ErrorList {
-        ID
+        ID,
+        TOO_BIG_ID
     }
 }
 
