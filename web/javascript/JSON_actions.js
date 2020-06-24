@@ -4,17 +4,15 @@ function GET(url) {
     const request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
-                console.log("Kørt makker"+request.responseText);
+            if (request.responseText.substring(0, 5).toLowerCase() === "alert") {
                 alert(request.responseText);
-                return;
             }
-            console.log(request.responseText);
         }
     };
     request.open("GET", url, true);
     request.send("x= " + param);
 }
+
 function POSTF(url, object, caseNumber) {
     const request = new XMLHttpRequest();
     request.open("POST", url, true);
@@ -24,19 +22,17 @@ function POSTF(url, object, caseNumber) {
     request.onreadystatechange = function () {
 
         if (request.readyState === 4 && request.status === 200) {
-            if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
-                console.log("Kørt makker"+request.responseText);
+            if (request.responseText.substring(0, 5).toLowerCase() === "alert") {
                 alert(request.responseText);
-
                 return;
             }
-            doFunction(caseNumber,request.responseText);
+            doFunction(caseNumber, request.responseText);
         }
     };
     request.send(sendStr);
 }
 
-function doFunction(caseNumber, text){
+function doFunction(caseNumber, text) {
     switch (caseNumber) {
         case 1:
             break;
@@ -59,15 +55,71 @@ function doFunction(caseNumber, text){
             JSONGetReceiptTable("rest/actions/receipt-get");
             break;
         case 8:
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" +  receiptNrMemory, "ReceptCompTable");
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receiptNrMemory, "ReceptCompTable");
             break;
         case 9:
-            JSONGetAfvejningTable("rest/actions/get-afvejning/?productBatchNr=" + productBatchGlobal,"table_Laborant_Afvejning")
+            JSONGetAfvejningTable("rest/actions/get-afvejning/?productBatchNr=" + productBatchGlobal, "table_Laborant_Afvejning")
             break;
         case 10:
-            JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatchFarmaceut")
+            JSONGetProductBatchTable("rest/actions/product-batch-get", "tableBatchFarmaceut")
+            break;
+        case 11:
+            preparePrint(text);
             break;
     }
+}
+
+function preparePrint(text) {
+    let parsedText = JSON.parse(text);
+    document.getElementById("printBodyDiv").style.visibility = "visible";
+    document.getElementById("printHeader").innerHTML = "<strong>Udskrevet</strong> " + new Date() +
+        "<br><strong>Produkt Batch nr.</strong> " + parsedText.productBatchNr +
+        "<br><strong>Recept nr.</strong> " + parsedText.receiptNr + "</p>";
+    let totalNetto = 0;
+    let totalTara = 0;
+    for (let i in parsedText.list) {
+        document.getElementById("printHeader").innerHTML += "<div id='printCommodity" + i + "'></div>";
+        if (parsedText.list[i].amount === -1)
+            parsedText.list[i].amount = "";
+        if (parsedText.list[i].tolerance === -1)
+            parsedText.list[i].tolerance = "";
+        if (parsedText.list[i].tara === -1)
+            parsedText.list[i].tara = "";
+        else {
+            totalTara += parsedText.list[i].tara;
+        }
+        if (parsedText.list[i].netto === -1)
+            parsedText.list[i].netto = "";
+        else {
+            totalNetto += parsedText.list[i].netto;
+        }
+        if (parsedText.list[i].commodityBatchNr === -1)
+            parsedText.list[i].commodityBatchNr = "";
+
+        let table = "<table style='width=100%;'>" +
+            "<th>Mængde</th>" +
+            "<th>Tolerance</th>" +
+            "<th>Tara</th>" +
+            "<th>Netto (kg)</th>" +
+            "<th>Batch</th>" +
+            "<th>Opr.</th>";
+        table += "<tr>" +
+            "<td>" + parsedText.list[i].amount + "</td>" +
+            "<td>&#177;" + parsedText.list[i].tolerance + " %</td>" +
+            "<td>" + parsedText.list[i].tara + "</td>" +
+            "<td>" + parsedText.list[i].netto + "</td>" +
+            "<td>" + parsedText.list[i].commodityBatchNr + "</td>" +
+            "<td>" + parsedText.list[i].ini + "</td>" +
+            "</tr>";
+        table += "</table>";
+
+        document.getElementById("printCommodity" + i).innerHTML = "<strong>Råvare nr.:</strong> " + parsedText.list[i].commodityNr +
+            "<br><strong>Råvare navn:</strong> " + parsedText.list[i].commodityName + table;
+
+    }
+    let endOfDoc = "<br><strong>Sum Tara:</strong> " + totalTara +
+        "<br><strong>Sum Netto:</strong> " + totalNetto;
+    document.getElementById("printBodyDiv").innerHTML += endOfDoc;
 }
 
 PUTUser = function (user) {
@@ -127,7 +179,7 @@ PUTReceiptDTO = function (receipt) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr,"ReceptCompTable");
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr, "ReceptCompTable");
         }
     };
     request.send();
@@ -135,7 +187,7 @@ PUTReceiptDTO = function (receipt) {
 
 PUTReceiptComp = function (comp) {
     const request = new XMLHttpRequest();
-    request.open("PUT", "rest/actions/receiptcompput/?receiptNr=" + comp.receiptNr + "&commodityNr=" + comp.commodityNr + "&amount=" + comp.amount + "&tolerance=" + comp.tolerance ,true);
+    request.open("PUT", "rest/actions/receiptcompput/?receiptNr=" + comp.receiptNr + "&commodityNr=" + comp.commodityNr + "&amount=" + comp.amount + "&tolerance=" + comp.tolerance, true);
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
@@ -147,7 +199,7 @@ PUTReceiptComp = function (comp) {
 
 PUTReceipt = function (receiptNr) {
     const request = new XMLHttpRequest();
-    request.open("PUT", "rest/actions/receiptput/?receiptNr=" + receiptNr,true);
+    request.open("PUT", "rest/actions/receiptput/?receiptNr=" + receiptNr, true);
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
@@ -362,7 +414,7 @@ JSONGetReceiptTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceipt("  + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveReceipt(" + objects[i].id + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
@@ -380,7 +432,6 @@ JSONGetReceiptCompTable = function (url, div) {
 
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText)
             var objects = JSON.parse(this.responseText);
             var txt = "<table border='1'>" +
                 "<th>Råvare</th>" +
@@ -408,28 +459,26 @@ JSONGetProductBatchTable = function (url, div) {
 
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText)
             var objects = JSON.parse(this.responseText);
             var txt = "<table border='1'>" +
                 "<th>Produktbatch ID</th>" +
                 "<th>Recept nummer</th>" +
                 "<th>Dato</th>" +
                 "<th>Status</th>" +
-                "<th>Print</th>" ;
+                "<th>Print</th>";
             for (let i in objects) {
                 txt += "<tr>" +
                     "<td>" + objects[i].id + "</td>" +
                     "<td>" + objects[i].receiptNr + "</td>" +
                     "<td>" + new Date(objects[i].created).toUTCString() + "</td>" +
                     "<td>" + objects[i].status + "</td>";
-                    txt += "<td><button type=\"button\" onclick=\"printProductionBatch("  + objects[i].id + ")\">Print</button></td>" +
+                txt += "<td><button type=\"button\" onclick=\"printProductionBatch(" + objects[i].id + ")\">Print</button></td>" +
                     "</tr>";
             }
             txt += "</table>";
             document.getElementById(div).innerHTML = txt;
         }
     };
-    console.log(param)
     request.open("GET", url, true);
     request.send("x= " + param);
 };
@@ -461,19 +510,21 @@ JSONGetAfvejningTable = function (url, div) {
             document.getElementById(div).innerHTML = txt;
         }
     };
-    console.log(param)
     request.open("GET", url, true);
     request.send("x= " + param);
 };
 
 printProductionBatch = function (productBatchNr) {
     hideallProductBatch();
-    document.getElementById("printPlace").style.visibility = "true";
-    POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr,productBatchNr,2);
+    document.getElementById("printBodyDiv").style.visibility = "visible";
+    document.getElementById("printPlace").style.visibility = "visible";
 
-}
+    POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr, productBatchNr, 11);
+    document.getElementById("printBodyDiv").style.visibility = "hidden";
+    document.getElementById("printBodyDiv").innerHTML = "<h1><i>Produktbatch</i> under produktion</h1><p id=\"printHeader\"></p>";
+};
 
-// DENNE HIDEALL RØRES IKKE, JAVASCRIPT ER LORT OG DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
+// DENNE HIDEALL RØRES IKKE, JAVASCRIPT DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
 function hideallProductBatch() {
     document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";
     document.getElementById("logInForm").style.visibility = "hidden";

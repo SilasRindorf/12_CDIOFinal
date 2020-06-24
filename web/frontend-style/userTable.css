@@ -5,9 +5,11 @@ th, td {
     border-top: black;
     background: white;
 }
+
 body {
     background: lightblue;
 }
+
 p {
     font-family: "Lucida Bright";
 }
