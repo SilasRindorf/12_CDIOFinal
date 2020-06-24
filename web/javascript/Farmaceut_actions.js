@@ -1,5 +1,7 @@
 //Farmaceut Råvarebatch
 var receiptNrMemory;
+
+
 function goToRaavarebatchFarmaceut() {
     hideall();
     document.getElementById("raavarebatchFarmaceut").style.visibility = "visible";
@@ -150,9 +152,11 @@ function goToRecept1() {
 }
 
 function goToRecept2() {
+
     hideall();
     document.getElementById("recept2").style.visibility = "visible";
     document.getElementById("title").innerHTML = "Farmaceut";
+
 }
 
 function goToRecept3() {

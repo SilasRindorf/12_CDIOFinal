@@ -5,6 +5,7 @@ function GET(url) {
     request.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             if(request.responseText.substring(0,5).toLowerCase() ==="alert") {
+
                 console.log("Kørt makker"+request.responseText);
                 alert(request.responseText);
                 return;
@@ -12,8 +13,10 @@ function GET(url) {
             console.log(request.responseText);
         }
     };
+
     request.open("GET", url, true);
     request.send("x= " + param);
+
 }
 function POSTF(url, object, caseNumber) {
     const request = new XMLHttpRequest();
@@ -65,7 +68,10 @@ function doFunction(caseNumber, text){
             JSONGetAfvejningTable("rest/actions/get-afvejning/?productBatchNr=" + productBatchGlobal,"table_Laborant_Afvejning")
             break;
         case 10:
-            JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatchFarmaceut")
+            JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatchFarmaceut");
+            break;
+        case 11:
+            JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatch");
             break;
     }
 }

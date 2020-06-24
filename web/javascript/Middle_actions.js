@@ -97,3 +97,11 @@ function createProductBatch(url, productBatchNr, receiptNr, created, status, pro
     };
     POSTF(url, productBatch,10)
 }
+function createProductBatchProduktionsLeader(url, productBatchNr, receiptNr, created, status, productComps) {
+    const productBatch = {
+        "productBatchNr": productBatchNr,
+        "receiptNr": receiptNr,
+        "created": created
+    };
+    POSTF(url, productBatch,11)
+}
