@@ -22,6 +22,10 @@ function createRaavarebatchComponentFarmaceut() {
         alert("Please fill out all the fields!");
     }
     resetValuesCreateRaavarebatchFarmaceut();
+
+    sleep(100).then(() => {
+        JSONGetCommodityBatchTable("rest/actions/commoditybatch-get","RaavareBatchTable")
+    });
 }
 
 function resetValuesCreateRaavarebatchFarmaceut() {

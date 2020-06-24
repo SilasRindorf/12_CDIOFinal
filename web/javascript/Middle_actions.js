@@ -9,6 +9,17 @@ function logInAction(url, username, password) {
 
 }
 
+// Usage!
+//sleep(500).then(() => {
+//    // Do something after the sleep!
+//});
+//}
+
+// sleep time expects milliseconds
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 function createUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
     isActive = isActive === "Aktiv";
     ID = parseInt(ID);
