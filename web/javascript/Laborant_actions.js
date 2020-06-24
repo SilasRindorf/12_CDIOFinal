@@ -18,13 +18,25 @@ function goToAfvejning2_Laborant() {
 }
 
 function addProductbatchComponent_Laborant() {
-    const tara = document.getElementById("tara_Laborant").value;
-    const weighted = document.getElementById("weight_Laborant").value;
-    const commodityBatchNr = document.getElementById("raavarebatchID_Laborant").value;
-    const commodityNr = document.getElementById("raavare_Laborant").value;
-    const ini = document.getElementById("initialer_Laborant").value;
-    createProductBatchComp("rest/actions/product-batch-comp-post/?productBatchNr=" +productBatchGlobal,tara,weighted,commodityBatchNr,commodityNr,ini)
+    if(!document.getElementById("tara_Laborant").value == "" &&
+        !document.getElementById("weight_Laborant").value == "" &&
+        !document.getElementById("raavarebatchID_Laborant").value == "" &&
+        !document.getElementById("raavare_Laborant").value == "" &&
+        !document.getElementById("initialer_Laborant").value == "") {
+
+        const tara = document.getElementById("tara_Laborant").value;
+        const weighted = document.getElementById("weight_Laborant").value;
+        const commodityBatchNr = document.getElementById("raavarebatchID_Laborant").value;
+        const commodityNr = document.getElementById("raavare_Laborant").value;
+        const ini = document.getElementById("initialer_Laborant").value;
+        createProductBatchComp("rest/actions/product-batch-comp-post/?productBatchNr=" + productBatchGlobal, tara, weighted, commodityBatchNr, commodityNr, ini)
+
+    }
+    else {
+        alert("Please fill out all the fields!");
+    }
     resetValuesProductbatchComponentLaborant()
+
 }
 
 function resetValuesProductbatchComponentLaborant() {
