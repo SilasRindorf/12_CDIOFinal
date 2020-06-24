@@ -39,6 +39,7 @@ function resetValuesCreateRaavarebatch() {
 function goToProduktbatch() {
     hideall();
     document.getElementById("produktbatch").style.visibility = "visible";
+    JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatch")
 }
 
 
