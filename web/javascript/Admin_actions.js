@@ -18,7 +18,7 @@ function finishCreateUser() {
         !document.getElementById("hashedPass").value == "" &&
         (document.getElementById("Pharmaceut").checked == true ||
             document.getElementById("ProduktionslederRadio").checked == true ||
-            document.getElementById("Labor ant").checked == true)) {
+            document.getElementById("Laborant").checked == true)) {
         var ID = document.getElementById("id").value;
         var username = document.getElementById("username").value;
         var ini = document.getElementById("ini").value;
