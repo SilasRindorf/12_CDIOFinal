@@ -66,6 +66,9 @@ function doFunction(caseNumber, text) {
         case 11:
             preparePrint(text);
             break;
+        case 12:
+            JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatch");
+            break;
     }
 }
 

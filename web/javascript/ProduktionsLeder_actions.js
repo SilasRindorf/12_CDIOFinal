@@ -41,9 +41,25 @@ function goToProduktbatch() {
     document.getElementById("produktbatch").style.visibility = "visible";
     JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatch")
 }
+function finishCreateBatch() {
+    if(!document.getElementById("productbatchID_Produktionsleder_produktbatchside").value == "" &&
+        !document.getElementById("dato").value == "" &&
+        !document.getElementById("receptNr").value == ""){
+        var productBatchNr = document.getElementById("productbatchID_Produktionsleder_produktbatchside").value;
+        var receiptNr = document.getElementById("receptNr").value;
+        var created = document.getElementById("dato").value;
 
+        createProductBatchProduktionsLeader("rest/actions/product-batch-post",productBatchNr,receiptNr,created);
+    }
+    else {
+        alert("Please fill out all the fields!");
+    }
+
+    resetValuesCreateBatch();
+}
 
 function resetValuesCreateBatch() {
+    document.getElementById("productbatchID_Produktionsleder_produktbatchside").value = "";
     document.getElementById("receptNr").value = "";
     document.getElementById("dato").value = "";
 }
