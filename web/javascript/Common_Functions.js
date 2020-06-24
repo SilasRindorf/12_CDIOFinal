@@ -65,6 +65,10 @@ function returnToStart() {
     resetValuesCreateUser();
 }
 
+function printPage(){
+    window.print();
+}
+
 //Go to different roles
 function goToAdmin() {
     hideall();
