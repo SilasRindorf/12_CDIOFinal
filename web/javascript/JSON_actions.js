@@ -96,7 +96,7 @@ function preparePrint(text) {
         if (parsedText.list[i].commodityBatchNr === -1)
             parsedText.list[i].commodityBatchNr = "";
 
-        let table = "<table>" +
+        let table = "<table style='width=100%;'>" +
             "<th>Mængde</th>" +
             "<th>Tolerance</th>" +
             "<th>Tara</th>" +
@@ -105,22 +105,21 @@ function preparePrint(text) {
             "<th>Opr.</th>";
         table += "<tr>" +
             "<td>" + parsedText.list[i].amount + "</td>" +
-            "<td>" + parsedText.list[i].tolerance + "</td>" +
-            "<td>&#177;" + parsedText.list[i].tara + " %</td>" +
+            "<td>&#177;" + parsedText.list[i].tolerance + " %</td>" +
+            "<td>" + parsedText.list[i].tara + "</td>" +
             "<td>" + parsedText.list[i].netto + "</td>" +
             "<td>" + parsedText.list[i].commodityBatchNr + "</td>" +
             "<td>" + parsedText.list[i].ini + "</td>" +
             "</tr>";
-        console.log(parsedText.list[i]);
         table += "</table>";
 
         document.getElementById("printCommodity" + i).innerHTML = "<strong>Råvare nr.:</strong> " + parsedText.list[i].commodityNr +
             "<br><strong>Råvare navn:</strong> " + parsedText.list[i].commodityName + table;
 
     }
-    let endOfDoc = "<br>Sum Tara: " + totalTara + "<br>Simp Netto: " + totalNetto +
-        "<br>Produktion Status: " + parsedText.status;
-    document.getElementById("printCommodity" + i).innerHTML += endOfDoc;
+    let endOfDoc = "<br><strong>Sum Tara:</strong> " + totalTara +
+        "<br><strong>Sum Netto:</strong> " + totalNetto;
+    document.getElementById("printBodyDiv").innerHTML += endOfDoc;
 }
 
 PUTUser = function (user) {
@@ -522,6 +521,7 @@ printProductionBatch = function (productBatchNr) {
 
     POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr, productBatchNr, 11);
     document.getElementById("printBodyDiv").style.visibility = "hidden";
+    document.getElementById("printBodyDiv").innerHTML = "<h1><i>Produktbatch</i> under produktion</h1><p id=\"printHeader\"></p>";
 };
 
 // DENNE HIDEALL RØRES IKKE, JAVASCRIPT DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
