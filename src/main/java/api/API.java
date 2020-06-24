@@ -85,6 +85,19 @@ public class API {
         return "SUCCESS MY FRIEND";
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("user-modify")
+    public String modifyUser(UserDTO userDTO) {
+        try {
+            controller.updateUser(userDTO);
+        } catch (JunkFormatException | DALException e) {
+            e.printStackTrace();
+            return "Alert " + e.getMessage();
+        }
+        return "SUCCESS MY FRIEND";
+    }
+
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
