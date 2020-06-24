@@ -50,7 +50,7 @@ public class ReceiptDAONonPersistent implements IReceiptDAO {
             throw new JunkFormatException("Id must be 8 digits, but was more: " + newReceipt, Arrays.asList(JunkFormatException.ErrorList.TOO_BIG_ID));
         }
         if (newReceipt.getID() < 0) {
-            throw new JunkFormatException("Ids should not be negative, the id was: " + newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.NEGATIVE_ID));
+            throw new JunkFormatException("Ids should not be negative, the id was: " + newReceipt.getID(), Arrays.asList(JunkFormatException.ErrorList.ID));
         }
         for (Receipt rec : receipts) {
             if (rec.getID() == newReceipt.getID()) {
