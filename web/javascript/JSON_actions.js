@@ -16,7 +16,7 @@ function POSTF(url, object, caseNumber) {
     const request = new XMLHttpRequest();
     request.open("POST", url, true);
     request.responseType = "text";
-    let sendStr = JSON.stringify(object);
+    var sendStr = JSON.stringify(object);
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     request.onreadystatechange = function () {
 
@@ -54,14 +54,13 @@ function doFunction(caseNumber, text){
             JSONGetReceiptTable("rest/actions/receipt-get");
             break;
         case 8:
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" +  receiptNrMemory);
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" +  receiptNrMemory, "ReceptCompTable");
             break;
         case 9:
-            //product Batch comp
-            console.log(text);
+            JSONGetAfvejningTable("rest/actions/get-afvejning/?productBatchNr=" + productBatchGlobal,"table_Laborant_Afvejning")
             break;
         case 10:
-            JSONGetProductBatchTable("rest/actions/product-batch-get");
+            JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatchFarmaceut")
             break;
     }
 }
@@ -75,6 +74,18 @@ PUTUser = function (user) {
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
             JSONGetUserTable("rest/actions/user-get", "UserTable");
+        }
+    };
+    request.send();
+
+};
+
+PUTFinishProductBatch = function (productBatchNr) {
+    const request = new XMLHttpRequest();
+    request.open("PUT", "rest/actions/product-batch-done/?productBatchNr=" + productBatchNr);
+    request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    request.onload = function () {
+        if (request.readyState === 4 && request.status === 204) {
         }
     };
     request.send();
@@ -111,7 +122,7 @@ PUTReceiptDTO = function (receipt) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr);
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + receipt.receiptNr,"ReceptCompTable");
         }
     };
     request.send();
@@ -123,7 +134,7 @@ PUTReceiptComp = function (comp) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + comp.receiptNr);
+            JSONGetReceiptCompTable("rest/actions/receiptcomp-get/?receiptNr=" + comp.receiptNr, "ReceptCompTable");
         }
     };
     request.send();
@@ -261,15 +272,18 @@ setIsActiveCommodityBatch = function (commodityBatchNr, isActive) {
     request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     request.onload = function () {
         if (request.readyState === 4 && request.status === 204) {
-            JSONGetCommodityBatchTable("rest/actions/commoditybatch-get", "RaavareBatchTable");
+            sleep(100).then(() => {
+                JSONGetCommodityBatchTable("rest/actions/commoditybatch-get", "RaavareBatchTableProduktionsleder");
+                JSONGetCommodityBatchTable("rest/actions/commoditybatch-get", "RaavareBatchTable");
+            });
         }
     };
     request.send();
 
 };
 
-JSONGetCommodityBatchTable = function (url, div) {
-    const obj = {table: "RaavareBatchTable", limit: 20};
+JSONGetCommodityBatchTable = function (url, tabelNavn) {
+    const obj = {table: tabelNavn, limit: 20};
     const param = JSON.stringify(obj);
     const request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -294,11 +308,13 @@ JSONGetCommodityBatchTable = function (url, div) {
                 } else {
                     txt += "<td>" + "Inaktiv" + "</td>";
                 }
-                txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodityBatch(" + objects[i].commodityBatchNr + "," + !objects[i].isActive + ")\">Ændre Status</button></td>" +
-                    "</tr>";
+                var commodity = objects[i].commodityBatchNr;
+                var isActive = !objects[i].isActive;
+                var args = commodity + "," + isActive;
+                txt += "<td><button type=\"button\" onclick=\"setIsActiveCommodityBatch(" + args + ")" + "\">Ændre Status</button></td>" + "</tr>";
             }
             txt += "</table>";
-            document.getElementById("RaavareBatchTable").innerHTML = txt;
+            document.getElementById(tabelNavn).innerHTML = txt;
         }
     };
     request.open("GET", url, true);
@@ -353,7 +369,7 @@ JSONGetReceiptTable = function (url, div) {
 };
 
 JSONGetReceiptCompTable = function (url, div) {
-    const obj = {table: "ReceptCompTable", limit: 20};
+    const obj = {table: div, limit: 20};
     const param = JSON.stringify(obj);
     const request = new XMLHttpRequest();
 
@@ -372,7 +388,7 @@ JSONGetReceiptCompTable = function (url, div) {
                     "</tr>";
             }
             txt += "</table>";
-            document.getElementById("ReceptCompTable").innerHTML = txt;
+            document.getElementById(div).innerHTML = txt;
         }
     };
     request.open("GET", url, true);
@@ -380,7 +396,7 @@ JSONGetReceiptCompTable = function (url, div) {
 };
 
 JSONGetProductBatchTable = function (url, div) {
-    const obj = {table: "tableBatchFarmaceut", limit: 20};
+    const obj = {table: div, limit: 20};
     const param = JSON.stringify(obj);
     const request = new XMLHttpRequest();
 
@@ -403,7 +419,38 @@ JSONGetProductBatchTable = function (url, div) {
                     "</tr>";
             }
             txt += "</table>";
-            document.getElementById("tableBatchFarmaceut").innerHTML = txt;
+            document.getElementById(div).innerHTML = txt;
+        }
+    };
+    request.open("GET", url, true);
+    request.send("x= " + param);
+};
+
+JSONGetAfvejningTable = function (url, div) {
+    const obj = {table: div, limit: 50};
+    const param = JSON.stringify(obj);
+    const request = new XMLHttpRequest();
+
+    request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log(this.responseText)
+            const objects = JSON.parse(this.responseText);
+            console.log(objects)
+            let txt = "<table border='1'>" +
+                "<th>Råvare Nr</th>" +
+                "<th>Vægt minus tara</th>" +
+                "<th>Råvarebatch Nr</th>" +
+                "<th>Initialer</th>";
+            for (let i in objects) {
+                txt += "<tr>" +
+                    "<td>" + objects[i].commodityNr + "</td>" +
+                    "<td>" + (objects[i].weighted - objects[i].tara) + "</td>" +
+                    "<td>" + objects[i].commodityBatchNr + "</td>" +
+                    "<td>" + objects[i].ini + "</td>" +
+                    "</tr>";
+            }
+            txt += "</table>";
+            document.getElementById(div).innerHTML = txt;
         }
     };
     request.open("GET", url, true);
@@ -413,9 +460,9 @@ JSONGetProductBatchTable = function (url, div) {
 printProductionBatch = function (productBatchNr) {
     hideallProductBatch();
     document.getElementById("printPlace").style.visibility = "visible";
-    POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr,productBatchNr,2);
-};
+    POSTF("rest/actions/print-product-batch/?productBatchid=" + productBatchNr, productBatchNr, 2);
 
+};
 // DENNE HIDEALL RØRES IKKE, JAVASCRIPT DEN ER NØDVENDIG SELVOM DEN ER DUPLICATE
 function hideallProductBatch() {
     document.getElementById("afvejning1_Produktionsleder").style.visibility = "hidden";

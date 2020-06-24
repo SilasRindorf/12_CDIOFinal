@@ -9,6 +9,17 @@ function logInAction(url, username, password) {
 
 }
 
+// Usage!
+//sleep(500).then(() => {
+//    // Do something after the sleep!
+//});
+//}
+
+// sleep time expects milliseconds
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 function createUser(url, ID, username, ini, CPR, nonHashedPass, role, isActive) {
     isActive = isActive === "Aktiv";
     ID = parseInt(ID);
@@ -66,13 +77,13 @@ function createReceiptComp(url,receiptNr, commodityNr, amount, tolerance) {
     //PUTReceiptComp(receiptComp)
     POSTF(url, receiptComp,8)
 }
-function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodityNr, userID) {
+function createProductBatchComp(url, tara, weighted, commodityBatchNr, commodityNr, ini) {
     const productBatchComp = {
         "tara": tara,
         "weighted": weighted,
         "commodityBatchNr": commodityBatchNr,
         "commodityNr": commodityNr,
-        "userID": userID
+        "ini": ini
     };
     POSTF(url, productBatchComp,9)
 }

@@ -1,5 +1,4 @@
 //Farmaceut Råvarebatch
-
 var receiptNrMemory;
 function goToRaavarebatchFarmaceut() {
     hideall();
@@ -22,6 +21,10 @@ function createRaavarebatchComponentFarmaceut() {
         alert("Please fill out all the fields!");
     }
     resetValuesCreateRaavarebatchFarmaceut();
+
+    sleep(100).then(() => {
+        JSONGetCommodityBatchTable("rest/actions/commoditybatch-get","RaavareBatchTable")
+    });
 }
 
 function resetValuesCreateRaavarebatchFarmaceut() {
@@ -35,7 +38,7 @@ function resetValuesCreateRaavarebatchFarmaceut() {
 function goToProduktbatchFarmaceut() {
     hideall();
     document.getElementById("produktbatchFarmaceut").style.visibility = "visible";
-    JSONGetProductBatchTable("rest/actions/product-batch-get")
+    JSONGetProductBatchTable("rest/actions/product-batch-get","tableBatchFarmaceut")
 }
 
 function finishCreateBatchFarmaceut() {
